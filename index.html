@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Corriere dello Steruz</title>
+<meta name="robots" content="noindex, nofollow, noimageindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Corriere Steruz">
+<meta name="theme-color" content="#16150f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:wght@700;900&family=Libre+Franklin:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout: giornale da sfogliare. Ogni sezione è una pagina a tutto schermo; si scorre in orizzontale, dentro la pagina in verticale */
+:root{
+  --paper:#f6f3ec; --ink:#1b1a17; --muted:#5f5a50; --rule:#1b1a17; --soft:#d6cfbf;
+  --red:#a3241b; --box:#ebe5d6; --card:#fffdf8;
+  --c-br:#2e7d5b; --c-it:#1f5f8b; --c-mo:#7a4fa3;
+  --gothic:"UnifrakturMaguntia","Old English Text MT",Georgia,serif;
+  --head:"Playfair Display",Georgia,"Times New Roman",serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --label:"Libre Franklin","Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{--paper:#16150f;--ink:#ece6d8;--muted:#a59e8e;--rule:#ece6d8;--soft:#3d3a32;--red:#e0705f;--box:#221f18;--card:#1f1d17;--c-br:#5fb98f;--c-it:#7db7e0;--c-mo:#b994db;color-scheme:dark}
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;display:flex;flex-direction:column;overflow:hidden}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* Pagine sfogliabili */
+.pages{flex:1;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;min-height:0}
+.pages::-webkit-scrollbar{display:none}
+.page{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;overflow-y:auto;min-width:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:calc(16px + env(safe-area-inset-top,0px)) 24px}
+.inner{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+
+/* Testata */
+.mast{text-align:center;border-bottom:4px double var(--rule);padding-bottom:8px}
+.mast .top,.mast .sub{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-family:var(--label);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mast .top{border-bottom:1px solid var(--rule);padding-bottom:6px}
+.mast .sub{border-top:1px solid var(--rule);padding-top:6px;color:var(--ink)}
+.mast h1{font-family:var(--gothic);font-weight:400;font-size:clamp(42px,12.5vw,84px);line-height:1;margin:10px 0 6px}
+.hint{font-family:var(--label);font-size:12px;color:var(--muted);text-align:center}
+
+/* Intestazione di pagina interna */
+.pghead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:2px solid var(--rule);padding-bottom:6px}
+.pghead h2{font-family:var(--head);font-weight:900;font-size:28px;margin:0;color:var(--sec)}
+.pghead span{font-family:var(--gothic);font-size:18px;color:var(--muted)}
+
+.kicker{font-family:var(--label);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sec,var(--red))}
+
+.photo{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;display:block;background:var(--box)}
+.thumb{width:96px;min-width:96px;height:96px;object-fit:cover;border-radius:8px;background:var(--box)}
+/* (vecchie illustrazioni) */
+.art{display:grid;place-items:center;border-radius:10px;background:
+  radial-gradient(circle at 25% 30%,color-mix(in srgb,var(--sec) 30%,transparent),transparent 60%),
+  linear-gradient(135deg,color-mix(in srgb,var(--sec) 22%,var(--card)),color-mix(in srgb,var(--sec) 8%,var(--card)));
+  color:var(--sec);aspect-ratio:16/8;max-width:100%}
+.art svg{width:34%;height:auto;max-width:150px}
+.art.sm{aspect-ratio:auto;width:84px;min-width:84px;align-self:stretch;border-radius:8px}
+.art.sm svg{width:46px}
+
+/* Apertura */
+.lead h3{font-family:var(--head);font-weight:900;font-size:clamp(28px,7vw,42px);line-height:1.06;margin:4px 0 8px;text-wrap:balance}
+.lead .deck{font-family:var(--head);font-style:italic;font-weight:700;font-size:18px;line-height:1.35;color:var(--muted);margin:0 0 10px}
+.lead p{margin:0 0 10px}
+.lead .body > p:first-of-type::first-letter{font-family:var(--head);font-weight:900;float:left;font-size:56px;line-height:.85;padding:6px 8px 0 0;color:var(--red)}
+.lead.second{border-top:1px solid var(--rule);padding-top:12px}
+
+/* Schede */
+.item{background:var(--card);border:1px solid var(--soft);border-top:5px solid var(--sec);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.item .row{display:flex;gap:12px}
+.item .row > div{min-width:0}
+.item h3{font-family:var(--head);font-weight:700;font-size:20px;line-height:1.2;margin:2px 0 0;text-wrap:balance}
+.item p{margin:0}
+
+.terms{background:var(--box);border-left:3px solid var(--sec,var(--red));padding:10px 12px;font-size:15px;line-height:1.45}
+.terms .hd{font-family:var(--label);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.terms p{margin:0 0 4px}
+.terms b{font-weight:600}
+.src{font-family:var(--label);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.src a{text-decoration:none;color:var(--sec,var(--red))}
+
+.p-front{--sec:var(--red)} .p-br{--sec:var(--c-br)} .p-it{--sec:var(--c-it)} .p-mo{--sec:var(--c-mo)}
+
+/* Barra di navigazione in basso */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--rule);background:var(--paper);
+  padding:8px max(12px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.bar button{font:700 13px var(--label);background:none;border:1px solid var(--soft);color:var(--ink);border-radius:999px;padding:7px 12px;cursor:pointer}
+.bar button:disabled{opacity:.35;cursor:default}
+.where{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.where .name{font:700 12px var(--label);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.dots{display:flex;gap:6px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--soft)}
+.dots i.on{background:var(--ink)}
+@media (prefers-reduced-motion:reduce){.pages{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+
+<main class="pages" id="pages">
+
+  <!-- PAGINA 1: PRIMA PAGINA -->
+  <section class="page p-front" data-name="Prima pagina" aria-label="Prima pagina">
+    <div class="inner">
+      <header class="mast">
+        <div class="top"><span>Lumezzane · Brescia · Italia · Mondo</span><span>Edizione del pomeriggio</span></div>
+        <h1>Il Corriere dello Steruz</h1>
+        <div class="sub"><span>Venerdì 23 ottobre 2026</span><span>Anno I · N. 1</span></div>
+      </header>
+      <div class="hint">Scorri di lato per sfogliare le pagine →</div>
+
+      <article class="lead">
+        <img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/22/56c814a56243d487916c965adc68d3c0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+        <div class="kicker" style="margin-top:10px">Italia · Economia</div>
+        <h3>Caro carburante, il governo mette 175 milioni per fermare le proteste</h3>
+        <p class="deck">Decreto per camionisti, agricoltori e pescatori. Meloni: ascoltiamo chi protesta in pace, non chi minaccia.</p>
+        <div class="body">
+          <p>Da giorni gli autotrasportatori protestano contro il prezzo altissimo del gasolio, con blocchi su strade e autostrade che hanno rallentato anche le consegne di cibo nei negozi. Il Consiglio dei ministri ha risposto con un <strong>decreto-legge</strong> da 175 milioni: 105 vanno ai camionisti, soprattutto come <strong>credito d'imposta</strong> sul gasolio, 60 all'agricoltura e 10 alla pesca.</p>
+          <p>Meloni ha detto che il governo ascolta chi protesta in modo pacifico, ma non tollera minacce e danneggiamenti, come le gomme tagliate ai camion dei colleghi. La <strong>Commissione di garanzia sugli scioperi</strong> chiede di far ripartire le consegne dei beni essenziali, e il governo non esclude la <strong>precettazione</strong>. Al Sud la situazione si è calmata, mentre a Napoli un corteo ha bloccato le cisterne, causando carenza di benzina.</p>
+          <div class="terms"><div class="hd">Le parole</div>
+            <p><b>Decreto-legge:</b> una legge che il governo approva subito in caso di urgenza; il Parlamento deve confermarla entro 60 giorni.</p>
+            <p><b>Credito d'imposta:</b> uno sconto sulle tasse da pagare, che lo Stato concede per rimborsare una spesa.</p>
+            <p><b>Commissione di garanzia sugli scioperi:</b> l'autorità che controlla che gli scioperi non blocchino i servizi essenziali.</p>
+            <p><b>Precettazione:</b> l'ordine che obbliga i lavoratori in sciopero a tornare al lavoro per garantire i servizi indispensabili.</p>
+          </div>
+          <div class="src" style="margin-top:8px"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/22/il-cdm-approva-il-decreto-sugli-aiuti-105-milioni-per-i-tir-e-70-per_416e7ef3-b46a-4594-90dd-671b4eb1cc0e.html" target="_blank" rel="noopener">Fonte: ANSA · con foto →</a></div>
+        </div>
+      </article>
+
+      <article class="lead second" style="--sec:var(--c-mo)">
+        <img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2025/8/19/93cb9303d0719eddd645fda4bfe6104d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+        <div class="kicker" style="margin-top:10px">Mondo · Guerra in Ucraina</div>
+        <h3>Putin si apre a un vertice con Trump e Zelensky, ma vuole il Donbass</h3>
+        <div class="body">
+          <p>Per la prima volta la Russia si dice disponibile a un incontro a tre tra Putin, Zelensky e Trump, dopo tre ore di colloquio tra Putin e l'inviato americano Witkoff. Trump dice che le parti non sono mai state così vicine alla pace, ma Putin ribadisce le sue <strong>linee rosse</strong>: secondo lui il <strong>Donbass</strong> è storicamente russo.</p>
+          <p>Zelensky ha criticato i colloqui: nella stessa notte la Russia ha lanciato 21 missili e oltre 200 droni sull'Ucraina, con almeno due morti e 34 feriti. A Kramatorsk e Slovjansk sono state ordinate evacuazioni forzate delle famiglie con bambini.</p>
+          <div class="terms"><div class="hd">Le parole</div>
+            <p><b>Linee rosse:</b> i punti su cui una parte dice che non cederà mai in una trattativa.</p>
+            <p><b>Donbass:</b> la regione nell'est dell'Ucraina, formata da Donetsk e Luhansk, in gran parte occupata dalla Russia.</p>
+          </div>
+          <div class="src" style="margin-top:8px"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/22/putin-apre-a-un-vertice-con-trump-e-zelensky-ma-il-donbass-e-storicamente-russo_98c24b57-9871-4c38-bc42-2d378bac89ad.html" target="_blank" rel="noopener">Fonte: ANSA · con foto →</a></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PAGINA 2: BRESCIA -->
+  <section class="page p-br" data-name="Lumezzane e Brescia" aria-label="Lumezzane e Brescia">
+    <div class="inner">
+      <div class="pghead"><h2>Lumezzane e Brescia</h2><span>Corriere dello Steruz</span></div>
+
+      <article class="item"><div class="row"><img class="thumb" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1ulxiqtbovahyl71o8b/0/uno-dei-cartelloni-affissi-a-gardone.webp?f=16%3A9&amp;w=1200" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><div>
+        <div class="kicker">Valtrompia · Cronaca</div><h3>Cartelli razzisti nei parchi, anche a Lumezzane</h3></div></div>
+        <p>Di notte sono comparsi cartelli con due ragazzi dalla pelle scura e la scritta "Noi non possiamo entrare" all'ingresso dei parchi di Lumezzane, Sarezzo, Gardone e Collio, poi rimossi. L'iniziativa sarebbe stata rivendicata sui social da un gruppo locale di <strong>estrema destra</strong>. Condanna da Comuni, Comunità Montana e da partiti di destra e di sinistra.</p>
+        <div class="terms"><div class="hd">Le parole</div><p><b>Estrema destra:</b> i gruppi più radicali della destra, spesso duramente contrari all'immigrazione e vicini a idee nazionaliste.</p></div>
+        <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/cartelli-razzisti-parchi-sarezzo-gardone-lumezzane-collio-c0titxbn" target="_blank" rel="noopener">Fonte: Giornale di Brescia →</a></div>
+      </article>
+
+      <article class="item"><div class="row"><img class="thumb" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1um3jjclbjm0sm8ev7f/0/un-gruppo-di-escursionisti.webp?f=16%3A9&amp;w=1200" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><div>
+        <div class="kicker">Valtrompia · Turismo</div><h3>Turisti raddoppiati in Valtrompia</h3></div></div>
+        <p>Nel 2025 i pernottamenti in valle sono passati da circa 15 mila a oltre 30 mila, e le strutture per dormire da 51 nel 2019 a 90. Crescono soprattutto le <strong>strutture extralberghiere</strong> e gli stranieri, in testa i tedeschi. Il comune più visitato è Collio.</p>
+        <div class="terms"><div class="hd">Le parole</div><p><b>Strutture extralberghiere:</b> posti per dormire che non sono hotel: B&amp;B, agriturismi, case vacanza, rifugi.</p></div>
+        <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/turismo-valtrompia-accoglienza-ucl3vxia" target="_blank" rel="noopener">Fonte: Giornale di Brescia →</a></div>
+      </article>
+
+      <article class="item"><div class="row"><img class="thumb" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1um62dwkj29e5iplxwr/0/le-esecuzioni-degli-sfratti-spesso-si-trasformano-in-momenti-di-tensione.webp?f=16%3A9&amp;w=1200" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><div>
+        <div class="kicker">Provincia · Casa</div><h3>Sfratti nel Bresciano: cinque al giorno</h3></div></div>
+        <p>Da gennaio a luglio 2026 in provincia ci sono state 1.069 procedure di sfratto. La causa principale è la <strong>morosità</strong>. Il Tribunale vede un leggero calo, ma per gli ufficiali giudiziari la situazione peggiora perché i Comuni hanno meno case da offrire alle famiglie fragili.</p>
+        <div class="terms"><div class="hd">Le parole</div><p><b>Morosità:</b> quando chi è in affitto non paga l'affitto o le spese dovute.</p></div>
+        <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/sfratti-bresciano-cinque-giorno-2026-1069-procedure-f684q1nx" target="_blank" rel="noopener">Fonte: Giornale di Brescia →</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PAGINA 3: ITALIA -->
+  <section class="page p-it" data-name="Italia" aria-label="Italia">
+    <div class="inner">
+      <div class="pghead"><h2>Italia</h2><span>Corriere dello Steruz</span></div>
+
+      <article class="item"><div class="row"><img class="thumb" src="https://www.ansa.it/webimages/img_1280x720/2026/10/18/39e151bd76a5b41a92154ccaf5a80b86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><div>
+        <div class="kicker">Politica · Sicurezza</div><h3>Militari a Milano, ma nel governo c'è tensione</h3></div></div>
+        <p>Mattarella ha firmato il <strong>decreto sicurezza</strong>. Da sabato arrivano a Milano 500 parà della Folgore, che pattuglieranno la città con le forze dell'ordine ma senza poteri di <strong>polizia giudiziaria</strong>. Salvini vorrebbe che restassero per anni; il ministro della Difesa Crosetto si lamenta che non possano usare taser e spray.</p>
+        <div class="terms"><div class="hd">Le parole</div>
+          <p><b>Decreto sicurezza:</b> un pacchetto di norme del governo su ordine pubblico e reati, che tra l'altro rende reato il blocco stradale.</p>
+          <p><b>Polizia giudiziaria:</b> il potere di indagare sui reati e arrestare per conto della magistratura.</p></div>
+        <div class="src"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/22/mattarella-ha-firmato-il-decreto-sicurezza.-salvini-i-militari-a-milano-potranno-intervenire-con_eed9a37d-fa53-4efa-98f1-c14afc9e3317.html" target="_blank" rel="noopener">Fonte: ANSA →</a></div>
+      </article>
+
+      <article class="item"><div class="row"><img class="thumb" src="https://www.ansa.it/webimages/img_1280x720/2026/10/2/788c9d9a4de3f2483d5ed36374f5ad66.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><div>
+        <div class="kicker">Politica · Economia</div><h3>Manovra: si pensa ai giovani e a un taglio dell'Irpef</h3></div></div>
+        <p>Al vertice di maggioranza sulla <strong>legge di bilancio</strong> non c'è ancora un accordo. Si valuta di ridurre l'<strong>Irpef</strong> in busta paga per gli under 30 o 35, ed estendere il taglio fino a chi guadagna 55 mila euro. Molto dipende dalla trattativa con l'UE sulla <strong>flessibilità</strong>.</p>
+        <div class="terms"><div class="hd">Le parole</div>
+          <p><b>Legge di bilancio (manovra):</b> la legge con cui ogni anno lo Stato decide come spendere i soldi e quali tasse applicare.</p>
+          <p><b>Irpef:</b> la principale tassa sul reddito delle persone, quella trattenuta in busta paga.</p>
+          <p><b>Flessibilità:</b> il permesso dell'UE di fare un po' più di debito del previsto.</p></div>
+        <div class="src"><a href="https://www.ansa.it/sito/notizie/politica/2026/10/22/a-palazzo-chigi-vertice-per-fare-il-punto-sulla-manovra-obiettivo-lok_468db24b-c104-4e84-a24b-7e27d5c8969a.html" target="_blank" rel="noopener">Fonte: ANSA →</a></div>
+      </article>
+
+      <article class="item"><div class="row"><img class="thumb" src="https://www.ansa.it/webimages/img_1280x720/2019/10/3/5374dcc3cee99952abbc530e418327a5.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><div>
+        <div class="kicker">Economia</div><h3>Borsa di Milano giù del 2,5%</h3></div></div>
+        <p>Il <strong>FTSE MIB</strong> ha chiuso in forte calo, con le altre Borse europee. Pesano i dubbi sui grandi investimenti nell'intelligenza artificiale e il prezzo di petrolio e gas, salito per le tensioni in Medio Oriente, che fa temere più <strong>inflazione</strong>.</p>
+        <div class="terms"><div class="hd">Le parole</div>
+          <p><b>FTSE MIB:</b> l'indice delle 40 aziende più grandi della Borsa di Milano.</p>
+          <p><b>Inflazione:</b> l'aumento generale dei prezzi, che fa valere di meno i soldi.</p></div>
+        <div class="src"><a href="https://www.ansa.it/sito/notizie/economia/2026/10/22/la-borsa-di-milano-chiude-in-forte-calo-254_1917fd26-c6c3-4119-9d0a-3c03a62f6aeb.html" target="_blank" rel="noopener">Fonte: ANSA →</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PAGINA 4: MONDO -->
+  <section class="page p-mo" data-name="Dal mondo" aria-label="Dal mondo">
+    <div class="inner">
+      <div class="pghead"><h2>Dal mondo</h2><span>Corriere dello Steruz</span></div>
+
+      <article class="item"><div class="row"><img class="thumb" src="https://www.ansa.it/webimages/img_1280x720/2026/7/22/ee4a36cf18ea10671f6f10df7eaf6f48.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><div>
+        <div class="kicker">Medio Oriente</div><h3>Usa e Israele pronti ad attaccare l'Iran dopo le midterm?</h3></div></div>
+        <p>Secondo il New York Times, Stati Uniti e Israele avrebbero piani per colpire impianti nucleari ed energetici iraniani subito dopo le elezioni di <strong>midterm</strong> del 3 novembre. È un'indiscrezione non confermata. Gli esperti temono che il conflitto si allarghi a tutta la regione.</p>
+        <div class="terms"><div class="hd">Le parole</div><p><b>Midterm:</b> le elezioni americane di metà mandato del presidente, in cui si rinnova il Congresso.</p></div>
+        <div class="src"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/22/gli-usa-e-israele-pronti-ad-attaccare-liran-dopo-le-midterm_cf59f0ea-672b-41c6-a950-daa0e6e7cd4d.html" target="_blank" rel="noopener">Fonte: ANSA →</a></div>
+      </article>
+
+      <div class="hint" style="margin-top:8px">Fonti: ANSA · Giornale di Brescia. Fine dell'edizione.</div>
+    </div>
+  </section>
+</main>
+
+<nav class="bar" aria-label="Sfoglia">
+  <button id="prev" type="button">← Indietro</button>
+  <div class="where"><span class="name" id="pname">Prima pagina</span><div class="dots" id="dots"></div></div>
+  <button id="next" type="button">Avanti →</button>
+</nav>
+
+<script>
+(function(){
+  var box=document.getElementById('pages'), pages=[].slice.call(box.querySelectorAll('.page'));
+  var dots=document.getElementById('dots'), pname=document.getElementById('pname');
+  var prev=document.getElementById('prev'), next=document.getElementById('next'), cur=0;
+  pages.forEach(function(){dots.appendChild(document.createElement('i'))});
+  function idx(){return Math.round(box.scrollLeft/box.clientWidth)}
+  function paint(){
+    cur=Math.max(0,Math.min(pages.length-1,idx()));
+    [].forEach.call(dots.children,function(d,i){d.className=i===cur?'on':''});
+    pname.textContent=pages[cur].dataset.name;
+    prev.disabled=cur===0; next.disabled=cur===pages.length-1;
+  }
+  function go(i){
+    var smooth=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    box.scrollTo({left:i*box.clientWidth,behavior:smooth?'smooth':'auto'});
+    pages[i].scrollTop=0;
+  }
+  prev.addEventListener('click',function(){if(cur>0)go(cur-1)});
+  next.addEventListener('click',function(){if(cur<pages.length-1)go(cur+1)});
+  box.addEventListener('scroll',function(){window.requestAnimationFrame(paint)},{passive:true});
+  window.addEventListener('resize',function(){box.scrollLeft=cur*box.clientWidth});
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')next.click();if(e.key==='ArrowLeft')prev.click();});
+  paint();
+})();
+</script>
+</body>
+</html>
