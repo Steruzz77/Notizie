@@ -49,19 +49,20 @@ Per sapere cosa è già uscito, guarda il JSON più recente in `archivio/` prima
    `spalle` = 1 notizia importante (1–2 paragrafi); `parola` = la parola del giorno, un termine
    importante tra quelli usciti oggi, spiegato meglio in 2–3 frasi; `accadde` = un fatto storico
    **verificato** avvenuto in questa data (preferisci tecnologia, musica, scienza, storia d'Italia).
-2. **Lumezzane e Brescia**: 3–5 notizie (Lumezzane, Valtrompia, provincia). Fonti: Giornale di Brescia,
+2. **Lumezzane e Brescia**: 5–6 notizie (Lumezzane, Valtrompia, provincia). Fonti: Giornale di Brescia,
    BresciaToday, Bresciaoggi.
-3. **Italia**: 4–6 notizie (politica, cronaca, economia).
-4. **Dal mondo**: 3–5 notizie.
-5. **Tecnologia**: 2–4 notizie (smartphone, IA, informatica, videogiochi, internet). Fonti es. HWupgrade, Il Post.
-6. **Musica**: 2–4 notizie con focus sul **rap italiano**: nuovi album, EP, singoli (il venerdì è giorno
+3. **Italia**: 6–7 notizie (politica, cronaca, economia, società).
+4. **Dal mondo**: 5–6 notizie.
+5. **Tecnologia**: 3–4 notizie (smartphone, IA, informatica, videogiochi, internet). Fonti es. HWupgrade, Il Post.
+6. **Musica**: 3–4 notizie con focus sul **rap italiano**: nuovi album, EP, singoli (il venerdì è giorno
    di uscite), annunci, tour, classifiche FIMI, interviste. Fonti es. Rockol, Rolling Stone Italia, Newsic.
 7. **Meteo**: generato dal campo `meteo` (vedi formato). Cerca le previsioni su 3BMeteo/ilMeteo per
    oggi e domani: Lumezzane, Brescia, Milano, Roma, Napoli, Palermo (e altre se utili) con min–max;
    se per domani mancano i dati per città, usa righe per zona (Nord, Centro, Sud).
 
-Ogni notizia normale: titolo breve e 2–4 frasi. Se una sezione oggi non ha notizie rilevanti, mettine
-meno ma non inventare nulla.
+Ogni notizia normale: titolo breve e 2–4 frasi. Alex vuole un giornale ricco: punta al numero massimo
+di notizie indicato per ogni sezione. Solo se davvero non ci sono notizie rilevanti mettine meno, ma
+non inventare nulla e non gonfiare notizie minori.
 
 ## Formato del JSON
 Esempio completo e funzionante: `sistema/esempio.json`.
