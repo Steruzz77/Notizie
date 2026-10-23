@@ -100,6 +100,23 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset
 .dots i{width:7px;height:7px;border-radius:50%;background:var(--soft)}
 .dots i.on{background:var(--ink)}
 @media (prefers-reduced-motion:reduce){.pages{scroll-behavior:auto}}
+
+/* Termini cliccabili */
+:root{--term:#9a5b00;--term-bg:#fff4dc}
+@media (prefers-color-scheme:dark){:root{--term:#f0b44c;--term-bg:#2b2211}}
+button.term{font:inherit;font-weight:600;color:var(--term);background:none;border:0;padding:0;margin:0;cursor:pointer;
+  text-decoration:underline dashed;text-decoration-thickness:1.5px;text-underline-offset:3px;border-radius:3px}
+button.term[aria-expanded="true"]{background:var(--term-bg)}
+.terms.converted{display:none}
+.sheet{position:fixed;left:0;right:0;bottom:var(--barh,64px);z-index:20;display:flex;justify-content:center;
+  padding:0 max(12px,env(safe-area-inset-right,0px)) 10px max(12px,env(safe-area-inset-left,0px));pointer-events:none}
+.sheet .box{pointer-events:auto;max-width:640px;width:100%;background:var(--card);color:var(--ink);border:1px solid var(--soft);border-top:4px solid var(--term);
+  border-radius:12px;padding:14px 44px 14px 16px;box-shadow:0 10px 30px rgba(0,0,0,.28);position:relative}
+.sheet .w{font-family:var(--head);font-weight:900;font-size:20px;color:var(--term);margin:0 0 4px}
+.sheet .d{margin:0;font-size:16px;line-height:1.45}
+.sheet .x{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:1px solid var(--soft);background:none;color:var(--ink);font:700 16px var(--label);cursor:pointer}
+.hint-terms{font-family:var(--label);font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:520px){.pghead span{display:none}}
 </style>
 </head>
 <body>
@@ -116,6 +133,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset
         <div class="sub"><span>Venerdì 23 ottobre 2026</span><span>Anno I · N. 1</span></div>
       </header>
       <div class="hint">Scorri di lato per sfogliare le pagine →</div>
+      <div class="hint-terms">Tocca le <span style="color:var(--term);text-decoration:underline dashed;text-underline-offset:3px;font-weight:600">parole tratteggiate</span> per leggerne il significato</div>
 
       <article class="lead">
         <img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/22/56c814a56243d487916c965adc68d3c0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
@@ -262,6 +280,47 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset
   window.addEventListener('resize',function(){box.scrollLeft=cur*box.clientWidth});
   document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')next.click();if(e.key==='ArrowLeft')prev.click();});
   paint();
+})();
+</script>
+
+<div class="sheet" id="sheet" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="sx" type="button" aria-label="Chiudi">×</button><p class="w" id="sw"></p><p class="d" id="sd"></p></div></div>
+<script>
+(function(){
+  function norm(t){return t.toLowerCase().replace(/\(.*?\)/g,'').replace(/[:’']/g,"'").replace(/\s+/g,' ').trim().replace(/:$/,'')}
+  var sheet=document.getElementById('sheet'),sw=document.getElementById('sw'),sd=document.getElementById('sd'),open=null;
+  var bar=document.querySelector('.bar');
+  function setBar(){document.documentElement.style.setProperty('--barh',(bar?bar.offsetHeight:0)+'px')}
+  setBar();window.addEventListener('resize',setBar);
+  function close(){sheet.hidden=true;if(open)open.setAttribute('aria-expanded','false');open=null}
+  document.querySelectorAll('article').forEach(function(art){
+    var defs={};
+    art.querySelectorAll('.terms p').forEach(function(p){
+      var b=p.querySelector('b');if(!b)return;
+      var name=b.textContent.replace(/:\s*$/,'').trim();
+      var def=p.textContent.slice(b.textContent.length).trim();
+      defs[norm(name)]={name:name.replace(/\s*\(.*?\)/,''),def:def};
+    });
+    var used=0;
+    art.querySelectorAll('strong').forEach(function(st){
+      var d=defs[norm(st.textContent)];
+      if(!d){for(var k in defs){var n=norm(st.textContent);if(k.indexOf(n)===0||n.indexOf(k)===0){d=defs[k];break}}}
+      if(!d)return;
+      var bt=document.createElement('button');bt.type='button';bt.className='term';bt.textContent=st.textContent;
+      bt.setAttribute('aria-expanded','false');bt.dataset.w=d.name;bt.dataset.d=d.def;
+      st.replaceWith(bt);used++;
+    });
+    if(used){art.querySelectorAll('.terms').forEach(function(t){t.classList.add('converted')})}
+  });
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('button.term');
+    if(t){if(open===t){close();return}
+      if(open)open.setAttribute('aria-expanded','false');
+      open=t;t.setAttribute('aria-expanded','true');
+      sw.textContent=t.dataset.w.charAt(0).toUpperCase()+t.dataset.w.slice(1);sd.textContent=t.dataset.d;sheet.hidden=false;return}
+    if(e.target.closest('#sx')||!e.target.closest('.sheet .box'))close();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+  document.getElementById('pages').addEventListener('scroll',function(){if(!sheet.hidden)close()},{passive:true});
 })();
 </script>
 </body>
