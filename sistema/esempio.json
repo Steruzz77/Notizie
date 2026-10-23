@@ -1,0 +1,125 @@
+{
+ "data": "2026-10-23",
+ "edizione": "sera",
+ "prima": {
+  "apertura": {
+   "occhiello": "Italia · Economia",
+   "titolo": "Caro carburante, il governo mette 175 milioni per fermare le proteste",
+   "sommario": "Decreto per camionisti, agricoltori e pescatori. Meloni: ascoltiamo chi protesta in pace, non chi minaccia.",
+   "testo": [
+    "Da giorni gli autotrasportatori protestano contro il prezzo altissimo del gasolio, con blocchi su strade e autostrade che hanno rallentato anche le consegne di cibo nei negozi. Il Consiglio dei ministri ha risposto con un [[decreto-legge|Una legge che il governo approva subito in caso di urgenza; il Parlamento deve confermarla entro 60 giorni.]] da 175 milioni: 105 vanno ai camionisti, soprattutto come [[credito d'imposta|Uno sconto sulle tasse da pagare, che lo Stato concede per rimborsare una spesa.]] sul gasolio, 60 all'agricoltura e 10 alla pesca.",
+    "Meloni ha detto che il governo ascolta chi protesta in modo pacifico, ma non tollera minacce e danneggiamenti. Il governo non esclude la [[precettazione|L'ordine che obbliga i lavoratori in sciopero a tornare al lavoro per garantire i servizi indispensabili.]]."
+   ],
+   "fonte": {
+    "nome": "ANSA",
+    "url": "https://www.ansa.it/sito/notizie/cronaca/2026/10/22/il-cdm-approva-il-decreto-sugli-aiuti-105-milioni-per-i-tir-e-70-per_416e7ef3-b46a-4594-90dd-671b4eb1cc0e.html"
+   },
+   "foto": {
+    "url": "https://www.ansa.it/webimages/img_1280x720/2026/10/22/56c814a56243d487916c965adc68d3c0.jpg",
+    "didascalia": "I tir della protesta contro il caro gasolio (foto ANSA)"
+   }
+  },
+  "spalle": [
+   {
+    "occhiello": "Mondo · Guerra in Ucraina",
+    "titolo": "Putin apre a un vertice con Trump e Zelensky, ma vuole il Donbass",
+    "testo": [
+     "Per la prima volta la Russia si dice disponibile a un incontro a tre. Putin però ribadisce le sue [[linee rosse|I punti su cui una parte dice che non cederà mai in una trattativa.]]: secondo lui il [[Donbass|La regione nell'est dell'Ucraina, in gran parte occupata dalla Russia.]] è storicamente russo."
+    ],
+    "fonte": {
+     "nome": "ANSA",
+     "url": "https://www.ansa.it/sito/notizie/mondo/2026/10/22/putin-apre-a-un-vertice-con-trump-e-zelensky-ma-il-donbass-e-storicamente-russo_98c24b57-9871-4c38-bc42-2d378bac89ad.html"
+    },
+    "foto": {
+     "url": "https://www.ansa.it/webimages/img_1280x720/2025/8/19/93cb9303d0719eddd645fda4bfe6104d.jpg"
+    }
+   }
+  ],
+  "parola": {
+   "termine": "Legge di bilancio",
+   "testo": "Ogni autunno il governo decide quanto spendere e quali tasse chiedere per l'anno dopo. Il Parlamento deve approvarla entro il 31 dicembre."
+  },
+  "accadde": {
+   "data": "23 ottobre 2001",
+   "testo": "Apple presenta il primo iPod: \"mille canzoni in tasca\". Cambierà il modo di ascoltare musica."
+  }
+ },
+ "sezioni": [
+  {
+   "nome": "Lumezzane e Brescia",
+   "notizie": [
+    {
+     "occhiello": "Valtrompia · Cronaca",
+     "titolo": "Cartelli razzisti nei parchi, anche a Lumezzane",
+     "testo": [
+      "Di notte sono comparsi cartelli con la scritta \"Noi non possiamo entrare\" all'ingresso dei parchi di Lumezzane, Sarezzo, Gardone e Collio, poi rimossi. L'iniziativa sarebbe stata rivendicata da un gruppo locale di [[estrema destra|I gruppi più radicali della destra.]]."
+     ],
+     "fonte": {
+      "nome": "Giornale di Brescia",
+      "url": "https://www.giornaledibrescia.it/cronaca/cartelli-razzisti-parchi-sarezzo-gardone-lumezzane-collio-c0titxbn"
+     },
+     "foto": {
+      "url": "https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1ulxiqtbovahyl71o8b/0/uno-dei-cartelloni-affissi-a-gardone.webp?f=16%3A9&w=1200"
+     }
+    }
+   ]
+  },
+  {
+   "nome": "Tecnologia",
+   "notizie": [
+    {
+     "occhiello": "Videogiochi",
+     "titolo": "Cyberpunk 2077: arrivano le mod anche su console",
+     "testo": [
+      "Con l'aggiornamento 2.5 le [[mod|Modifiche create dai giocatori che cambiano un videogioco.]] arrivano anche su PS5 e Xbox."
+     ],
+     "fonte": {
+      "nome": "HWupgrade",
+      "url": "https://gaming.hwupgrade.it/news/videogames/cyberpunk-2077-porta-le-mod-su-console-e-aggiunge-nuove-missioni-edgerunners_160974.html"
+     },
+     "foto": {
+      "url": "https://www.hwupgrade.it/i/n/cyberpunk-2077-screenshot.jpg"
+     }
+    }
+   ]
+  }
+ ],
+ "meteo": {
+  "situazione": {
+   "titolo": "Una perturbazione attraversa l'Italia",
+   "testo": [
+    "Una [[perturbazione|Aria instabile che porta nuvole e pioggia.]] entra da nord-ovest; da domenica torna l'[[anticiclone|Alta pressione: tempo stabile.]]."
+   ]
+  },
+  "oggi_etichetta": "Oggi · venerdì 23",
+  "oggi": [
+   {
+    "luogo": "Lumezzane",
+    "icona": "pioggia",
+    "cond": "Piogge sparse",
+    "temp": "9°–13°"
+   },
+   {
+    "luogo": "Roma",
+    "icona": "sole",
+    "cond": "Sereno",
+    "temp": "11°–21°"
+   }
+  ],
+  "domani_etichetta": "Domani · sabato 24",
+  "domani": [
+   {
+    "luogo": "Milano",
+    "icona": "sole",
+    "cond": "Sereno",
+    "temp": "9°–18°"
+   }
+  ],
+  "fonti": [
+   {
+    "nome": "3BMeteo",
+    "url": "https://www.3bmeteo.com/meteo/italia"
+   }
+  ]
+ }
+}
