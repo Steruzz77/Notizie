@@ -102,9 +102,9 @@ a{color:inherit}
 .folio{margin-top:auto;margin-bottom:22px;display:flex;justify-content:space-between;font-family:var(--label);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--rule);padding-top:6px}
 
 /* Termini */
-button.term{font:inherit;font-weight:600;color:var(--term);background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:inherit;
+.term{font:inherit;font-weight:600;color:var(--term);background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:inherit;
   text-decoration:underline dashed;text-decoration-thickness:1.5px;text-underline-offset:3px}
-button.term[aria-expanded="true"]{background:var(--term-bg)}
+.term[aria-expanded="true"]{background:var(--term-bg)}
 .tip{font-family:var(--label);font-size:12px;color:var(--muted);text-align:center}
 .tip b{color:var(--term);text-decoration:underline dashed;text-underline-offset:3px}
 .pop{position:fixed;left:0;right:0;bottom:var(--barh,64px);z-index:20;display:flex;justify-content:center;padding:0 12px 10px;pointer-events:none}
@@ -132,6 +132,18 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
 .mini .t{font-family:var(--head);font-weight:900;font-size:19px;line-height:1.1;margin:0 0 4px}
 .mini p{margin:0;font-size:15px;line-height:1.45}
 .mini + .mini{border-left:1px solid var(--rule);padding-left:12px}
+
+/* Carta stropicciata */
+.sheet{background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .22  0 0 0 .16 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='900'><filter id='c' x='0' y='0' width='100%' height='100%'><feTurbulence type='turbulence' baseFrequency='.0065' numOctaves='4' seed='11' stitchTiles='stitch'/><feDiffuseLighting lighting-color='white' surfaceScale='3.2' diffuseConstant='1.2'><feDistantLight azimuth='225' elevation='38'/></feDiffuseLighting><feComponentTransfer><feFuncR type='linear' slope='.6' intercept='.4'/><feFuncG type='linear' slope='.6' intercept='.4'/><feFuncB type='linear' slope='.6' intercept='.4'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>"),
+    linear-gradient(90deg,rgba(80,60,20,.10),transparent 5%,transparent 95%,rgba(80,60,20,.08));
+  background-size:220px 220px,700px 900px,auto;background-blend-mode:normal,multiply,normal}
+/* Fonte: discreta, diversa dal titoletto rosso */
+.src{font-family:var(--body);font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;font-style:italic;color:var(--muted)}
+.src a{color:var(--muted);text-decoration:underline;text-decoration-color:var(--soft);text-underline-offset:3px}
+.item{gap:8px}
+.item .src{margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -161,9 +173,9 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
     <div class="kicker" style="margin-top:10px">Italia · Economia</div>
     <h2>Caro carburante, il governo mette 175 milioni per fermare le proteste</h2>
     <p class="deck">Decreto per camionisti, agricoltori e pescatori. Meloni: ascoltiamo chi protesta in pace, non chi minaccia.</p>
-    <p class="just dropcap">Da giorni gli autotrasportatori protestano contro il prezzo altissimo del gasolio, con blocchi su strade e autostrade che hanno rallentato anche le consegne di cibo nei negozi. Il Consiglio dei ministri ha risposto con un <button type="button" class="term" data-d="Una legge che il governo approva subito in caso di urgenza; il Parlamento deve confermarla entro 60 giorni.">decreto-legge</button> da 175 milioni: 105 vanno ai camionisti, soprattutto come <button type="button" class="term" data-d="Uno sconto sulle tasse da pagare, che lo Stato concede per rimborsare una spesa.">credito d'imposta</button> sul gasolio, 60 all'agricoltura e 10 alla pesca.</p>
-    <p class="just">Meloni ha detto che il governo ascolta chi protesta in modo pacifico, ma non tollera minacce e danneggiamenti, come le gomme tagliate ai camion dei colleghi. La <button type="button" class="term" data-d="L'autorità che controlla che gli scioperi non blocchino i servizi essenziali.">Commissione di garanzia sugli scioperi</button> chiede di far ripartire le consegne dei beni essenziali, e il governo non esclude la <button type="button" class="term" data-d="L'ordine che obbliga i lavoratori in sciopero a tornare al lavoro per garantire i servizi indispensabili.">precettazione</button>. Al Sud la situazione si è calmata, mentre a Napoli un corteo ha bloccato le cisterne, causando carenza di benzina.</p>
-    <div class="src"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/22/il-cdm-approva-il-decreto-sugli-aiuti-105-milioni-per-i-tir-e-70-per_416e7ef3-b46a-4594-90dd-671b4eb1cc0e.html" target="_blank" rel="noopener">Fonte: ANSA →</a></div>
+    <p class="just dropcap">Da giorni gli autotrasportatori protestano contro il prezzo altissimo del gasolio, con blocchi su strade e autostrade che hanno rallentato anche le consegne di cibo nei negozi. Il Consiglio dei ministri ha risposto con un <span class="term" role="button" tabindex="0" data-d="Una legge che il governo approva subito in caso di urgenza; il Parlamento deve confermarla entro 60 giorni.">decreto-legge</span> da 175 milioni: 105 vanno ai camionisti, soprattutto come <span class="term" role="button" tabindex="0" data-d="Uno sconto sulle tasse da pagare, che lo Stato concede per rimborsare una spesa.">credito d'imposta</span> sul gasolio, 60 all'agricoltura e 10 alla pesca.</p>
+    <p class="just">Meloni ha detto che il governo ascolta chi protesta in modo pacifico, ma non tollera minacce e danneggiamenti, come le gomme tagliate ai camion dei colleghi. La <span class="term" role="button" tabindex="0" data-d="L'autorità che controlla che gli scioperi non blocchino i servizi essenziali.">Commissione di garanzia sugli scioperi</span> chiede di far ripartire le consegne dei beni essenziali, e il governo non esclude la <span class="term" role="button" tabindex="0" data-d="L'ordine che obbliga i lavoratori in sciopero a tornare al lavoro per garantire i servizi indispensabili.">precettazione</span>. Al Sud la situazione si è calmata, mentre a Napoli un corteo ha bloccato le cisterne, causando carenza di benzina.</p>
+    <div class="src"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/22/il-cdm-approva-il-decreto-sugli-aiuti-105-milioni-per-i-tir-e-70-per_416e7ef3-b46a-4594-90dd-671b4eb1cc0e.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
 
   <article class="spalla">
@@ -171,9 +183,9 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
     <div>
       <div class="kicker">Mondo · Guerra in Ucraina</div>
       <h3>Putin apre a un vertice con Trump e Zelensky, ma vuole il Donbass</h3>
-      <p class="just">Per la prima volta la Russia si dice disponibile a un incontro a tre, dopo tre ore di colloquio tra Putin e l'inviato americano Witkoff. Trump dice che la pace non è mai stata così vicina, ma Putin ribadisce le sue <button type="button" class="term" data-d="I punti su cui una parte dice che non cederà mai in una trattativa.">linee rosse</button>: secondo lui il <button type="button" class="term" data-d="La regione nell'est dell'Ucraina, formata da Donetsk e Luhansk, in gran parte occupata dalla Russia.">Donbass</button> è storicamente russo.</p>
+      <p class="just">Per la prima volta la Russia si dice disponibile a un incontro a tre, dopo tre ore di colloquio tra Putin e l'inviato americano Witkoff. Trump dice che la pace non è mai stata così vicina, ma Putin ribadisce le sue <span class="term" role="button" tabindex="0" data-d="I punti su cui una parte dice che non cederà mai in una trattativa.">linee rosse</span>: secondo lui il <span class="term" role="button" tabindex="0" data-d="La regione nell'est dell'Ucraina, formata da Donetsk e Luhansk, in gran parte occupata dalla Russia.">Donbass</span> è storicamente russo.</p>
       <p class="just">Zelensky ha criticato i colloqui: nella stessa notte la Russia ha lanciato 21 missili e oltre 200 droni sull'Ucraina, con almeno due morti e 34 feriti. A Kramatorsk e Slovjansk sono state ordinate evacuazioni forzate delle famiglie con bambini.</p>
-      <div class="src"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/22/putin-apre-a-un-vertice-con-trump-e-zelensky-ma-il-donbass-e-storicamente-russo_98c24b57-9871-4c38-bc42-2d378bac89ad.html" target="_blank" rel="noopener">Fonte: ANSA →</a></div>
+      <div class="src"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/22/putin-apre-a-un-vertice-con-trump-e-zelensky-ma-il-donbass-e-storicamente-russo_98c24b57-9871-4c38-bc42-2d378bac89ad.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
     </div>
   </article>
 
@@ -193,22 +205,22 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
   <article class="item" id="n-cartelli">
     <div class="kicker">Valtrompia · Cronaca</div>
     <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1ulxiqtbovahyl71o8b/0/uno-dei-cartelloni-affissi-a-gardone.webp?f=16%3A9&amp;w=1200" alt="Uno dei cartelli" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Cartelli razzisti nei parchi, anche a Lumezzane</h3></div>
-    <p class="just">Di notte sono comparsi cartelli con due ragazzi dalla pelle scura e la scritta "Noi non possiamo entrare" all'ingresso dei parchi di Lumezzane, Sarezzo, Gardone e Collio, poi rimossi. L'iniziativa sarebbe stata rivendicata sui social da un gruppo locale di <button type="button" class="term" data-d="I gruppi più radicali della destra, spesso duramente contrari all'immigrazione e vicini a idee nazionaliste.">estrema destra</button>. Condanna da Comuni, Comunità Montana e da partiti di destra e di sinistra.</p>
-    <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/cartelli-razzisti-parchi-sarezzo-gardone-lumezzane-collio-c0titxbn" target="_blank" rel="noopener">Fonte: Giornale di Brescia →</a></div>
+    <p class="just">Di notte sono comparsi cartelli con due ragazzi dalla pelle scura e la scritta "Noi non possiamo entrare" all'ingresso dei parchi di Lumezzane, Sarezzo, Gardone e Collio, poi rimossi. L'iniziativa sarebbe stata rivendicata sui social da un gruppo locale di <span class="term" role="button" tabindex="0" data-d="I gruppi più radicali della destra, spesso duramente contrari all'immigrazione e vicini a idee nazionaliste.">estrema destra</span>. Condanna da Comuni, Comunità Montana e da partiti di destra e di sinistra.</p>
+    <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/cartelli-razzisti-parchi-sarezzo-gardone-lumezzane-collio-c0titxbn" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
 
   <article class="item" id="n-turismo">
     <div class="kicker">Valtrompia · Turismo</div>
     <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1um3jjclbjm0sm8ev7f/0/un-gruppo-di-escursionisti.webp?f=16%3A9&amp;w=1200" alt="Escursionisti" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Turisti raddoppiati in Valtrompia</h3></div>
-    <p class="just">Nel 2025 i pernottamenti in valle sono passati da circa 15 mila a oltre 30 mila, e le strutture per dormire da 51 nel 2019 a 90. Crescono soprattutto le <button type="button" class="term" data-d="Posti per dormire che non sono hotel: B&amp;B, agriturismi, case vacanza, rifugi.">strutture extralberghiere</button> e gli stranieri, in testa i tedeschi. Il comune più visitato è Collio.</p>
-    <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/turismo-valtrompia-accoglienza-ucl3vxia" target="_blank" rel="noopener">Fonte: Giornale di Brescia →</a></div>
+    <p class="just">Nel 2025 i pernottamenti in valle sono passati da circa 15 mila a oltre 30 mila, e le strutture per dormire da 51 nel 2019 a 90. Crescono soprattutto le <span class="term" role="button" tabindex="0" data-d="Posti per dormire che non sono hotel: B&amp;B, agriturismi, case vacanza, rifugi.">strutture extralberghiere</span> e gli stranieri, in testa i tedeschi. Il comune più visitato è Collio.</p>
+    <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/turismo-valtrompia-accoglienza-ucl3vxia" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
 
   <article class="item" id="n-sfratti">
     <div class="kicker">Provincia · Casa</div>
     <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1um62dwkj29e5iplxwr/0/le-esecuzioni-degli-sfratti-spesso-si-trasformano-in-momenti-di-tensione.webp?f=16%3A9&amp;w=1200" alt="Uno sfratto" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Sfratti nel Bresciano: cinque al giorno</h3></div>
-    <p class="just">Da gennaio a luglio 2026 in provincia ci sono state 1.069 procedure di sfratto. La causa principale è la <button type="button" class="term" data-d="Quando chi è in affitto non paga l'affitto o le spese dovute.">morosità</button>. Il Tribunale vede un leggero calo, ma per gli ufficiali giudiziari la situazione peggiora perché i Comuni hanno meno case da offrire alle famiglie fragili.</p>
-    <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/sfratti-bresciano-cinque-giorno-2026-1069-procedure-f684q1nx" target="_blank" rel="noopener">Fonte: Giornale di Brescia →</a></div>
+    <p class="just">Da gennaio a luglio 2026 in provincia ci sono state 1.069 procedure di sfratto. La causa principale è la <span class="term" role="button" tabindex="0" data-d="Quando chi è in affitto non paga l'affitto o le spese dovute.">morosità</span>. Il Tribunale vede un leggero calo, ma per gli ufficiali giudiziari la situazione peggiora perché i Comuni hanno meno case da offrire alle famiglie fragili.</p>
+    <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/sfratti-bresciano-cinque-giorno-2026-1069-procedure-f684q1nx" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
 
   <div class="folio"><span>Il Corriere dello Steruz</span><span>Pagina 2</span><span>23.10.2026</span></div>
@@ -223,22 +235,22 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
   <article class="item" id="n-militari">
     <div class="kicker">Politica · Sicurezza</div>
     <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/18/39e151bd76a5b41a92154ccaf5a80b86.jpg" alt="Militari in pattuglia" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Militari a Milano, ma nel governo c'è tensione</h3></div>
-    <p class="just">Mattarella ha firmato il <button type="button" class="term" data-d="Un pacchetto di norme del governo su ordine pubblico e reati, che tra l'altro rende reato il blocco stradale.">decreto sicurezza</button>. Da sabato arrivano a Milano 500 parà della Folgore, che pattuglieranno la città con le forze dell'ordine ma senza poteri di <button type="button" class="term" data-d="Il potere di indagare sui reati e arrestare per conto della magistratura.">polizia giudiziaria</button>. Salvini vorrebbe che restassero per anni; il ministro della Difesa Crosetto si lamenta che non possano usare taser e spray.</p>
-    <div class="src"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/22/mattarella-ha-firmato-il-decreto-sicurezza.-salvini-i-militari-a-milano-potranno-intervenire-con_eed9a37d-fa53-4efa-98f1-c14afc9e3317.html" target="_blank" rel="noopener">Fonte: ANSA →</a></div>
+    <p class="just">Mattarella ha firmato il <span class="term" role="button" tabindex="0" data-d="Un pacchetto di norme del governo su ordine pubblico e reati, che tra l'altro rende reato il blocco stradale.">decreto sicurezza</span>. Da sabato arrivano a Milano 500 parà della Folgore, che pattuglieranno la città con le forze dell'ordine ma senza poteri di <span class="term" role="button" tabindex="0" data-d="Il potere di indagare sui reati e arrestare per conto della magistratura.">polizia giudiziaria</span>. Salvini vorrebbe che restassero per anni; il ministro della Difesa Crosetto si lamenta che non possano usare taser e spray.</p>
+    <div class="src"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/22/mattarella-ha-firmato-il-decreto-sicurezza.-salvini-i-militari-a-milano-potranno-intervenire-con_eed9a37d-fa53-4efa-98f1-c14afc9e3317.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
 
   <article class="item" id="n-manovra">
     <div class="kicker">Politica · Economia</div>
     <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/2/788c9d9a4de3f2483d5ed36374f5ad66.jpg" alt="Palazzo Chigi" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Manovra: si pensa ai giovani e a un taglio dell'Irpef</h3></div>
-    <p class="just">Al vertice di maggioranza sulla <button type="button" class="term" data-d="La legge con cui ogni anno lo Stato decide come spendere i soldi e quali tasse applicare. Si chiama anche manovra.">legge di bilancio</button> non c'è ancora un accordo. Si valuta di ridurre l'<button type="button" class="term" data-d="La principale tassa sul reddito delle persone, quella trattenuta in busta paga.">Irpef</button> in busta paga per gli under 30 o 35, ed estendere il taglio fino a chi guadagna 55 mila euro. Molto dipende dalla trattativa con l'UE sulla <button type="button" class="term" data-d="Il permesso dell'Unione europea di fare un po' più di debito del previsto.">flessibilità</button>.</p>
-    <div class="src"><a href="https://www.ansa.it/sito/notizie/politica/2026/10/22/a-palazzo-chigi-vertice-per-fare-il-punto-sulla-manovra-obiettivo-lok_468db24b-c104-4e84-a24b-7e27d5c8969a.html" target="_blank" rel="noopener">Fonte: ANSA →</a></div>
+    <p class="just">Al vertice di maggioranza sulla <span class="term" role="button" tabindex="0" data-d="La legge con cui ogni anno lo Stato decide come spendere i soldi e quali tasse applicare. Si chiama anche manovra.">legge di bilancio</span> non c'è ancora un accordo. Si valuta di ridurre l'<span class="term" role="button" tabindex="0" data-d="La principale tassa sul reddito delle persone, quella trattenuta in busta paga.">Irpef</span> in busta paga per gli under 30 o 35, ed estendere il taglio fino a chi guadagna 55 mila euro. Molto dipende dalla trattativa con l'UE sulla <span class="term" role="button" tabindex="0" data-d="Il permesso dell'Unione europea di fare un po' più di debito del previsto.">flessibilità</span>.</p>
+    <div class="src"><a href="https://www.ansa.it/sito/notizie/politica/2026/10/22/a-palazzo-chigi-vertice-per-fare-il-punto-sulla-manovra-obiettivo-lok_468db24b-c104-4e84-a24b-7e27d5c8969a.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
 
   <article class="item" id="n-borsa">
     <div class="kicker">Economia</div>
     <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2019/10/3/5374dcc3cee99952abbc530e418327a5.jpg" alt="Piazza Affari" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Borsa di Milano giù del 2,5%</h3></div>
-    <p class="just">Il <button type="button" class="term" data-d="L'indice che misura l'andamento delle 40 aziende più grandi della Borsa di Milano.">FTSE MIB</button> ha chiuso in forte calo, con le altre Borse europee. Pesano i dubbi sui grandi investimenti nell'intelligenza artificiale e il prezzo di petrolio e gas, salito per le tensioni in Medio Oriente, che fa temere più <button type="button" class="term" data-d="L'aumento generale dei prezzi, che fa valere di meno i soldi.">inflazione</button>.</p>
-    <div class="src"><a href="https://www.ansa.it/sito/notizie/economia/2026/10/22/la-borsa-di-milano-chiude-in-forte-calo-254_1917fd26-c6c3-4119-9d0a-3c03a62f6aeb.html" target="_blank" rel="noopener">Fonte: ANSA →</a></div>
+    <p class="just">Il <span class="term" role="button" tabindex="0" data-d="L'indice che misura l'andamento delle 40 aziende più grandi della Borsa di Milano.">FTSE MIB</span> ha chiuso in forte calo, con le altre Borse europee. Pesano i dubbi sui grandi investimenti nell'intelligenza artificiale e il prezzo di petrolio e gas, salito per le tensioni in Medio Oriente, che fa temere più <span class="term" role="button" tabindex="0" data-d="L'aumento generale dei prezzi, che fa valere di meno i soldi.">inflazione</span>.</p>
+    <div class="src"><a href="https://www.ansa.it/sito/notizie/economia/2026/10/22/la-borsa-di-milano-chiude-in-forte-calo-254_1917fd26-c6c3-4119-9d0a-3c03a62f6aeb.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
 
   <div class="folio"><span>Il Corriere dello Steruz</span><span>Pagina 3</span><span>23.10.2026</span></div>
@@ -253,8 +265,8 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
   <article class="item" id="n-iran">
     <div class="kicker">Medio Oriente</div>
     <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/7/22/ee4a36cf18ea10671f6f10df7eaf6f48.jpg" alt="Aerei militari" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Usa e Israele pronti ad attaccare l'Iran dopo le midterm?</h3></div>
-    <p class="just">Secondo il New York Times, Stati Uniti e Israele avrebbero piani per colpire impianti nucleari ed energetici iraniani subito dopo le elezioni di <button type="button" class="term" data-d="Le elezioni americane di metà mandato del presidente, in cui si rinnova il Congresso.">midterm</button> del 3 novembre. È un'indiscrezione non confermata. Gli esperti temono che il conflitto si allarghi a tutta la regione.</p>
-    <div class="src"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/22/gli-usa-e-israele-pronti-ad-attaccare-liran-dopo-le-midterm_cf59f0ea-672b-41c6-a950-daa0e6e7cd4d.html" target="_blank" rel="noopener">Fonte: ANSA →</a></div>
+    <p class="just">Secondo il New York Times, Stati Uniti e Israele avrebbero piani per colpire impianti nucleari ed energetici iraniani subito dopo le elezioni di <span class="term" role="button" tabindex="0" data-d="Le elezioni americane di metà mandato del presidente, in cui si rinnova il Congresso.">midterm</span> del 3 novembre. È un'indiscrezione non confermata. Gli esperti temono che il conflitto si allarghi a tutta la regione.</p>
+    <div class="src"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/22/gli-usa-e-israele-pronti-ad-attaccare-liran-dopo-le-midterm_cf59f0ea-672b-41c6-a950-daa0e6e7cd4d.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
 
   <div class="folio"><span>Fonti: ANSA · Giornale di Brescia</span><span>Pagina 4</span><span>Fine</span></div>
@@ -262,8 +274,7 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
 </section>
 
 <div class="crease l" id="crL"></div><div class="crease r" id="crR" hidden></div><div class="flap" id="flap" hidden></div><div class="fshadow" id="fshadow" hidden></div>
-<button class="corner r" id="cornerR" type="button" aria-label="Pagina successiva"></button>
-<button class="corner l" id="cornerL" type="button" aria-label="Pagina precedente"></button>
+
 </div>
 </main>
 
@@ -280,7 +291,7 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
   var sheets=[].slice.call(document.querySelectorAll('.sheet')), N=sheets.length, cur=0, busy=false;
   var book=document.getElementById('book'), flap=document.getElementById('flap'), fsh=document.getElementById('fshadow');
   var edgeL=document.getElementById('edgeL'), edgeR=document.getElementById('edgeR');
-  var cornerR=document.getElementById('cornerR'), cornerL=document.getElementById('cornerL');
+  
   var prev=document.getElementById('prev'), next=document.getElementById('next'), pname=document.getElementById('pname'), pnum=document.getElementById('pnum');
   var bar=document.getElementById('bar'), pop=document.getElementById('pop'), openTerm=null;
   var calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -290,7 +301,7 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
   function paint(){
     pname.textContent=sheets[cur].dataset.name; pnum.textContent='Pagina '+(cur+1)+' di '+N;
     prev.disabled=cur===0; next.disabled=cur===N-1;
-    cornerL.hidden=cur===0; cornerR.hidden=cur===N-1;
+    
     edgeL.style.width=Math.min(8,cur*2.5)+'px'; document.getElementById('crL').hidden=cur===N-1; document.getElementById('crR').hidden=cur!==N-1; edgeR.style.width=Math.min(8,(N-1-cur)*2.5)+'px';
   }
   function closePop(){pop.hidden=true;if(openTerm)openTerm.setAttribute('aria-expanded','false');openTerm=null}
@@ -345,14 +356,12 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
   }
   prev.addEventListener('click',function(){go(cur-1)});
   next.addEventListener('click',function(){go(cur+1)});
-  cornerR.addEventListener('click',function(){go(cur+1)});
-  cornerL.addEventListener('click',function(){go(cur-1)});
-  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape')closePop();});
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape')closePop(); if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
 
   // Trascinamento col dito: la pagina si piega seguendo il dito
   var sx=0,sy=0,dragging=false,decided=false,lastX=0,lastT=0,vel=0,pid=null;
   book.addEventListener('pointerdown',function(e){
-    if(busy||e.button>0)return; if(e.target.closest('button.term,a,.goto'))return;
+    if(busy||e.button>0)return; if(e.target.closest('.term,a,.goto'))return;
     sx=e.clientX;sy=e.clientY;decided=false;dragging=false;pid=e.pointerId;lastX=e.clientX;lastT=performance.now();vel=0;
   });
   book.addEventListener('pointermove',function(e){
@@ -388,7 +397,7 @@ button.term[aria-expanded="true"]{background:var(--term-bg)}
   // Termini
   var pw=document.getElementById('pw'),pd=document.getElementById('pd');
   document.addEventListener('click',function(e){
-    var t=e.target.closest('button.term');
+    var t=e.target.closest('.term');
     if(t){ if(openTerm===t){closePop();return}
       if(openTerm)openTerm.setAttribute('aria-expanded','false');
       openTerm=t;t.setAttribute('aria-expanded','true');
