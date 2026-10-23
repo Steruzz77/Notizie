@@ -118,3 +118,12 @@
   });
   paint();
 })();
+
+// Se il giornale resta aperto in background (es. icona nella schermata Home), quando lo riapri
+// dopo un po' si ricarica da solo, così mostra sempre l'ultima edizione.
+(function(){
+  var aperto=Date.now();
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='visible' && Date.now()-aperto>10*60*1000){ location.reload(); }
+  });
+})();
