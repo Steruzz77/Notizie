@@ -33,6 +33,16 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   Se non la trovi, ometti il campo `foto`: la notizia esce senza immagine e va bene così.
 - Verifica che le notizie siano **del periodo giusto** (vedi sotto) e non vecchie.
 
+## Come cercare (importante per non bloccarti)
+- Usa **solo WebSearch e WebFetch** per cercare notizie, leggere articoli e trovare le foto.
+  Non usare mai curl, wget o script Python per scaricare pagine o immagini dai siti di notizie:
+  dalla shell quei siti sono bloccati e serve un'approvazione che durante le uscite automatiche
+  nessuno può dare.
+- Se un sito rifiuta WebFetch o chiede un'approvazione, non insistere: passa subito a un'altra
+  fonte (es. ANSA, Il Post, Sky TG24, Rainews, Giornale di Brescia, BresciaToday, Bresciaoggi).
+- Lavora veloce: Alex vuole l'edizione pronta in orario. Fai le ricerche delle varie sezioni in
+  parallelo e non leggere più articoli del necessario.
+
 ## Le due edizioni
 - **Mattina** (`"edizione": "mattina"`): cosa è successo dalle 18 del giorno prima a stamattina, più le
   notizie che domineranno la giornata. Non ripetere notizie già chiuse ieri pomeriggio; se una storia
