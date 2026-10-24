@@ -38,6 +38,10 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   Non usare mai curl, wget o script Python per scaricare pagine o immagini dai siti di notizie:
   dalla shell quei siti sono bloccati e serve un'approvazione che durante le uscite automatiche
   nessuno può dare.
+- Con WebFetch apri **solo indirizzi che hai visto nei risultati di WebSearch** (o in una pagina già
+  letta). Non costruire indirizzi a mano (es. `sito.it/meteo/milano`) e non aprire homepage digitate
+  a memoria: vengono bloccati perché richiedono l'approvazione di Alex. Per trovare una pagina, prima
+  cercala con WebSearch e poi apri il link esatto del risultato.
 - Se un sito rifiuta WebFetch o chiede un'approvazione, non insistere: passa subito a un'altra
   fonte (es. ANSA, Il Post, Sky TG24, Rainews, Giornale di Brescia, BresciaToday, Bresciaoggi).
 - Lavora veloce: Alex vuole l'edizione pronta in orario. Fai le ricerche delle varie sezioni in
