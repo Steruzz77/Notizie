@@ -1,0 +1,512 @@
+{
+ "data": "2026-10-24",
+ "edizione": "mattina",
+ "prima": {
+  "apertura": {
+   "occhiello": "Italia · Proteste",
+   "titolo": "Sabato di cortei contro il carovita, città blindate dopo i saccheggi di Milano",
+   "sommario": "Migliaia di agenti e 500 militari tra Milano e Roma. Il Movimento 17 ottobre annuncia i punti di ritrovo solo alle 14:30.",
+   "testo": [
+    "Oggi tornano le manifestazioni contro il [[carovita|L'aumento dei prezzi di cibo, bollette, affitti e carburante, che rende la vita più cara a parità di stipendio.]] in molte città italiane, una settimana dopo il 17 e 18 ottobre, quando a Milano ci sono stati devastazioni e saccheggi di negozi e a Bologna e Torino scontri con la polizia. Il Movimento 17 ottobre, un gruppo nato sui social con amministratori anonimi, ha annullato le convocazioni in otto città ma ha detto che alle 14:30 comunicherà tre punti di ritrovo per città, da cui partiranno i cortei.",
+    "Milano ha vietato presidi e cortei in Duomo, San Babila, Cairoli, Garibaldi e Porta Venezia: in città ci sono circa 5.000 agenti, affiancati da 500 paracadutisti della Folgore e da droni. A Roma ne sono schierati almeno 1.500; lì sfilano anche un corteo di giovani di destra al mattino e quello dell'Asse antimperialista alle 15 da piazza della Repubblica. Ieri a Napoli i negozi di lusso di via dei Mille hanno coperto le vetrine con pannelli di legno.",
+    "La [[Digos|Il reparto della polizia che indaga sui reati politici e sui gruppi violenti legati alle manifestazioni.]] ha perquisito circa 100 persone in 18 città, 51 delle quali minorenni. Il ministro dell'Interno Piantedosi dice che c'era un coordinamento tra i gruppi violenti. Il sindaco di Milano Sala assicura che la città non sarà militarizzata."
+   ],
+   "fonte": {
+    "nome": "Il Post",
+    "url": "https://www.ilpost.it/2026/10/23/cosa-aspettarsi-proteste-24-ottobre/"
+   },
+   "foto": {
+    "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792750817-AP26296361269027.jpg",
+    "didascalia": "Controlli di polizia in vista delle manifestazioni (foto AP)"
+   }
+  },
+  "spalle": [
+   {
+    "occhiello": "Mondo · Guerra in Ucraina",
+    "titolo": "Tregua per Oleshky: i civili potranno andarsene, accordo mediato da Melania Trump",
+    "testo": [
+     "Russia e Ucraina hanno accettato una [[tregua umanitaria|Una pausa nei combattimenti per far arrivare cibo e medicine e far uscire i civili.]] per Oleshky, cittadina del sud dell'Ucraina occupata dai russi, dove vivono ancora 1.500-2.000 persone senza luce, riscaldamento e acqua. La Casa Bianca dice che a negoziarla è stata la first lady Melania Trump; anche il papa aveva chiesto una tregua a Putin.",
+     "La Russia dice che fermerà gli attacchi dalle 4 del 27 ottobre. Le tregue annunciate in passato non hanno retto, quindi non è sicuro che questa venga rispettata. A novembre sono previsti colloqui tecnici tra Ucraina, Russia e Stati Uniti ad Abu Dhabi."
+    ],
+    "fonte": {
+     "nome": "Il Post",
+     "url": "https://www.ilpost.it/2026/10/23/cessate-il-fuoco-oleshky-melania-trump/"
+    },
+    "foto": {
+     "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792764191-AP26287677575107.jpg"
+    }
+   }
+  ],
+  "parola": {
+   "termine": "Ordine pubblico",
+   "testo": "È la sicurezza e la tranquillità nelle strade e nelle piazze. Lo gestiscono il prefetto e il questore, che decidono quanti agenti mandare, quali zone vietare e dove possono passare i cortei. Quando un giornale scrive \"servizio di ordine pubblico\" intende tutto il lavoro della polizia attorno a una manifestazione o a una partita."
+  },
+  "accadde": {
+   "data": "24 ottobre 1917",
+   "testo": "Inizia la battaglia di Caporetto: austriaci e tedeschi sfondano il fronte italiano e l'esercito è costretto a ritirarsi fino al Piave. Da allora \"una Caporetto\" vuol dire una disfatta totale."
+  }
+ },
+ "sezioni": [
+  {
+   "nome": "Lumezzane e Brescia",
+   "notizie": [
+    {
+     "occhiello": "Brescia · Sicurezza",
+     "titolo": "Cortei, presidi e stadio: oggi Brescia ha quattro fronti da controllare",
+     "testo": [
+      "Dopo i disordini della settimana scorsa, prefettura e questura hanno organizzato controlli fin dal mattino. Nel pomeriggio ci sono la marcia per l'accoglienza e la cittadinanza promossa da 40 associazioni e il presidio di \"Brescia ai Bresciani\" tra via Camozzi e via Volturno, vicino allo stabile dove dovrebbe nascere una moschea.",
+      "Alle 17:30 al Rigamonti l'Union Brescia gioca contro il Cittadella dopo la sconfitta di lunedì, e si teme una contestazione. Polizia anche in stazione e ai terminal dei bus per fermare chi va ai cortei di Milano e Torino. Il prefetto Polichetti: \"Le violenze non si ripeteranno\"."
+     ],
+     "fonte": {
+      "nome": "Giornale di Brescia",
+      "url": "https://www.giornaledibrescia.it/cronaca/cortei-presidi-stadio-manifestazione-brescia-ordine-pubblico-iqj0q4si"
+     },
+     "foto": {
+      "url": "https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umyocxjuk2fadw9k2s/1/reparti-mobili-schierati.webp?f=16%3A9&w=1200"
+     }
+    },
+    {
+     "occhiello": "Bassa · Incidente",
+     "titolo": "Bagnolo Mella, auto contro il muro di un canale: ragazzo grave",
+     "testo": [
+      "Verso le 3:15 di stanotte un giovane è uscito di strada con l'auto sulla statale 45 bis ed è finito contro il muro di un canale. I vigili del fuoco hanno dovuto tagliare le lamiere per tirarlo fuori. È stato portato al Civile in [[codice rosso|Il livello di massima gravità al pronto soccorso: il paziente è in pericolo di vita.]]; la Polstrada ricostruisce la dinamica."
+     ],
+     "fonte": {
+      "nome": "Giornale di Brescia",
+      "url": "https://www.giornaledibrescia.it/cronaca/bagnolo-mella-incidente-45-bis-auto-fuori-strada-ragazzo-grave-tb7nnpnx"
+     },
+     "foto": {
+      "url": "https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1undzjebcupzhknj9d3/0/l-auto-finita-fuori-strada.webp?f=16%3A9&w=1200"
+     }
+    },
+    {
+     "occhiello": "Valtrompia · Ambiente",
+     "titolo": "Impianto di pirolisi a Ponte Zanano, il ricorso dei cittadini arriva al Tar",
+     "testo": [
+      "A Sarezzo la società Sares Green vuole costruire un impianto di [[pirolisi|Un processo che scalda i rifiuti a circa 350 gradi senza ossigeno per ricavarne combustibili.]] per trattare fino a 65mila tonnellate l'anno di \"car fluff\", cioè plastiche, gomme e tessuti delle auto rottamate. Il comitato \"Liberi cittadini per la salute\" chiede al [[Tar|Il tribunale amministrativo regionale, che giudica i ricorsi contro le decisioni degli enti pubblici.]] della Lombardia di annullare l'autorizzazione della Regione, perché alcune verifiche sono state rinviate a impianto acceso.",
+      "L'azienda risponde che ci sono stati sei anni di studi e un'indagine sanitaria su 69mila abitanti che esclude rischi non accettabili. Il comitato ha raccolto circa 17mila euro per le spese legali."
+     ],
+     "fonte": {
+      "nome": "Giornale di Brescia",
+      "url": "https://www.giornaledibrescia.it/cronaca/impianto-pirolisi-sarezzo-ricorso-cittadini-tar-yvs39y34"
+     },
+     "foto": {
+      "url": "https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umxde8b1wav0c0wa07/0/il-progetto-da-65mila-tonnellate-annue-di-plastiche-gomme-e-tessuti.webp?f=16%3A9&w=1200"
+     }
+    },
+    {
+     "occhiello": "Franciacorta · Furti",
+     "titolo": "Pontoglio, rubata la reliquia di Sant'Antonio dalla chiesetta",
+     "testo": [
+      "Nella notte tra martedì e mercoledì i ladri hanno forzato la porta della cappella di Sant'Antonio, aperto la cassaforte della sacrestia e preso il reliquiario con un frammento d'osso del santo e un calice. Valgono poco in soldi ma molto per il paese: la reliquia viene esposta ogni 17 gennaio. Indagano i carabinieri di Chiari con il nucleo tutela patrimonio culturale."
+     ],
+     "fonte": {
+      "nome": "Giornale di Brescia",
+      "url": "https://www.giornaledibrescia.it/cronaca/colpo-chiesa-pontoglio-rubata-reliquia-sant-antonio-rjh398pj"
+     },
+     "foto": {
+      "url": "https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1un2v02bvdaplm1iprf/0/il-reliquiario-di-santantonio.webp?f=16%3A9&w=1200"
+     }
+    },
+    {
+     "occhiello": "Bassa · Furti",
+     "titolo": "Fornaci, strappano il bancomat dalla banca con una gru e le catene",
+     "testo": [
+      "Venerdì verso le 3:30 una banda è arrivata alla filiale Crédit Agricole con un camion con la gru. Ha tagliato la recinzione d'acciaio, sfondato la porta d'emergenza e trascinato fuori il bancomat con lunghe catene, senza nemmeno coprire le telecamere. La stessa agenzia era già stata colpita nel 2024 con un'esplosione."
+     ],
+     "fonte": {
+      "nome": "Giornale di Brescia",
+      "url": "https://www.giornaledibrescia.it/cronaca/fornaci-assalto-bancomat-ladri-credit-agricole-gru-camion-tfi0410x"
+     },
+     "foto": {
+      "url": "https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umsh08sn19z6gn6s5y/1/image.webp?f=16%3A9&w=1200"
+     }
+    },
+    {
+     "occhiello": "Valtrompia · Eventi",
+     "titolo": "Domani a Villa Carcina torna «Sconfinamo», giornata sull'accoglienza",
+     "testo": [
+      "Domenica a Villa Glisenti e ai Capannoncini (ex magazzini Tlm) c'è una giornata dedicata alle migrazioni, organizzata dalla rete [[SAI|Il Sistema di accoglienza e integrazione: la rete dei Comuni che ospitano richiedenti asilo e rifugiati.]] e dalla Comunità montana. Alle 10:45 parla il professor Riccardo Redaelli, nel pomeriggio giochi per bambini e un gioco interattivo sulle migrazioni, alle 18 apericena con musica dal vivo."
+     ],
+     "fonte": {
+      "nome": "BsNews",
+      "url": "https://bsnews.it/2026/10/23/a-villa-carcina-una-giornata-tutta-dedicata-allaccoglienza-il-25-ottobre-torna-sconfinamo-culture-in-movimento/"
+     },
+     "foto": {
+      "url": "https://bsnews.it/wp-content/uploads/2026/10/858093651_1662848078824165_8685339554228948780_n.jpeg"
+     }
+    }
+   ]
+  },
+  {
+   "nome": "Italia",
+   "notizie": [
+    {
+     "occhiello": "Politica · Lega",
+     "titolo": "Si apre a Milano il congresso della Lega: Salvini sfidato da Garavaglia",
+     "testo": [
+      "Oggi e domani 705 delegati della Lega si riuniscono a Milano per un [[congresso straordinario|Una riunione fuori programma in cui i delegati del partito eleggono il segretario e votano la linea politica.]]. Salvini cerca la conferma da segretario; per la prima volta ha uno sfidante, il senatore Massimo Garavaglia, appoggiato dall'ala \"nordista\" e anche dal presidente lombardo Attilio Fontana.",
+      "Oggi si discutono le mozioni, dall'autonomia del Nord alla [[remigrazione|Proposta dell'estrema destra di rimandare nei Paesi d'origine molti immigrati, anche regolari.]]; il voto per il segretario è domenica. Sarà presentato anche il nuovo simbolo, senza la scritta \"Salvini premier\"."
+     ],
+     "fonte": {
+      "nome": "Il Giorno",
+      "url": "https://www.ilgiorno.it/milano/politica/congresso-lega-milano-salvini-garavaglia-fontana-mozioni-fjc2gaoc"
+     },
+     "foto": {
+      "url": "https://www.ilgiorno.it/image-service/view/acePublic/alias/contentid/NmNkNWM2MjMtODRkOS00/1/sara-sfida-fra-i-due-contendenti-matteo-salvini-e-massimo-garavaglia.jpg?f=16:9&w=1200&h=675"
+     }
+    },
+    {
+     "occhiello": "Economia · Carburanti",
+     "titolo": "Eni tiene il tetto ai prezzi di benzina e gasolio fino a fine anno",
+     "testo": [
+      "Il [[price cap|Un tetto massimo al prezzo: il venditore si impegna a non superarlo.]] di Eni, partito il 28 settembre per 30 giorni, viene prolungato fino al 31 dicembre: oggi il limite è 2,19 euro al litro per il gasolio e 1,99 per la benzina. L'amministratore delegato Descalzi non ha detto se i valori cambieranno.",
+      "I prezzi sono saliti soprattutto per la guerra in Medio Oriente e hanno provocato i blocchi dei camionisti, ormai quasi tutti finiti. Ieri Meloni era in Kuwait dall'emiro: anche la Q8, società kuwaitiana, potrebbe allungare il suo sconto."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://www.ilpost.it/2026/10/23/eni-prolunga-limite-prezzi-carburanti-fine-anno/"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792778883-ilpost_20261023200652630_4f42c58e9c84eb78ee83b3dce66456d5.jpg"
+     }
+    },
+    {
+     "occhiello": "Cronaca · Terremoto",
+     "titolo": "Scossa di magnitudo 5.5 nel mare vicino alle Eolie, sentita a Palermo",
+     "testo": [
+      "Ieri al largo della Sicilia, a nord-ovest delle Eolie, ci sono state più di 40 scosse. La più forte, alle 12:19, è stata di [[magnitudo|La misura dell'energia sprigionata da un terremoto: ogni punto in più vale circa 30 volte di più.]] 5.5 a 9 km di profondità, un'altra di 4.6 alle 15:55. Non risultano danni.",
+      "È scattata un'allerta [[maremoto|Onde anomale causate da un terremoto sotto il mare, chiamate anche tsunami.]] arancione per Palermo e altri comuni delle province di Palermo e Messina, con onde attese sotto il metro, e alcune scuole sono state evacuate per precauzione."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://www.ilpost.it/2026/10/23/terremoto-sicilia-mar-tirreno-meridionale/"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792758484-ilpost_20261023142704772_9038a3afff93a128f04c459799d070c6.jpg"
+     }
+    },
+    {
+     "occhiello": "Cronaca · Incidente",
+     "titolo": "Luino, auto si ribalta dopo mezzanotte: muore un ragazzo di 15 anni",
+     "testo": [
+      "Poco dopo la mezzanotte una Lancia Ypsilon con tre ragazzi è uscita di strada in via Lugano ed è finita ribaltata in un prato vicino a una rotonda. Il quindicenne seduto dietro è morto dopo un arresto cardiaco. Il conducente, 18 anni, è in codice rosso a Varese con un trauma cranico; il terzo ragazzo, 17 anni, ha solo contusioni. Indagano i carabinieri."
+     ],
+     "fonte": {
+      "nome": "La Provincia di Varese",
+      "url": "https://www.laprovinciadivarese.it/tragedia-a-luino-15enne-morto-in-un-incidente-feriti-gli-altri-due-giovani-a-bordo-dellauto-412795/"
+     }
+    },
+    {
+     "occhiello": "Esteri · Cisgiordania",
+     "titolo": "Le cinque attiviste fermate da Israele tornano in Italia stamattina",
+     "testo": [
+      "Ieri sera avevamo raccontato il loro fermo: le cinque italiane facevano da \"scudi umani\" per i palestinesi durante la raccolta delle olive a sud di Hebron. Sono state espulse e, secondo il ministro Tajani, rientrano stamattina. Tajani ha definito il fermo inaccettabile e ha criticato anche la chiusura di tutta la Cisgiordania decisa da Netanyahu."
+     ],
+     "fonte": {
+      "nome": "ANSA",
+      "url": "https://www.ansa.it/sito/notizie/mondo/2026/10/23/attiviste-italiane-espulse-da-israele.-tajani-domani-mattina-il-rientro-in-italia_9b783e6a-ae93-41de-ab9b-63414f183e13.html"
+     },
+     "foto": {
+      "url": "https://www.ansa.it/webimages/img_1280x720/2026/10/23/0bb222a1f9aa94f444706161ad3c67d0.jpg"
+     }
+    },
+    {
+     "occhiello": "Cronaca · Napoli",
+     "titolo": "Coltelli e mazze di alluminio: la Digos ferma sette giovanissimi a Napoli",
+     "testo": [
+      "Durante i controlli prima delle proteste di oggi, la polizia di Napoli ha identificato sette ragazzi che, secondo gli investigatori, preparavano azioni violente. Ha sequestrato un coltello a scatto di 23 centimetri, mazze di alluminio, cesoie, scaldacollo e guanti. Ieri sera Prada, Gucci e Saint Laurent hanno blindato le vetrine con pannelli di legno."
+     ],
+     "fonte": {
+      "nome": "ANSA",
+      "url": "https://www.ansa.it/sito/notizie/cronaca/2026/10/23/boutique-del-lusso-proteggono-vetrine-a-napoli-timori-per-proteste-di-domani_b58468be-9aa3-47c8-a101-000e3d8bbd4e.html"
+     },
+     "foto": {
+      "url": "https://www.ansa.it/webimages/img_1280x720/2026/10/23/a80523182803af4656e1b7276142c125.jpg"
+     }
+    }
+   ]
+  },
+  {
+   "nome": "Dal mondo",
+   "notizie": [
+    {
+     "occhiello": "Medio Oriente · Israele",
+     "titolo": "Due soldati uccisi a Hebron, Netanyahu isola la Cisgiordania",
+     "testo": [
+      "Due palestinesi, parenti tra loro, hanno sparato a un posto di blocco dell'esercito israeliano all'ingresso di Hebron: due soldati sono morti e tre sono feriti, e anche i due assalitori sono stati uccisi dopo una sparatoria di circa 20 minuti. Hamas ha lodato l'attacco senza rivendicarlo.",
+      "Netanyahu ha ordinato di isolare la Cisgiordania e annunciato l'operazione militare più grande dal 1967, oltre a nuove [[colonie|Insediamenti israeliani nei territori palestinesi occupati, illegali per il diritto internazionale.]]. L'esercito ha già iniziato a demolire alcune case. Martedì in Israele si vota per il Parlamento."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://www.ilpost.it/2026/10/23/israele-lockdown-cisgiordania/"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792748746-AP26296263567969.jpg"
+     }
+    },
+    {
+     "occhiello": "Francia · Terrorismo",
+     "titolo": "Spara a persone di origine africana vicino a Parigi: un morto e cinque feriti",
+     "testo": [
+      "Un uomo di 39 anni, Kevin T., ha sparato con una pistola mitragliatrice a Trappes e La Verrière, vicino a Versailles: è morto un uomo di 26 anni, tra i feriti c'è una bambina di 12. Secondo il sindaco tutte le vittime erano di origine africana; al momento dell'arresto l'uomo avrebbe detto di voler uccidere stranieri.",
+      "Macron lo ha definito un \"attacco terroristico razzista\". Indaga la procura [[antiterrorismo|L'ufficio dei magistrati specializzato nei reati di terrorismo.]], che ha fermato anche un familiare."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://www.ilpost.it/2026/10/23/sparatoria-localita-francesi-parigi/"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792764505-AP26296455066367.jpg"
+     }
+    },
+    {
+     "occhiello": "Giordania · Attentato",
+     "titolo": "Uomini armati sparano in una chiesa durante un funerale: sette morti",
+     "testo": [
+      "Ad Hamoud, cittadina a maggioranza cristiana nel centro della Giordania, un gruppo armato ha aperto il fuoco dentro una chiesa durante un funerale: 7 morti e 34 feriti. Non si sa chi siano gli assalitori né il motivo, e nessuno ha rivendicato. In Giordania attacchi così sono molto rari: il più grave fu nel 2005 ad Amman, con 60 morti."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://www.ilpost.it/2026/10/23/attacco-chiesa-giordania/"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792760998-AP23298339110597.jpg"
+     }
+    },
+    {
+     "occhiello": "Europa · Spie",
+     "titolo": "L'Austria espelle quattro diplomatici russi accusati di spionaggio",
+     "testo": [
+      "Tre lavoravano all'ambasciata russa di Vienna e uno alla delegazione presso l'[[OSCE|Un'organizzazione di 57 Paesi, con sede a Vienna, che si occupa di sicurezza e controllo degli armamenti in Europa.]]. Mosca ha promesso una risposta. Dal 2020 l'Austria, che per decenni ha tollerato le spie per via della sua neutralità, ha espulso 18 diplomatici russi."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://www.ilpost.it/2026/10/23/governo-austria-espelle-diplomatici-russi-spie/"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792751305-AP26268021446472.jpg"
+     }
+    },
+    {
+     "occhiello": "Argentina · Giustizia",
+     "titolo": "Archiviate le accuse contro Milei per la criptovaluta $LIBRA",
+     "testo": [
+      "Nel febbraio 2025 il presidente argentino aveva promosso su X la [[meme coin|Una criptovaluta nata da un meme o da una moda, che sale e crolla di valore molto in fretta.]] $LIBRA: il valore è schizzato in alto e poi è crollato, e circa 40mila investitori hanno perso molti soldi. Ora un giudice ha archiviato le accuse di truffa contro Milei e la sorella Karina; secondo La Nación le indagini erano incomplete e gli imputati non sono mai stati interrogati."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://www.ilpost.it/2026/10/23/accuse-archiviate-javier-milei-scandalo-criptovalute/"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792792450-AP26274350226093.jpg"
+     }
+    }
+   ]
+  },
+  {
+   "nome": "Tecnologia",
+   "notizie": [
+    {
+     "occhiello": "Streaming · Videogiochi",
+     "titolo": "Netflix offriva 500 milioni per i film di Halo e Warcraft, Xbox ne voleva 800",
+     "testo": [
+      "Secondo la newsletter Puck, Netflix aveva proposto a Microsoft 500 milioni di dollari per i diritti esclusivi, per sette anni, di trasformare in film e serie i giochi Xbox. Microsoft ne chiedeva 800 e l'accordo è saltato. Restano in piedi i progetti già avviati, come le serie animate di Minecraft e Diablo."
+     ],
+     "fonte": {
+      "nome": "HWupgrade",
+      "url": "https://www.hwupgrade.it/news/web/netflix-metteva-sul-tavolo-500-milioni-xbox-ne-voleva-800-saltato-il-mega-accordo-su-film-e-serie-tv_161053.html"
+     },
+     "foto": {
+      "url": "https://www.hwupgrade.it/i/n/netflix-xbox_720.jpg"
+     }
+    },
+    {
+     "occhiello": "Internet · Social",
+     "titolo": "La Grecia vieta i social ai minori di 15 anni dal 2027",
+     "testo": [
+      "Il Parlamento greco ha approvato la legge: dal 1° gennaio 2027 le piattaforme dovranno verificare l'età degli utenti. Prima l'hanno fatto Australia, Francia, Malesia, Indonesia ed Emirati. Molti esperti vedono un legame tra troppi social e salute mentale dei ragazzi, ma non una prova di [[causalità|Quando si dimostra che una cosa provoca direttamente l'altra, non solo che capitano insieme.]], e preferiscono l'educazione ai divieti."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://www.ilpost.it/2026/10/23/grecia-divieto-social-network-minori-15-anni/"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792787777-GettyImages-2216108329.jpg"
+     }
+    },
+    {
+     "occhiello": "Informatica · Sicurezza",
+     "titolo": "Falle critiche di Linux rese pubbliche prima delle correzioni",
+     "testo": [
+      "La Zero Day Initiative ha mandato cinque segnalazioni di [[vulnerabilità|Un difetto del software che un attaccante può sfruttare per entrare o bloccare il sistema.]] del kernel Linux anche a mailing list pubbliche, prima che esistesse una [[patch|La correzione che si installa per chiudere un difetto del software.]]. Due riguardano KSMBD, il server per la condivisione file, e hanno gravità 9 su 10. Greg Kroah-Hartman ha protestato. Il consiglio: disattivare KSMBD se non serve."
+     ],
+     "fonte": {
+      "nome": "HWupgrade",
+      "url": "https://www.hwupgrade.it/news/sicurezza-software/linux-falle-critiche-del-kernel-pubblicate-senza-patch-i-manutentori-protestano_161042.html"
+     },
+     "foto": {
+      "url": "https://www.hwupgrade.it/i/n/linux_exploit_720.jpg"
+     }
+    },
+    {
+     "occhiello": "Telefonia · Operatori",
+     "titolo": "Fastweb e Vodafone verso un solo sistema, il marchio Vodafone sparirà",
+     "testo": [
+      "Swisscom, proprietaria di entrambe, ha iniziato a unire i sistemi che gestiscono i clienti: i clienti Fastweb passeranno a quelli ex Vodafone a inizio 2027. La licenza per usare il nome Vodafone in Italia scade nel 2029, ma l'addio potrebbe arrivare prima, probabilmente con un [[rebrand|Il cambio di nome e immagine di un'azienda o di un prodotto.]] attorno al nome Fastweb."
+     ],
+     "fonte": {
+      "nome": "HWupgrade",
+      "url": "https://www.hwupgrade.it/news/telefonia/fastweb-e-vodafone-verso-il-sistema-unico-addio-in-vista-al-doppio-brand_161039.html"
+     },
+     "foto": {
+      "url": "https://www.hwupgrade.it/i/n/VodafoneFAstweb_720.jpg"
+     }
+    }
+   ]
+  },
+  {
+   "nome": "Musica",
+   "notizie": [
+    {
+     "occhiello": "Rap · Singolo",
+     "titolo": "3D e Nayt insieme in «Senza Armi»",
+     "testo": [
+      "Il rapper 3D è uscito venerdì con un singolo insieme a Nayt. Il tema è il \"disarmo\": smettere di vivere relazioni e ambizioni come una guerra e mostrarsi senza corazza. Secondo Rapologia potrebbe essere l'inizio del [[roll out|La serie di singoli e annunci con cui un artista prepara l'uscita di un album.]] del nuovo album, il primo dopo «Empiria» del 2024, ma non c'è ancora un annuncio ufficiale."
+     ],
+     "fonte": {
+      "nome": "Rapologia",
+      "url": "https://www.rapologia.it/3d-nayt-senza-armi/"
+     },
+     "foto": {
+      "url": "https://www.rapologia.it/wp-content/uploads/2026/10/3D-2026.jpg"
+     }
+    },
+    {
+     "occhiello": "Rap · Album",
+     "titolo": "Lord Bean esce a sorpresa con «Hakanai», dentro Egreen, Esa e Tormento",
+     "testo": [
+      "Luca Barcellona, noto come Lord Bean, ha pubblicato quasi senza preavviso «Hakanai» con il suo alter ego Bugs Kubrick. I beat sono soprattutto di DJ Craim; Egreen compare in tre brani, poi Esa, Tormento e Lanz Khan. Rapologia lo definisce \"rap allo stato puro\", tutto [[boom bap|Lo stile classico del rap anni '90, con batterie secche e campionamenti.]] e tecnica. Esce anche in vinile."
+     ],
+     "fonte": {
+      "nome": "Rapologia",
+      "url": "https://www.rapologia.it/lord-bean-bugs-kubrick-hakanai-nuovo-album/"
+     },
+     "foto": {
+      "url": "https://www.rapologia.it/wp-content/uploads/2023/09/lord-bean.jpg"
+     }
+    },
+    {
+     "occhiello": "Rap · Uscite del venerdì",
+     "titolo": "Naska, Frezza, Loomy e Nex Cassel con Tormento ed Ensi: i singoli nuovi",
+     "testo": [
+      "Tra le uscite di venerdì ci sono «Nascondino» di Naska, «7/7» di Frezza, «L'ultimo giorno sulla terra» di Loomy, «BARBARA» di Idra Rxx e «Sette vite» di Nex Cassel con due veterani come Tormento ed Ensi. Anche Sairo, Campa e Twentyone21 hanno pubblicato pezzi nuovi."
+     ],
+     "fonte": {
+      "nome": "All Music Italia",
+      "url": "https://www.allmusicitalia.it/nuove-uscite/radio-date/new-music-friday-radio-date-23-10-2026.html"
+     },
+     "foto": {
+      "url": "https://www.allmusicitalia.it/wp-content/uploads/2026/10/new-music-friday-radio-date-23-10-2026.jpg"
+     }
+    }
+   ]
+  }
+ ],
+ "meteo": {
+  "situazione": {
+   "titolo": "Al Nord sole e fresco, al Centro-Sud ancora temporali e Maestrale",
+   "testo": [
+    "La perturbazione si è spostata verso sud. Oggi al Nord-Ovest e in Lombardia torna il sole, mentre il Nord-Est ha ancora qualche pioggia al mattino. Al Centro-Sud il tempo resta instabile con rovesci e temporali, e soffia forte il [[Maestrale|Vento freddo da nord-ovest, che rende il mare molto mosso.]] con raffiche fino a 80-90 km/h. Le minime sono in calo, anche sotto la media.",
+    "Allerta gialla oggi in 8 regioni: Abruzzo, Basilicata, Calabria, Lazio, Molise, Puglia, Sicilia e Umbria. Da lunedì torna l'[[anticiclone|Una zona di alta pressione che porta tempo stabile e asciutto.]]. Stanotte torna l'ora solare: alle 3 le lancette vanno portate indietro alle 2."
+   ]
+  },
+  "oggi_etichetta": "Oggi · sabato 24",
+  "oggi": [
+   {
+    "luogo": "Lumezzane",
+    "icona": "sole",
+    "cond": "Sereno o poco nuvoloso",
+    "temp": "6°–14°"
+   },
+   {
+    "luogo": "Brescia",
+    "icona": "sole",
+    "cond": "Sereno, vento debole",
+    "temp": "8°–19°"
+   },
+   {
+    "luogo": "Milano",
+    "icona": "sole",
+    "cond": "Prevalentemente soleggiato",
+    "temp": "7°–19°"
+   },
+   {
+    "luogo": "Roma",
+    "icona": "nuvole",
+    "cond": "Molto nuvoloso, possibili rovesci",
+    "temp": "17°–22°"
+   },
+   {
+    "luogo": "Napoli",
+    "icona": "pioggia",
+    "cond": "Nuvoloso con pioggia debole",
+    "temp": "15°–22°"
+   },
+   {
+    "luogo": "Palermo",
+    "icona": "nuvole",
+    "cond": "Nuvoloso, Maestrale forte",
+    "temp": "19°–23°"
+   }
+  ],
+  "domani_etichetta": "Domani · domenica 25",
+  "domani": [
+   {
+    "luogo": "Lumezzane",
+    "icona": "parz",
+    "cond": "Poco nuvoloso, asciutto",
+    "temp": "7°–13°"
+   },
+   {
+    "luogo": "Brescia",
+    "icona": "sole",
+    "cond": "Soleggiato",
+    "temp": "9°–15°"
+   },
+   {
+    "luogo": "Nord",
+    "icona": "parz",
+    "cond": "Nubi di passaggio, qualche pioggia sulle Alpi",
+    "temp": "in lieve aumento"
+   },
+   {
+    "luogo": "Centro",
+    "icona": "nuvole",
+    "cond": "Molte nubi, piogge residue sull'Adriatico",
+    "temp": "stabili"
+   },
+   {
+    "luogo": "Sud",
+    "icona": "pioggia",
+    "cond": "Instabile su Puglia, Calabria e Sicilia nord",
+    "temp": "in calo"
+   }
+  ],
+  "nota": "Questa notte torna l'ora solare: si dorme un'ora in più.",
+  "fonti": [
+   {
+    "nome": "3BMeteo",
+    "url": "https://www.3bmeteo.com/meteo/Brescia"
+   },
+   {
+    "nome": "Meteo.it",
+    "url": "https://www.meteo.it/notizie/meteo-weekend-24-25-ottobre-2026-piogge-e-minime-in-calo-ad9c4906"
+   },
+   {
+    "nome": "Meteo POP",
+    "url": "https://www.meteopop.it/meteo-weekend-24-25-ottobre-2026/"
+   }
+  ]
+ }
+}
