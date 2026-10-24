@@ -23,7 +23,12 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
 - **Termini**: Alex vuole imparare le parole vere usate da giornali e politici. NON sostituirle con
   parole più semplici: scrivile nel testo con la sintassi `[[termine|definizione in una frase semplice]]`.
   Diventano parole tratteggiate che si toccano per leggere il significato. Usale per termini politici,
-  economici, tecnici, musicali, meteo. 1–4 per notizia, non di più.
+  economici, tecnici, musicali, meteo. **Mettine tante: 4–8 per notizia** (anche di più nelle notizie
+  lunghe). Oltre ai termini tecnici veri e propri, spiega anche: sigle (Cpr, Anm, Ue, Pil...), nomi di
+  istituzioni e cariche (Viminale, prefetto, Consulta...), parole straniere, espressioni giuridiche e
+  giornalistiche (indagato, rinvio a giudizio, maggioranza...), luoghi o personaggi poco noti, e
+  qualsiasi parola che un ragazzo di 23 anni che non legge i giornali potrebbe non conoscere.
+  Nel dubbio, spiegala. Ogni parola va spiegata solo la prima volta che compare nella notizia.
 - **Cronaca nera e fatti violenti**: non escluderli e non addolcirli. Fatti concreti, al livello dei
   giornali seri, senza toni sensazionalistici.
 - **Politica**: neutrale. Fatti e posizioni delle varie parti, senza dire chi ha ragione.
