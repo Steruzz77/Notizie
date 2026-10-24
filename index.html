@@ -155,6 +155,9 @@ a{color:inherit}
 .item:not(:has(.photo)) .pr{display:block}
 
 .line2 .arch{color:var(--red);text-decoration:none;font-weight:700}
+.pop .more{margin-top:8px;background:none;border:0;border-top:1px dotted var(--soft);width:100%;text-align:left;padding:8px 0 0;font:700 12px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--term);cursor:pointer}
+.pop .long{margin-top:6px;font-size:15px;color:var(--ink)}
+.pop .box{max-height:calc(100vh - var(--barh,64px) - 40px);overflow-y:auto}
 </style>
 </head>
 <body>
@@ -412,7 +415,7 @@ a{color:inherit}
   <button id="next" type="button">Avanti →</button>
 </nav>
 
-<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p></div></div>
+<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden aria-expanded="false">Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>
 
 <script>
 (function(){
@@ -529,7 +532,13 @@ a{color:inherit}
     if(t){ if(openTerm===t){closePop();return}
       if(openTerm)openTerm.setAttribute('aria-expanded','false');
       openTerm=t;t.setAttribute('aria-expanded','true');
-      var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;pop.hidden=false;return; }
+      var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;
+      var pm=document.getElementById('pmore'),pl=document.getElementById('pl');
+      if(pm){ pl.hidden=true; pm.setAttribute('aria-expanded','false'); pm.textContent='Approfondisci ▾';
+        if(t.dataset.x){pm.hidden=false;pl.textContent=t.dataset.x;} else {pm.hidden=true;} }
+      pop.hidden=false;return; }
+    if(e.target.closest('#pmore')){var pm2=document.getElementById('pmore'),pl2=document.getElementById('pl');
+      var open=pl2.hidden; pl2.hidden=!open; pm2.setAttribute('aria-expanded',open?'true':'false'); pm2.textContent=open?'Chiudi ▴':'Approfondisci ▾'; return;}
     if(e.target.closest('#px')||!e.target.closest('.pop .box'))closePop();
   });
   paint();

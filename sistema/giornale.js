@@ -113,7 +113,13 @@
     if(t){ if(openTerm===t){closePop();return}
       if(openTerm)openTerm.setAttribute('aria-expanded','false');
       openTerm=t;t.setAttribute('aria-expanded','true');
-      var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;pop.hidden=false;return; }
+      var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;
+      var pm=document.getElementById('pmore'),pl=document.getElementById('pl');
+      if(pm){ pl.hidden=true; pm.setAttribute('aria-expanded','false'); pm.textContent='Approfondisci ▾';
+        if(t.dataset.x){pm.hidden=false;pl.textContent=t.dataset.x;} else {pm.hidden=true;} }
+      pop.hidden=false;return; }
+    if(e.target.closest('#pmore')){var pm2=document.getElementById('pmore'),pl2=document.getElementById('pl');
+      var open=pl2.hidden; pl2.hidden=!open; pm2.setAttribute('aria-expanded',open?'true':'false'); pm2.textContent=open?'Chiudi ▴':'Approfondisci ▾'; return;}
     if(e.target.closest('#px')||!e.target.closest('.pop .box'))closePop();
   });
   paint();

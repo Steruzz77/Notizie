@@ -40,8 +40,10 @@ def testo(t):
     out, last = [], 0
     for m in TERM.finditer(t or ""):
         out.append(E(t[last:m.start()]))
-        out.append('<span class="term" role="button" tabindex="0" data-d="%s">%s</span>'
-                   % (E(m.group(2).strip()), E(m.group(1).strip())))
+        breve, _, lungo = m.group(2).partition("||")
+        extra = ' data-x="%s"' % E(lungo.strip()) if lungo.strip() else ""
+        out.append('<span class="term" role="button" tabindex="0" data-d="%s"%s>%s</span>'
+                   % (E(breve.strip()), extra, E(m.group(1).strip())))
         last = m.end()
     out.append(E((t or "")[last:]))
     return "".join(out)
@@ -220,6 +222,9 @@ def impagina(ed, numero):
 <html lang="it">
 <head>%s<style>%s
 .line2 .arch{color:var(--red);text-decoration:none;font-weight:700}
+.pop .more{margin-top:8px;background:none;border:0;border-top:1px dotted var(--soft);width:100%%;text-align:left;padding:8px 0 0;font:700 12px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--term);cursor:pointer}
+.pop .long{margin-top:6px;font-size:15px;color:var(--ink)}
+.pop .box{max-height:calc(100vh - var(--barh,64px) - 40px);overflow-y:auto}
 </style>
 </head>
 <body>
@@ -237,7 +242,7 @@ def impagina(ed, numero):
   <button id="next" type="button">Avanti →</button>
 </nav>
 
-<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p></div></div>
+<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden aria-expanded="false">Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>
 
 <script>%s</script>
 </body>
