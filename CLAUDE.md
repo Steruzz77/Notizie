@@ -29,6 +29,13 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   giornalistiche (indagato, rinvio a giudizio, maggioranza...), luoghi o personaggi poco noti, e
   qualsiasi parola che un ragazzo di 23 anni che non legge i giornali potrebbe non conoscere.
   Nel dubbio, spiegala. Ogni parola va spiegata solo la prima volta che compare nella notizia.
+- **Approfondisci**: per le 1–2 parole più importanti o difficili di ogni notizia aggiungi anche un
+  approfondimento, con la sintassi `[[termine|spiegazione corta||approfondimento]]`. La spiegazione
+  corta resta di una frase; l'approfondimento (2–4 frasi) aggiunge contesto: come funziona, da dove
+  viene, un esempio concreto, perché se ne discute, collegandolo se possibile alla notizia. Nella
+  pagina compare il tasto "Approfondisci" sotto la spiegazione corta. Non metterlo su sigle o parole
+  semplici (es. "Cia", "coprifuoco"): solo dove c'è davvero qualcosa in più da capire.
+  Esempio: `[[direttissima|Un processo veloce, fatto subito dopo l'arresto quando le prove sono già chiare.||Di solito tra arresto e processo passano mesi. Con la direttissima l'arrestato va davanti al giudice entro pochi giorni, perché colto sul fatto o reo confesso. Si usa spesso dopo scontri o furti in flagrante.]]`
 - **Cronaca nera e fatti violenti**: non escluderli e non addolcirli. Fatti concreti, al livello dei
   giornali seri, senza toni sensazionalistici.
 - **Politica**: neutrale. Fatti e posizioni delle varie parti, senza dire chi ha ragione.
