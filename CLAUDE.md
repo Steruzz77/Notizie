@@ -40,6 +40,17 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   giornali seri, senza toni sensazionalistici.
 - **Politica**: neutrale. Fatti e posizioni delle varie parti, senza dire chi ha ragione.
 - Ogni notizia ha la sua **fonte** con link all'articolo.
+- **Fonti affidabili**: prendi le notizie solo da testate serie e conosciute. Nazionali: ANSA, Il Post,
+  Rainews, Sky TG24, AGI, Adnkronos, Corriere, Repubblica, La Stampa, Il Sole 24 Ore, Open, Il Giorno.
+  Mondo: le stesse, più Reuters, AP, BBC, Al Jazeera. Brescia: Giornale di Brescia, BresciaToday,
+  Bresciaoggi (QuiBrescia solo se manca altrove). Tecnologia: HWupgrade, Il Post, Wired, DDay,
+  Tom's Hardware, Multiplayer.it. Musica: Rockol, Rolling Stone Italia, All Music Italia, Rapologia,
+  Esse Magazine, Billboard Italia, FIMI. Se una notizia la trovi solo su un sito piccolo o sconosciuto
+  (blog, siti di aggregazione, testate locali di altre zone), cercala su una di queste; se non c'è,
+  scegli un'altra notizia. L'elenco completo dei siti accettati è `FONTI_OK` in `sistema/build.py`.
+- **Niente sport**: è una scelta di Alex. Non mettere partite, risultati, calciomercato o gare,
+  nemmeno in Italia o in cronaca. Fa eccezione solo un fatto che esce dallo sport (es. un'inchiesta
+  giudiziaria o un fatto di cronaca grave).
 - **Foto**: per ogni notizia prova a prendere l'immagine principale dell'articolo con WebFetch
   (chiedi l'URL esatto del meta `og:image`). Usa solo URL `https://` che hai visto davvero, mai inventati.
   Se non la trovi, ometti il campo `foto`: la notizia esce senza immagine e va bene così.
@@ -75,13 +86,19 @@ Per sapere cosa è già uscito, guarda il JSON più recente in `archivio/` prima
    `spalle` = 1 notizia importante (1–2 paragrafi); `parola` = la parola del giorno, un termine
    importante tra quelli usciti oggi, spiegato meglio in 2–3 frasi; `accadde` = un fatto storico
    **verificato** avvenuto in questa data (preferisci tecnologia, musica, scienza, storia d'Italia).
-2. **Lumezzane e Brescia**: 5–6 notizie (Lumezzane, Valtrompia, provincia). Fonti: Giornale di Brescia,
-   BresciaToday, Bresciaoggi.
+2. **Lumezzane e Brescia**: 5–6 notizie. **Prima cerca Lumezzane e la Valtrompia** (Sarezzo, Gardone,
+   Villa Carcina, Concesio, Marcheno, Tavernole, Bovegno, Collio, Polaveno, Lodrino, Caino...): cronaca,
+   Comune, lavori e strade, scuole, aziende, eventi, la squadra no (niente sport). Metti in cima alla pagina
+   la notizia più vicina a Lumezzane. Poi completa con Brescia città e il resto della provincia.
+   Fonti: Giornale di Brescia, BresciaToday, Bresciaoggi.
 3. **Italia**: 6–7 notizie (politica, cronaca, economia, società).
 4. **Dal mondo**: 5–6 notizie.
 5. **Tecnologia**: 3–4 notizie (smartphone, IA, informatica, videogiochi, internet). Fonti es. HWupgrade, Il Post.
 6. **Musica**: 3–4 notizie con focus sul **rap italiano**: nuovi album, EP, singoli (il venerdì è giorno
-   di uscite), annunci, tour, classifiche FIMI, interviste. Fonti es. Rockol, Rolling Stone Italia, Newsic.
+   di uscite), annunci, tour, classifiche FIMI, interviste. Fonti: Rockol, Rolling Stone Italia, All Music Italia, Rapologia, Esse Magazine,
+   Billboard Italia, classifiche FIMI. Fai almeno due ricerche separate (es. "rap italiano nuovo album" e
+   "rapper tour date annuncio") per arrivare a 4 notizie: valgono anche annunci di concerti, featuring,
+   certificazioni FIMI e classifiche Spotify.
 7. **Meteo**: generato dal campo `meteo` (vedi formato). Cerca le previsioni su 3BMeteo/ilMeteo per
    oggi e domani: Lumezzane, Brescia, Milano, Roma, Napoli, Palermo (e altre se utili) con min–max;
    se per domani mancano i dati per città, usa righe per zona (Nord, Centro, Sud).
@@ -121,6 +138,15 @@ RIGA meteo = `{"luogo": "Brescia", "icona": "sole|parz|nuvole|pioggia|temporale|
 "cond": "Pioggia debole in serata", "temp": "11°–16°"}`
 
 Le sezioni sono pagine del giornale: il sommario in prima pagina si crea da solo.
+
+## Controllo prima di pubblicare
+Dopo aver lanciato `build.py`, leggi il **CONTROLLO** che stampa in fondo: elenca le notizie con meno di
+4 parole spiegate (6 per l'apertura) o senza Approfondisci, le sezioni sotto il numero di notizie
+richiesto, le fonti fuori dall'elenco e l'assenza di notizie su Lumezzane o la Valtrompia.
+Sistema il JSON (aggiungi parole spiegate e approfondimenti, sostituisci le fonti deboli, cerca le
+notizie mancanti) e rilancia `build.py`: riscrive la stessa edizione. Ripeti finché il controllo non è
+pulito o restano solo avvisi che non si possono risolvere (es. davvero nessuna notizia su Lumezzane oggi).
+Non pubblicare un'edizione con notizie senza parole spiegate.
 
 ## Pubblicare
 ```

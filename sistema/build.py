@@ -293,6 +293,64 @@ h2{font-family:"Playfair Display",Georgia,serif;font-weight:900;font-size:20px;m
 """ % (head, "\n".join(righe) or "<p>Nessuna edizione ancora.</p>")
 
 
+# Controllo finale: segnala cosa non rispetta le regole di CLAUDE.md, senza bloccare l'impaginazione.
+NOTIZIE_ATTESE = {"Riepilogo della settimana": 6, "Lumezzane e Brescia": 6, "Italia": 7, "Dal mondo": 6,
+                  "Tecnologia": 4, "Musica": 4}
+FONTI_OK = """ansa.it ilpost.it rainews.it tg24.sky.it agi.it adnkronos.com italpress.com askanews.it
+corriere.it repubblica.it lastampa.it ilsole24ore.com ilgiornale.it ilmessaggero.it avvenire.it
+ilfattoquotidiano.it open.online ilfoglio.it today.it tgcom24.mediaset.it ilgiorno.it quotidiano.net fanpage.it
+internazionale.it reuters.com apnews.com bbc.com bbc.co.uk aljazeera.com theguardian.com nytimes.com
+giornaledibrescia.it bresciatoday.it bresciaoggi.it quibrescia.it valtrompia.it
+hwupgrade.it wired.it dday.it tomshw.it multiplayer.it everyeye.it hdblog.it punto-informatico.it theverge.com
+rockol.it rollingstone.it allmusicitalia.it rapologia.it esse-magazine.it billboard.it fimi.it newsic.it
+3bmeteo.com ilmeteo.it meteo.it""".split()
+VALTROMPIA = ("lumezzane", "valtrompia", "val trompia", "gardone", "sarezzo", "villa carcina", "concesio",
+              "marcheno", "tavernole", "pezzaze", "bovegno", "collio", "irma", "polaveno", "lodrino", "caino")
+
+
+def dominio(url):
+    m = re.match(r"https?://([^/]+)", url or "")
+    return m.group(1).lower() if m else ""
+
+
+def fonte_ok(url):
+    d = dominio(url)
+    return any(d == f or d.endswith("." + f) for f in FONTI_OK)
+
+
+def controlla(ed):
+    avvisi = []
+    pr = ed["prima"]
+    tutte = [("Prima pagina", pr["apertura"], 6)] + [("Prima pagina", n, 4) for n in
+             (pr.get("spalle") or ([pr["spalla"]] if pr.get("spalla") else []))]
+    for s in ed.get("sezioni", []):
+        tutte += [(s["nome"], n, 4) for n in s.get("notizie") or []]
+        attese = NOTIZIE_ATTESE.get(s["nome"])
+        if attese and len(s.get("notizie") or []) < attese:
+            avvisi.append("%s: %d notizie, ne servono %d (mettine meno solo se davvero non ce ne sono)"
+                          % (s["nome"], len(s.get("notizie") or []), attese))
+    for sez, n, minimo in tutte:
+        t = " ".join(n.get("testo") if isinstance(n.get("testo"), list) else [n.get("testo") or ""]) + " " + (n.get("sommario") or "")
+        termini = TERM.findall(t)
+        nome = "%s · «%s»" % (sez, (n.get("titolo") or "")[:50])
+        if len(termini) < minimo:
+            avvisi.append("%s: %d %s spiegat%s, ne servono almeno %d" % (nome, len(termini),
+                          "parola" if len(termini) == 1 else "parole", "a" if len(termini) == 1 else "e", minimo))
+        if not any("||" in d for _, d in termini):
+            avvisi.append("%s: nessun Approfondisci" % nome)
+        fonti = n.get("fonte") if isinstance(n.get("fonte"), list) else [n.get("fonte") or {}]
+        for f in fonti:
+            if f.get("url") and not fonte_ok(f["url"]):
+                avvisi.append("%s: fonte poco nota (%s), cercala su una fonte dell'elenco in CLAUDE.md"
+                              % (nome, dominio(f["url"])))
+    loc = [s for s in ed.get("sezioni", []) if s["nome"] == "Lumezzane e Brescia"]
+    if loc:
+        testi = [json.dumps(n, ensure_ascii=False).lower() for n in loc[0].get("notizie") or []]
+        if not any(v in t for t in testi for v in VALTROMPIA):
+            avvisi.append("Lumezzane e Brescia: nessuna notizia su Lumezzane o la Valtrompia")
+    return avvisi
+
+
 def main():
     if len(sys.argv) != 2:
         sys.exit("uso: python3 sistema/build.py edizione.json")
@@ -312,6 +370,13 @@ def main():
     open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(pagina)
     open(os.path.join(ROOT, "archivio.html"), "w", encoding="utf-8").write(archivio_html())
     print("ok: edizione N. %d -> index.html, archivio/%s.html" % (numero, nome))
+    avvisi = controlla(ed)
+    if avvisi:
+        print("\nCONTROLLO: %d cose da sistemare nel JSON prima di pubblicare:" % len(avvisi))
+        for a in avvisi:
+            print(" - " + a)
+    else:
+        print("\nCONTROLLO: tutto a posto.")
 
 
 if __name__ == "__main__":
