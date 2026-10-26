@@ -48,9 +48,11 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   Mondo: le stesse, più Reuters, AP, BBC, Al Jazeera. Brescia: Giornale di Brescia, BresciaToday,
   Bresciaoggi (QuiBrescia solo se manca altrove). Tecnologia: HWupgrade, Il Post, Wired, DDay,
   Tom's Hardware, Multiplayer.it. Musica: Rockol, Rolling Stone Italia, All Music Italia, Rapologia,
-  Esse Magazine, Billboard Italia, FIMI. Se una notizia la trovi solo su un sito piccolo o sconosciuto
-  (blog, siti di aggregazione, testate locali di altre zone), cercala su una di queste; se non c'è,
-  scegli un'altra notizia. L'elenco completo dei siti accettati è `FONTI_OK` in `sistema/build.py`.
+  Esse Magazine, Billboard Italia, FIMI. Vanno bene anche siti piccoli o poco noti, purché affidabili:
+  testate giornalistiche vere (con redazione e direttore) o siti specializzati seri. Da evitare blog
+  anonimi, siti acchiappa-clic, pagine che copiano altri articoli e qualsiasi sito che diffonde notizie
+  false. Se usi un sito fuori da questo elenco, controlla che la notizia sia confermata anche da
+  un'altra fonte seria; se non lo è, scegli un'altra notizia. L'elenco completo dei siti accettati è `FONTI_OK` in `sistema/build.py`.
 - **Niente sport**: è una scelta di Alex. Non mettere partite, risultati, calciomercato o gare,
   nemmeno in Italia o in cronaca. Fa eccezione solo un fatto che esce dallo sport (es. un'inchiesta
   giudiziaria o un fatto di cronaca grave).
@@ -145,10 +147,10 @@ Le sezioni sono pagine del giornale: il sommario in prima pagina si crea da solo
 ## Controllo prima di pubblicare
 Dopo aver lanciato `build.py`, leggi il **CONTROLLO** che stampa in fondo: elenca le notizie senza
 nessuna parola spiegata, l'apertura o la spalla senza Approfondisci, le edizioni con pochi Approfondisci,
-le sezioni sotto il numero di notizie richiesto, le fonti fuori dall'elenco e l'assenza di notizie su
+le sezioni sotto il numero di notizie richiesto, le fonti fuori dall'elenco (da verificare, non per forza da togliere) e l'assenza di notizie su
 Lumezzane o la Valtrompia. Per ogni avviso sulle parole rileggi la notizia e spiega i termini di settore,
 le sigle e i nomi poco noti che hai lasciato senza spiegazione; se davvero non ce ne sono, lascia
-com'è e non aggiungere parole comuni solo per far sparire l'avviso. Sostituisci le fonti deboli e cerca
+com'è e non aggiungere parole comuni solo per far sparire l'avviso. Per le fonti fuori elenco controlla che la notizia sia confermata da una fonte seria, altrimenti sostituiscila; cerca
 le notizie mancanti, poi rilancia `build.py`: riscrive la stessa edizione. Ripeti finché restano solo
 avvisi che non si possono risolvere (es. davvero nessuna notizia su Lumezzane oggi).
 

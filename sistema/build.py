@@ -342,7 +342,7 @@ def controlla(ed):
         fonti = n.get("fonte") if isinstance(n.get("fonte"), list) else [n.get("fonte") or {}]
         for f in fonti:
             if f.get("url") and not fonte_ok(f["url"]):
-                avvisi.append("%s: fonte poco nota (%s), cercala su una fonte dell'elenco in CLAUDE.md"
+                avvisi.append("%s: fonte fuori elenco (%s), verifica che sia affidabile e che la notizia sia confermata altrove"
                               % (nome, dominio(f["url"])))
     if approfondimenti < len(tutte) // 3:
         avvisi.append("Tutta l'edizione: solo %d Approfondisci su %d notizie, aggiungili sui termini più complessi"
