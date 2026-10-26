@@ -10,8 +10,8 @@ python3 sistema/build.py /percorso/edizione.json
 
 L'impaginatore aggiorna `index.html` (ultima edizione), salva la copia in `archivio/` e rigenera
 `archivio.html`. Non toccare `sistema/stile.css`, `sistema/giornale.js`, `sistema/head.html`:
-il design è stato scelto da Alex con cura. Le vecchie pagine di prova (`carta.html`, `prova.html`,
-`anteprima.html`) non vanno modificate.
+il design è stato scelto da Alex con cura. `anteprima.html` è la pagina
+che Alex usa per vedere le modifiche prima di approvarle: non toccarla durante le uscite.
 
 ## Chi è il lettore
 Alex, 23 anni, di Lumezzane (BS). Ha lasciato la scuola presto e vuole imparare a capire l'attualità
