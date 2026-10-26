@@ -321,28 +321,32 @@ def fonte_ok(url):
 def controlla(ed):
     avvisi = []
     pr = ed["prima"]
-    tutte = [("Prima pagina", pr["apertura"], 6)] + [("Prima pagina", n, 4) for n in
+    tutte = [("Prima pagina", pr["apertura"], True)] + [("Prima pagina", n, True) for n in
              (pr.get("spalle") or ([pr["spalla"]] if pr.get("spalla") else []))]
     for s in ed.get("sezioni", []):
-        tutte += [(s["nome"], n, 4) for n in s.get("notizie") or []]
+        tutte += [(s["nome"], n, False) for n in s.get("notizie") or []]
         attese = NOTIZIE_ATTESE.get(s["nome"])
         if attese and len(s.get("notizie") or []) < attese:
             avvisi.append("%s: %d notizie, ne servono %d (mettine meno solo se davvero non ce ne sono)"
                           % (s["nome"], len(s.get("notizie") or []), attese))
-    for sez, n, minimo in tutte:
+    approfondimenti = 0
+    for sez, n, in_prima in tutte:
         t = " ".join(n.get("testo") if isinstance(n.get("testo"), list) else [n.get("testo") or ""]) + " " + (n.get("sommario") or "")
         termini = TERM.findall(t)
+        approfondimenti += sum("||" in d for _, d in termini)
         nome = "%s · «%s»" % (sez, (n.get("titolo") or "")[:50])
-        if len(termini) < minimo:
-            avvisi.append("%s: %d %s spiegat%s, ne servono almeno %d" % (nome, len(termini),
-                          "parola" if len(termini) == 1 else "parole", "a" if len(termini) == 1 else "e", minimo))
-        if not any("||" in d for _, d in termini):
-            avvisi.append("%s: nessun Approfondisci" % nome)
+        if not termini:
+            avvisi.append("%s: nessuna parola spiegata (ci sono termini di settore, sigle o nomi poco noti?)" % nome)
+        if in_prima and not any("||" in d for _, d in termini):
+            avvisi.append("%s: in prima pagina serve almeno un Approfondisci" % nome)
         fonti = n.get("fonte") if isinstance(n.get("fonte"), list) else [n.get("fonte") or {}]
         for f in fonti:
             if f.get("url") and not fonte_ok(f["url"]):
                 avvisi.append("%s: fonte poco nota (%s), cercala su una fonte dell'elenco in CLAUDE.md"
                               % (nome, dominio(f["url"])))
+    if approfondimenti < len(tutte) // 3:
+        avvisi.append("Tutta l'edizione: solo %d Approfondisci su %d notizie, aggiungili sui termini più complessi"
+                      % (approfondimenti, len(tutte)))
     loc = [s for s in ed.get("sezioni", []) if s["nome"] == "Lumezzane e Brescia"]
     if loc:
         testi = [json.dumps(n, ensure_ascii=False).lower() for n in loc[0].get("notizie") or []]

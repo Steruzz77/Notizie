@@ -22,19 +22,22 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
 - Scrivi **con parole tue**, frasi semplici e chiare. Niente citazioni lunghe dagli articoli.
 - **Termini**: Alex vuole imparare le parole vere usate da giornali e politici. NON sostituirle con
   parole più semplici: scrivile nel testo con la sintassi `[[termine|definizione in una frase semplice]]`.
-  Diventano parole tratteggiate che si toccano per leggere il significato. Usale per termini politici,
-  economici, tecnici, musicali, meteo. **Mettine tante: 4–8 per notizia** (anche di più nelle notizie
-  lunghe). Oltre ai termini tecnici veri e propri, spiega anche: sigle (Cpr, Anm, Ue, Pil...), nomi di
-  istituzioni e cariche (Viminale, prefetto, Consulta...), parole straniere, espressioni giuridiche e
-  giornalistiche (indagato, rinvio a giudizio, maggioranza...), luoghi o personaggi poco noti, e
-  qualsiasi parola che un ragazzo di 23 anni che non legge i giornali potrebbe non conoscere.
-  Nel dubbio, spiegala. Ogni parola va spiegata solo la prima volta che compare nella notizia.
-- **Approfondisci**: per le 1–2 parole più importanti o difficili di ogni notizia aggiungi anche un
+  Diventano parole tratteggiate che si toccano per leggere il significato. Spiega **tutti** i termini
+  di settore e le parole poco comuni: termini politici, economici, tecnici, musicali, meteo; sigle (Cpr,
+  Anm, Ue, Pil...); nomi di istituzioni e cariche (Viminale, prefetto, Consulta...); parole straniere
+  non comuni; espressioni giuridiche e giornalistiche (indagato, rinvio a giudizio, ballottaggio...);
+  luoghi o personaggi poco noti. Non c'è un numero fisso: ogni termine così va spiegato, senza saltarne.
+  **Non spiegare le parole comuni** che chiunque conosce (podio, classifica, Suv, smartphone, album,
+  sciopero, polizia...): Alex non va trattato da bambino. Ogni parola va spiegata solo la prima volta
+  che compare nella notizia.
+- **Approfondisci**: per le 1–2 parole più complesse di una notizia (termini di settore, sigle o
+  espressioni strane che meritano più contesto) aggiungi anche un
   approfondimento, con la sintassi `[[termine|spiegazione corta||approfondimento]]`. La spiegazione
   corta resta di una frase; l'approfondimento (2–4 frasi) aggiunge contesto: come funziona, da dove
   viene, un esempio concreto, perché se ne discute, collegandolo se possibile alla notizia. Nella
-  pagina compare il tasto "Approfondisci" sotto la spiegazione corta. Non metterlo su sigle o parole
-  semplici (es. "Cia", "coprifuoco"): solo dove c'è davvero qualcosa in più da capire.
+  pagina compare il tasto "Approfondisci" sotto la spiegazione corta. Mettilo sempre nell'apertura e
+  nella spalla, e in tutte le notizie dove c'è un termine complesso. Non metterlo su parole che si
+  capiscono già con la frase corta: solo dove c'è davvero qualcosa in più da capire.
   Esempio: `[[direttissima|Un processo veloce, fatto subito dopo l'arresto quando le prove sono già chiare.||Di solito tra arresto e processo passano mesi. Con la direttissima l'arrestato va davanti al giudice entro pochi giorni, perché colto sul fatto o reo confesso. Si usa spesso dopo scontri o furti in flagrante.]]`
 - **Cronaca nera e fatti violenti**: non escluderli e non addolcirli. Fatti concreti, al livello dei
   giornali seri, senza toni sensazionalistici.
@@ -140,13 +143,14 @@ RIGA meteo = `{"luogo": "Brescia", "icona": "sole|parz|nuvole|pioggia|temporale|
 Le sezioni sono pagine del giornale: il sommario in prima pagina si crea da solo.
 
 ## Controllo prima di pubblicare
-Dopo aver lanciato `build.py`, leggi il **CONTROLLO** che stampa in fondo: elenca le notizie con meno di
-4 parole spiegate (6 per l'apertura) o senza Approfondisci, le sezioni sotto il numero di notizie
-richiesto, le fonti fuori dall'elenco e l'assenza di notizie su Lumezzane o la Valtrompia.
-Sistema il JSON (aggiungi parole spiegate e approfondimenti, sostituisci le fonti deboli, cerca le
-notizie mancanti) e rilancia `build.py`: riscrive la stessa edizione. Ripeti finché il controllo non è
-pulito o restano solo avvisi che non si possono risolvere (es. davvero nessuna notizia su Lumezzane oggi).
-Non pubblicare un'edizione con notizie senza parole spiegate.
+Dopo aver lanciato `build.py`, leggi il **CONTROLLO** che stampa in fondo: elenca le notizie senza
+nessuna parola spiegata, l'apertura o la spalla senza Approfondisci, le edizioni con pochi Approfondisci,
+le sezioni sotto il numero di notizie richiesto, le fonti fuori dall'elenco e l'assenza di notizie su
+Lumezzane o la Valtrompia. Per ogni avviso sulle parole rileggi la notizia e spiega i termini di settore,
+le sigle e i nomi poco noti che hai lasciato senza spiegazione; se davvero non ce ne sono, lascia
+com'è e non aggiungere parole comuni solo per far sparire l'avviso. Sostituisci le fonti deboli e cerca
+le notizie mancanti, poi rilancia `build.py`: riscrive la stessa edizione. Ripeti finché restano solo
+avvisi che non si possono risolvere (es. davvero nessuna notizia su Lumezzane oggi).
 
 ## Pubblicare
 ```
