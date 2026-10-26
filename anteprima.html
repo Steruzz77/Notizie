@@ -43,12 +43,15 @@ html{transition:background-color .2s}
 body{margin:0;color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
 .loc{--c:var(--loc)}.ita{--c:var(--ita)}.mon{--c:var(--mon)}.tec{--c:var(--tec)}.mus{--c:var(--mus)}.met{--c:var(--met)}.pri{--c:var(--ink)}
 .desk{padding:0 max(10px,env(safe-area-inset-right,0px)) 86px max(10px,env(safe-area-inset-left,0px));max-width:1140px;margin:0 auto}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--desk)}
 
 /* Linguette: segnalibri di carta che spuntano sopra il foglio */
-.tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:flex-end;gap:8px;background:var(--desk);padding-top:10px}
-.tabs{flex:1;min-width:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 4px}
-.theme{flex:none;width:38px;height:38px;margin-bottom:6px;border-radius:50%;border:1px solid var(--edge);background:var(--paper);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+.tabbar{position:fixed;top:0;left:0;right:0;z-index:6;display:flex;align-items:flex-end;gap:8px;background:var(--desk);
+  padding:calc(env(safe-area-inset-top,0px) + 8px) max(10px,env(safe-area-inset-right,0px)) 0 max(10px,env(safe-area-inset-left,0px))}
+.tabbar-in{display:flex;align-items:flex-end;gap:8px;width:100%;max-width:1120px;margin:0 auto}
+html{overscroll-behavior-y:none}
+.desk{padding-top:calc(env(safe-area-inset-top,0px) + 52px)}
+.tabs{position:relative;flex:1;min-width:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 4px}
+.theme{flex:none;width:36px;height:36px;margin-bottom:6px;border-radius:50%;border:1px solid var(--edge);background:var(--paper);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
 .theme svg{width:20px;height:20px}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:none;font:700 12px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--tab);border:1px solid var(--soft);border-bottom:0;border-radius:8px 8px 0 0;padding:9px 13px 8px;cursor:pointer;box-shadow:inset 0 3px 0 var(--c);position:relative;top:1px}
@@ -152,7 +155,9 @@ img.ph{display:block;width:100%;object-fit:cover;padding:0;filter:grayscale(.3) 
 @media (min-width:700px){
   body{font-size:18px}
   .desk{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-  .tabbar{padding-top:14px}
+  .tabbar{padding-top:calc(env(safe-area-inset-top,0px) + 12px)}
+  .desk{padding-top:calc(env(safe-area-inset-top,0px) + 58px)}
+  .tabbar-in{max-width:1360px}
   .tab{font-size:13px;padding:10px 16px 9px}
   .page{padding:22px 26px 16px;gap:18px}
   .prima{grid-template-columns:1.6fr 1fr;align-items:start;gap:18px}
@@ -181,15 +186,34 @@ img.ph{display:block;width:100%;object-fit:cover;padding:0;filter:grayscale(.3) 
   .boxes{grid-column:3;grid-row:1/span 2}
   .tzs{grid-template-columns:repeat(3,1fr)}
   .rest{column-count:3}
-  .grid .lead .lp .ph{aspect-ratio:3/1}
+  .grid .lead .lp .ph{aspect-ratio:3.6/1}
   .wx{grid-template-columns:1fr 1fr 1fr}.wx .lead{grid-column:auto}
+}
+
+/* Telefono: più spazio al testo, titoli su una riga, schede compatte */
+@media (max-width:699px){
+  .desk{padding-left:max(6px,env(safe-area-inset-left,0px));padding-right:max(6px,env(safe-area-inset-right,0px))}
+  .page{padding:14px 10px 10px;gap:12px}
+  .card{padding:11px 12px 8px}
+  .pghead span{display:none}
+  .pghead h2{font-size:27px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .boxes{grid-template-columns:1fr}
+  .mini p{font-size:15.5px}
+
+  .mini h5{margin-bottom:6px}
+  .tzs{gap:0;background:var(--card);border:1px solid var(--cardline);border-radius:10px;padding:2px 12px;box-shadow:0 1px 0 var(--shadow2),0 6px 16px var(--shadow2)}
+  .tz{background:none;border:0;border-top:1px dotted var(--soft);border-radius:0;padding:9px 0;grid-template-columns:auto 1fr;align-items:baseline}
+  .tz:first-child{border-top:0}
+  .tz b{grid-row:auto;margin-top:0;border-color:var(--c);color:var(--c)}
+  .tz span{font-size:16px}
+  .tz em{display:none}
 }
 </style>
 </head>
 <body>
     <script>try{var t=localStorage.getItem("corriere-tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <div class="desk">
-    <div class="tabbar"><nav class="tabs" id="tabs" aria-label="Sezioni"><button type="button" class="tab pri" data-go="0">Prima</button><button type="button" class="tab loc" data-go="1">Lumezzane</button><button type="button" class="tab ita" data-go="2">Italia</button><button type="button" class="tab mon" data-go="3">Mondo</button><button type="button" class="tab tec" data-go="4">Tecnologia</button><button type="button" class="tab mus" data-go="5">Musica</button><button type="button" class="tab met" data-go="6">Meteo</button></nav><button type="button" class="theme" id="theme" aria-label="Cambia tema"></button></div>
+    <div class="tabbar"><div class="tabbar-in"><nav class="tabs" id="tabs" aria-label="Sezioni"><button type="button" class="tab pri" data-go="0">Prima</button><button type="button" class="tab loc" data-go="1">Lumezzane</button><button type="button" class="tab ita" data-go="2">Italia</button><button type="button" class="tab mon" data-go="3">Mondo</button><button type="button" class="tab tec" data-go="4">Tecnologia</button><button type="button" class="tab mus" data-go="5">Musica</button><button type="button" class="tab met" data-go="6">Meteo</button></nav><button type="button" class="theme" id="theme" aria-label="Cambia tema"></button></div></div>
     <main class="sheet" id="sheet"><section class="page " data-name="Prima pagina"><header class="mast"><h1>Il Corriere dello Steruz</h1>
 <div class="line"><span>Lunedì 26 ottobre 2026</span><span>Anno I · N. 7</span></div>
 <div class="line2"><span>Edizione della sera · <b>anteprima nuova grafica</b></span><a class="arch">Archivio →</a></div></header>
@@ -212,7 +236,7 @@ img.ph{display:block;width:100%;object-fit:cover;padding:0;filter:grayscale(.3) 
     tabs.forEach(function(t,k){t.classList.toggle('on',k===cur);t.setAttribute('aria-current',k===cur?'page':'false')});
     pname.textContent=pages[cur].dataset.name; pnum.textContent='Pagina '+(cur+1)+' di '+N;
     prev.disabled=cur===0; next.disabled=cur===N-1;
-    try{tabs[cur].scrollIntoView({inline:'center',block:'nearest'})}catch(e){}
+    var bar=document.getElementById('tabs'), t=tabs[cur]; bar.scrollLeft=Math.max(0,t.offsetLeft-(bar.clientWidth-t.offsetWidth)/2);
     window.scrollTo(0,0);
   }
   document.addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(g)go(+g.dataset.go)});
