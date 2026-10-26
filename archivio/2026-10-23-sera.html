@@ -118,7 +118,7 @@ a{color:inherit}
   padding:8px max(10px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
 .bar button{font:700 13px var(--label);background:var(--paper);border:1px solid var(--rule);color:var(--ink);padding:7px 12px;cursor:pointer}
 .bar button:disabled{opacity:.35;cursor:default}
-.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;background:none!important;border:0!important;padding:2px 8px!important;font:inherit;color:inherit;cursor:pointer}
 .where .name{font:700 11px var(--label);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw}
 .where .num{font:400 11px var(--label);color:var(--muted)}
 
@@ -154,7 +154,26 @@ a{color:inherit}
 .wx{width:26px;height:26px;color:var(--ink);display:block}
 .item:not(:has(.photo)) .pr{display:block}
 
+/* Foto con didascalia: se la foto non si carica sparisce anche la didascalia */
+.fig{margin:0}
+/* Su telefono testo allineato a sinistra: niente spazi larghi e parole spezzate */
+@media (max-width:619px){.just{text-align:left;hyphens:manual;-webkit-hyphens:manual}}
+/* Indice delle pagine, si apre toccando il nome della pagina nella barra */
+.toc{position:fixed;left:0;right:0;bottom:var(--barh,64px);z-index:21;display:flex;justify-content:center;padding:0 12px 10px}
+.toc .box{max-width:420px;width:100%;background:var(--note);border:1px solid var(--rule);border-top:4px double var(--rule);padding:10px 14px;box-shadow:0 8px 24px rgba(40,30,10,.3)}
+.toc .h{margin:0 0 4px;font:700 11px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.toc button{display:flex;gap:10px;align-items:baseline;width:100%;background:none;border:0;border-top:1px dotted var(--soft);padding:10px 0;text-align:left;cursor:pointer;color:var(--ink);font:700 18px var(--head)}
+.toc button:first-child{border-top:0}
+.toc button b{font:700 11px var(--label);min-width:22px;border:1px solid var(--rule);padding:1px 4px;text-align:center}
+.toc button[aria-current="page"]{color:var(--term)}
+/* Avviso nelle edizioni passate */
+.old{display:block;text-align:center;font:500 13px var(--label);color:var(--ink);text-decoration:none;background:var(--term-bg);border:1px solid var(--rule);padding:8px 10px}
+.old b{color:var(--red);white-space:nowrap}
+
 .line2 .arch{color:var(--red);text-decoration:none;font-weight:700}
+.pop .more{margin-top:8px;background:none;border:0;border-top:1px dotted var(--soft);width:100%;text-align:left;padding:8px 0 0;font:700 12px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--term);cursor:pointer}
+.pop .long{margin-top:6px;font-size:15px;color:var(--ink)}
+.pop .box{max-height:calc(100vh - var(--barh,64px) - 40px);overflow-y:auto}
 </style>
 </head>
 <body>
@@ -164,6 +183,7 @@ a{color:inherit}
 <div class="book" id="book">
 <section class="sheet" data-name="Prima pagina" aria-label="Prima pagina">
  <div class="inner">
+  <a class="old" href="../index.html">Stai leggendo un'edizione passata · <b>Vai all'ultima →</b></a>
   <header class="mast">
     <h1>Il Corriere dello Steruz</h1>
     <div class="line"><span>Venerdì 23 ottobre 2026</span><span>Anno I · N. 1</span></div>
@@ -177,10 +197,9 @@ a{color:inherit}
     <button type="button" class="goto" data-page="5"><b>6</b> Musica</button>
     <button type="button" class="goto" data-page="6"><b>7</b> Meteo</button>
   </nav>
-  <div class="tip">Trascina il bordo destro per girare pagina · tocca le <b>parole tratteggiate</b> per il significato</div>
   <article class="lead">
-    <img class="photo" src="https://www.adnkronos.com/resources/02aa-21e50a9af627-92336b4e659f-1000/milano_saccheggi_ipa.jpeg" alt="Milano dopo i saccheggi del fine settimana scorso" loading="eager" referrerpolicy="no-referrer" onerror="this.remove()">
-    <div class="cap">Milano dopo i saccheggi del fine settimana scorso</div>
+    <figure class="fig"><img class="photo" src="https://www.adnkronos.com/resources/02aa-21e50a9af627-92336b4e659f-1000/milano_saccheggi_ipa.jpeg" alt="Milano dopo i saccheggi del fine settimana scorso" loading="eager" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()">
+    <div class="cap">Milano dopo i saccheggi del fine settimana scorso</div></figure>
     <div class="kicker" style="margin-top:10px">Italia · Sicurezza</div>
     <h2>Milano si blinda per sabato: 500 parà in città e 100 perquisizioni dopo i saccheggi</h2>
     <p class="deck">Dopo le devastazioni del 17 e 18 ottobre, la Digos perquisisce giovani in tutta Italia: 51 sono minorenni. Il Movimento 17 ottobre annuncia piazze in otto città.</p>
@@ -190,7 +209,7 @@ a{color:inherit}
     <div class="src"><a href="https://www.adnkronos.com/cronaca/milano-manifestazione-scontri-proteste-news_Z8btKRH2qcnpD2v80IyXB" target="_blank" rel="noopener">Fonte: Adnkronos</a></div>
   </article>
   <article class="spalla">
-    <img class="photo" src="https://www.adnkronos.com/resources/02a8-215a1282d7ac-81d0832745df-1000/iran_cartellone_afp_2_.jpeg" alt="Sette petroliere colpite a Hormuz, Usa e Israele pensano a nuovi raid dopo il 3 novembre" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+    <img class="photo" src="https://www.adnkronos.com/resources/02a8-215a1282d7ac-81d0832745df-1000/iran_cartellone_afp_2_.jpeg" alt="Sette petroliere colpite a Hormuz, Usa e Israele pensano a nuovi raid dopo il 3 novembre" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()">
     <div>
       <div class="kicker">Mondo · Iran</div>
       <h3>Sette petroliere colpite a Hormuz, Usa e Israele pensano a nuovi raid dopo il 3 novembre</h3>
@@ -211,14 +230,14 @@ a{color:inherit}
   <div class="pghead"><h2>Lumezzane e Brescia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n1">
     <div class="kicker">Valtrompia · Politica</div>
-    <div class="pr"><img class="photo" src="https://www.bresciatomorrow.it/wp-content/uploads/2026/10/Parco-Sarezzo.webp" alt="Un parco di Sarezzo" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Cartelli contro gli immigrati nei parchi di Lumezzane, Sarezzo e Gardone</h3></div>
+    <div class="pr"><img class="photo" src="https://www.bresciatomorrow.it/wp-content/uploads/2026/10/Parco-Sarezzo.webp" alt="Un parco di Sarezzo" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Cartelli contro gli immigrati nei parchi di Lumezzane, Sarezzo e Gardone</h3></div>
     <p class="just">Nella notte tra martedì e mercoledì agli ingressi di alcuni parchi pubblici di Lumezzane, Sarezzo e Gardone sono comparsi cartelli contro gli immigrati, scritti in sette lingue. Li ha rivendicati il «Comitato Remigrazione e Riconquista – Brescia», che collega spaccio, bivacchi e molestie nei parchi all&#x27;immigrazione. Il termine <span class="term" role="button" tabindex="0" data-d="Parola usata da gruppi di estrema destra per chiedere il rimpatrio di massa degli immigrati, anche di chi è in regola.">remigrazione</span> viene da quell&#x27;area politica.</p>
 <p class="just">Gran parte dei cartelli è stata rimossa. La condanna è arrivata da tutti i partiti: Fratelli d&#x27;Italia parla di «provocazione», Avs di «azione razzista», condannano anche M5S e Azione. L&#x27;assessore di Sarezzo Giovanni Gatta dice che il degrado si affronta con interventi concreti, non con messaggi che dividono.</p>
     <div class="src"><a href="https://www.bresciatomorrow.it/2026/10/23/valtrompia-cartelli-contro-gli-immigrati-nei-parchi-condanna-trasversale/" target="_blank" rel="noopener">Fonte: Brescia Tomorrow</a></div>
   </article>
   <article class="item" id="n2">
     <div class="kicker">Garda · Cronaca</div>
-    <div class="pr"><img class="photo" src="https://primabrescia.it/media/2026/10/Toscolano-Maderno-1.jpg" alt="Motociclista muore sulla Gardesana, sull&#x27;asfalto bagnato" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Motociclista muore sulla Gardesana, sull&#x27;asfalto bagnato</h3></div>
+    <div class="pr"><img class="photo" src="https://primabrescia.it/media/2026/10/Toscolano-Maderno-1.jpg" alt="Motociclista muore sulla Gardesana, sull&#x27;asfalto bagnato" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Motociclista muore sulla Gardesana, sull&#x27;asfalto bagnato</h3></div>
     <p class="just">Oggi verso le 16 un motociclista di circa 60 anni (59 secondo Prima Brescia, 62 secondo QuiBrescia), residente in zona, è morto sulla statale 45 bis tra Toscolano Maderno e Gargnano. Ha perso il controllo della moto e ha sbattuto contro un muro; non sono coinvolti altri veicoli.</p>
 <p class="just">Sono arrivati automedica ed elisoccorso, ma per lui non c&#x27;era più niente da fare. I carabinieri di Salò valutano sia l&#x27;asfalto reso scivoloso dalla pioggia sia un possibile malore.</p>
     <div class="src"><a href="https://primabrescia.it/cronaca/toscolano-maderno-scontro-auto-moto-muore-un-uomo/" target="_blank" rel="noopener">Fonte: Prima Brescia</a></div>
@@ -232,7 +251,7 @@ a{color:inherit}
   </article>
   <article class="item" id="n4">
     <div class="kicker">Brescia · Casa</div>
-    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2012/04/sfratti-384858.660x368.jpg" alt="Oltre mille sfratti in sette mesi, cinque al giorno" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Oltre mille sfratti in sette mesi, cinque al giorno</h3></div>
+    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2012/04/sfratti-384858.660x368.jpg" alt="Oltre mille sfratti in sette mesi, cinque al giorno" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Oltre mille sfratti in sette mesi, cinque al giorno</h3></div>
     <p class="just">Nei primi sette mesi del 2026 il Tribunale di Brescia ha gestito 1.069 procedure di <span class="term" role="button" tabindex="0" data-d="La procedura con cui un proprietario, tramite il giudice, obbliga l&#x27;inquilino a lasciare la casa.">sfratto</span>: 470 nuove e 599 ancora aperte dagli anni scorsi. La causa principale è la <span class="term" role="button" tabindex="0" data-d="Quando l&#x27;inquilino non paga l&#x27;affitto o le spese dovute.">morosità</span>.</p>
 <p class="just">Le procedure concluse nell&#x27;ultimo anno sono calate di circa il 10%. I Comuni faticano sempre di più a trovare un&#x27;altra casa per le famiglie con bambini, anziani o persone con disabilità.</p>
     <div class="src"><a href="https://www.quibrescia.it/cronaca/2026/10/23/brescia-oltre-mille-sfratti-in-sette-mesi-cinque-procedure-al-giorno/846504/" target="_blank" rel="noopener">Fonte: QuiBrescia</a></div>
@@ -245,21 +264,21 @@ a{color:inherit}
   <div class="pghead"><h2>Italia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n5">
     <div class="kicker">Economia · Caro gasolio</div>
-    <div class="pr"><img class="photo" src="https://www.trasportoeuropa.it/wp-content/uploads/2026/10/Austista_sale_cabina_poliziotto_disegna.jpg" alt="Finiti i blocchi dei camionisti, ma ora i pescatori siciliani annunciano lo «sciopero fiscale»" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Finiti i blocchi dei camionisti, ma ora i pescatori siciliani annunciano lo «sciopero fiscale»</h3></div>
+    <div class="pr"><img class="photo" src="https://www.trasportoeuropa.it/wp-content/uploads/2026/10/Austista_sale_cabina_poliziotto_disegna.jpg" alt="Finiti i blocchi dei camionisti, ma ora i pescatori siciliani annunciano lo «sciopero fiscale»" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Finiti i blocchi dei camionisti, ma ora i pescatori siciliani annunciano lo «sciopero fiscale»</h3></div>
     <p class="just">Nella notte sono stati tolti gli ultimi presidi dei camionisti in Campania; i blocchi erano già finiti in Sicilia, Calabria e quasi ovunque al Sud. Restano distributori a secco e code, e nei supermercati serviranno alcuni giorni per tornare alla normalità. La Commissione di garanzia sugli scioperi aveva chiesto la <span class="term" role="button" tabindex="0" data-d="L&#x27;ordine dell&#x27;autorità che obbliga chi sciopera a tornare al lavoro per garantire i servizi essenziali.">precettazione</span> per chi continuava; il 27 ottobre è prevista una riunione al ministero dei Trasporti.</p>
 <p class="just">Gli armatori siciliani della pesca giudicano insufficiente il decreto del governo e dal 24 ottobre avviano uno <span class="term" role="button" tabindex="0" data-d="Una protesta in cui le imprese annunciano di sospendere il pagamento di tasse e contributi.">sciopero fiscale</span>: chiedono il gasolio a 60-70 centesimi al litro e la sospensione delle tasse con rateizzazione senza costi extra.</p>
     <div class="src"><a href="https://www.trasportoeuropa.it/notizie/autotrasporto/finiti-i-presidi-dellautotrasporto-resta-la-minaccia-della-precettazione" target="_blank" rel="noopener">Fonte: TrasportoEuropa</a></div>
   </article>
   <article class="item" id="n6">
     <div class="kicker">Politica · Droghe</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/22/fa680187dfc6bada1ba62373f1ba0703.jpg" alt="Meloni a San Patrignano: «Irresponsabile chiamare leggera la cannabis»" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Meloni a San Patrignano: «Irresponsabile chiamare leggera la cannabis»</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/22/fa680187dfc6bada1ba62373f1ba0703.jpg" alt="Meloni a San Patrignano: «Irresponsabile chiamare leggera la cannabis»" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Meloni a San Patrignano: «Irresponsabile chiamare leggera la cannabis»</h3></div>
     <p class="just">La premier ha parlato a San Patrignano, la comunità di recupero vicino a Rimini, a un incontro della coalizione europea contro le droghe fondata con la Francia. Ha detto che le droghe di oggi sono più potenti ed economiche e che è «irresponsabile» chiamare leggeri i derivati della cannabis, il cui <span class="term" role="button" tabindex="0" data-d="Il principio attivo della cannabis, quello che dà l&#x27;effetto.">THC</span> sarebbe in media 30 volte più alto di qualche decennio fa.</p>
 <p class="just">Ha detto anche che il governo vuole parlare con le tv per correggere «messaggi fuorvianti» sulle droghe. Chi sostiene la legalizzazione ribatte da anni che il proibizionismo lascia il mercato in mano alla criminalità. Nel pomeriggio Meloni è volata in Kuwait per incontrare l&#x27;emiro e firmare accordi bilaterali.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/politica/2026/10/23/meloni-san-patrignano-e-una-fabbrica-di-speranza-e-liberta_ccf27979-7173-4692-b47c-22ad4311e74b.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="item" id="n7">
     <div class="kicker">Italia · Calendario</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792743324-AP24304784653237.jpg" alt="Domenica torna l&#x27;ora solare: si dorme un&#x27;ora in più" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Domenica torna l&#x27;ora solare: si dorme un&#x27;ora in più</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792743324-AP24304784653237.jpg" alt="Domenica torna l&#x27;ora solare: si dorme un&#x27;ora in più" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Domenica torna l&#x27;ora solare: si dorme un&#x27;ora in più</h3></div>
     <p class="just">Nella notte tra sabato 24 e domenica 25, alle 3 le lancette tornano indietro alle 2. Telefoni e computer si aggiornano da soli. Da domenica farà buio un&#x27;ora prima la sera, ma ci sarà più luce al mattino.</p>
 <p class="just">Secondo le stime, nel 2026 l&#x27;ora legale ha fatto risparmiare circa 300 milioni di kWh di elettricità. L&#x27;ora legale tornerà nella notte tra il 27 e il 28 marzo 2027: in Europa si discute da anni di abolire il cambio, ma per ora non è cambiato nulla.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/domenica-25-ottobre-torna-ora-solare/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
@@ -272,7 +291,7 @@ a{color:inherit}
   <div class="pghead"><h2>Dal mondo</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n8">
     <div class="kicker">Medio Oriente · Cisgiordania</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/22/fe3447e4aa6ec0285ef99d703252f4e4.jpg" alt="Cinque attiviste italiane fermate da Israele, verso l&#x27;espulsione" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Cinque attiviste italiane fermate da Israele, verso l&#x27;espulsione</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/22/fe3447e4aa6ec0285ef99d703252f4e4.jpg" alt="Cinque attiviste italiane fermate da Israele, verso l&#x27;espulsione" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Cinque attiviste italiane fermate da Israele, verso l&#x27;espulsione</h3></div>
     <p class="just">Ieri cinque attiviste italiane sono state fermate dalle autorità israeliane nel villaggio di al-Bweib, a sud di Hebron, in <span class="term" role="button" tabindex="0" data-d="Territorio palestinese occupato da Israele dal 1967, dove vivono anche molti coloni israeliani.">Cisgiordania</span>: accompagnavano contadini palestinesi durante la raccolta delle olive. Israele ha comunicato che saranno trasferite all&#x27;autorità per l&#x27;immigrazione per essere espulse, forse già oggi.</p>
 <p class="just">Il ministro degli Esteri Tajani ha chiesto il rilascio immediato: «È inaccettabile, non stavano commettendo alcun reato». Sempre vicino a Hebron, due palestinesi sono stati uccisi in uno scontro a fuoco: l&#x27;esercito israeliano parla di presunti assalitori.</p>
     <div class="src"><a href="https://ansa.it/sito/notizie/mondo/2026/10/23/le-attiviste-italiane-fermate-in-cisgiordania-potrebbero-essere-espulse-gia-oggi_9b783e6a-ae93-41de-ab9b-63414f183e13.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
@@ -286,7 +305,7 @@ a{color:inherit}
   </article>
   <article class="item" id="n10">
     <div class="kicker">Mondo · Clima</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/Large.jpg" alt="L&#x27;Onu: ormai impossibile restare sotto 1,5 gradi" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>L&#x27;Onu: ormai impossibile restare sotto 1,5 gradi</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/Large.jpg" alt="L&#x27;Onu: ormai impossibile restare sotto 1,5 gradi" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>L&#x27;Onu: ormai impossibile restare sotto 1,5 gradi</h3></div>
     <p class="just">Il nuovo rapporto dell&#x27;UNEP, il programma Onu per l&#x27;ambiente, dice che superare il limite di 1,5 °C di riscaldamento fissato dall&#x27;<span class="term" role="button" tabindex="0" data-d="Il trattato sul clima del 2015 con cui quasi tutti i paesi si sono impegnati a limitare il riscaldamento globale.">Accordo di Parigi</span> è ormai inevitabile. Con gli impegni attuali dei governi si arriverebbe a circa 2,6 °C.</p>
 <p class="just">Per contenere il picco a 1,7-1,8 °C bisognerebbe tagliare le emissioni del 18% entro il 2030 rispetto al 2025. Il rapporto chiede alla prossima conferenza sul clima, la COP31, di concentrarsi su come accorciare il più possibile il superamento della soglia.</p>
     <div class="src"><a href="https://www.hwupgrade.it/news/scienza-tecnologia/addio-al-limite-di-1-5-c-il-nuovo-tragico-annuncio-dell-onu-sul-futuro-del-pianeta_161024.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
@@ -299,14 +318,14 @@ a{color:inherit}
   <div class="pghead"><h2>Tecnologia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n11">
     <div class="kicker">Internet · Browser</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/Arc-ActII_720.jpg" alt="Il browser Arc chiude il 22 dicembre, tutto passa a Dia con l&#x27;IA" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Il browser Arc chiude il 22 dicembre, tutto passa a Dia con l&#x27;IA</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/Arc-ActII_720.jpg" alt="Il browser Arc chiude il 22 dicembre, tutto passa a Dia con l&#x27;IA" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Il browser Arc chiude il 22 dicembre, tutto passa a Dia con l&#x27;IA</h3></div>
     <p class="just">The Browser Company, comprata nel 2025 da Atlassian per 610 milioni di dollari, spegnerà Arc: su Mac e Windows smetterà di funzionare il 22 dicembre. L&#x27;azienda dice che mantenere due browser sicuri costa troppo e punta tutto su Dia, il suo browser con intelligenza artificiale integrata.</p>
 <p class="just">Password, segnalibri ed estensioni verranno spostati in automatico su Dia. Il CEO ha escluso di rendere Arc <span class="term" role="button" tabindex="0" data-d="Software il cui codice è pubblico: chiunque può leggerlo, modificarlo e riusarlo.">open source</span>.</p>
     <div class="src"><a href="https://hwupgrade.it/news/programmi/spento-arc-browser-the-browser-company-ne-annuncia-la-chiusura-dal-22-dicembre_160996.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
   </article>
   <article class="item" id="n12">
     <div class="kicker">Sicurezza · Tor</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/300-ssh-tor-1.jpg" alt="Tor sotto attacco: 333 nodi manipolati per rubare password SSH" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Tor sotto attacco: 333 nodi manipolati per rubare password SSH</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/300-ssh-tor-1.jpg" alt="Tor sotto attacco: 333 nodi manipolati per rubare password SSH" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Tor sotto attacco: 333 nodi manipolati per rubare password SSH</h3></div>
     <p class="just">Tra il 2 e il 5 ottobre qualcuno ha manipolato 333 <span class="term" role="button" tabindex="0" data-d="Gli ultimi computer della rete Tor, da cui il traffico esce verso internet.">nodi di uscita</span> della rete Tor, quella usata per navigare in anonimo. Le connessioni <span class="term" role="button" tabindex="0" data-d="Il sistema per controllare un server a distanza tramite riga di comando.">SSH</span> venivano deviate su 12 server degli attaccanti, che rubavano la password se l&#x27;utente ignorava l&#x27;avviso di chiave cambiata.</p>
 <p class="just">Così potevano installare sui server una <span class="term" role="button" tabindex="0" data-d="Un accesso nascosto che permette a un attaccante di rientrare in un sistema quando vuole.">backdoor</span> per Linux. Il consiglio: usare le chiavi SSH invece delle password e non ignorare mai gli avvisi.</p>
     <div class="src"><a href="https://www.hwupgrade.it/news/web/tor-sotto-attacco-manipolati-oltre-300-relay-di-uscita-per-sottrarre-credenziali-ssh_161023.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
@@ -319,7 +338,7 @@ a{color:inherit}
   <div class="pghead"><h2>Musica</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n13">
     <div class="kicker">Rap · Album</div>
-    <div class="pr"><img class="photo" src="https://www.newsic.it/wp-content/uploads/2026/09/Chris-Nolan_Foto_Ufficio-Stampa-2026-PP-09.webp" alt="Chris Nolan, il producer di Tedua, esce con il suo primo album" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Chris Nolan, il producer di Tedua, esce con il suo primo album</h3></div>
+    <div class="pr"><img class="photo" src="https://www.newsic.it/wp-content/uploads/2026/09/Chris-Nolan_Foto_Ufficio-Stampa-2026-PP-09.webp" alt="Chris Nolan, il producer di Tedua, esce con il suo primo album" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Chris Nolan, il producer di Tedua, esce con il suo primo album</h3></div>
     <p class="just">Oggi è uscito «La tavola dell&#x27;umore», il primo disco ufficiale di Chris Nolan, il <span class="term" role="button" tabindex="0" data-d="Chi crea le basi musicali e cura il suono di un brano, non solo chi lo canta.">producer</span> che ha costruito il suono di Tedua: ha prodotto quasi tutto «Mowgli» (2018) e diversi pezzi di «Orange County California».</p>
 <p class="just">Nel disco ci sono Tedua, Jake La Furia, Gaia, Sarah Toscano e molti altri. Tra le altre uscite rap del venerdì anche il singolo di Nayt «Senza armi» e il nuovo «Hates make me famous 5» di Gionnyscandal.</p>
     <div class="src"><a href="https://www.newsic.it/chris-nolan-la-tavola-dellumore-il-suo-primo-album-ufficiale/" target="_blank" rel="noopener">Fonte: Newsic</a></div>
@@ -333,7 +352,7 @@ a{color:inherit}
   </article>
   <article class="item" id="n15">
     <div class="kicker">Rap · In arrivo</div>
-    <div class="pr"><img class="photo" src="https://www.newsic.it/wp-content/uploads/2025/12/Kid-Yugi-2025-pp-12-credito-alessio-mariano.webp" alt="Kid Yugi, venerdì prossimo la deluxe e un fumetto Bonelli" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Kid Yugi, venerdì prossimo la deluxe e un fumetto Bonelli</h3></div>
+    <div class="pr"><img class="photo" src="https://www.newsic.it/wp-content/uploads/2025/12/Kid-Yugi-2025-pp-12-credito-alessio-mariano.webp" alt="Kid Yugi, venerdì prossimo la deluxe e un fumetto Bonelli" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Kid Yugi, venerdì prossimo la deluxe e un fumetto Bonelli</h3></div>
     <p class="just">Il 30 ottobre esce «Anche gli eroi muoiono POST MORTEM», la <span class="term" role="button" tabindex="0" data-d="Una nuova edizione di un album già uscito, con brani inediti in più.">deluxe</span> dell&#x27;ultimo album di Kid Yugi con tracce nuove. Lo stesso giorno arriva «Logos», un fumetto con Kid Yugi protagonista fatto con Sergio Bonelli Editore, la casa di Tex e Dylan Dog.</p>
 <p class="just">Sempre il 30 ottobre sono attesi anche i nuovi dischi di Giuse The Lizia e Dadà.</p>
     <div class="src"><a href="https://www.newsic.it/kid-yugi-arriva-la-deluxe-anche-gli-eroi-muoiono-post-mortem-con-nuove-tracce-e-il-fumetto-logos/" target="_blank" rel="noopener">Fonte: Newsic</a></div>
@@ -369,11 +388,13 @@ a{color:inherit}
 
 <nav class="bar" id="bar" aria-label="Sfoglia">
   <button id="prev" type="button">← Indietro</button>
-  <div class="where"><span class="name" id="pname">Prima pagina</span><span class="num" id="pnum">Pagina 1 di 7</span></div>
+  <button type="button" class="where" id="where" aria-haspopup="true" aria-expanded="false"><span class="name"><span id="pname">Prima pagina</span> ▾</span><span class="num" id="pnum">Pagina 1 di 7</span></button>
   <button id="next" type="button">Avanti →</button>
 </nav>
 
-<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p></div></div>
+<div class="toc" id="toc" hidden><div class="box" role="menu" aria-label="Vai alla pagina"><p class="h">Vai alla pagina</p><div id="toclist"></div></div></div>
+
+<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden aria-expanded="false">Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>
 
 <script>
 (function(){
@@ -392,6 +413,18 @@ a{color:inherit}
     prev.disabled=cur===0; next.disabled=cur===N-1;
     
     edgeL.style.width=Math.min(8,cur*2.5)+'px'; document.getElementById('crL').hidden=cur===N-1; document.getElementById('crR').hidden=cur!==N-1; edgeR.style.width=Math.min(8,(N-1-cur)*2.5)+'px';
+  }
+  // Indice: toccando il nome della pagina nella barra si sceglie dove andare
+  var where=document.getElementById('where'), toc=document.getElementById('toc'), toclist=document.getElementById('toclist');
+  function closeToc(){if(!toc)return;toc.hidden=true;where.setAttribute('aria-expanded','false')}
+  if(where&&toc){
+    sheets.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.setAttribute('role','menuitem');
+      b.innerHTML='<b>'+(i+1)+'</b> ';b.appendChild(document.createTextNode(s.dataset.name));
+      b.addEventListener('click',function(){closeToc();go(i)});toclist.appendChild(b)});
+    where.addEventListener('click',function(e){e.stopPropagation();closePop();
+      var open=toc.hidden; toc.hidden=!open; where.setAttribute('aria-expanded',open?'true':'false');
+      [].forEach.call(toclist.children,function(b,i){if(i===cur)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})});
+    document.addEventListener('click',function(e){if(!toc.hidden&&!e.target.closest('#toc'))closeToc()});
   }
   function closePop(){pop.hidden=true;if(openTerm)openTerm.setAttribute('aria-expanded','false');openTerm=null}
 
@@ -445,7 +478,7 @@ a{color:inherit}
   }
   prev.addEventListener('click',function(){go(cur-1)});
   next.addEventListener('click',function(){go(cur+1)});
-  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape')closePop(); if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape'){closePop();closeToc();} if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
 
   // Trascinamento col dito: la pagina si piega seguendo il dito
   var sx=0,sy=0,dragging=false,decided=false,lastX=0,lastT=0,vel=0,pid=null;
@@ -490,7 +523,13 @@ a{color:inherit}
     if(t){ if(openTerm===t){closePop();return}
       if(openTerm)openTerm.setAttribute('aria-expanded','false');
       openTerm=t;t.setAttribute('aria-expanded','true');
-      var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;pop.hidden=false;return; }
+      var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;
+      var pm=document.getElementById('pmore'),pl=document.getElementById('pl');
+      if(pm){ pl.hidden=true; pm.setAttribute('aria-expanded','false'); pm.textContent='Approfondisci ▾';
+        if(t.dataset.x){pm.hidden=false;pl.textContent=t.dataset.x;} else {pm.hidden=true;} }
+      pop.hidden=false;return; }
+    if(e.target.closest('#pmore')){var pm2=document.getElementById('pmore'),pl2=document.getElementById('pl');
+      var open=pl2.hidden; pl2.hidden=!open; pm2.setAttribute('aria-expanded',open?'true':'false'); pm2.textContent=open?'Chiudi ▴':'Approfondisci ▾'; return;}
     if(e.target.closest('#px')||!e.target.closest('.pop .box'))closePop();
   });
   paint();

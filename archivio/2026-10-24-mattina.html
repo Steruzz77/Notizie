@@ -118,7 +118,7 @@ a{color:inherit}
   padding:8px max(10px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
 .bar button{font:700 13px var(--label);background:var(--paper);border:1px solid var(--rule);color:var(--ink);padding:7px 12px;cursor:pointer}
 .bar button:disabled{opacity:.35;cursor:default}
-.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;background:none!important;border:0!important;padding:2px 8px!important;font:inherit;color:inherit;cursor:pointer}
 .where .name{font:700 11px var(--label);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw}
 .where .num{font:400 11px var(--label);color:var(--muted)}
 
@@ -154,7 +154,26 @@ a{color:inherit}
 .wx{width:26px;height:26px;color:var(--ink);display:block}
 .item:not(:has(.photo)) .pr{display:block}
 
+/* Foto con didascalia: se la foto non si carica sparisce anche la didascalia */
+.fig{margin:0}
+/* Su telefono testo allineato a sinistra: niente spazi larghi e parole spezzate */
+@media (max-width:619px){.just{text-align:left;hyphens:manual;-webkit-hyphens:manual}}
+/* Indice delle pagine, si apre toccando il nome della pagina nella barra */
+.toc{position:fixed;left:0;right:0;bottom:var(--barh,64px);z-index:21;display:flex;justify-content:center;padding:0 12px 10px}
+.toc .box{max-width:420px;width:100%;background:var(--note);border:1px solid var(--rule);border-top:4px double var(--rule);padding:10px 14px;box-shadow:0 8px 24px rgba(40,30,10,.3)}
+.toc .h{margin:0 0 4px;font:700 11px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.toc button{display:flex;gap:10px;align-items:baseline;width:100%;background:none;border:0;border-top:1px dotted var(--soft);padding:10px 0;text-align:left;cursor:pointer;color:var(--ink);font:700 18px var(--head)}
+.toc button:first-child{border-top:0}
+.toc button b{font:700 11px var(--label);min-width:22px;border:1px solid var(--rule);padding:1px 4px;text-align:center}
+.toc button[aria-current="page"]{color:var(--term)}
+/* Avviso nelle edizioni passate */
+.old{display:block;text-align:center;font:500 13px var(--label);color:var(--ink);text-decoration:none;background:var(--term-bg);border:1px solid var(--rule);padding:8px 10px}
+.old b{color:var(--red);white-space:nowrap}
+
 .line2 .arch{color:var(--red);text-decoration:none;font-weight:700}
+.pop .more{margin-top:8px;background:none;border:0;border-top:1px dotted var(--soft);width:100%;text-align:left;padding:8px 0 0;font:700 12px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--term);cursor:pointer}
+.pop .long{margin-top:6px;font-size:15px;color:var(--ink)}
+.pop .box{max-height:calc(100vh - var(--barh,64px) - 40px);overflow-y:auto}
 </style>
 </head>
 <body>
@@ -164,6 +183,7 @@ a{color:inherit}
 <div class="book" id="book">
 <section class="sheet" data-name="Prima pagina" aria-label="Prima pagina">
  <div class="inner">
+  <a class="old" href="../index.html">Stai leggendo un'edizione passata · <b>Vai all'ultima →</b></a>
   <header class="mast">
     <h1>Il Corriere dello Steruz</h1>
     <div class="line"><span>Sabato 24 ottobre 2026</span><span>Anno I · N. 2</span></div>
@@ -177,10 +197,9 @@ a{color:inherit}
     <button type="button" class="goto" data-page="5"><b>6</b> Musica</button>
     <button type="button" class="goto" data-page="6"><b>7</b> Meteo</button>
   </nav>
-  <div class="tip">Trascina il bordo destro per girare pagina · tocca le <b>parole tratteggiate</b> per il significato</div>
   <article class="lead">
-    <img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792750817-AP26296361269027.jpg" alt="Controlli di polizia in vista delle manifestazioni (foto AP)" loading="eager" referrerpolicy="no-referrer" onerror="this.remove()">
-    <div class="cap">Controlli di polizia in vista delle manifestazioni (foto AP)</div>
+    <figure class="fig"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792750817-AP26296361269027.jpg" alt="Controlli di polizia in vista delle manifestazioni (foto AP)" loading="eager" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()">
+    <div class="cap">Controlli di polizia in vista delle manifestazioni (foto AP)</div></figure>
     <div class="kicker" style="margin-top:10px">Italia · Proteste</div>
     <h2>Sabato di cortei contro il carovita, città blindate dopo i saccheggi di Milano</h2>
     <p class="deck">Migliaia di agenti e 500 militari tra Milano e Roma. Il Movimento 17 ottobre annuncia i punti di ritrovo solo alle 14:30.</p>
@@ -190,7 +209,7 @@ a{color:inherit}
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/cosa-aspettarsi-proteste-24-ottobre/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="spalla">
-    <img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792764191-AP26287677575107.jpg" alt="Tregua per Oleshky: i civili potranno andarsene, accordo mediato da Melania Trump" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+    <img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792764191-AP26287677575107.jpg" alt="Tregua per Oleshky: i civili potranno andarsene, accordo mediato da Melania Trump" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()">
     <div>
       <div class="kicker">Mondo · Guerra in Ucraina</div>
       <h3>Tregua per Oleshky: i civili potranno andarsene, accordo mediato da Melania Trump</h3>
@@ -211,39 +230,39 @@ a{color:inherit}
   <div class="pghead"><h2>Lumezzane e Brescia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n1">
     <div class="kicker">Brescia · Sicurezza</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umyocxjuk2fadw9k2s/1/reparti-mobili-schierati.webp?f=16%3A9&amp;w=1200" alt="Cortei, presidi e stadio: oggi Brescia ha quattro fronti da controllare" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Cortei, presidi e stadio: oggi Brescia ha quattro fronti da controllare</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umyocxjuk2fadw9k2s/1/reparti-mobili-schierati.webp?f=16%3A9&amp;w=1200" alt="Cortei, presidi e stadio: oggi Brescia ha quattro fronti da controllare" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Cortei, presidi e stadio: oggi Brescia ha quattro fronti da controllare</h3></div>
     <p class="just">Dopo i disordini della settimana scorsa, prefettura e questura hanno organizzato controlli fin dal mattino. Nel pomeriggio ci sono la marcia per l&#x27;accoglienza e la cittadinanza promossa da 40 associazioni e il presidio di &quot;Brescia ai Bresciani&quot; tra via Camozzi e via Volturno, vicino allo stabile dove dovrebbe nascere una moschea.</p>
 <p class="just">Alle 17:30 al Rigamonti l&#x27;Union Brescia gioca contro il Cittadella dopo la sconfitta di lunedì, e si teme una contestazione. Polizia anche in stazione e ai terminal dei bus per fermare chi va ai cortei di Milano e Torino. Il prefetto Polichetti: &quot;Le violenze non si ripeteranno&quot;.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/cortei-presidi-stadio-manifestazione-brescia-ordine-pubblico-iqj0q4si" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
   <article class="item" id="n2">
     <div class="kicker">Bassa · Incidente</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1undzjebcupzhknj9d3/0/l-auto-finita-fuori-strada.webp?f=16%3A9&amp;w=1200" alt="Bagnolo Mella, auto contro il muro di un canale: ragazzo grave" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Bagnolo Mella, auto contro il muro di un canale: ragazzo grave</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1undzjebcupzhknj9d3/0/l-auto-finita-fuori-strada.webp?f=16%3A9&amp;w=1200" alt="Bagnolo Mella, auto contro il muro di un canale: ragazzo grave" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Bagnolo Mella, auto contro il muro di un canale: ragazzo grave</h3></div>
     <p class="just">Verso le 3:15 di stanotte un giovane è uscito di strada con l&#x27;auto sulla statale 45 bis ed è finito contro il muro di un canale. I vigili del fuoco hanno dovuto tagliare le lamiere per tirarlo fuori. È stato portato al Civile in <span class="term" role="button" tabindex="0" data-d="Il livello di massima gravità al pronto soccorso: il paziente è in pericolo di vita.">codice rosso</span>; la Polstrada ricostruisce la dinamica.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/bagnolo-mella-incidente-45-bis-auto-fuori-strada-ragazzo-grave-tb7nnpnx" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
   <article class="item" id="n3">
     <div class="kicker">Valtrompia · Ambiente</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umxde8b1wav0c0wa07/0/il-progetto-da-65mila-tonnellate-annue-di-plastiche-gomme-e-tessuti.webp?f=16%3A9&amp;w=1200" alt="Impianto di pirolisi a Ponte Zanano, il ricorso dei cittadini arriva al Tar" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Impianto di pirolisi a Ponte Zanano, il ricorso dei cittadini arriva al Tar</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umxde8b1wav0c0wa07/0/il-progetto-da-65mila-tonnellate-annue-di-plastiche-gomme-e-tessuti.webp?f=16%3A9&amp;w=1200" alt="Impianto di pirolisi a Ponte Zanano, il ricorso dei cittadini arriva al Tar" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Impianto di pirolisi a Ponte Zanano, il ricorso dei cittadini arriva al Tar</h3></div>
     <p class="just">A Sarezzo la società Sares Green vuole costruire un impianto di <span class="term" role="button" tabindex="0" data-d="Un processo che scalda i rifiuti a circa 350 gradi senza ossigeno per ricavarne combustibili.">pirolisi</span> per trattare fino a 65mila tonnellate l&#x27;anno di &quot;car fluff&quot;, cioè plastiche, gomme e tessuti delle auto rottamate. Il comitato &quot;Liberi cittadini per la salute&quot; chiede al <span class="term" role="button" tabindex="0" data-d="Il tribunale amministrativo regionale, che giudica i ricorsi contro le decisioni degli enti pubblici.">Tar</span> della Lombardia di annullare l&#x27;autorizzazione della Regione, perché alcune verifiche sono state rinviate a impianto acceso.</p>
 <p class="just">L&#x27;azienda risponde che ci sono stati sei anni di studi e un&#x27;indagine sanitaria su 69mila abitanti che esclude rischi non accettabili. Il comitato ha raccolto circa 17mila euro per le spese legali.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/impianto-pirolisi-sarezzo-ricorso-cittadini-tar-yvs39y34" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
   <article class="item" id="n4">
     <div class="kicker">Franciacorta · Furti</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1un2v02bvdaplm1iprf/0/il-reliquiario-di-santantonio.webp?f=16%3A9&amp;w=1200" alt="Pontoglio, rubata la reliquia di Sant&#x27;Antonio dalla chiesetta" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Pontoglio, rubata la reliquia di Sant&#x27;Antonio dalla chiesetta</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1un2v02bvdaplm1iprf/0/il-reliquiario-di-santantonio.webp?f=16%3A9&amp;w=1200" alt="Pontoglio, rubata la reliquia di Sant&#x27;Antonio dalla chiesetta" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Pontoglio, rubata la reliquia di Sant&#x27;Antonio dalla chiesetta</h3></div>
     <p class="just">Nella notte tra martedì e mercoledì i ladri hanno forzato la porta della cappella di Sant&#x27;Antonio, aperto la cassaforte della sacrestia e preso il reliquiario con un frammento d&#x27;osso del santo e un calice. Valgono poco in soldi ma molto per il paese: la reliquia viene esposta ogni 17 gennaio. Indagano i carabinieri di Chiari con il nucleo tutela patrimonio culturale.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/colpo-chiesa-pontoglio-rubata-reliquia-sant-antonio-rjh398pj" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
   <article class="item" id="n5">
     <div class="kicker">Bassa · Furti</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umsh08sn19z6gn6s5y/1/image.webp?f=16%3A9&amp;w=1200" alt="Fornaci, strappano il bancomat dalla banca con una gru e le catene" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Fornaci, strappano il bancomat dalla banca con una gru e le catene</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umsh08sn19z6gn6s5y/1/image.webp?f=16%3A9&amp;w=1200" alt="Fornaci, strappano il bancomat dalla banca con una gru e le catene" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Fornaci, strappano il bancomat dalla banca con una gru e le catene</h3></div>
     <p class="just">Venerdì verso le 3:30 una banda è arrivata alla filiale Crédit Agricole con un camion con la gru. Ha tagliato la recinzione d&#x27;acciaio, sfondato la porta d&#x27;emergenza e trascinato fuori il bancomat con lunghe catene, senza nemmeno coprire le telecamere. La stessa agenzia era già stata colpita nel 2024 con un&#x27;esplosione.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/fornaci-assalto-bancomat-ladri-credit-agricole-gru-camion-tfi0410x" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
   <article class="item" id="n6">
     <div class="kicker">Valtrompia · Eventi</div>
-    <div class="pr"><img class="photo" src="https://bsnews.it/wp-content/uploads/2026/10/858093651_1662848078824165_8685339554228948780_n.jpeg" alt="Domani a Villa Carcina torna «Sconfinamo», giornata sull&#x27;accoglienza" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Domani a Villa Carcina torna «Sconfinamo», giornata sull&#x27;accoglienza</h3></div>
+    <div class="pr"><img class="photo" src="https://bsnews.it/wp-content/uploads/2026/10/858093651_1662848078824165_8685339554228948780_n.jpeg" alt="Domani a Villa Carcina torna «Sconfinamo», giornata sull&#x27;accoglienza" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Domani a Villa Carcina torna «Sconfinamo», giornata sull&#x27;accoglienza</h3></div>
     <p class="just">Domenica a Villa Glisenti e ai Capannoncini (ex magazzini Tlm) c&#x27;è una giornata dedicata alle migrazioni, organizzata dalla rete <span class="term" role="button" tabindex="0" data-d="Il Sistema di accoglienza e integrazione: la rete dei Comuni che ospitano richiedenti asilo e rifugiati.">SAI</span> e dalla Comunità montana. Alle 10:45 parla il professor Riccardo Redaelli, nel pomeriggio giochi per bambini e un gioco interattivo sulle migrazioni, alle 18 apericena con musica dal vivo.</p>
     <div class="src"><a href="https://bsnews.it/2026/10/23/a-villa-carcina-una-giornata-tutta-dedicata-allaccoglienza-il-25-ottobre-torna-sconfinamo-culture-in-movimento/" target="_blank" rel="noopener">Fonte: BsNews</a></div>
   </article>
@@ -255,21 +274,21 @@ a{color:inherit}
   <div class="pghead"><h2>Italia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n7">
     <div class="kicker">Politica · Lega</div>
-    <div class="pr"><img class="photo" src="https://www.ilgiorno.it/image-service/view/acePublic/alias/contentid/NmNkNWM2MjMtODRkOS00/1/sara-sfida-fra-i-due-contendenti-matteo-salvini-e-massimo-garavaglia.jpg?f=16:9&amp;w=1200&amp;h=675" alt="Si apre a Milano il congresso della Lega: Salvini sfidato da Garavaglia" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Si apre a Milano il congresso della Lega: Salvini sfidato da Garavaglia</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ilgiorno.it/image-service/view/acePublic/alias/contentid/NmNkNWM2MjMtODRkOS00/1/sara-sfida-fra-i-due-contendenti-matteo-salvini-e-massimo-garavaglia.jpg?f=16:9&amp;w=1200&amp;h=675" alt="Si apre a Milano il congresso della Lega: Salvini sfidato da Garavaglia" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Si apre a Milano il congresso della Lega: Salvini sfidato da Garavaglia</h3></div>
     <p class="just">Oggi e domani 705 delegati della Lega si riuniscono a Milano per un <span class="term" role="button" tabindex="0" data-d="Una riunione fuori programma in cui i delegati del partito eleggono il segretario e votano la linea politica.">congresso straordinario</span>. Salvini cerca la conferma da segretario; per la prima volta ha uno sfidante, il senatore Massimo Garavaglia, appoggiato dall&#x27;ala &quot;nordista&quot; e anche dal presidente lombardo Attilio Fontana.</p>
 <p class="just">Oggi si discutono le mozioni, dall&#x27;autonomia del Nord alla <span class="term" role="button" tabindex="0" data-d="Proposta dell&#x27;estrema destra di rimandare nei Paesi d&#x27;origine molti immigrati, anche regolari.">remigrazione</span>; il voto per il segretario è domenica. Sarà presentato anche il nuovo simbolo, senza la scritta &quot;Salvini premier&quot;.</p>
     <div class="src"><a href="https://www.ilgiorno.it/milano/politica/congresso-lega-milano-salvini-garavaglia-fontana-mozioni-fjc2gaoc" target="_blank" rel="noopener">Fonte: Il Giorno</a></div>
   </article>
   <article class="item" id="n8">
     <div class="kicker">Economia · Carburanti</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792778883-ilpost_20261023200652630_4f42c58e9c84eb78ee83b3dce66456d5.jpg" alt="Eni tiene il tetto ai prezzi di benzina e gasolio fino a fine anno" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Eni tiene il tetto ai prezzi di benzina e gasolio fino a fine anno</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792778883-ilpost_20261023200652630_4f42c58e9c84eb78ee83b3dce66456d5.jpg" alt="Eni tiene il tetto ai prezzi di benzina e gasolio fino a fine anno" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Eni tiene il tetto ai prezzi di benzina e gasolio fino a fine anno</h3></div>
     <p class="just">Il <span class="term" role="button" tabindex="0" data-d="Un tetto massimo al prezzo: il venditore si impegna a non superarlo.">price cap</span> di Eni, partito il 28 settembre per 30 giorni, viene prolungato fino al 31 dicembre: oggi il limite è 2,19 euro al litro per il gasolio e 1,99 per la benzina. L&#x27;amministratore delegato Descalzi non ha detto se i valori cambieranno.</p>
 <p class="just">I prezzi sono saliti soprattutto per la guerra in Medio Oriente e hanno provocato i blocchi dei camionisti, ormai quasi tutti finiti. Ieri Meloni era in Kuwait dall&#x27;emiro: anche la Q8, società kuwaitiana, potrebbe allungare il suo sconto.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/eni-prolunga-limite-prezzi-carburanti-fine-anno/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="item" id="n9">
     <div class="kicker">Cronaca · Terremoto</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792758484-ilpost_20261023142704772_9038a3afff93a128f04c459799d070c6.jpg" alt="Scossa di magnitudo 5.5 nel mare vicino alle Eolie, sentita a Palermo" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Scossa di magnitudo 5.5 nel mare vicino alle Eolie, sentita a Palermo</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792758484-ilpost_20261023142704772_9038a3afff93a128f04c459799d070c6.jpg" alt="Scossa di magnitudo 5.5 nel mare vicino alle Eolie, sentita a Palermo" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Scossa di magnitudo 5.5 nel mare vicino alle Eolie, sentita a Palermo</h3></div>
     <p class="just">Ieri al largo della Sicilia, a nord-ovest delle Eolie, ci sono state più di 40 scosse. La più forte, alle 12:19, è stata di <span class="term" role="button" tabindex="0" data-d="La misura dell&#x27;energia sprigionata da un terremoto: ogni punto in più vale circa 30 volte di più.">magnitudo</span> 5.5 a 9 km di profondità, un&#x27;altra di 4.6 alle 15:55. Non risultano danni.</p>
 <p class="just">È scattata un&#x27;allerta <span class="term" role="button" tabindex="0" data-d="Onde anomale causate da un terremoto sotto il mare, chiamate anche tsunami.">maremoto</span> arancione per Palermo e altri comuni delle province di Palermo e Messina, con onde attese sotto il metro, e alcune scuole sono state evacuate per precauzione.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/terremoto-sicilia-mar-tirreno-meridionale/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
@@ -282,13 +301,13 @@ a{color:inherit}
   </article>
   <article class="item" id="n11">
     <div class="kicker">Esteri · Cisgiordania</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/23/0bb222a1f9aa94f444706161ad3c67d0.jpg" alt="Le cinque attiviste fermate da Israele tornano in Italia stamattina" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Le cinque attiviste fermate da Israele tornano in Italia stamattina</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/23/0bb222a1f9aa94f444706161ad3c67d0.jpg" alt="Le cinque attiviste fermate da Israele tornano in Italia stamattina" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Le cinque attiviste fermate da Israele tornano in Italia stamattina</h3></div>
     <p class="just">Ieri sera avevamo raccontato il loro fermo: le cinque italiane facevano da &quot;scudi umani&quot; per i palestinesi durante la raccolta delle olive a sud di Hebron. Sono state espulse e, secondo il ministro Tajani, rientrano stamattina. Tajani ha definito il fermo inaccettabile e ha criticato anche la chiusura di tutta la Cisgiordania decisa da Netanyahu.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/23/attiviste-italiane-espulse-da-israele.-tajani-domani-mattina-il-rientro-in-italia_9b783e6a-ae93-41de-ab9b-63414f183e13.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="item" id="n12">
     <div class="kicker">Cronaca · Napoli</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/23/a80523182803af4656e1b7276142c125.jpg" alt="Coltelli e mazze di alluminio: la Digos ferma sette giovanissimi a Napoli" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Coltelli e mazze di alluminio: la Digos ferma sette giovanissimi a Napoli</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/23/a80523182803af4656e1b7276142c125.jpg" alt="Coltelli e mazze di alluminio: la Digos ferma sette giovanissimi a Napoli" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Coltelli e mazze di alluminio: la Digos ferma sette giovanissimi a Napoli</h3></div>
     <p class="just">Durante i controlli prima delle proteste di oggi, la polizia di Napoli ha identificato sette ragazzi che, secondo gli investigatori, preparavano azioni violente. Ha sequestrato un coltello a scatto di 23 centimetri, mazze di alluminio, cesoie, scaldacollo e guanti. Ieri sera Prada, Gucci e Saint Laurent hanno blindato le vetrine con pannelli di legno.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/23/boutique-del-lusso-proteggono-vetrine-a-napoli-timori-per-proteste-di-domani_b58468be-9aa3-47c8-a101-000e3d8bbd4e.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
@@ -300,33 +319,33 @@ a{color:inherit}
   <div class="pghead"><h2>Dal mondo</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n13">
     <div class="kicker">Medio Oriente · Israele</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792748746-AP26296263567969.jpg" alt="Due soldati uccisi a Hebron, Netanyahu isola la Cisgiordania" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Due soldati uccisi a Hebron, Netanyahu isola la Cisgiordania</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792748746-AP26296263567969.jpg" alt="Due soldati uccisi a Hebron, Netanyahu isola la Cisgiordania" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Due soldati uccisi a Hebron, Netanyahu isola la Cisgiordania</h3></div>
     <p class="just">Due palestinesi, parenti tra loro, hanno sparato a un posto di blocco dell&#x27;esercito israeliano all&#x27;ingresso di Hebron: due soldati sono morti e tre sono feriti, e anche i due assalitori sono stati uccisi dopo una sparatoria di circa 20 minuti. Hamas ha lodato l&#x27;attacco senza rivendicarlo.</p>
 <p class="just">Netanyahu ha ordinato di isolare la Cisgiordania e annunciato l&#x27;operazione militare più grande dal 1967, oltre a nuove <span class="term" role="button" tabindex="0" data-d="Insediamenti israeliani nei territori palestinesi occupati, illegali per il diritto internazionale.">colonie</span>. L&#x27;esercito ha già iniziato a demolire alcune case. Martedì in Israele si vota per il Parlamento.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/israele-lockdown-cisgiordania/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="item" id="n14">
     <div class="kicker">Francia · Terrorismo</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792764505-AP26296455066367.jpg" alt="Spara a persone di origine africana vicino a Parigi: un morto e cinque feriti" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Spara a persone di origine africana vicino a Parigi: un morto e cinque feriti</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792764505-AP26296455066367.jpg" alt="Spara a persone di origine africana vicino a Parigi: un morto e cinque feriti" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Spara a persone di origine africana vicino a Parigi: un morto e cinque feriti</h3></div>
     <p class="just">Un uomo di 39 anni, Kevin T., ha sparato con una pistola mitragliatrice a Trappes e La Verrière, vicino a Versailles: è morto un uomo di 26 anni, tra i feriti c&#x27;è una bambina di 12. Secondo il sindaco tutte le vittime erano di origine africana; al momento dell&#x27;arresto l&#x27;uomo avrebbe detto di voler uccidere stranieri.</p>
 <p class="just">Macron lo ha definito un &quot;attacco terroristico razzista&quot;. Indaga la procura <span class="term" role="button" tabindex="0" data-d="L&#x27;ufficio dei magistrati specializzato nei reati di terrorismo.">antiterrorismo</span>, che ha fermato anche un familiare.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/sparatoria-localita-francesi-parigi/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="item" id="n15">
     <div class="kicker">Giordania · Attentato</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792760998-AP23298339110597.jpg" alt="Uomini armati sparano in una chiesa durante un funerale: sette morti" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Uomini armati sparano in una chiesa durante un funerale: sette morti</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792760998-AP23298339110597.jpg" alt="Uomini armati sparano in una chiesa durante un funerale: sette morti" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Uomini armati sparano in una chiesa durante un funerale: sette morti</h3></div>
     <p class="just">Ad Hamoud, cittadina a maggioranza cristiana nel centro della Giordania, un gruppo armato ha aperto il fuoco dentro una chiesa durante un funerale: 7 morti e 34 feriti. Non si sa chi siano gli assalitori né il motivo, e nessuno ha rivendicato. In Giordania attacchi così sono molto rari: il più grave fu nel 2005 ad Amman, con 60 morti.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/attacco-chiesa-giordania/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="item" id="n16">
     <div class="kicker">Europa · Spie</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792751305-AP26268021446472.jpg" alt="L&#x27;Austria espelle quattro diplomatici russi accusati di spionaggio" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>L&#x27;Austria espelle quattro diplomatici russi accusati di spionaggio</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792751305-AP26268021446472.jpg" alt="L&#x27;Austria espelle quattro diplomatici russi accusati di spionaggio" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>L&#x27;Austria espelle quattro diplomatici russi accusati di spionaggio</h3></div>
     <p class="just">Tre lavoravano all&#x27;ambasciata russa di Vienna e uno alla delegazione presso l&#x27;<span class="term" role="button" tabindex="0" data-d="Un&#x27;organizzazione di 57 Paesi, con sede a Vienna, che si occupa di sicurezza e controllo degli armamenti in Europa.">OSCE</span>. Mosca ha promesso una risposta. Dal 2020 l&#x27;Austria, che per decenni ha tollerato le spie per via della sua neutralità, ha espulso 18 diplomatici russi.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/governo-austria-espelle-diplomatici-russi-spie/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="item" id="n17">
     <div class="kicker">Argentina · Giustizia</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792792450-AP26274350226093.jpg" alt="Archiviate le accuse contro Milei per la criptovaluta $LIBRA" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Archiviate le accuse contro Milei per la criptovaluta $LIBRA</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792792450-AP26274350226093.jpg" alt="Archiviate le accuse contro Milei per la criptovaluta $LIBRA" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Archiviate le accuse contro Milei per la criptovaluta $LIBRA</h3></div>
     <p class="just">Nel febbraio 2025 il presidente argentino aveva promosso su X la <span class="term" role="button" tabindex="0" data-d="Una criptovaluta nata da un meme o da una moda, che sale e crolla di valore molto in fretta.">meme coin</span> $LIBRA: il valore è schizzato in alto e poi è crollato, e circa 40mila investitori hanno perso molti soldi. Ora un giudice ha archiviato le accuse di truffa contro Milei e la sorella Karina; secondo La Nación le indagini erano incomplete e gli imputati non sono mai stati interrogati.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/accuse-archiviate-javier-milei-scandalo-criptovalute/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
@@ -338,25 +357,25 @@ a{color:inherit}
   <div class="pghead"><h2>Tecnologia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n18">
     <div class="kicker">Streaming · Videogiochi</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/netflix-xbox_720.jpg" alt="Netflix offriva 500 milioni per i film di Halo e Warcraft, Xbox ne voleva 800" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Netflix offriva 500 milioni per i film di Halo e Warcraft, Xbox ne voleva 800</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/netflix-xbox_720.jpg" alt="Netflix offriva 500 milioni per i film di Halo e Warcraft, Xbox ne voleva 800" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Netflix offriva 500 milioni per i film di Halo e Warcraft, Xbox ne voleva 800</h3></div>
     <p class="just">Secondo la newsletter Puck, Netflix aveva proposto a Microsoft 500 milioni di dollari per i diritti esclusivi, per sette anni, di trasformare in film e serie i giochi Xbox. Microsoft ne chiedeva 800 e l&#x27;accordo è saltato. Restano in piedi i progetti già avviati, come le serie animate di Minecraft e Diablo.</p>
     <div class="src"><a href="https://www.hwupgrade.it/news/web/netflix-metteva-sul-tavolo-500-milioni-xbox-ne-voleva-800-saltato-il-mega-accordo-su-film-e-serie-tv_161053.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
   </article>
   <article class="item" id="n19">
     <div class="kicker">Internet · Social</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792787777-GettyImages-2216108329.jpg" alt="La Grecia vieta i social ai minori di 15 anni dal 2027" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>La Grecia vieta i social ai minori di 15 anni dal 2027</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792787777-GettyImages-2216108329.jpg" alt="La Grecia vieta i social ai minori di 15 anni dal 2027" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>La Grecia vieta i social ai minori di 15 anni dal 2027</h3></div>
     <p class="just">Il Parlamento greco ha approvato la legge: dal 1° gennaio 2027 le piattaforme dovranno verificare l&#x27;età degli utenti. Prima l&#x27;hanno fatto Australia, Francia, Malesia, Indonesia ed Emirati. Molti esperti vedono un legame tra troppi social e salute mentale dei ragazzi, ma non una prova di <span class="term" role="button" tabindex="0" data-d="Quando si dimostra che una cosa provoca direttamente l&#x27;altra, non solo che capitano insieme.">causalità</span>, e preferiscono l&#x27;educazione ai divieti.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/grecia-divieto-social-network-minori-15-anni/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="item" id="n20">
     <div class="kicker">Informatica · Sicurezza</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/linux_exploit_720.jpg" alt="Falle critiche di Linux rese pubbliche prima delle correzioni" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Falle critiche di Linux rese pubbliche prima delle correzioni</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/linux_exploit_720.jpg" alt="Falle critiche di Linux rese pubbliche prima delle correzioni" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Falle critiche di Linux rese pubbliche prima delle correzioni</h3></div>
     <p class="just">La Zero Day Initiative ha mandato cinque segnalazioni di <span class="term" role="button" tabindex="0" data-d="Un difetto del software che un attaccante può sfruttare per entrare o bloccare il sistema.">vulnerabilità</span> del kernel Linux anche a mailing list pubbliche, prima che esistesse una <span class="term" role="button" tabindex="0" data-d="La correzione che si installa per chiudere un difetto del software.">patch</span>. Due riguardano KSMBD, il server per la condivisione file, e hanno gravità 9 su 10. Greg Kroah-Hartman ha protestato. Il consiglio: disattivare KSMBD se non serve.</p>
     <div class="src"><a href="https://www.hwupgrade.it/news/sicurezza-software/linux-falle-critiche-del-kernel-pubblicate-senza-patch-i-manutentori-protestano_161042.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
   </article>
   <article class="item" id="n21">
     <div class="kicker">Telefonia · Operatori</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/VodafoneFAstweb_720.jpg" alt="Fastweb e Vodafone verso un solo sistema, il marchio Vodafone sparirà" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Fastweb e Vodafone verso un solo sistema, il marchio Vodafone sparirà</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/VodafoneFAstweb_720.jpg" alt="Fastweb e Vodafone verso un solo sistema, il marchio Vodafone sparirà" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Fastweb e Vodafone verso un solo sistema, il marchio Vodafone sparirà</h3></div>
     <p class="just">Swisscom, proprietaria di entrambe, ha iniziato a unire i sistemi che gestiscono i clienti: i clienti Fastweb passeranno a quelli ex Vodafone a inizio 2027. La licenza per usare il nome Vodafone in Italia scade nel 2029, ma l&#x27;addio potrebbe arrivare prima, probabilmente con un <span class="term" role="button" tabindex="0" data-d="Il cambio di nome e immagine di un&#x27;azienda o di un prodotto.">rebrand</span> attorno al nome Fastweb.</p>
     <div class="src"><a href="https://www.hwupgrade.it/news/telefonia/fastweb-e-vodafone-verso-il-sistema-unico-addio-in-vista-al-doppio-brand_161039.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
   </article>
@@ -368,19 +387,19 @@ a{color:inherit}
   <div class="pghead"><h2>Musica</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n22">
     <div class="kicker">Rap · Singolo</div>
-    <div class="pr"><img class="photo" src="https://www.rapologia.it/wp-content/uploads/2026/10/3D-2026.jpg" alt="3D e Nayt insieme in «Senza Armi»" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>3D e Nayt insieme in «Senza Armi»</h3></div>
+    <div class="pr"><img class="photo" src="https://www.rapologia.it/wp-content/uploads/2026/10/3D-2026.jpg" alt="3D e Nayt insieme in «Senza Armi»" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>3D e Nayt insieme in «Senza Armi»</h3></div>
     <p class="just">Il rapper 3D è uscito venerdì con un singolo insieme a Nayt. Il tema è il &quot;disarmo&quot;: smettere di vivere relazioni e ambizioni come una guerra e mostrarsi senza corazza. Secondo Rapologia potrebbe essere l&#x27;inizio del <span class="term" role="button" tabindex="0" data-d="La serie di singoli e annunci con cui un artista prepara l&#x27;uscita di un album.">roll out</span> del nuovo album, il primo dopo «Empiria» del 2024, ma non c&#x27;è ancora un annuncio ufficiale.</p>
     <div class="src"><a href="https://www.rapologia.it/3d-nayt-senza-armi/" target="_blank" rel="noopener">Fonte: Rapologia</a></div>
   </article>
   <article class="item" id="n23">
     <div class="kicker">Rap · Album</div>
-    <div class="pr"><img class="photo" src="https://www.rapologia.it/wp-content/uploads/2023/09/lord-bean.jpg" alt="Lord Bean esce a sorpresa con «Hakanai», dentro Egreen, Esa e Tormento" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Lord Bean esce a sorpresa con «Hakanai», dentro Egreen, Esa e Tormento</h3></div>
+    <div class="pr"><img class="photo" src="https://www.rapologia.it/wp-content/uploads/2023/09/lord-bean.jpg" alt="Lord Bean esce a sorpresa con «Hakanai», dentro Egreen, Esa e Tormento" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Lord Bean esce a sorpresa con «Hakanai», dentro Egreen, Esa e Tormento</h3></div>
     <p class="just">Luca Barcellona, noto come Lord Bean, ha pubblicato quasi senza preavviso «Hakanai» con il suo alter ego Bugs Kubrick. I beat sono soprattutto di DJ Craim; Egreen compare in tre brani, poi Esa, Tormento e Lanz Khan. Rapologia lo definisce &quot;rap allo stato puro&quot;, tutto <span class="term" role="button" tabindex="0" data-d="Lo stile classico del rap anni &#x27;90, con batterie secche e campionamenti.">boom bap</span> e tecnica. Esce anche in vinile.</p>
     <div class="src"><a href="https://www.rapologia.it/lord-bean-bugs-kubrick-hakanai-nuovo-album/" target="_blank" rel="noopener">Fonte: Rapologia</a></div>
   </article>
   <article class="item" id="n24">
     <div class="kicker">Rap · Uscite del venerdì</div>
-    <div class="pr"><img class="photo" src="https://www.allmusicitalia.it/wp-content/uploads/2026/10/new-music-friday-radio-date-23-10-2026.jpg" alt="Naska, Frezza, Loomy e Nex Cassel con Tormento ed Ensi: i singoli nuovi" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Naska, Frezza, Loomy e Nex Cassel con Tormento ed Ensi: i singoli nuovi</h3></div>
+    <div class="pr"><img class="photo" src="https://www.allmusicitalia.it/wp-content/uploads/2026/10/new-music-friday-radio-date-23-10-2026.jpg" alt="Naska, Frezza, Loomy e Nex Cassel con Tormento ed Ensi: i singoli nuovi" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Naska, Frezza, Loomy e Nex Cassel con Tormento ed Ensi: i singoli nuovi</h3></div>
     <p class="just">Tra le uscite di venerdì ci sono «Nascondino» di Naska, «7/7» di Frezza, «L&#x27;ultimo giorno sulla terra» di Loomy, «BARBARA» di Idra Rxx e «Sette vite» di Nex Cassel con due veterani come Tormento ed Ensi. Anche Sairo, Campa e Twentyone21 hanno pubblicato pezzi nuovi.</p>
     <div class="src"><a href="https://www.allmusicitalia.it/nuove-uscite/radio-date/new-music-friday-radio-date-23-10-2026.html" target="_blank" rel="noopener">Fonte: All Music Italia</a></div>
   </article>
@@ -415,11 +434,13 @@ a{color:inherit}
 
 <nav class="bar" id="bar" aria-label="Sfoglia">
   <button id="prev" type="button">← Indietro</button>
-  <div class="where"><span class="name" id="pname">Prima pagina</span><span class="num" id="pnum">Pagina 1 di 7</span></div>
+  <button type="button" class="where" id="where" aria-haspopup="true" aria-expanded="false"><span class="name"><span id="pname">Prima pagina</span> ▾</span><span class="num" id="pnum">Pagina 1 di 7</span></button>
   <button id="next" type="button">Avanti →</button>
 </nav>
 
-<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p></div></div>
+<div class="toc" id="toc" hidden><div class="box" role="menu" aria-label="Vai alla pagina"><p class="h">Vai alla pagina</p><div id="toclist"></div></div></div>
+
+<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden aria-expanded="false">Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>
 
 <script>
 (function(){
@@ -438,6 +459,18 @@ a{color:inherit}
     prev.disabled=cur===0; next.disabled=cur===N-1;
     
     edgeL.style.width=Math.min(8,cur*2.5)+'px'; document.getElementById('crL').hidden=cur===N-1; document.getElementById('crR').hidden=cur!==N-1; edgeR.style.width=Math.min(8,(N-1-cur)*2.5)+'px';
+  }
+  // Indice: toccando il nome della pagina nella barra si sceglie dove andare
+  var where=document.getElementById('where'), toc=document.getElementById('toc'), toclist=document.getElementById('toclist');
+  function closeToc(){if(!toc)return;toc.hidden=true;where.setAttribute('aria-expanded','false')}
+  if(where&&toc){
+    sheets.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.setAttribute('role','menuitem');
+      b.innerHTML='<b>'+(i+1)+'</b> ';b.appendChild(document.createTextNode(s.dataset.name));
+      b.addEventListener('click',function(){closeToc();go(i)});toclist.appendChild(b)});
+    where.addEventListener('click',function(e){e.stopPropagation();closePop();
+      var open=toc.hidden; toc.hidden=!open; where.setAttribute('aria-expanded',open?'true':'false');
+      [].forEach.call(toclist.children,function(b,i){if(i===cur)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})});
+    document.addEventListener('click',function(e){if(!toc.hidden&&!e.target.closest('#toc'))closeToc()});
   }
   function closePop(){pop.hidden=true;if(openTerm)openTerm.setAttribute('aria-expanded','false');openTerm=null}
 
@@ -491,7 +524,7 @@ a{color:inherit}
   }
   prev.addEventListener('click',function(){go(cur-1)});
   next.addEventListener('click',function(){go(cur+1)});
-  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape')closePop(); if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape'){closePop();closeToc();} if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
 
   // Trascinamento col dito: la pagina si piega seguendo il dito
   var sx=0,sy=0,dragging=false,decided=false,lastX=0,lastT=0,vel=0,pid=null;
@@ -536,7 +569,13 @@ a{color:inherit}
     if(t){ if(openTerm===t){closePop();return}
       if(openTerm)openTerm.setAttribute('aria-expanded','false');
       openTerm=t;t.setAttribute('aria-expanded','true');
-      var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;pop.hidden=false;return; }
+      var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;
+      var pm=document.getElementById('pmore'),pl=document.getElementById('pl');
+      if(pm){ pl.hidden=true; pm.setAttribute('aria-expanded','false'); pm.textContent='Approfondisci ▾';
+        if(t.dataset.x){pm.hidden=false;pl.textContent=t.dataset.x;} else {pm.hidden=true;} }
+      pop.hidden=false;return; }
+    if(e.target.closest('#pmore')){var pm2=document.getElementById('pmore'),pl2=document.getElementById('pl');
+      var open=pl2.hidden; pl2.hidden=!open; pm2.setAttribute('aria-expanded',open?'true':'false'); pm2.textContent=open?'Chiudi ▴':'Approfondisci ▾'; return;}
     if(e.target.closest('#px')||!e.target.closest('.pop .box'))closePop();
   });
   paint();

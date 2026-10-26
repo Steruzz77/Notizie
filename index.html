@@ -118,7 +118,7 @@ a{color:inherit}
   padding:8px max(10px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
 .bar button{font:700 13px var(--label);background:var(--paper);border:1px solid var(--rule);color:var(--ink);padding:7px 12px;cursor:pointer}
 .bar button:disabled{opacity:.35;cursor:default}
-.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;background:none!important;border:0!important;padding:2px 8px!important;font:inherit;color:inherit;cursor:pointer}
 .where .name{font:700 11px var(--label);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw}
 .where .num{font:400 11px var(--label);color:var(--muted)}
 
@@ -154,6 +154,22 @@ a{color:inherit}
 .wx{width:26px;height:26px;color:var(--ink);display:block}
 .item:not(:has(.photo)) .pr{display:block}
 
+/* Foto con didascalia: se la foto non si carica sparisce anche la didascalia */
+.fig{margin:0}
+/* Su telefono testo allineato a sinistra: niente spazi larghi e parole spezzate */
+@media (max-width:619px){.just{text-align:left;hyphens:manual;-webkit-hyphens:manual}}
+/* Indice delle pagine, si apre toccando il nome della pagina nella barra */
+.toc{position:fixed;left:0;right:0;bottom:var(--barh,64px);z-index:21;display:flex;justify-content:center;padding:0 12px 10px}
+.toc .box{max-width:420px;width:100%;background:var(--note);border:1px solid var(--rule);border-top:4px double var(--rule);padding:10px 14px;box-shadow:0 8px 24px rgba(40,30,10,.3)}
+.toc .h{margin:0 0 4px;font:700 11px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.toc button{display:flex;gap:10px;align-items:baseline;width:100%;background:none;border:0;border-top:1px dotted var(--soft);padding:10px 0;text-align:left;cursor:pointer;color:var(--ink);font:700 18px var(--head)}
+.toc button:first-child{border-top:0}
+.toc button b{font:700 11px var(--label);min-width:22px;border:1px solid var(--rule);padding:1px 4px;text-align:center}
+.toc button[aria-current="page"]{color:var(--term)}
+/* Avviso nelle edizioni passate */
+.old{display:block;text-align:center;font:500 13px var(--label);color:var(--ink);text-decoration:none;background:var(--term-bg);border:1px solid var(--rule);padding:8px 10px}
+.old b{color:var(--red);white-space:nowrap}
+
 .line2 .arch{color:var(--red);text-decoration:none;font-weight:700}
 .pop .more{margin-top:8px;background:none;border:0;border-top:1px dotted var(--soft);width:100%;text-align:left;padding:8px 0 0;font:700 12px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--term);cursor:pointer}
 .pop .long{margin-top:6px;font-size:15px;color:var(--ink)}
@@ -180,10 +196,9 @@ a{color:inherit}
     <button type="button" class="goto" data-page="5"><b>6</b> Musica</button>
     <button type="button" class="goto" data-page="6"><b>7</b> Meteo</button>
   </nav>
-  <div class="tip">Trascina il bordo destro per girare pagina · tocca le <b>parole tratteggiate</b> per il significato</div>
   <article class="lead">
-    <img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/4fcfa8c8ee9e8e47b706f1f9200ab749.jpg" alt="Il congresso della Lega a Milano (foto ANSA)" loading="eager" referrerpolicy="no-referrer" onerror="this.remove()">
-    <div class="cap">Il congresso della Lega a Milano (foto ANSA)</div>
+    <figure class="fig"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/4fcfa8c8ee9e8e47b706f1f9200ab749.jpg" alt="Il congresso della Lega a Milano (foto ANSA)" loading="eager" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()">
+    <div class="cap">Il congresso della Lega a Milano (foto ANSA)</div></figure>
     <div class="kicker" style="margin-top:10px">Italia · Politica</div>
     <h2>Salvini resta il capo della Lega: 465 voti contro i 146 di Garavaglia</h2>
     <p class="deck">Quarto mandato fino al 2030. Nuovo simbolo senza il suo nome e una promessa: «Basta soldi e armi all&#x27;Ucraina».</p>
@@ -193,7 +208,7 @@ a{color:inherit}
     <div class="src"><a href="https://www.ansa.it/sito/notizie/politica/2026/10/25/salvini-riconfermato-segretario-della-lega-con-465-voti-contro-i-146_bcf46509-0de0-4534-8ceb-a67876aeff8b.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="spalla">
-    <img class="photo" src="https://www.aljazeera.com/wp-content/uploads/2026/10/AP26295569663365-1792897665.jpg?resize=1920%2C1440" alt="Serbia, affluenza record nel voto che sfida Vučić" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+    <img class="photo" src="https://www.aljazeera.com/wp-content/uploads/2026/10/AP26295569663365-1792897665.jpg?resize=1920%2C1440" alt="Serbia, affluenza record nel voto che sfida Vučić" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()">
     <div>
       <div class="kicker">Mondo · Serbia</div>
       <h3>Serbia, affluenza record nel voto che sfida Vučić</h3>
@@ -214,42 +229,42 @@ a{color:inherit}
   <div class="pghead"><h2>Lumezzane e Brescia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n1">
     <div class="kicker">Brescia · Inchiesta</div>
-    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/youssef-siher-636447.660x368.jpg" alt="Movimento 17 ottobre, indagata anche la moglie di Youssef Siher" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Movimento 17 ottobre, indagata anche la moglie di Youssef Siher</h3></div>
+    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/youssef-siher-636447.660x368.jpg" alt="Movimento 17 ottobre, indagata anche la moglie di Youssef Siher" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Movimento 17 ottobre, indagata anche la moglie di Youssef Siher</h3></div>
     <p class="just">Novità sul presunto ideatore della pagina Instagram che ha chiamato i giovani in piazza: la moglie, 32 anni, italiana nata a Como e <span class="term" role="button" tabindex="0" data-d="Chi aiuta stranieri e istituzioni (scuole, ospedali, uffici) a capirsi, traducendo lingua e abitudini.">mediatrice culturale</span>, è <span class="term" role="button" tabindex="0" data-d="Una persona su cui i magistrati stanno facendo indagini perché sospettano un reato; non vuol dire colpevole.">indagata</span> ma non arrestata. Secondo gli inquirenti potrebbe aver gestito con lui i canali social. Proprio seguendo lei la <span class="term" role="button" tabindex="0" data-d="Il reparto della polizia che si occupa di terrorismo, estremismo politico e ordine pubblico.">Digos</span> ha trovato Siher in un appartamento a Milano.</p>
 <p class="just">Nella casa di famiglia a Mazzano sono stati sequestrati computer, hard disk e documenti. Siher è accusato di <span class="term" role="button" tabindex="0" data-d="Il reato di chi spinge pubblicamente altre persone a commettere reati.">istigazione a delinquere</span> aggravata dall&#x27;uso di internet e dalla <span class="term" role="button" tabindex="0" data-d="Quando un reato è fatto per spaventare la popolazione o colpire lo Stato: la pena diventa molto più alta.">finalità di terrorismo</span>. Entro 48 ore un <span class="term" role="button" tabindex="0" data-d="Il giudice per le indagini preliminari: controlla il lavoro dei pm e decide su arresti e misure.">gip</span> deve decidere se <span class="term" role="button" tabindex="0" data-d="Confermare che l&#x27;arresto fatto dalla polizia era giusto, e decidere se la persona resta in carcere.">convalidare il fermo</span>.</p>
     <div class="src"><a href="https://quibrescia.it/cronaca/2026/10/25/movimento-17-ottobre-svolta-allalba-indagata-la-moglie-di-youssef-siher/846888" target="_blank" rel="noopener">Fonte: QuiBrescia</a></div>
   </article>
   <article class="item" id="n2">
     <div class="kicker">Provincia · Bollette</div>
-    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/acqua-a2a-ciclo-idrico-636452.660x368.jpg" alt="Acqua più cara nel Bresciano: oltre il 25% in più in tre anni" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Acqua più cara nel Bresciano: oltre il 25% in più in tre anni</h3></div>
+    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/acqua-a2a-ciclo-idrico-636452.660x368.jpg" alt="Acqua più cara nel Bresciano: oltre il 25% in più in tre anni" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Acqua più cara nel Bresciano: oltre il 25% in più in tre anni</h3></div>
     <p class="just">L&#x27;<span class="term" role="button" tabindex="0" data-d="L&#x27;Ambito territoriale ottimale: l&#x27;ente provinciale che organizza il servizio dell&#x27;acqua e propone le tariffe.">Ato</span> ha proposto un aumento delle tariffe del <span class="term" role="button" tabindex="0" data-d="Tutto il ciclo dell&#x27;acqua: acquedotto che la porta in casa, fogne e depuratori che la puliscono.">servizio idrico integrato</span> seguendo le regole di <span class="term" role="button" tabindex="0" data-d="L&#x27;autorità nazionale che controlla le tariffe di luce, gas e acqua.">Arera</span>. Per una famiglia di tre persone servita da A2A la spesa annua salirebbe da circa 305 a 356 euro; aumenti simili per chi ha Acque Bresciane, che copre il resto della provincia.</p>
 <p class="just">I soldi servono per manutenzione, contatori digitali e depuratori nei comuni che non li hanno. Pesano le <span class="term" role="button" tabindex="0" data-d="L&#x27;acqua che si disperde dai tubi rotti o vecchi prima di arrivare nelle case.">perdite di rete</span>: il 44% dell&#x27;acqua di Acque Bresciane si perde per strada. Domani, lunedì, decide la Conferenza dei Comuni; il centrosinistra chiede garanzie prima del voto.</p>
     <div class="src"><a href="https://www.quibrescia.it/cronaca/2026/10/25/bollette-dellacqua-nel-bresciano-scatta-laumento-tariffe-su-del-25-in-tre-anni/846880/" target="_blank" rel="noopener">Fonte: QuiBrescia</a></div>
   </article>
   <article class="item" id="n3">
     <div class="kicker">Brescia · Strade</div>
-    <div class="pr"><img class="photo" src="https://staticfanpage.akamaized.net/wp-content/uploads/sites/29/2026/06/ambulanza1.jpg" alt="Ciclista di Gussago travolto e ucciso in via Orzinuovi" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Ciclista di Gussago travolto e ucciso in via Orzinuovi</h3></div>
+    <div class="pr"><img class="photo" src="https://staticfanpage.akamaized.net/wp-content/uploads/sites/29/2026/06/ambulanza1.jpg" alt="Ciclista di Gussago travolto e ucciso in via Orzinuovi" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Ciclista di Gussago travolto e ucciso in via Orzinuovi</h3></div>
     <p class="just">Roberto Frassine, 71 anni, è morto sul colpo ieri pomeriggio in via Orzinuovi, verso Roncadelle: è stato colpito da un Suv Jaguar guidato da una donna di 60 anni che andava nella sua stessa direzione. La donna si è fermata a soccorrerlo.</p>
 <p class="just">La <span class="term" role="button" tabindex="0" data-d="La polizia del Comune, che si occupa soprattutto di traffico e incidenti in città.">polizia locale</span> l&#x27;ha sottoposta ai test per alcol e droga e le ha <span class="term" role="button" tabindex="0" data-d="Tolto temporaneamente un oggetto per ordine delle autorità, per usarlo come prova.">sequestrato</span> il telefono, per capire se lo stava usando al momento dell&#x27;urto. Frassine avrebbe compiuto 72 anni tra pochi giorni.</p>
     <div class="src"><a href="https://www.fanpage.it/milano/ciclista-investito-e-ucciso-a-brescia-da-una-jaguar-perde-la-vita-roberto-frassine/" target="_blank" rel="noopener">Fonte: Fanpage</a></div>
   </article>
   <article class="item" id="n4">
     <div class="kicker">Sebino · Scuola</div>
-    <div class="pr"><img class="photo" src="https://www.ilgiorno.it/image-service/view/acePublic/alias/contentid/YmUwNzMwYjktMjMxMy00/0/image.jpg?f=16:9&amp;w=1200&amp;h=675" alt="Iseo, studente usa uno storditore elettrico su quattro compagni" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Iseo, studente usa uno storditore elettrico su quattro compagni</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ilgiorno.it/image-service/view/acePublic/alias/contentid/YmUwNzMwYjktMjMxMy00/0/image.jpg?f=16:9&amp;w=1200&amp;h=675" alt="Iseo, studente usa uno storditore elettrico su quattro compagni" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Iseo, studente usa uno storditore elettrico su quattro compagni</h3></div>
     <p class="just">Giovedì, in un istituto di Iseo, un ragazzo minorenne aveva con sé un <span class="term" role="button" tabindex="0" data-d="Un&#x27;arma che dà una scossa elettrica e paralizza per qualche secondo; in Italia per i privati è vietata.">taser</span> e lo avrebbe usato contro quattro compagni di classe. Nessuno si è fatto male.</p>
 <p class="just">Quando è stato scoperto lo ha buttato nel cortile, poi ha indicato ai carabinieri dove trovarlo. È stato <span class="term" role="button" tabindex="0" data-d="Segnalato ai magistrati per un reato: si apre un procedimento, ma resta libero.">denunciato</span> alla <span class="term" role="button" tabindex="0" data-d="L&#x27;ufficio dei magistrati che si occupa dei reati commessi da chi ha meno di 18 anni.">Procura per i minorenni</span> ed è stato affidato ai genitori.</p>
     <div class="src"><a href="https://www.ilgiorno.it/brescia/cronaca/iseo-utilizza-storditore-contro-compagni-classe-denunciato-minorenne-39eb9c35" target="_blank" rel="noopener">Fonte: Il Giorno</a></div>
   </article>
   <article class="item" id="n5">
     <div class="kicker">Provincia · Lavoro</div>
-    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/carabinieri-compagnia-di-brescia-a-castenedolo-636454.660x368.jpg" alt="Controlli a Castenedolo: chiuso un bar, multe per 37mila euro" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Controlli a Castenedolo: chiuso un bar, multe per 37mila euro</h3></div>
+    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/carabinieri-compagnia-di-brescia-a-castenedolo-636454.660x368.jpg" alt="Controlli a Castenedolo: chiuso un bar, multe per 37mila euro" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Controlli a Castenedolo: chiuso un bar, multe per 37mila euro</h3></div>
     <p class="just">Carabinieri e <span class="term" role="button" tabindex="0" data-d="L&#x27;ufficio dello Stato che controlla che i lavoratori siano in regola, pagati e protetti.">Ispettorato del lavoro</span> hanno controllato un bar e un ristorante contro il <span class="term" role="button" tabindex="0" data-d="Lo sfruttamento di lavoratori pagati pochissimo e senza diritti, spesso tramite intermediari illegali.">caporalato</span> e il lavoro in nero. In entrambi mancavano visite mediche e corsi di sicurezza per i dipendenti.</p>
 <p class="just">Il bar non aveva nemmeno il <span class="term" role="button" tabindex="0" data-d="Documento di valutazione dei rischi: il piano obbligatorio che dice quali pericoli ci sono sul lavoro e come evitarli.">Dvr</span>: l&#x27;attività è stata sospesa e i due titolari denunciati. Le multe superano i 37mila euro.</p>
     <div class="src"><a href="https://quibrescia.it/cronaca/2026/10/25/sicurezza-per-i-lavoratori-blitz-a-castenedolo-chiuso-un-bar/846896" target="_blank" rel="noopener">Fonte: QuiBrescia</a></div>
   </article>
   <article class="item" id="n6">
     <div class="kicker">Valcamonica · Strade</div>
-    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/vigili-del-fuoco-incidente-stradale-a-monno-636457.660x368.jpg" alt="Pioggia e asfalto viscido, auto contro il guardrail a Monno" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Pioggia e asfalto viscido, auto contro il guardrail a Monno</h3></div>
+    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/vigili-del-fuoco-incidente-stradale-a-monno-636457.660x368.jpg" alt="Pioggia e asfalto viscido, auto contro il guardrail a Monno" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Pioggia e asfalto viscido, auto contro il guardrail a Monno</h3></div>
     <p class="just">Venerdì sera sulla <span class="term" role="button" tabindex="0" data-d="La strada del Tonale e della Mendola, che attraversa la Valcamonica fino al Trentino.">statale 42</span> un&#x27;automobilista ha perso il controllo per la pioggia forte e ha colpito con violenza le barriere. Sono intervenuti i vigili del fuoco, anche i <span class="term" role="button" tabindex="0" data-d="Pompieri non di professione, che fanno servizio nei paesi di montagna accanto ai professionisti.">volontari</span> di Edolo: il conducente non è grave.</p>
     <div class="src"><a href="https://www.quibrescia.it/cronaca/2026/10/25/sbanda-per-la-pioggia-sulla-statale-42-schianto-a-monno/846902/" target="_blank" rel="noopener">Fonte: QuiBrescia</a></div>
   </article>
@@ -261,35 +276,35 @@ a{color:inherit}
   <div class="pghead"><h2>Italia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n7">
     <div class="kicker">Politica · Opposizione</div>
-    <div class="pr"><img class="photo" src="https://www.alanews.it/wp-content/uploads/2026/10/1789628134046-2099717784145981743.jpg" alt="Schlein: «Dopo quattro anni di Meloni l&#x27;Italia è più povera e più arrabbiata»" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Schlein: «Dopo quattro anni di Meloni l&#x27;Italia è più povera e più arrabbiata»</h3></div>
+    <div class="pr"><img class="photo" src="https://www.alanews.it/wp-content/uploads/2026/10/1789628134046-2099717784145981743.jpg" alt="Schlein: «Dopo quattro anni di Meloni l&#x27;Italia è più povera e più arrabbiata»" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Schlein: «Dopo quattro anni di Meloni l&#x27;Italia è più povera e più arrabbiata»</h3></div>
     <p class="just">La <span class="term" role="button" tabindex="0" data-d="La leader del Partito democratico, il principale partito del centrosinistra.">segretaria del Pd</span> Elly Schlein ha chiuso a Montepulciano tre giorni organizzati dalle <span class="term" role="button" tabindex="0" data-d="Gruppi interni a un partito che la pensano in modo simile e si sostengono a vicenda.">correnti</span> che la sostengono. Ha difeso i cortei dei giovani di ieri: ha condannato le violenze, ma ha detto che non sono state una guerriglia generale.</p>
 <p class="just">Sui carburanti accusa le compagnie energetiche di <span class="term" role="button" tabindex="0" data-d="Guadagni molto più alti del normale, ottenuti grazie a una crisi e non a meriti propri.">extraprofitti</span> e chiede un <span class="term" role="button" tabindex="0" data-d="Un limite massimo fissato per legge, oltre il quale un prodotto non può essere venduto.">tetto al prezzo</span> uguale per tutti, invece degli sconti volontari. E chiede unità alle opposizioni per non ripetere la sconfitta del 2022.</p>
     <div class="src"><a href="https://www.alanews.it/2026/10/25/politica/schlein-contro-meloni-montepulciano" target="_blank" rel="noopener">Fonte: Alanews</a></div>
   </article>
   <article class="item" id="n8">
     <div class="kicker">Politica · Social</div>
-    <div class="pr"><img class="photo" src="https://st.ilfattoquotidiano.it/wp-content/uploads/2026/10/25/puntata-presadiretta.jpg" alt="PresaDiretta: migliaia di account sospetti dietro la rete TikTok di Vannacci" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>PresaDiretta: migliaia di account sospetti dietro la rete TikTok di Vannacci</h3></div>
+    <div class="pr"><img class="photo" src="https://st.ilfattoquotidiano.it/wp-content/uploads/2026/10/25/puntata-presadiretta.jpg" alt="PresaDiretta: migliaia di account sospetti dietro la rete TikTok di Vannacci" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>PresaDiretta: migliaia di account sospetti dietro la rete TikTok di Vannacci</h3></div>
     <p class="just">Stasera alle 20.30 su Rai 3 il programma d&#x27;inchiesta PresaDiretta racconta una rete di account TikTok legati al generale Roberto Vannacci. Con due gruppi di ricerca, AI Forensics e Trollrensics, ha scoperto migliaia di profili sospetti registrati in Benin e Nigeria, che diffondono <span class="term" role="button" tabindex="0" data-d="Immagini o video divertenti che girano velocemente sui social, spesso con un messaggio.">meme</span> e video fatti con l&#x27;IA per raggiungere i più giovani.</p>
 <p class="just">La puntata, «Democrazia artificiale», parla anche di <span class="term" role="button" tabindex="0" data-d="Comunicazione fatta apposta per convincere le persone di un&#x27;idea politica, spesso esagerando o manipolando.">propaganda</span> politica con l&#x27;IA e di <span class="term" role="button" tabindex="0" data-d="Un&#x27;azienda americana che crea programmi per analizzare enormi quantità di dati, usati da eserciti e polizie." data-x="Fondata nel 2003 anche con soldi della Cia, Palantir fa software che incrociano dati da fonti diverse per trovare persone, minacce o schemi. Lavora con il Pentagono e con governi di molti Paesi, Italia compresa. Se ne discute perché pochi controllano strumenti così potenti sulla vita dei cittadini.">Palantir</span>, che lavora per il Pentagono e ha contratti anche con la Difesa italiana.</p>
     <div class="src"><a href="https://www.ilfattoquotidiano.it/2026/10/25/presadiretta-vannacci-tiktok-account-sospetti-video-anticipazione/8549349/" target="_blank" rel="noopener">Fonte: Il Fatto Quotidiano</a></div>
   </article>
   <article class="item" id="n9">
     <div class="kicker">Economia · Welfare</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/44f37a3109f90433d0455b08d6ff1ef3.jpg" alt="Quattro premi Nobel a Torino: lo stato sociale è a rischio" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Quattro premi Nobel a Torino: lo stato sociale è a rischio</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/44f37a3109f90433d0455b08d6ff1ef3.jpg" alt="Quattro premi Nobel a Torino: lo stato sociale è a rischio" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Quattro premi Nobel a Torino: lo stato sociale è a rischio</h3></div>
     <p class="just">Al Festival internazionale dell&#x27;economia di Torino, tema «Salvare lo stato sociale», si sono confrontati quattro <span class="term" role="button" tabindex="0" data-d="Il premio più prestigioso per gli economisti, assegnato ogni anno in Svezia.">Nobel per l&#x27;economia</span>: Joel Mokyr, David Card, James Robinson e Alvin Roth, con l&#x27;economista Tito Boeri.</p>
 <p class="just">Mokyr si chiede se il <span class="term" role="button" tabindex="0" data-d="L&#x27;insieme dei servizi pubblici che proteggono le persone: pensioni, sanità, scuola, sussidi." data-x="Si chiama anche stato sociale. In Italia la parte più grande sono le pensioni, poi la sanità. Il problema è che la popolazione invecchia: ci sono sempre più pensionati e meno lavoratori che pagano i contributi, e in più ora crescono le spese per la difesa.">welfare</span> così com&#x27;è si possa ancora pagare, tra popolazione che invecchia, spese per la difesa e clima. Robinson dice che serve un nuovo <span class="term" role="button" tabindex="0" data-d="Un accordo, anche non scritto, tra Stato e cittadini su cosa ognuno dà e cosa riceve.">patto sociale</span> con i cittadini; Boeri propone di investire di più sui giovani.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/economia/2026/10/25/allarme-nobel-economia-welfare-a-rischio-serve-un-nuovo-patto-sociale_956ca30e-4216-40c2-95ea-abb99e167c37.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="item" id="n10">
     <div class="kicker">Sport · Serie A</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/5f607bfd203bfe013b04929b8a361c42.jpg" alt="L&#x27;Inter rimonta la Fiorentina al 98&#x27;, pazzo 4-4 tra Atalanta e Frosinone" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>L&#x27;Inter rimonta la Fiorentina al 98&#x27;, pazzo 4-4 tra Atalanta e Frosinone</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/5f607bfd203bfe013b04929b8a361c42.jpg" alt="L&#x27;Inter rimonta la Fiorentina al 98&#x27;, pazzo 4-4 tra Atalanta e Frosinone" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>L&#x27;Inter rimonta la Fiorentina al 98&#x27;, pazzo 4-4 tra Atalanta e Frosinone</h3></div>
     <p class="just">A San Siro la Fiorentina passa con Jimenez, poi Thuram pareggia al primo minuto di <span class="term" role="button" tabindex="0" data-d="I minuti aggiunti alla fine di un tempo per compensare le interruzioni.">recupero</span> e Zielinski segna il <span class="term" role="button" tabindex="0" data-d="Tiro dal dischetto a 11 metri, concesso per un fallo in area, con solo il portiere davanti.">rigore</span> del 2-1 quasi allo scadere. L&#x27;Inter resta prima insieme alla Lazio.</p>
 <p class="just">A Bergamo l&#x27;Atalanta pareggia 4-4 con il <span class="term" role="button" tabindex="0" data-d="Una squadra appena salita dalla Serie B alla Serie A.">neopromosso</span> Frosinone; il Genoa batte 1-0 il Venezia.</p>
     <div class="src"><a href="https://ansa.it/sito/notizie/sport/calcio/2026/10/25/linter-vince-ancora-in-rimonta-fiorentina-battuta-al-98-cronaca-e-foto_9d15e23a-75af-48ea-b319-406e416cd6ed.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="item" id="n11">
     <div class="kicker">Cronaca · Napoli</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/5/2/04e916f992f706c29cb18292466969ea.jpg" alt="Ladri in casa del calciatore del Napoli Alisson Santos" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Ladri in casa del calciatore del Napoli Alisson Santos</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/5/2/04e916f992f706c29cb18292466969ea.jpg" alt="Ladri in casa del calciatore del Napoli Alisson Santos" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Ladri in casa del calciatore del Napoli Alisson Santos</h3></div>
     <p class="just">Poche ore dopo il 3-3 tra Napoli e Roma, che aveva seguito dalla tribuna perché infortunato, i ladri sono entrati di notte nella villa del giocatore a Giugliano, mentre lui era in casa con la moglie. Hanno preso un Rolex e una collana e sono scappati con la sua auto, poi ritrovata a Villaricca.</p>
     <div class="src"><a href="https://ansa.it/sito/notizie/cronaca/2026/10/25/i-ladri-a-casa-di-allison-santos-rubati-orologi-e-gioielli_76ba3df2-749f-4e40-aabf-e6f022a901a9.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
@@ -307,28 +322,28 @@ a{color:inherit}
   <div class="pghead"><h2>Dal mondo</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n13">
     <div class="kicker">Mondo · Brasile</div>
-    <div class="pr"><img class="photo" src="https://www.quotidiano.net/image-service/view/acePublic/alias/contentid/ZTA1OWRjOTUtN2Q2MS00/0/topshot-brazil-election-runoff-debate.jpg?f=16:9&amp;w=1200&amp;h=675" alt="Brasile al ballottaggio: Lula contro Flávio Bolsonaro, testa a testa" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Brasile al ballottaggio: Lula contro Flávio Bolsonaro, testa a testa</h3></div>
+    <div class="pr"><img class="photo" src="https://www.quotidiano.net/image-service/view/acePublic/alias/contentid/ZTA1OWRjOTUtN2Q2MS00/0/topshot-brazil-election-runoff-debate.jpg?f=16:9&amp;w=1200&amp;h=675" alt="Brasile al ballottaggio: Lula contro Flávio Bolsonaro, testa a testa" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Brasile al ballottaggio: Lula contro Flávio Bolsonaro, testa a testa</h3></div>
     <p class="just">Quasi 160 milioni di brasiliani votano per scegliere il presidente. Al primo turno Flávio Bolsonaro, figlio dell&#x27;ex presidente Jair, aveva preso il 47%, il presidente uscente Lula il 45%. Gli ultimi sondaggi li danno praticamente pari, intorno al 50%.</p>
 <p class="just">Al <span class="term" role="button" tabindex="0" data-d="Il secondo turno di un&#x27;elezione tra i due candidati più votati, quando nessuno ha superato il 50% al primo.">ballottaggio</span> peserà l&#x27;<span class="term" role="button" tabindex="0" data-d="La scelta di non andare a votare.">astensione</span>: al primo turno non ha votato quasi il 22%, il dato più alto da trent&#x27;anni. I risultati arriveranno nella notte italiana.</p>
     <div class="src"><a href="https://www.quotidiano.net/esteri/brasile-ballottaggio-lula-bolsonaro-voto-peseranno-gli-astenuti-etzcszuu" target="_blank" rel="noopener">Fonte: Quotidiano.net</a></div>
   </article>
   <article class="item" id="n14">
     <div class="kicker">Mondo · Iran</div>
-    <div class="pr"><img class="photo" src="https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac557ed-1791317997.jpg?resize=1920%2C1440" alt="Gli Usa preparano nuovi attacchi all&#x27;Iran, forse dopo il voto di metà mandato" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Gli Usa preparano nuovi attacchi all&#x27;Iran, forse dopo il voto di metà mandato</h3></div>
+    <div class="pr"><img class="photo" src="https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac557ed-1791317997.jpg?resize=1920%2C1440" alt="Gli Usa preparano nuovi attacchi all&#x27;Iran, forse dopo il voto di metà mandato" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Gli Usa preparano nuovi attacchi all&#x27;Iran, forse dopo il voto di metà mandato</h3></div>
     <p class="just">Secondo diversi giornali americani il <span class="term" role="button" tabindex="0" data-d="Il comando militare Usa che controlla le operazioni in Medio Oriente.">Centcom</span> ha pronti piani per colpire di nuovo impianti energetici e siti nucleari iraniani, probabilmente dopo le elezioni di <span class="term" role="button" tabindex="0" data-d="Le elezioni di metà mandato negli Usa, due anni dopo le presidenziali: si rinnova il Congresso.">midterm</span> del 3 novembre. Trump dice che un attacco potrebbe arrivare anche «domani», ma non esclude un grande accordo.</p>
 <p class="just">Teheran dice di aver abbattuto un drone Usa su Bandar Abbas e minaccia di colpire i <span class="term" role="button" tabindex="0" data-d="I cavi stesi sul fondo del mare che trasportano internet e telefonate tra i continenti.">cavi sottomarini</span> nel Golfo. Le <span class="term" role="button" tabindex="0" data-d="Pasdaran: l&#x27;esercito parallelo e più fedele al regime iraniano, separato da quello normale.">Guardie della rivoluzione</span> annunciano una linea «offensiva». Ottobre è il mese peggiore per gli attacchi alle navi a <span class="term" role="button" tabindex="0" data-d="Lo stretto tra Iran e penisola arabica da cui passa circa un quinto del petrolio mondiale.">Hormuz</span>: oltre 120.</p>
     <div class="src"><a href="https://www.aljazeera.com/news/2026/10/25/centcom-reportedly-has-plans-for-iran-strikes-will-trump-approve-them" target="_blank" rel="noopener">Fonte: Al Jazeera</a></div>
   </article>
   <article class="item" id="n15">
     <div class="kicker">Mondo · Guerra in Ucraina</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/e6f6972d75f75207cf3e11841cfff410.jpg" alt="Quattro morti nella regione di Dnipro, Kiev colpisce una fabbrica in Siberia" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Quattro morti nella regione di Dnipro, Kiev colpisce una fabbrica in Siberia</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/e6f6972d75f75207cf3e11841cfff410.jpg" alt="Quattro morti nella regione di Dnipro, Kiev colpisce una fabbrica in Siberia" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Quattro morti nella regione di Dnipro, Kiev colpisce una fabbrica in Siberia</h3></div>
     <p class="just">Zelensky dice che gli attacchi russi uccidono «quasi ogni giorno»: ieri sera quattro morti e 22 feriti, tra cui una bambina di 11 anni, nella regione di Dnipro. A Kharkiv un drone ha colpito un centro commerciale e poi i soccorritori arrivati sul posto, la tecnica del <span class="term" role="button" tabindex="0" data-d="Colpire due volte lo stesso punto a pochi minuti di distanza, per colpire anche chi arriva a soccorrere.">double tap</span>. Danni a centrali e reti elettriche in nove regioni.</p>
 <p class="just">L&#x27;Ucraina ha colpito un impianto <span class="term" role="button" tabindex="0" data-d="Una fabbrica che trasforma il petrolio in plastica, gomma e altri prodotti chimici.">petrolchimico</span> a Omsk, in Siberia, a 2.500 chilometri dal confine.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/25/zelensky-4-morti-e-22-feriti-in-attacchi-nella-regione-di-dnipro_7c785177-b372-4e7b-a46d-25250bd7c350.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="item" id="n16">
     <div class="kicker">Mondo · Francia</div>
-    <div class="pr"><img class="photo" src="https://www.tag24.it/storage/wp-content/uploads/2026/10/1792934922_tag24it-20261025142824566-1eac94a740babbf32cab648e636e91ca_800x533.webp" alt="Proteste in tutta la Francia, più di 1.300 arresti" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Proteste in tutta la Francia, più di 1.300 arresti</h3></div>
+    <div class="pr"><img class="photo" src="https://www.tag24.it/storage/wp-content/uploads/2026/10/1792934922_tag24it-20261025142824566-1eac94a740babbf32cab648e636e91ca_800x533.webp" alt="Proteste in tutta la Francia, più di 1.300 arresti" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Proteste in tutta la Francia, più di 1.300 arresti</h3></div>
     <p class="just">Ieri centinaia di migliaia di persone sono scese in piazza contro il carovita e le condizioni delle scuole: 410mila secondo il ministero dell&#x27;Interno, 800mila secondo i <span class="term" role="button" tabindex="0" data-d="Le associazioni che rappresentano i lavoratori e trattano per loro.">sindacati</span>. I cortei sono stati per lo più pacifici, ma ci sono stati 1.314 arresti e almeno 50 agenti feriti.</p>
 <p class="just">Dopo i disordini del 17 ottobre Macron aveva permesso solo i cortei organizzati dai sindacati e schierato 70mila agenti. A Orléans 13mila persone hanno protestato contro il congresso del <span class="term" role="button" tabindex="0" data-d="Il partito di estrema destra francese di Marine Le Pen e Jordan Bardella.">Rassemblement National</span>.</p>
     <div class="src"><a href="https://www.tag24.it/1408088-francia-oltre-1300-arresti-durante-le-proteste-del-24-ottobre" target="_blank" rel="noopener">Fonte: Tag24</a></div>
@@ -341,21 +356,21 @@ a{color:inherit}
   <div class="pghead"><h2>Tecnologia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n17">
     <div class="kicker">Tecnologia · Chip</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/dell-blackwell-ultra-gb300-coreweave_720.jpg" alt="Chip Nvidia vietati trovati nella rete di China Telecom" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Chip Nvidia vietati trovati nella rete di China Telecom</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/dell-blackwell-ultra-gb300-coreweave_720.jpg" alt="Chip Nvidia vietati trovati nella rete di China Telecom" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Chip Nvidia vietati trovati nella rete di China Telecom</h3></div>
     <p class="just">Un&#x27;azienda israeliana di sicurezza informatica ha scoperto 32 acceleratori Nvidia B300, i più potenti per l&#x27;IA, nella rete della compagnia telefonica di Stato cinese, nonostante gli Usa ne vietino la vendita alla Cina. Li ha visti da remoto grazie a uno strumento di monitoraggio lasciato accessibile senza password.</p>
 <p class="just">Nvidia non smentisce ma minimizza: i chip finiti illegalmente in Cina sarebbero meno dello 0,5%. Ad agosto Taiwan aveva accusato nove persone di <span class="term" role="button" tabindex="0" data-d="Portare merci oltre confine violando i divieti o senza pagare le tasse.">contrabbando</span> di queste <span class="term" role="button" tabindex="0" data-d="Processori nati per la grafica, oggi usati soprattutto per addestrare e far funzionare l&#x27;IA." data-x="Le Gpu fanno migliaia di calcoli semplici contemporaneamente, ed è proprio ciò che serve alle reti neurali. Per questo Nvidia, che domina il mercato, è diventata una delle aziende più ricche del mondo. Gli Usa ne vietano l&#x27;export dei modelli migliori in Cina per non aiutarla nella corsa all&#x27;IA.">Gpu</span>.</p>
     <div class="src"><a href="https://hwupgrade.it/news/server-workstation/gpu-vietate-in-cina-nvidia-b300-compare-nella-rete-di-china-telecom_161067.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
   </article>
   <article class="item" id="n18">
     <div class="kicker">Tecnologia · Processori</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/amd-socket-am5-mobo_720.jpg" alt="Zen 6 di AMD, i primi test: fino al 24% più veloce a parità di frequenza" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Zen 6 di AMD, i primi test: fino al 24% più veloce a parità di frequenza</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/amd-socket-am5-mobo_720.jpg" alt="Zen 6 di AMD, i primi test: fino al 24% più veloce a parità di frequenza" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Zen 6 di AMD, i primi test: fino al 24% più veloce a parità di frequenza</h3></div>
     <p class="just">Su <span class="term" role="button" tabindex="0" data-d="Un programma che misura la velocità di un processore e dà un punteggio, per confrontare computer diversi.">Geekbench</span> è comparso un processore AMD Epyc per server con 256 <span class="term" role="button" tabindex="0" data-d="I «cervelli» dentro un processore: più core ci sono, più lavori può fare insieme.">core</span> e la nuova architettura Zen 6. Confrontato con gli attuali Zen 5, a frequenza simile sarebbe fino al 24% più veloce su un singolo core.</p>
 <p class="just">Il confronto non è perfetto perché le macchine sono diverse. I Ryzen Zen 6 per pc, chiamati «Olympic Ridge», dovrebbero arrivare nel 2027 con fino a 24 core e lo stesso <span class="term" role="button" tabindex="0" data-d="L&#x27;attacco sulla scheda madre dove si inserisce il processore: restando uguale, si può cambiare cpu senza cambiare scheda.">socket AM5</span>.</p>
     <div class="src"><a href="https://hwupgrade.it/news/cpu/zen-6-contro-zen-5-a-parita-di-frequenza-cosa-dicono-i-primi-risultati-geekbench_161064.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
   </article>
   <article class="item" id="n19">
     <div class="kicker">Tecnologia · Videogiochi</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792751076-AP23264251614685.jpg" alt="Konami torna grande con Silent Hill e Castlevania" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Konami torna grande con Silent Hill e Castlevania</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792751076-AP23264251614685.jpg" alt="Konami torna grande con Silent Hill e Castlevania" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Konami torna grande con Silent Hill e Castlevania</h3></div>
     <p class="just">Dopo anni passati quasi solo su giochi per telefono ed eFootball, la casa giapponese sta rilanciando le sue saghe storiche. A settembre è uscito il <span class="term" role="button" tabindex="0" data-d="Genere di videogiochi in cui bisogna sopravvivere a mostri e pericoli, con poche armi e tanta paura.">survival horror</span> Silent Hill: Townfall, a ottobre Castlevania: Belmont&#x27;s Curse, entrambi lodati dalla critica.</p>
 <p class="just">Il <span class="term" role="button" tabindex="0" data-d="Una nuova versione di un vecchio gioco o film, rifatta da zero con tecnologia moderna.">remake</span> di Silent Hill 2 ha venduto circa 6 milioni di copie. Su Metal Gear Konami punta invece su raccolte e remake, dopo l&#x27;addio di Hideo Kojima nel 2015.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/25/konami/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
@@ -368,21 +383,21 @@ a{color:inherit}
   <div class="pghead"><h2>Musica</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n20">
     <div class="kicker">Musica · Rap</div>
-    <div class="pr"><img class="photo" src="https://www.latiburtinanews.it/wp-content/uploads/2026/10/Kid-Yugi-lultimo-concerto-a-Roma-e-gli-eroi-che-muoiono-1024x683.jpg" alt="Kid Yugi chiude a Roma il suo primo tour nei palazzetti" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Kid Yugi chiude a Roma il suo primo tour nei palazzetti</h3></div>
+    <div class="pr"><img class="photo" src="https://www.latiburtinanews.it/wp-content/uploads/2026/10/Kid-Yugi-lultimo-concerto-a-Roma-e-gli-eroi-che-muoiono-1024x683.jpg" alt="Kid Yugi chiude a Roma il suo primo tour nei palazzetti" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Kid Yugi chiude a Roma il suo primo tour nei palazzetti</h3></div>
     <p class="just">Gran finale al Palazzo dello Sport per l&#x27;«Anche gli eroi muoiono Tour», il primo del rapper pugliese nei palasport, con un <span class="term" role="button" tabindex="0" data-d="Il ballo in cui il pubblico sotto il palco salta e si spinge addosso, tipico di rap e punk.">pogo</span> continuo sul parterre e gli spalti in piedi. L&#x27;album da cui nasce il tour, uscito a gennaio, è <span class="term" role="button" tabindex="0" data-d="Il riconoscimento per un album che ha venduto (o è stato ascoltato in streaming) quanto 50mila copie in Italia.">disco di platino</span>.</p>
 <p class="just">Per i fan c&#x27;è un&#x27;altra uscita in arrivo: venerdì 30 ottobre esce la versione <span class="term" role="button" tabindex="0" data-d="Un&#x27;edizione ampliata di un album, con canzoni in più.">deluxe</span> del disco, insieme a un fumetto Bonelli.</p>
     <div class="src"><a href="https://www.latiburtinanews.it/2026/10/24/kid-yugi-lultimo-concerto-a-roma-e-gli-eroi-che-muoiono/" target="_blank" rel="noopener">Fonte: La Tiburtina</a></div>
   </article>
   <article class="item" id="n21">
     <div class="kicker">Musica · Classifiche</div>
-    <div class="pr"><img class="photo" src="https://recensiamomusica.com/wp-content/uploads/2024/08/Spotify-Chart.jpg" alt="Spotify, Geolier supera Sfera Ebbasta. Dietro Shiva, Kid Yugi e Marracash" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Spotify, Geolier supera Sfera Ebbasta. Dietro Shiva, Kid Yugi e Marracash</h3></div>
+    <div class="pr"><img class="photo" src="https://recensiamomusica.com/wp-content/uploads/2024/08/Spotify-Chart.jpg" alt="Spotify, Geolier supera Sfera Ebbasta. Dietro Shiva, Kid Yugi e Marracash" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Spotify, Geolier supera Sfera Ebbasta. Dietro Shiva, Kid Yugi e Marracash</h3></div>
     <p class="just">Nella classifica settimanale degli artisti più ascoltati su Spotify Italia Geolier torna primo e scavalca Sfera Ebbasta. Il podio lo chiude Shiva, poi Kid Yugi e Marracash: i primi cinque sono tutti rapper.</p>
 <p class="just">Tra i movimenti, sale di quattro posti Achille Lauro, mentre scendono Rkomi (-16) e Fabri Fibra (-9), che a inizio mese era uscito con l&#x27;album in coppia con Neffa.</p>
     <div class="src"><a href="https://recensiamomusica.com/spotify-chart-2026-settimana-43-geolier-supera-sfera-ebbasta/" target="_blank" rel="noopener">Fonte: RecensiamoMusica</a></div>
   </article>
   <article class="item" id="n22">
     <div class="kicker">Musica · Rap e lingua</div>
-    <div class="pr"><img class="photo" src="https://video.italpress.com/play/player/poster/nqAD?size=website" alt="A New York il primo festival rap dell&#x27;Istituto italiano di cultura" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>A New York il primo festival rap dell&#x27;Istituto italiano di cultura</h3></div>
+    <div class="pr"><img class="photo" src="https://video.italpress.com/play/player/poster/nqAD?size=website" alt="A New York il primo festival rap dell&#x27;Istituto italiano di cultura" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>A New York il primo festival rap dell&#x27;Istituto italiano di cultura</h3></div>
     <p class="just">Per la Settimana mondiale della lingua italiana, l&#x27;<span class="term" role="button" tabindex="0" data-d="Un ufficio del ministero degli Esteri che promuove lingua e cultura italiana nelle città del mondo.">Istituto italiano di cultura</span> di New York ha organizzato il suo primo festival di rap. Il direttore Claudio Pagliara ne ha parlato con il rapper romano Amir Issaa, da anni impegnato nelle scuole: al centro il rap come nuova lingua dei giovani e come modo per far incontrare culture diverse.</p>
     <div class="src"><a href="https://www.italpress.com/qui-new-york-il-rap-e-la-nuova-lingua-italiana/" target="_blank" rel="noopener">Fonte: Italpress</a></div>
   </article>
@@ -416,9 +431,11 @@ a{color:inherit}
 
 <nav class="bar" id="bar" aria-label="Sfoglia">
   <button id="prev" type="button">← Indietro</button>
-  <div class="where"><span class="name" id="pname">Prima pagina</span><span class="num" id="pnum">Pagina 1 di 7</span></div>
+  <button type="button" class="where" id="where" aria-haspopup="true" aria-expanded="false"><span class="name"><span id="pname">Prima pagina</span> ▾</span><span class="num" id="pnum">Pagina 1 di 7</span></button>
   <button id="next" type="button">Avanti →</button>
 </nav>
+
+<div class="toc" id="toc" hidden><div class="box" role="menu" aria-label="Vai alla pagina"><p class="h">Vai alla pagina</p><div id="toclist"></div></div></div>
 
 <div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden aria-expanded="false">Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>
 
@@ -439,6 +456,18 @@ a{color:inherit}
     prev.disabled=cur===0; next.disabled=cur===N-1;
     
     edgeL.style.width=Math.min(8,cur*2.5)+'px'; document.getElementById('crL').hidden=cur===N-1; document.getElementById('crR').hidden=cur!==N-1; edgeR.style.width=Math.min(8,(N-1-cur)*2.5)+'px';
+  }
+  // Indice: toccando il nome della pagina nella barra si sceglie dove andare
+  var where=document.getElementById('where'), toc=document.getElementById('toc'), toclist=document.getElementById('toclist');
+  function closeToc(){if(!toc)return;toc.hidden=true;where.setAttribute('aria-expanded','false')}
+  if(where&&toc){
+    sheets.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.setAttribute('role','menuitem');
+      b.innerHTML='<b>'+(i+1)+'</b> ';b.appendChild(document.createTextNode(s.dataset.name));
+      b.addEventListener('click',function(){closeToc();go(i)});toclist.appendChild(b)});
+    where.addEventListener('click',function(e){e.stopPropagation();closePop();
+      var open=toc.hidden; toc.hidden=!open; where.setAttribute('aria-expanded',open?'true':'false');
+      [].forEach.call(toclist.children,function(b,i){if(i===cur)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})});
+    document.addEventListener('click',function(e){if(!toc.hidden&&!e.target.closest('#toc'))closeToc()});
   }
   function closePop(){pop.hidden=true;if(openTerm)openTerm.setAttribute('aria-expanded','false');openTerm=null}
 
@@ -492,7 +521,7 @@ a{color:inherit}
   }
   prev.addEventListener('click',function(){go(cur-1)});
   next.addEventListener('click',function(){go(cur+1)});
-  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape')closePop(); if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape'){closePop();closeToc();} if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
 
   // Trascinamento col dito: la pagina si piega seguendo il dito
   var sx=0,sy=0,dragging=false,decided=false,lastX=0,lastT=0,vel=0,pid=null;

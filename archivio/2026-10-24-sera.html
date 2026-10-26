@@ -118,7 +118,7 @@ a{color:inherit}
   padding:8px max(10px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
 .bar button{font:700 13px var(--label);background:var(--paper);border:1px solid var(--rule);color:var(--ink);padding:7px 12px;cursor:pointer}
 .bar button:disabled{opacity:.35;cursor:default}
-.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;background:none!important;border:0!important;padding:2px 8px!important;font:inherit;color:inherit;cursor:pointer}
 .where .name{font:700 11px var(--label);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw}
 .where .num{font:400 11px var(--label);color:var(--muted)}
 
@@ -154,6 +154,22 @@ a{color:inherit}
 .wx{width:26px;height:26px;color:var(--ink);display:block}
 .item:not(:has(.photo)) .pr{display:block}
 
+/* Foto con didascalia: se la foto non si carica sparisce anche la didascalia */
+.fig{margin:0}
+/* Su telefono testo allineato a sinistra: niente spazi larghi e parole spezzate */
+@media (max-width:619px){.just{text-align:left;hyphens:manual;-webkit-hyphens:manual}}
+/* Indice delle pagine, si apre toccando il nome della pagina nella barra */
+.toc{position:fixed;left:0;right:0;bottom:var(--barh,64px);z-index:21;display:flex;justify-content:center;padding:0 12px 10px}
+.toc .box{max-width:420px;width:100%;background:var(--note);border:1px solid var(--rule);border-top:4px double var(--rule);padding:10px 14px;box-shadow:0 8px 24px rgba(40,30,10,.3)}
+.toc .h{margin:0 0 4px;font:700 11px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.toc button{display:flex;gap:10px;align-items:baseline;width:100%;background:none;border:0;border-top:1px dotted var(--soft);padding:10px 0;text-align:left;cursor:pointer;color:var(--ink);font:700 18px var(--head)}
+.toc button:first-child{border-top:0}
+.toc button b{font:700 11px var(--label);min-width:22px;border:1px solid var(--rule);padding:1px 4px;text-align:center}
+.toc button[aria-current="page"]{color:var(--term)}
+/* Avviso nelle edizioni passate */
+.old{display:block;text-align:center;font:500 13px var(--label);color:var(--ink);text-decoration:none;background:var(--term-bg);border:1px solid var(--rule);padding:8px 10px}
+.old b{color:var(--red);white-space:nowrap}
+
 .line2 .arch{color:var(--red);text-decoration:none;font-weight:700}
 .pop .more{margin-top:8px;background:none;border:0;border-top:1px dotted var(--soft);width:100%;text-align:left;padding:8px 0 0;font:700 12px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--term);cursor:pointer}
 .pop .long{margin-top:6px;font-size:15px;color:var(--ink)}
@@ -167,6 +183,7 @@ a{color:inherit}
 <div class="book" id="book">
 <section class="sheet" data-name="Prima pagina" aria-label="Prima pagina">
  <div class="inner">
+  <a class="old" href="../index.html">Stai leggendo un'edizione passata · <b>Vai all'ultima →</b></a>
   <header class="mast">
     <h1>Il Corriere dello Steruz</h1>
     <div class="line"><span>Sabato 24 ottobre 2026</span><span>Anno I · N. 3</span></div>
@@ -180,10 +197,9 @@ a{color:inherit}
     <button type="button" class="goto" data-page="5"><b>6</b> Musica</button>
     <button type="button" class="goto" data-page="6"><b>7</b> Meteo</button>
   </nav>
-  <div class="tip">Trascina il bordo destro per girare pagina · tocca le <b>parole tratteggiate</b> per il significato</div>
   <article class="lead">
-    <img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/24/1792853243-milanomanif.jpeg" alt="Il corteo di oggi pomeriggio a Milano" loading="eager" referrerpolicy="no-referrer" onerror="this.remove()">
-    <div class="cap">Il corteo di oggi pomeriggio a Milano</div>
+    <figure class="fig"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/24/1792853243-milanomanif.jpeg" alt="Il corteo di oggi pomeriggio a Milano" loading="eager" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()">
+    <div class="cap">Il corteo di oggi pomeriggio a Milano</div></figure>
     <div class="kicker" style="margin-top:10px">Italia · Proteste</div>
     <h2>Sabato di cortei sotto stretta sorveglianza: tensioni a Torino e Roma, Milano senza saccheggi</h2>
     <p class="deck">Oltre 150 perquisizioni, 1.400 tra agenti e soldati a Milano. Indagato il ricercatore che sarebbe dietro il «Movimento 17 ottobre».</p>
@@ -193,7 +209,7 @@ a{color:inherit}
     <div class="src"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/24/oltre-150-perquisizioni-e-citta-blindate.-piantedosi-pronti-a-ogni-situazione_c947f80a-5c41-4c1b-bc3b-fe5603318029.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="spalla">
-    <img class="photo" src="https://dvrjj4igcfeco.cloudfront.net/eyJidWNrZXQiOiJrb2wtaW1hZ2VzLXByb2QiLCJrZXkiOiJwaWN0dXJlcy9hZ2kvYWdpLzIwMjYvMTAvMjMvMTczOTI5NDI3LTlhMTM5MGU4LTJkNjUtNGExYS05NmRjLTdmMWRjZDE1MDJlYi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6NjMwfX19" alt="Primo giorno del congresso della Lega, domani il voto tra Salvini e Garavaglia" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+    <img class="photo" src="https://dvrjj4igcfeco.cloudfront.net/eyJidWNrZXQiOiJrb2wtaW1hZ2VzLXByb2QiLCJrZXkiOiJwaWN0dXJlcy9hZ2kvYWdpLzIwMjYvMTAvMjMvMTczOTI5NDI3LTlhMTM5MGU4LTJkNjUtNGExYS05NmRjLTdmMWRjZDE1MDJlYi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6NjMwfX19" alt="Primo giorno del congresso della Lega, domani il voto tra Salvini e Garavaglia" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()">
     <div>
       <div class="kicker">Italia · Politica</div>
       <h3>Primo giorno del congresso della Lega, domani il voto tra Salvini e Garavaglia</h3>
@@ -214,31 +230,31 @@ a{color:inherit}
   <div class="pghead"><h2>Lumezzane e Brescia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n1">
     <div class="kicker">Lumezzane · Teatro</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1um0ofmsz58pup1f322/0/il-burattino-pinocchio-insieme-alla-fata-turchina.webp?f=16:9&amp;w=1200" alt="Stasera all&#x27;Odeon un Pinocchio recitato da una compagnia inclusiva" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Stasera all&#x27;Odeon un Pinocchio recitato da una compagnia inclusiva</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1um0ofmsz58pup1f322/0/il-burattino-pinocchio-insieme-alla-fata-turchina.webp?f=16:9&amp;w=1200" alt="Stasera all&#x27;Odeon un Pinocchio recitato da una compagnia inclusiva" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Stasera all&#x27;Odeon un Pinocchio recitato da una compagnia inclusiva</h3></div>
     <p class="just">Al Teatro Odeon di Lumezzane alle 20.45 va in scena «Pinocchio. Che cos&#x27;è una persona?», regia di Davide Iodice. Recitano i giovani della Scuola Elementare del Teatro di Napoli, tra cui ragazzi con sindrome di Down, autismo e Asperger, insieme a genitori e tutor. Lo spettacolo usa la storia del burattino per dire che la «normalità» è un&#x27;idea sbagliata.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/cultura/teatro-odeon-pinocchio-inclusivo-attori-sindrome-down-disabilita-asperger-ms6saul8" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
   <article class="item" id="n2">
     <div class="kicker">Valsabbia · Cronaca</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1ultpt6byhzjt8vuxla/0/la-polizia-locale-della-valle-sabbia.webp?f=16:9&amp;w=1200" alt="Ruba l&#x27;auto a un&#x27;anziana e scappa contromano in galleria: arrestato un uomo della Valtrompia" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Ruba l&#x27;auto a un&#x27;anziana e scappa contromano in galleria: arrestato un uomo della Valtrompia</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1ultpt6byhzjt8vuxla/0/la-polizia-locale-della-valle-sabbia.webp?f=16:9&amp;w=1200" alt="Ruba l&#x27;auto a un&#x27;anziana e scappa contromano in galleria: arrestato un uomo della Valtrompia" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Ruba l&#x27;auto a un&#x27;anziana e scappa contromano in galleria: arrestato un uomo della Valtrompia</h3></div>
     <p class="just">Un uomo che vive in Valtrompia ha rubato l&#x27;auto di un&#x27;anziana nel centro di Villanuova sul Clisi. Il giorno dopo la Polizia locale della Valle Sabbia l&#x27;ha intercettato vicino a Roè Volciano: lui non si è fermato all&#x27;alt ed è fuggito con sorpassi azzardati e tratti contromano in galleria. È stato bloccato tra Vobarno e Sabbio Chiese con droga, un coltellino e uno spray urticante; processato per <span class="term" role="button" tabindex="0" data-d="Un processo veloce, fatto subito dopo l&#x27;arresto quando le prove sono già chiare.">direttissima</span>, ora è in carcere a Canton Mombello.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/ruba-auto-anziana-villanuova-sul-clisi-inseguimento-arresto-untmvoj2" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
   <article class="item" id="n3">
     <div class="kicker">Garda · Cronaca</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umxc77823lp75beom1/1/il-luogo-dello-schianto.webp?f=16:9&amp;w=1200" alt="Moto contro il muro sulla Gardesana, muore un 59enne di Prevalle" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Moto contro il muro sulla Gardesana, muore un 59enne di Prevalle</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umxc77823lp75beom1/1/il-luogo-dello-schianto.webp?f=16:9&amp;w=1200" alt="Moto contro il muro sulla Gardesana, muore un 59enne di Prevalle" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Moto contro il muro sulla Gardesana, muore un 59enne di Prevalle</h3></div>
     <p class="just">Marco Alghisi, 59 anni, originario di Toscolano Maderno e residente a Prevalle, è morto sulla Gardesana tra Toscolano e Bogliaco. Con la strada bagnata dalla pioggia ha perso il controllo della sua moto e si è schiantato contro il muro di contenimento, senza coinvolgere altri mezzi. Carabinieri e Polizia locale stanno ricostruendo la dinamica.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/schianto-gardesana-toscolano-moto-morto-n1mfn224" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
   <article class="item" id="n4">
     <div class="kicker">Roncadelle · Cronaca</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umtjnuzu9j6onsylcg/1/il-balcone-dell-incidente-a-roncadelle.webp?f=16:9&amp;w=1200" alt="Cede la ringhiera del balcone: morto dopo due settimane il 55enne caduto" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Cede la ringhiera del balcone: morto dopo due settimane il 55enne caduto</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umtjnuzu9j6onsylcg/1/il-balcone-dell-incidente-a-roncadelle.webp?f=16:9&amp;w=1200" alt="Cede la ringhiera del balcone: morto dopo due settimane il 55enne caduto" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Cede la ringhiera del balcone: morto dopo due settimane il 55enne caduto</h3></div>
     <p class="just">Sergio Martini, 55 anni, è morto all&#x27;ospedale Civile dopo 14 giorni di ricovero. Il 10 ottobre era precipitato dal balcone di casa in via Castello a Roncadelle, durante una serata con amici, perché la ringhiera aveva ceduto. Le cause del cedimento sono ancora da chiarire; lunedì i funerali.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/roncadelle-morto-uomo-caduto-dal-balcone-sergio-martini-avf1litx" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
   <article class="item" id="n5">
     <div class="kicker">Brescia · Trasporti</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umq5g2x0vbfw2u77iy/0/un-frecciarossa-nella-stazione-cittadina.webp?f=16:9&amp;w=1200" alt="Frecciarossa per Milano, salvo per ora il carnet dei pendolari" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Frecciarossa per Milano, salvo per ora il carnet dei pendolari</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1umq5g2x0vbfw2u77iy/0/un-frecciarossa-nella-stazione-cittadina.webp?f=16:9&amp;w=1200" alt="Frecciarossa per Milano, salvo per ora il carnet dei pendolari" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Frecciarossa per Milano, salvo per ora il carnet dei pendolari</h3></div>
     <p class="just">Trenitalia voleva cancellare il carnet da dieci viaggi al mese tra Brescia e Milano (69 euro), ma dopo l&#x27;intervento del ministro Salvini lo ha sospeso in attesa di un confronto con i consumatori. Da novembre cambia anche l&#x27;abbonamento: quello mensile scende da 160 a 80 euro, ma ogni prenotazione del posto costerà 2 euro. Il comitato dei pendolari Sbiancalafreccia dice che controllerà se davvero si risparmia.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/cronaca/frecciarossa-carnet-polemiche-abbonamento-sbiancalafreccia-q31u5aua" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
@@ -256,37 +272,37 @@ a{color:inherit}
   <div class="pghead"><h2>Italia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n7">
     <div class="kicker">Calabria · Cronaca</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/22/b7fe67853fd870ae1e17f3d24e7f071a.jpg" alt="Agguato nel Cosentino: uccisa la moglie di un presunto boss, lui è grave" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Agguato nel Cosentino: uccisa la moglie di un presunto boss, lui è grave</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/22/b7fe67853fd870ae1e17f3d24e7f071a.jpg" alt="Agguato nel Cosentino: uccisa la moglie di un presunto boss, lui è grave" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Agguato nel Cosentino: uccisa la moglie di un presunto boss, lui è grave</h3></div>
     <p class="just">Intorno a mezzanotte, a Cassano all&#x27;Ionio, un commando ha sparato vicino alla casa di Damiano Pepe, 64 anni, considerato dagli investigatori una figura importante della criminalità della Sibaritide. La moglie Silvana Sibarelli, 60 anni, è stata uccisa; lui è stato operato a Cosenza ed è grave. Indagano i carabinieri: è un <span class="term" role="button" tabindex="0" data-d="Un attacco armato organizzato con le modalità tipiche delle cosche, di solito per regolare conti tra clan.">agguato di stampo mafioso</span>.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/24/agguato-in-calabria-uccisa-la-moglie-di-un-boss-lui-e-grave_48605512-6c55-4b18-8cde-4a7351ad5747.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="item" id="n8">
     <div class="kicker">Torino · Cronaca</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/7/24/24d66c9db68177dc13f046c894f2d80d.jpg" alt="Accoltellato e ucciso al Parco Dora, si cerca l&#x27;assassino" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Accoltellato e ucciso al Parco Dora, si cerca l&#x27;assassino</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/7/24/24d66c9db68177dc13f046c894f2d80d.jpg" alt="Accoltellato e ucciso al Parco Dora, si cerca l&#x27;assassino" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Accoltellato e ucciso al Parco Dora, si cerca l&#x27;assassino</h3></div>
     <p class="just">Un uomo tra i 20 e i 25 anni è stato trovato ieri sera verso le 18.30 nel Parco Dora, alla periferia di Torino, con una grave ferita all&#x27;addome vicino a un monopattino. Un residente aveva visto qualcuno scappare e ha dato l&#x27;allarme; il ragazzo è morto poco dopo in ospedale. La Squadra mobile indaga, il movente non è ancora noto.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/24/accoltellato-e-ucciso-in-un-parco-a-torino-si-cerca-lassassino_d961397b-f849-4425-bda6-df6699d25766.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="item" id="n9">
     <div class="kicker">Italia · Giustizia</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/7/17/f363cc46e7edf5ad7be64c6291ae704e.jpg" alt="I magistrati criticano il governo: «Miope rispondere alla cronaca con nuovi reati»" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>I magistrati criticano il governo: «Miope rispondere alla cronaca con nuovi reati»</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/7/17/f363cc46e7edf5ad7be64c6291ae704e.jpg" alt="I magistrati criticano il governo: «Miope rispondere alla cronaca con nuovi reati»" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>I magistrati criticano il governo: «Miope rispondere alla cronaca con nuovi reati»</h3></div>
     <p class="just">Il presidente dell&#x27;<span class="term" role="button" tabindex="0" data-d="Associazione nazionale magistrati: il sindacato dei giudici e dei pubblici ministeri.">Anm</span> Giuseppe Tango ha criticato il nuovo decreto sicurezza. Secondo lui creare nuovi reati o alzare le pene dopo ogni fatto di cronaca non risolve i problemi, intasa i tribunali e peggiora le carceri. Ha condannato le violenze dei giorni scorsi, ma ha chiesto di capire le cause del disagio dei giovani.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/topnews/2026/10/24/anm-miope-rispondere-con-nuovi-reati-alle-notizie-di-cronaca_124615d8-2aa2-497e-9fe5-f5fe18d04eac.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="item" id="n10">
     <div class="kicker">Campania · Lavoro</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792787513-0C2F78A6-3C0D-42F6-B75C-584278C95ADE_1_105_c.jpeg" alt="Camionisti, tolti i blocchi a Maddaloni e Nola: incontro al ministero il 27" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Camionisti, tolti i blocchi a Maddaloni e Nola: incontro al ministero il 27</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792787513-0C2F78A6-3C0D-42F6-B75C-584278C95ADE_1_105_c.jpeg" alt="Camionisti, tolti i blocchi a Maddaloni e Nola: incontro al ministero il 27" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Camionisti, tolti i blocchi a Maddaloni e Nola: incontro al ministero il 27</h3></div>
     <p class="just">Dopo una settimana gli autotrasportatori hanno lasciato l&#x27;interporto di Maddaloni e lo svincolo di Nola, soprattutto per paura delle denunce: il Viminale conta 1.339 identificati, 242 multati e un centinaio di denunciati. La procura antimafia di Napoli indaga su possibili infiltrazioni della camorra. Chiedono un prezzo bloccato del gasolio e meno tasse sul lavoro; per smaltire le merci il governo ha permesso ai camion di viaggiare anche la domenica al Sud.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/24/camionisti-campani-non-vogliono-sciogliere-blocchi-maddaloni-nola/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="item" id="n11">
     <div class="kicker">Italia · Economia</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2024/7/29/23df04e69f3c83c7b1cbf9bbc0adbbe1.jpg" alt="Disuguaglianza dei redditi ai minimi dal 2014, ma l&#x27;Italia resta sopra la media Ue" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Disuguaglianza dei redditi ai minimi dal 2014, ma l&#x27;Italia resta sopra la media Ue</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2024/7/29/23df04e69f3c83c7b1cbf9bbc0adbbe1.jpg" alt="Disuguaglianza dei redditi ai minimi dal 2014, ma l&#x27;Italia resta sopra la media Ue" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Disuguaglianza dei redditi ai minimi dal 2014, ma l&#x27;Italia resta sopra la media Ue</h3></div>
     <p class="just">Secondo Eurostat nel 2025 l&#x27;<span class="term" role="button" tabindex="0" data-d="Un numero da 0 a 100 che misura quanto è diviso in modo diseguale il reddito: 0 vuol dire tutti uguali, 100 che una sola persona ha tutto.">indice di Gini</span> italiano è sceso da 32,2 a 31, il valore più basso dal 2014. La media europea è 29,2, quindi da noi i redditi restano più squilibrati che nel resto dell&#x27;Ue, ma la distanza si è ridotta.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/topnews/2026/10/24/eurostat-disuguaglianza-redditi-in-italia-ai-minimi-da-2014-ma-resta-oltre-media-ue_d213c88a-0ad3-4491-8bae-051b01e8e139.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="item" id="n12">
     <div class="kicker">Italia · Esteri</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2022/10/31/903b5b2b302c3b26f7bbccd52cdc6820.jpg" alt="Mosca usa un&#x27;intervista di Al Bano: «Meloni lo ascolti»" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Mosca usa un&#x27;intervista di Al Bano: «Meloni lo ascolti»</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2022/10/31/903b5b2b302c3b26f7bbccd52cdc6820.jpg" alt="Mosca usa un&#x27;intervista di Al Bano: «Meloni lo ascolti»" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Mosca usa un&#x27;intervista di Al Bano: «Meloni lo ascolti»</h3></div>
     <p class="just">La portavoce del ministero degli Esteri russo, Maria Zakharova, ha rilanciato un&#x27;intervista in cui Al Bano chiede a Meloni di togliere le <span class="term" role="button" tabindex="0" data-d="Misure punitive, soprattutto economiche, che uno Stato o l&#x27;Ue applicano a un altro Paese.">sanzioni</span> alla Russia e riaprirle le porte. Zakharova ha ironizzato sulle accuse di interferenze russe nelle proteste italiane, chiedendo se ora indagheranno anche sul cantante.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/topnews/2026/10/24/zakharova-meloni-ascolti-al-bano-che-chiede-di-riaprire-le-porte-a-mosca_99d2cddc-d63e-4128-897e-4ff683d392e7.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
@@ -298,31 +314,31 @@ a{color:inherit}
   <div class="pghead"><h2>Dal mondo</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n13">
     <div class="kicker">Germania · Storia</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/24/1792856976-ilpost_20261024174438134_36e80cc6e68d4c24f97cb4a320247970.jpg" alt="Brucia il «Nido dell&#x27;Aquila» di Hitler, arrestato un uomo" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Brucia il «Nido dell&#x27;Aquila» di Hitler, arrestato un uomo</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/24/1792856976-ilpost_20261024174438134_36e80cc6e68d4c24f97cb4a320247970.jpg" alt="Brucia il «Nido dell&#x27;Aquila» di Hitler, arrestato un uomo" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Brucia il «Nido dell&#x27;Aquila» di Hitler, arrestato un uomo</h3></div>
     <p class="just">Un grande incendio ha distrutto il Kehlsteinhaus, l&#x27;edificio a oltre 1.800 metri nelle Alpi bavaresi costruito nel 1938 per i gerarchi nazisti e diventato poi un rifugio con ristorante per i turisti. Non ci sono feriti perché era vuoto, ma secondo la polizia probabilmente non si potrà recuperare. È stato arrestato un uomo; le cause non sono state ancora comunicate.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/24/kehlsteinhaus-nido-daquila-residenza-hitler-incendio/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="item" id="n14">
     <div class="kicker">Francia · Proteste</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/24/1792830990-AP25303375857992.jpg" alt="Anche la Francia in piazza contro il carovita: chiusi Louvre e Orsay" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Anche la Francia in piazza contro il carovita: chiusi Louvre e Orsay</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/24/1792830990-AP25303375857992.jpg" alt="Anche la Francia in piazza contro il carovita: chiusi Louvre e Orsay" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Anche la Francia in piazza contro il carovita: chiusi Louvre e Orsay</h3></div>
     <p class="just">Oggi in molte città francesi ci sono grandi proteste di studenti e contro il caro vita, dopo quelle violente di sabato scorso con incendi e saccheggi. A Parigi sono chiusi il Louvre, il Museo d&#x27;Orsay, i giardini delle Tuileries e l&#x27;Opéra; chiusure anche a Lione, Marsiglia e Bordeaux. In settimana il governo aveva imposto <span class="term" role="button" tabindex="0" data-d="Il divieto di uscire di casa in certe ore, deciso dalle autorità per motivi di sicurezza.">coprifuoco</span> mirati in alcune città.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/24/francia-chiusure-scontri-24-ottobre/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="item" id="n15">
     <div class="kicker">Serbia · Elezioni</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792733776-AP26295604781467.jpg" alt="Domani la Serbia vota: gli studenti sfidano Vučić" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Domani la Serbia vota: gli studenti sfidano Vučić</h3></div>
+    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792733776-AP26295604781467.jpg" alt="Domani la Serbia vota: gli studenti sfidano Vučić" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Domani la Serbia vota: gli studenti sfidano Vučić</h3></div>
     <p class="just">Domenica ci sono le elezioni parlamentari. Il movimento degli studenti, nato dopo il crollo della pensilina della stazione di Novi Sad (16 morti, novembre 2024), si presenta con una sua lista e giovedì ha portato circa 150mila persone a Belgrado. Secondo molti esperti è testa a testa con il partito del presidente Aleksandar Vučić, al potere da 12 anni, accusato di controllare gran parte dei media; lui sostiene che gli studenti siano manovrati dall&#x27;estero.</p>
     <div class="src"><a href="https://www.ilpost.it/2026/10/23/studenti-serbia-manifestazione-belgrado-elezioni/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
   </article>
   <article class="item" id="n16">
     <div class="kicker">Usa-Cuba · Politica</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1un5b5t7iuxbe2vc9y9/1/greece-usa-diplomacy.webp?f=16:9&amp;w=1200" alt="Rubio ai cubani: «Collaborate con la Cia se volete un cambiamento»" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Rubio ai cubani: «Collaborate con la Cia se volete un cambiamento»</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1un5b5t7iuxbe2vc9y9/1/greece-usa-diplomacy.webp?f=16:9&amp;w=1200" alt="Rubio ai cubani: «Collaborate con la Cia se volete un cambiamento»" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Rubio ai cubani: «Collaborate con la Cia se volete un cambiamento»</h3></div>
     <p class="just">Il segretario di Stato americano Marco Rubio ha scritto su X un appello ai cubani che vogliono cambiare il loro Paese: è il momento di agire, collaborando in modo riservato con la <span class="term" role="button" tabindex="0" data-d="L&#x27;agenzia dei servizi segreti degli Stati Uniti che opera all&#x27;estero.">Cia</span>. Ha accusato il governo dell&#x27;Avana di corruzione e promesse tradite. È un invito aperto, molto raro, a lavorare contro il governo cubano.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/italia-e-estero/lappello-di-rubio-collaborate-con-la-cia-se-volete-un-cambiamento-a-cuba-m340pyei" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
   <article class="item" id="n17">
     <div class="kicker">Messico · Lavoro</div>
-    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1un4tkky9h7nq3lyobe/1/mexico-usa-transport.webp?f=16%3A9&amp;w=1200" alt="Messico, da lunedì sciopero dei camionisti a oltranza" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Messico, da lunedì sciopero dei camionisti a oltranza</h3></div>
+    <div class="pr"><img class="photo" src="https://api.gdb.atexcloud.io/image-service/view/acePublic/alias/contentid/1un4tkky9h7nq3lyobe/1/mexico-usa-transport.webp?f=16%3A9&amp;w=1200" alt="Messico, da lunedì sciopero dei camionisti a oltranza" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Messico, da lunedì sciopero dei camionisti a oltranza</h3></div>
     <p class="just">Le associazioni dell&#x27;autotrasporto messicano hanno proclamato uno <span class="term" role="button" tabindex="0" data-d="Uno sciopero senza data di fine, che continua finché non arrivano risposte.">sciopero a oltranza</span> nazionale da lunedì 26 ottobre. Protestano contro rapine ed estorsioni sulle strade, l&#x27;aumento dei costi e un taglio agli sconti fiscali sui pedaggi. Potrebbero fermarsi circa un milione di mezzi su due milioni.</p>
     <div class="src"><a href="https://www.giornaledibrescia.it/italia-e-estero/gli-autotrasportatori-in-messico-proclamano-uno-sciopero-nazionale-a-oltranza-vcxat559" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></div>
   </article>
@@ -334,7 +350,7 @@ a{color:inherit}
   <div class="pghead"><h2>Tecnologia</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n18">
     <div class="kicker">Videogiochi · Hacking</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/Telecamera_Switch_2_720-1_1_720.jpg" alt="Nintendo Switch 2 craccata, e l&#x27;exploit l&#x27;ha trovato anche l&#x27;IA" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Nintendo Switch 2 craccata, e l&#x27;exploit l&#x27;ha trovato anche l&#x27;IA</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/Telecamera_Switch_2_720-1_1_720.jpg" alt="Nintendo Switch 2 craccata, e l&#x27;exploit l&#x27;ha trovato anche l&#x27;IA" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Nintendo Switch 2 craccata, e l&#x27;exploit l&#x27;ha trovato anche l&#x27;IA</h3></div>
     <p class="just">È uscito il primo <span class="term" role="button" tabindex="0" data-d="Una tecnica che toglie i blocchi del produttore e permette di installare programmi non autorizzati.">jailbreak</span> pubblico per Switch 2: permette di usare homebrew, mod e backup dei salvataggi anche con l&#x27;ultimo firmware. Funziona solo via software e va riattivato a ogni accensione avviando un vecchio gioco della Switch 1 che ha un errore di programmazione, trovato con l&#x27;aiuto di strumenti di IA. Nintendo probabilmente risponderà con un aggiornamento.</p>
     <div class="src"><a href="https://gaming.hwupgrade.it/news/videogames/nintendo-switch-2-gia-violata-grazie-all-ia-il-primo-jailbreak-apre-le-porte-a-mod-e-homebrew_161050.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
   </article>
@@ -346,13 +362,13 @@ a{color:inherit}
   </article>
   <article class="item" id="n20">
     <div class="kicker">IA · Modelli</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/kimi-31-pro-logo_720.jpg" alt="Kimi K3.1 Pro, l&#x27;IA cinese che si avvicina alle migliori e sarà scaricabile" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Kimi K3.1 Pro, l&#x27;IA cinese che si avvicina alle migliori e sarà scaricabile</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/kimi-31-pro-logo_720.jpg" alt="Kimi K3.1 Pro, l&#x27;IA cinese che si avvicina alle migliori e sarà scaricabile" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Kimi K3.1 Pro, l&#x27;IA cinese che si avvicina alle migliori e sarà scaricabile</h3></div>
     <p class="just">La cinese Moonshot AI ha presentato Kimi K3.1 Pro, che nei test di programmazione e ragionamento arriva vicino ai modelli più forti di Anthropic e OpenAI e costa un terzo in meno del precedente. Entro il 4 novembre pubblicherà i pesi: sarà un modello <span class="term" role="button" tabindex="0" data-d="Un&#x27;IA i cui «pesi», cioè i numeri che la fanno funzionare, sono pubblici: chiunque può scaricarla e usarla sui propri computer.">open-weight</span>. Per sicurezza, dalla versione pubblica sono stati tolti i dati di addestramento sulla cybersicurezza.</p>
     <div class="src"><a href="https://www.hwupgrade.it/news/web/kimi-k31-pro-moonshot-ai-rilancia-sui-modelli-open-weight-prestazioni-vicine-ai-migliori-sistemi-proprietari_161055.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
   </article>
   <article class="item" id="n21">
     <div class="kicker">Internet · Sicurezza</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/300-ssh-tor-1.jpg" alt="Tor, 333 nodi manipolati per rubare password SSH" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Tor, 333 nodi manipolati per rubare password SSH</h3></div>
+    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/300-ssh-tor-1.jpg" alt="Tor, 333 nodi manipolati per rubare password SSH" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Tor, 333 nodi manipolati per rubare password SSH</h3></div>
     <p class="just">Qualcuno ha preso il controllo di 333 nodi di uscita della rete anonima Tor e li ha usati per deviare le connessioni <span class="term" role="button" tabindex="0" data-d="Il sistema usato per collegarsi e comandare a distanza un computer o un server in modo cifrato.">SSH</span> verso server propri. Chi ignorava l&#x27;avviso di chiave cambiata rischiava di consegnare la password. Il consiglio è usare l&#x27;accesso con chiavi invece delle password.</p>
     <div class="src"><a href="https://www.hwupgrade.it/news/web/tor-sotto-attacco-manipolati-oltre-300-relay-di-uscita-per-sottrarre-credenziali-ssh_161023.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
   </article>
@@ -364,19 +380,19 @@ a{color:inherit}
   <div class="pghead"><h2>Musica</h2><span>Corriere dello Steruz</span></div>
   <article class="item" id="n22">
     <div class="kicker">Classifica FIMI · Rap</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/14/8430ab1234733d0ca79db0d666faf283.jpg" alt="Geolier prende tutto: primo negli album e nei primi quattro singoli" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Geolier prende tutto: primo negli album e nei primi quattro singoli</h3></div>
+    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/14/8430ab1234733d0ca79db0d666faf283.jpg" alt="Geolier prende tutto: primo negli album e nei primi quattro singoli" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Geolier prende tutto: primo negli album e nei primi quattro singoli</h3></div>
     <p class="just">«Tutto è possibile – Atto II» di Geolier debutta al primo posto della <span class="term" role="button" tabindex="0" data-d="La classifica ufficiale italiana di album e singoli più ascoltati e venduti, uscita ogni venerdì.">classifica FIMI</span> degli album, e i primi quattro singoli sono tutti suoi: con Lazza, Shiva, Achille Lauro e «Winner». Al quarto posto resta 22simba con «Miria», poi Olly, Shiva con «Vangelo» e Kid Yugi al settimo.</p>
     <div class="src"><a href="https://www.ansa.it/sito/notizie/topnews/2026/10/23/hit-parade-geolier-senza-rivali-primo-con-il-nuovo-tutto-e-possibile_8e345dcd-612b-432a-97c0-5c7f4be67cea.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
   </article>
   <article class="item" id="n23">
     <div class="kicker">Nuove uscite · Rap</div>
-    <div class="pr"><img class="photo" src="https://www.rollingstone.it/wp-content/uploads/2026/09/Schermata-2026-09-30-alle-11.14.08.jpg" alt="Battista, il rapper di Castel Volturno, racconta l&#x27;Unità d&#x27;Italia come un furto" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Battista, il rapper di Castel Volturno, racconta l&#x27;Unità d&#x27;Italia come un furto</h3></div>
+    <div class="pr"><img class="photo" src="https://www.rollingstone.it/wp-content/uploads/2026/09/Schermata-2026-09-30-alle-11.14.08.jpg" alt="Battista, il rapper di Castel Volturno, racconta l&#x27;Unità d&#x27;Italia come un furto" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Battista, il rapper di Castel Volturno, racconta l&#x27;Unità d&#x27;Italia come un furto</h3></div>
     <p class="just">Esce il secondo brano di Battista, «&#x27;O cavallo &#x27;e ritorno», titolo che richiama il <span class="term" role="button" tabindex="0" data-d="Il reato di chi ruba qualcosa e poi chiede soldi al proprietario per restituirglielo.">cavallo di ritorno</span>. Racconta un Sud depredato, l&#x27;emigrazione, il colonialismo e lo sfruttamento sulla Domiziana. Il suo esordio aveva attirato l&#x27;attenzione di Marracash, Geolier, Gemitaiz e Roberto Saviano.</p>
     <div class="src"><a href="https://www.rollingstone.it/musica/news-musica/battista-nel-secondo-brano-lunita-ditalia-e-o-cavallo-e-ritorno/1043096/" target="_blank" rel="noopener">Fonte: Rolling Stone Italia</a></div>
   </article>
   <article class="item" id="n24">
     <div class="kicker">Polemiche · Rap e proteste</div>
-    <div class="pr"><img class="photo" src="https://www.rollingstone.it/wp-content/uploads/2026/10/Manuel-Agnelli-e-Neri-Marcore-al-Premio-Tenco-Foto-Alessio-Bruna-1.jpg" alt="Manuel Agnelli: «Il riscatto sociale del rap? Una grossa balla»" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Manuel Agnelli: «Il riscatto sociale del rap? Una grossa balla»</h3></div>
+    <div class="pr"><img class="photo" src="https://www.rollingstone.it/wp-content/uploads/2026/10/Manuel-Agnelli-e-Neri-Marcore-al-Premio-Tenco-Foto-Alessio-Bruna-1.jpg" alt="Manuel Agnelli: «Il riscatto sociale del rap? Una grossa balla»" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Manuel Agnelli: «Il riscatto sociale del rap? Una grossa balla»</h3></div>
     <p class="just">Continua il dibattito tra musicisti sulle proteste. Dal Premio Tenco, il cantante degli Afterhours ha detto che il rap ha smesso di essere militante e parla soprattutto di soldi e lusso, e che la presenza dei trapper alle proteste è ipocrita. A Marracash dà in parte ragione, ma secondo lui ha giustificato troppo i disordini. Nei giorni scorsi Fedez aveva invitato i giovani a non fidarsi dei rapper ricchi, e Nayt gli aveva risposto: «C&#x27;è un noi, da qualche parte».</p>
     <div class="src"><a href="https://www.rollingstone.it/musica/storie-musica/manuel-agnelli-il-riscatto-sociale-del-rap-una-grossa-balla/1043183/" target="_blank" rel="noopener">Fonte: Rolling Stone Italia</a></div>
   </article>
@@ -411,9 +427,11 @@ a{color:inherit}
 
 <nav class="bar" id="bar" aria-label="Sfoglia">
   <button id="prev" type="button">← Indietro</button>
-  <div class="where"><span class="name" id="pname">Prima pagina</span><span class="num" id="pnum">Pagina 1 di 7</span></div>
+  <button type="button" class="where" id="where" aria-haspopup="true" aria-expanded="false"><span class="name"><span id="pname">Prima pagina</span> ▾</span><span class="num" id="pnum">Pagina 1 di 7</span></button>
   <button id="next" type="button">Avanti →</button>
 </nav>
+
+<div class="toc" id="toc" hidden><div class="box" role="menu" aria-label="Vai alla pagina"><p class="h">Vai alla pagina</p><div id="toclist"></div></div></div>
 
 <div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden aria-expanded="false">Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>
 
@@ -434,6 +452,18 @@ a{color:inherit}
     prev.disabled=cur===0; next.disabled=cur===N-1;
     
     edgeL.style.width=Math.min(8,cur*2.5)+'px'; document.getElementById('crL').hidden=cur===N-1; document.getElementById('crR').hidden=cur!==N-1; edgeR.style.width=Math.min(8,(N-1-cur)*2.5)+'px';
+  }
+  // Indice: toccando il nome della pagina nella barra si sceglie dove andare
+  var where=document.getElementById('where'), toc=document.getElementById('toc'), toclist=document.getElementById('toclist');
+  function closeToc(){if(!toc)return;toc.hidden=true;where.setAttribute('aria-expanded','false')}
+  if(where&&toc){
+    sheets.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.setAttribute('role','menuitem');
+      b.innerHTML='<b>'+(i+1)+'</b> ';b.appendChild(document.createTextNode(s.dataset.name));
+      b.addEventListener('click',function(){closeToc();go(i)});toclist.appendChild(b)});
+    where.addEventListener('click',function(e){e.stopPropagation();closePop();
+      var open=toc.hidden; toc.hidden=!open; where.setAttribute('aria-expanded',open?'true':'false');
+      [].forEach.call(toclist.children,function(b,i){if(i===cur)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})});
+    document.addEventListener('click',function(e){if(!toc.hidden&&!e.target.closest('#toc'))closeToc()});
   }
   function closePop(){pop.hidden=true;if(openTerm)openTerm.setAttribute('aria-expanded','false');openTerm=null}
 
@@ -487,7 +517,7 @@ a{color:inherit}
   }
   prev.addEventListener('click',function(){go(cur-1)});
   next.addEventListener('click',function(){go(cur+1)});
-  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape')closePop(); if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape'){closePop();closeToc();} if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
 
   // Trascinamento col dito: la pagina si piega seguendo il dito
   var sx=0,sy=0,dragging=false,decided=false,lastX=0,lastT=0,vel=0,pid=null;
