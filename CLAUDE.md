@@ -59,7 +59,15 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
 - **Foto**: per ogni notizia prova a prendere l'immagine principale dell'articolo con WebFetch
   (chiedi l'URL esatto del meta `og:image`). Usa solo URL `https://` che hai visto davvero, mai inventati.
   Se non la trovi, ometti il campo `foto`: la notizia esce senza immagine e va bene così.
-- Verifica che le notizie siano **del periodo giusto** (vedi sotto) e non vecchie.
+- Verifica che le notizie siano **del periodo giusto** (vedi sotto) e non vecchie: guarda la data
+  dell'articolo, non solo quella del risultato di ricerca.
+- **Solo fatti letti davvero.** Scrivi una notizia solo se hai letto l'articolo intero con WebFetch,
+  o un altro articolo serio che racconta lo stesso fatto. Se la fonte non si apre, **non scrivere
+  partendo dal titolo o dall'anteprima della ricerca**: cerca lo stesso fatto su un'altra testata
+  dell'elenco e apri quella (e metti quella come fonte). Se non trovi nessun articolo leggibile,
+  scarta la notizia e scegline un'altra. Non aggiungere dettagli presi dalla memoria o "di contesto"
+  (numeri, date, nomi, posizioni dei partiti) che non hai letto in una fonte. Riporta sempre le
+  precisazioni che cambiano il senso: pena sospesa, "secondo la polizia", stime, dati non verificati.
 
 ## Come cercare (importante per non bloccarti)
 - Usa **solo WebSearch e WebFetch** per cercare notizie, leggere articoli e trovare le foto.
@@ -70,8 +78,11 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   letta). Non costruire indirizzi a mano (es. `sito.it/meteo/milano`) e non aprire homepage digitate
   a memoria: vengono bloccati perché richiedono l'approvazione di Alex. Per trovare una pagina, prima
   cercala con WebSearch e poi apri il link esatto del risultato.
-- Se un sito rifiuta WebFetch o chiede un'approvazione, non insistere: passa subito a un'altra
-  fonte (es. ANSA, Il Post, Sky TG24, Rainews, Giornale di Brescia, BresciaToday, Bresciaoggi).
+- I siti dell'elenco `FONTI_OK` sono già autorizzati in `.claude/settings.json`: WebFetch li apre
+  senza chiedere. Se aggiungi un sito a `FONTI_OK`, aggiungilo anche lì.
+- Se un sito rifiuta WebFetch (paywall, blocco dei robot) o chiede un'approvazione, non insistere:
+  passa subito a un'altra fonte che racconta lo stesso fatto (es. ANSA, Il Post, Sky TG24, Rainews,
+  Giornale di Brescia, BresciaToday, Bresciaoggi).
 - Lavora veloce: Alex vuole l'edizione pronta in orario. Fai le ricerche delle varie sezioni in
   parallelo e non leggere più articoli del necessario.
 
