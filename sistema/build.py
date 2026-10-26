@@ -65,7 +65,7 @@ def foto(n, cls="photo", eager=False):
     url = f.get("url") if isinstance(f, dict) else f
     if not url or not str(url).startswith("https://"):
         return ""
-    return ('<img class="%s" src="%s" alt="%s" loading="%s" referrerpolicy="no-referrer" onerror="this.remove()">'
+    return ('<img class="%s" src="%s" alt="%s" loading="%s" referrerpolicy="no-referrer" onerror="(this.closest(\'figure\')||this).remove()">'
             % (cls, E(url), E((f.get("didascalia") if isinstance(f, dict) else "") or n.get("titolo")),
                "eager" if eager else "lazy"))
 
@@ -83,7 +83,7 @@ def fonte(n):
 def apertura(n):
     did = (n.get("foto") or {}).get("didascalia") if isinstance(n.get("foto"), dict) else ""
     return """  <article class="lead">
-    %s%s
+    <figure class="fig">%s%s</figure>
     <div class="kicker" style="margin-top:10px">%s</div>
     <h2>%s</h2>
     %s
@@ -192,7 +192,6 @@ def impagina(ed, numero):
   <nav class="summary" aria-label="Sommario">
 %s
   </nav>
-  <div class="tip">Trascina il bordo destro per girare pagina · tocca le <b>parole tratteggiate</b> per il significato</div>
 %s%s%s%s""" % (data_lunga, numero, etichetta, sommario,
                apertura(pr["apertura"]),
                "".join(spalla(x) for x in (pr.get("spalle") or ([pr["spalla"]] if pr.get("spalla") else []))),
@@ -238,9 +237,11 @@ def impagina(ed, numero):
 
 <nav class="bar" id="bar" aria-label="Sfoglia">
   <button id="prev" type="button">← Indietro</button>
-  <div class="where"><span class="name" id="pname">Prima pagina</span><span class="num" id="pnum">Pagina 1 di %d</span></div>
+  <button type="button" class="where" id="where" aria-haspopup="true" aria-expanded="false"><span class="name"><span id="pname">Prima pagina</span> ▾</span><span class="num" id="pnum">Pagina 1 di %d</span></button>
   <button id="next" type="button">Avanti →</button>
 </nav>
+
+<div class="toc" id="toc" hidden><div class="box" role="menu" aria-label="Vai alla pagina"><p class="h">Vai alla pagina</p><div id="toclist"></div></div></div>
 
 <div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden aria-expanded="false">Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>
 
@@ -368,7 +369,9 @@ def main():
     numero = (gia.index(nome) + 1) if nome in gia else len(gia) + 1
     pagina = impagina(ed, numero)
     # la copia in archivio sta in una sottocartella: i link relativi devono risalire
-    arch_pag = pagina.replace('href="archivio.html"', 'href="../archivio.html"')
+    arch_pag = pagina.replace('href="archivio.html"', 'href="../archivio.html"').replace(
+        '  <header class="mast">',
+        '  <a class="old" href="../index.html">Stai leggendo un\'edizione passata · <b>Vai all\'ultima →</b></a>\n  <header class="mast">', 1)
     open(os.path.join(ARCH, nome + ".json"), "w", encoding="utf-8").write(json.dumps(ed, ensure_ascii=False, indent=1))
     open(os.path.join(ARCH, nome + ".html"), "w", encoding="utf-8").write(arch_pag)
     open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(pagina)

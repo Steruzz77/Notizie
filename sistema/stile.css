@@ -105,7 +105,7 @@ a{color:inherit}
   padding:8px max(10px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
 .bar button{font:700 13px var(--label);background:var(--paper);border:1px solid var(--rule);color:var(--ink);padding:7px 12px;cursor:pointer}
 .bar button:disabled{opacity:.35;cursor:default}
-.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;background:none!important;border:0!important;padding:2px 8px!important;font:inherit;color:inherit;cursor:pointer}
 .where .name{font:700 11px var(--label);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw}
 .where .num{font:400 11px var(--label);color:var(--muted)}
 
@@ -140,3 +140,19 @@ a{color:inherit}
 .wxt .tt{font-family:var(--label);font-weight:700;white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
 .wx{width:26px;height:26px;color:var(--ink);display:block}
 .item:not(:has(.photo)) .pr{display:block}
+
+/* Foto con didascalia: se la foto non si carica sparisce anche la didascalia */
+.fig{margin:0}
+/* Su telefono testo allineato a sinistra: niente spazi larghi e parole spezzate */
+@media (max-width:619px){.just{text-align:left;hyphens:manual;-webkit-hyphens:manual}}
+/* Indice delle pagine, si apre toccando il nome della pagina nella barra */
+.toc{position:fixed;left:0;right:0;bottom:var(--barh,64px);z-index:21;display:flex;justify-content:center;padding:0 12px 10px}
+.toc .box{max-width:420px;width:100%;background:var(--note);border:1px solid var(--rule);border-top:4px double var(--rule);padding:10px 14px;box-shadow:0 8px 24px rgba(40,30,10,.3)}
+.toc .h{margin:0 0 4px;font:700 11px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.toc button{display:flex;gap:10px;align-items:baseline;width:100%;background:none;border:0;border-top:1px dotted var(--soft);padding:10px 0;text-align:left;cursor:pointer;color:var(--ink);font:700 18px var(--head)}
+.toc button:first-child{border-top:0}
+.toc button b{font:700 11px var(--label);min-width:22px;border:1px solid var(--rule);padding:1px 4px;text-align:center}
+.toc button[aria-current="page"]{color:var(--term)}
+/* Avviso nelle edizioni passate */
+.old{display:block;text-align:center;font:500 13px var(--label);color:var(--ink);text-decoration:none;background:var(--term-bg);border:1px solid var(--rule);padding:8px 10px}
+.old b{color:var(--red);white-space:nowrap}

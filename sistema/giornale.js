@@ -16,6 +16,18 @@
     
     edgeL.style.width=Math.min(8,cur*2.5)+'px'; document.getElementById('crL').hidden=cur===N-1; document.getElementById('crR').hidden=cur!==N-1; edgeR.style.width=Math.min(8,(N-1-cur)*2.5)+'px';
   }
+  // Indice: toccando il nome della pagina nella barra si sceglie dove andare
+  var where=document.getElementById('where'), toc=document.getElementById('toc'), toclist=document.getElementById('toclist');
+  function closeToc(){if(!toc)return;toc.hidden=true;where.setAttribute('aria-expanded','false')}
+  if(where&&toc){
+    sheets.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.setAttribute('role','menuitem');
+      b.innerHTML='<b>'+(i+1)+'</b> ';b.appendChild(document.createTextNode(s.dataset.name));
+      b.addEventListener('click',function(){closeToc();go(i)});toclist.appendChild(b)});
+    where.addEventListener('click',function(e){e.stopPropagation();closePop();
+      var open=toc.hidden; toc.hidden=!open; where.setAttribute('aria-expanded',open?'true':'false');
+      [].forEach.call(toclist.children,function(b,i){if(i===cur)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})});
+    document.addEventListener('click',function(e){if(!toc.hidden&&!e.target.closest('#toc'))closeToc()});
+  }
   function closePop(){pop.hidden=true;if(openTerm)openTerm.setAttribute('aria-expanded','false');openTerm=null}
 
   // Disegna la piega: "top" è il foglio che si piega, "under" quello che appare sotto. x = posizione della piega.
@@ -68,7 +80,7 @@
   }
   prev.addEventListener('click',function(){go(cur-1)});
   next.addEventListener('click',function(){go(cur+1)});
-  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape')closePop(); if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
+  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape'){closePop();closeToc();} if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
 
   // Trascinamento col dito: la pagina si piega seguendo il dito
   var sx=0,sy=0,dragging=false,decided=false,lastX=0,lastT=0,vel=0,pid=null;
