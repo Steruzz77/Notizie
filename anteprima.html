@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Anteprima · Il Corriere dello Steruz</title>
+<title>Anteprima · Le mie parole</title>
 <meta name="robots" content="noindex, nofollow, noimageindex">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Corriere Steruz">
@@ -12,568 +12,236 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Franklin:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <style>
-/* Layout: fogli di giornale impilati; si girano come pagine (swipe o tasti), dentro ogni foglio si scorre in verticale */
-:root{
-  --desk:#cfc6b2; --paper:#ede6d7; --ink:#1c1a16; --muted:#5a5446; --rule:#1c1a16; --soft:#b9b09c;
-  --red:#8e1f17; --term:#1d3f73; --term-bg:#d9d3c2; --note:#f4efe3;
-  --gothic:"UnifrakturMaguntia","Old English Text MT",Georgia,serif;
-  --head:"Playfair Display",Georgia,"Times New Roman",serif;
-  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
-  --label:"Libre Franklin","Helvetica Neue",Arial,sans-serif;
-  color-scheme:light;
-}
-[hidden]{display:none!important}
+:root{--paper:#ede6d7;--ink:#1c1a16;--muted:#5a5446;--rule:#1c1a16;--soft:#b9b09c;--red:#8e1f17;--desk:#cfc6b2;--term:#1d3f73;--term-bg:#d9d3c2}
 *{box-sizing:border-box}
-html,body{margin:0;height:100%}
-body{background:var(--desk);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;display:flex;flex-direction:column;overflow:hidden;
-  padding-top:env(safe-area-inset-top,0px)}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--term);outline-offset:2px}
-
-/* Il giornale: fogli sovrapposti, con lo spessore delle pagine girate a sinistra e di quelle da leggere a destra */
-.stack{position:relative;flex:1;min-height:0;margin:10px calc(14px + env(safe-area-inset-right,0px)) 0 calc(14px + env(safe-area-inset-left,0px))}
-.book{position:absolute;inset:0;overflow:hidden;box-shadow:0 2px 10px rgba(40,30,10,.3)}
-.edge{position:absolute;top:3px;bottom:-3px;width:0;transition:width .3s ease;
-  background:repeating-linear-gradient(90deg,#e3dbc9 0 1px,#bdb39d 1px 2px);box-shadow:0 1px 4px rgba(40,30,10,.25)}
-.edge.l{right:100%;border-radius:2px 0 0 2px}
-.edge.r{left:100%;border-radius:0 2px 2px 0}
-.sheet{position:absolute;inset:0;z-index:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-y;
-  background-color:var(--paper);
-  background-image:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .22  0 0 0 .16 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
-    linear-gradient(90deg,rgba(80,60,20,.10),transparent 5%,transparent 95%,rgba(80,60,20,.08))}
-.sheet.top{z-index:3}
-.sheet.under{z-index:2}
-.flap{position:absolute;top:0;bottom:0;z-index:4;pointer-events:none;
-  background:
-    linear-gradient(to left,rgba(60,45,20,.38) 0%,rgba(60,45,20,.12) 6%,rgba(255,252,240,.55) 16%,rgba(255,252,240,0) 45%,rgba(60,45,20,.10) 100%),
-    var(--paper);
-  box-shadow:-6px 0 14px rgba(40,30,10,.22)}
-.fshadow{position:absolute;top:0;bottom:0;width:46px;z-index:3;pointer-events:none;background:linear-gradient(to right,rgba(30,20,5,.32),rgba(30,20,5,0))}
-.corner{position:absolute;bottom:0;width:30px;height:30px;z-index:5;border:0;padding:0;cursor:pointer;background:none}
-.corner.r{right:0;background:linear-gradient(225deg,var(--desk) 0 48%,rgba(40,30,10,.25) 49%,#f6f1e5 52%,#ddd4c0 100%);box-shadow:-1px -1px 3px rgba(40,30,10,.15)}
-.corner.l{left:0;background:linear-gradient(135deg,var(--desk) 0 48%,rgba(40,30,10,.25) 49%,#f6f1e5 52%,#ddd4c0 100%);box-shadow:1px -1px 3px rgba(40,30,10,.15)}
-.corner.r{clip-path:polygon(100% 0,100% 100%,0 100%)}
-.corner.l{clip-path:polygon(0 0,100% 100%,0 100%)}
-.inner{max-width:700px;margin:0 auto;padding:16px 16px 10px;display:flex;flex-direction:column;gap:14px;min-height:100%}
-
-/* Testata */
-.mast{text-align:center;display:flex;flex-direction:column;gap:0}
-.mast h1{font-family:var(--gothic);font-weight:400;font-size:clamp(38px,11.5vw,78px);line-height:1;margin:2px 0 8px;text-wrap:balance}
-.mast .line,.mast .line2{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-family:var(--label);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 0}
-.mast .line{font-weight:700;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.mast .line2{font-weight:500;color:var(--muted);border-bottom:4px double var(--rule);text-transform:none;letter-spacing:.02em;font-size:12px}
-.summary{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 18px;padding:2px 0 4px;border-bottom:1px solid var(--rule)}
-.summary .goto{background:none;border:0;cursor:pointer;color:var(--ink);font:500 13px var(--label);padding:4px 0}
-.summary .goto b{display:inline-block;min-width:18px;border:1px solid var(--rule);font-weight:700;font-size:11px;padding:0 4px;margin-right:4px}
-.kicker{font-family:var(--label);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
-.photo{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border:1px solid var(--rule);filter:grayscale(.35) sepia(.18) contrast(1.05);background:var(--term-bg)}
-.cap{font-family:var(--label);font-size:11px;color:var(--muted);margin-top:4px}
-.just{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
-
-/* Apertura */
-.lead h2{font-family:var(--head);font-weight:900;font-size:clamp(28px,7.5vw,44px);line-height:1.04;margin:4px 0 8px;text-wrap:balance}
-.deck{font-family:var(--head);font-style:italic;font-weight:700;font-size:18px;line-height:1.35;color:var(--muted);margin:0 0 10px}
-.lead p{margin:0 0 10px}
-.dropcap::first-letter{font-family:var(--head);font-weight:900;float:left;font-size:58px;line-height:.82;padding:6px 8px 0 0}
-.src{font-family:var(--label);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.src a{color:var(--red);text-decoration:none}
-
-/* Spalla */
-.spalla{border-top:3px double var(--rule);padding-top:10px;display:grid;grid-template-columns:1fr;gap:8px}
-.spalla h3{font-family:var(--head);font-weight:900;font-size:24px;line-height:1.1;margin:2px 0 4px;text-wrap:balance}
-.spalla p{margin:0 0 8px}
-@media (min-width:620px){.spalla{grid-template-columns:200px 1fr;column-gap:16px}.spalla .photo{aspect-ratio:4/5}}
-
-/* Pagine interne */
-.pghead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:4px double var(--rule);padding-bottom:6px}
-.pghead h2{font-family:var(--head);font-weight:900;font-size:28px;margin:0}
-.pghead span{font-family:var(--gothic);font-size:17px;color:var(--muted)}
-@media (max-width:420px){.pghead span{display:none}}
-.item{border-top:3px double var(--rule);padding-top:12px;display:flex;flex-direction:column;gap:8px;scroll-margin-top:12px}
-.pghead + .item{border-top:0;padding-top:0}
-.item h3{font-family:var(--head);font-weight:700;font-size:22px;line-height:1.15;margin:0;text-wrap:balance}
-.item p{margin:0}
-.item .pr{display:flex;gap:12px;align-items:flex-start}
-.item .pr .photo{width:110px;flex:none;aspect-ratio:1/1}
-.item .pr h3{flex:1;min-width:0}
-
-/* Piede di pagina */
-.folio{margin-top:auto;margin-bottom:22px;display:flex;justify-content:space-between;font-family:var(--label);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--rule);padding-top:6px}
-
-/* Termini */
-.term{font:inherit;font-weight:600;color:var(--term);background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:inherit;
-  text-decoration:underline dashed;text-decoration-thickness:1.5px;text-underline-offset:3px}
-.term[aria-expanded="true"]{background:var(--term-bg)}
-.tip{font-family:var(--label);font-size:12px;color:var(--muted);text-align:center}
-.tip b{color:var(--term);text-decoration:underline dashed;text-underline-offset:3px}
-.pop{position:fixed;left:0;right:0;bottom:var(--barh,64px);z-index:20;display:flex;justify-content:center;padding:0 12px 10px;pointer-events:none}
-.pop .box{pointer-events:auto;max-width:620px;width:100%;background:var(--note);border:1px solid var(--rule);border-top:4px double var(--rule);padding:12px 44px 12px 14px;box-shadow:0 8px 24px rgba(40,30,10,.3);position:relative}
-.pop .w{font-family:var(--head);font-weight:900;font-size:20px;color:var(--term);margin:0 0 4px}
-.pop .d{margin:0;font-size:16px;line-height:1.45}
-.pop .x{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:1px solid var(--rule);background:none;color:var(--ink);font:700 16px var(--label);cursor:pointer}
-
-/* Barra */
-.bar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--desk);
-  padding:8px max(10px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
-.bar button{font:700 13px var(--label);background:var(--paper);border:1px solid var(--rule);color:var(--ink);padding:7px 12px;cursor:pointer}
-.bar button:disabled{opacity:.35;cursor:default}
-.where{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;background:none!important;border:0!important;padding:2px 8px!important;font:inherit;color:inherit;cursor:pointer}
-.where .name{font:700 11px var(--label);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw}
-.where .num{font:400 11px var(--label);color:var(--muted)}
-
-/* Piega del giornale sul bordo */
-.crease{position:absolute;top:0;bottom:0;width:56px;z-index:6;pointer-events:none}
-.crease.l{left:0;background:linear-gradient(to right,rgba(40,28,8,.42) 0,rgba(40,28,8,.20) 6px,rgba(40,28,8,.07) 16px,rgba(255,250,235,.35) 26px,rgba(255,250,235,0) 56px)}
-.crease.r{right:0;background:linear-gradient(to left,rgba(40,28,8,.42) 0,rgba(40,28,8,.20) 6px,rgba(40,28,8,.07) 16px,rgba(255,250,235,.35) 26px,rgba(255,250,235,0) 56px)}
-/* Box in fondo alla prima pagina */
-.box2{border-top:3px double var(--rule);padding-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.mini h5{font-family:var(--label);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin:0 0 4px}
-.mini .t{font-family:var(--head);font-weight:900;font-size:19px;line-height:1.1;margin:0 0 4px}
-.mini p{margin:0;font-size:15px;line-height:1.45}
-.mini + .mini{border-left:1px solid var(--rule);padding-left:12px}
-
-/* Carta stropicciata */
-.sheet{background-image:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .22  0 0 0 .16 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='900'><filter id='c' x='0' y='0' width='100%' height='100%'><feTurbulence type='turbulence' baseFrequency='.0065' numOctaves='4' seed='11' stitchTiles='stitch'/><feDiffuseLighting lighting-color='white' surfaceScale='3.2' diffuseConstant='1.2'><feDistantLight azimuth='225' elevation='38'/></feDiffuseLighting><feComponentTransfer><feFuncR type='linear' slope='.6' intercept='.4'/><feFuncG type='linear' slope='.6' intercept='.4'/><feFuncB type='linear' slope='.6' intercept='.4'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>"),
-    linear-gradient(90deg,rgba(80,60,20,.10),transparent 5%,transparent 95%,rgba(80,60,20,.08));
-  background-size:220px 220px,700px 900px,auto;background-blend-mode:normal,multiply,normal}
-/* Fonte: discreta, diversa dal titoletto rosso */
-.src{font-family:var(--body);font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;font-style:italic;color:var(--muted)}
-.src a{color:var(--muted);text-decoration:underline;text-decoration-color:var(--soft);text-underline-offset:3px}
-.item{gap:8px}
-.item .src{margin-bottom:4px}
-
-/* Meteo */
-.wxwrap{overflow-x:auto}
-.wxt{width:100%;border-collapse:collapse;font-size:15px}
-.wxt th,.wxt td{padding:7px 4px;border-bottom:1px dotted var(--soft);text-align:left;vertical-align:middle}
-.wxt th{font-family:var(--head);font-weight:700;font-size:16px;white-space:nowrap}
-.wxt .tt{font-family:var(--label);font-weight:700;white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
-.wx{width:26px;height:26px;color:var(--ink);display:block}
-.item:not(:has(.photo)) .pr{display:block}
-
-/* Foto con didascalia: se la foto non si carica sparisce anche la didascalia */
-.fig{margin:0}
-/* Su telefono testo allineato a sinistra: niente spazi larghi e parole spezzate */
-@media (max-width:619px){.just{text-align:left;hyphens:manual;-webkit-hyphens:manual}}
-/* Indice delle pagine, si apre toccando il nome della pagina nella barra */
-.toc{position:fixed;left:0;right:0;bottom:var(--barh,64px);z-index:21;display:flex;justify-content:center;padding:0 12px 10px}
-.toc .box{max-width:420px;width:100%;background:var(--note);border:1px solid var(--rule);border-top:4px double var(--rule);padding:10px 14px;box-shadow:0 8px 24px rgba(40,30,10,.3)}
-.toc .h{margin:0 0 4px;font:700 11px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
-.toc button{display:flex;gap:10px;align-items:baseline;width:100%;background:none;border:0;border-top:1px dotted var(--soft);padding:10px 0;text-align:left;cursor:pointer;color:var(--ink);font:700 18px var(--head)}
-.toc button:first-child{border-top:0}
-.toc button b{font:700 11px var(--label);min-width:22px;border:1px solid var(--rule);padding:1px 4px;text-align:center}
-.toc button[aria-current="page"]{color:var(--term)}
-/* Avviso nelle edizioni passate */
-.old{display:block;text-align:center;font:500 13px var(--label);color:var(--ink);text-decoration:none;background:var(--term-bg);border:1px solid var(--rule);padding:8px 10px}
-.old b{color:var(--red);white-space:nowrap}
-
-.line2 .arch{color:var(--red);text-decoration:none;font-weight:700}
-.pop .more{margin-top:8px;background:none;border:0;border-top:1px dotted var(--soft);width:100%;text-align:left;padding:8px 0 0;font:700 12px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--term);cursor:pointer}
-.pop .long{margin-top:6px;font-size:15px;color:var(--ink)}
-.pop .box{max-height:calc(100vh - var(--barh,64px) - 40px);overflow-y:auto}
+html{scroll-padding-top:120px}
+body{margin:0;background:var(--desk);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;font-size:17px;line-height:1.5}
+.sheet{max-width:700px;margin:12px auto;background:var(--paper);box-shadow:0 2px 10px rgba(40,30,10,.3);
+  padding:18px max(16px,env(safe-area-inset-right,0px)) 28px max(16px,env(safe-area-inset-left,0px))}
+h1{font-family:"UnifrakturMaguntia",Georgia,serif;font-weight:400;font-size:clamp(34px,10vw,60px);text-align:center;margin:0 0 4px}
+.sub{text-align:center;font-family:"Libre Franklin",Arial,sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;border-top:1px solid var(--rule);border-bottom:4px double var(--rule);padding:6px 0;margin-bottom:8px}
+.sub a{color:var(--red);text-decoration:none;font-weight:700}
+.top{position:sticky;top:0;z-index:2;background:var(--paper);padding:8px 0 6px;border-bottom:1px solid var(--rule)}
+.top input{width:100%;font:16px "Source Serif 4",Georgia,serif;padding:9px 10px;border:1px solid var(--rule);background:#f4efe3;color:var(--ink)}
+.az{display:flex;flex-wrap:wrap;gap:2px 0;margin-top:6px}
+.az a{font:700 13px "Libre Franklin",Arial,sans-serif;color:var(--ink);text-decoration:none;padding:4px 6px}
+.conta{font:500 12px "Libre Franklin",Arial,sans-serif;color:var(--muted);margin:10px 0 0}
+h2{font-family:"Playfair Display",Georgia,serif;font-weight:900;font-size:26px;margin:18px 0 0;border-bottom:4px double var(--rule);padding-bottom:2px}
+.voce{padding:10px 0;border-bottom:1px dotted var(--soft)}
+.voce .w{margin:0;font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:20px;color:var(--term)}
+.voce .d{margin:2px 0 0}
+.voce details{margin-top:6px}
+.voce summary{font:700 12px "Libre Franklin",Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--term);cursor:pointer}
+.voce details p{margin:6px 0 0;font-size:16px}
+.voce .da{display:inline-block;margin-top:6px;font-style:italic;font-size:13px;color:var(--muted)}
+.vuoto{color:var(--muted);font-style:italic}
 </style>
 </head>
-<body>
-
-<main class="stack" id="stack">
-<div class="edge l" id="edgeL"></div><div class="edge r" id="edgeR"></div>
-<div class="book" id="book">
-<section class="sheet" data-name="Prima pagina" aria-label="Prima pagina">
- <div class="inner">
-  <a class="old" href="index.html">Stai leggendo un'edizione passata · <b>Vai all'ultima →</b></a>
-  <header class="mast">
-    <h1>Il Corriere dello Steruz</h1>
-    <div class="line"><span>Domenica 25 ottobre 2026</span><span>Anno I · N. 5</span></div>
-    <div class="line2"><span>Edizione della sera</span><a href="archivio.html" class="arch">Archivio →</a></div>
-  </header>
-  <nav class="summary" aria-label="Sommario">
-    <button type="button" class="goto" data-page="1"><b>2</b> Lumezzane e Brescia</button>
-    <button type="button" class="goto" data-page="2"><b>3</b> Italia</button>
-    <button type="button" class="goto" data-page="3"><b>4</b> Dal mondo</button>
-    <button type="button" class="goto" data-page="4"><b>5</b> Tecnologia</button>
-    <button type="button" class="goto" data-page="5"><b>6</b> Musica</button>
-    <button type="button" class="goto" data-page="6"><b>7</b> Meteo</button>
-  </nav>
-  <article class="lead">
-    <figure class="fig"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/4fcfa8c8ee9e8e47b706f1f9200ab749.jpg" alt="Il congresso della Lega a Milano (foto ANSA)" loading="eager" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()">
-    <div class="cap">Il congresso della Lega a Milano (foto ANSA)</div></figure>
-    <div class="kicker" style="margin-top:10px">Italia · Politica</div>
-    <h2>Salvini resta il capo della Lega: 465 voti contro i 146 di Garavaglia</h2>
-    <p class="deck">Quarto mandato fino al 2030. Nuovo simbolo senza il suo nome e una promessa: «Basta soldi e armi all&#x27;Ucraina».</p>
-    <p class="just dropcap">Stamattina si era rimasti all&#x27;attesa del voto segreto. Al <span class="term" role="button" tabindex="0" data-d="Una riunione speciale di tutti i delegati di un partito, convocata fuori dalle scadenze normali per decidere cose importanti come il nuovo capo." data-x="Di solito i partiti fanno il congresso ogni qualche anno, a date fissate dallo statuto. Quello straordinario si convoca quando c&#x27;è una crisi o una sfida alla guida. Nella Lega lo ha chiesto Garavaglia raccogliendo le firme dei delegati, dopo i risultati deludenti alle elezioni.">congresso straordinario</span> della Lega, a Milano, Matteo Salvini è stato confermato <span class="term" role="button" tabindex="0" data-d="Il capo politico di un partito, quello che lo guida e parla a nome di tutti.">segretario</span> per la quarta volta: 465 voti contro i 146 dello sfidante Massimo Garavaglia, su 706 <span class="term" role="button" tabindex="0" data-d="Le persone che hanno il diritto di votare in quella elezione.">aventi diritto</span>. Resterà alla guida fino al 2030.</p>
-<p class="just">Garavaglia, ex ministro del Turismo, si era candidato dicendo che il partito era fermo all&#x27;8,8% e che bisognava cambiare rotta. Dopo il voto i due si sono abbracciati sul palco. Il ministro dell&#x27;Economia Giancarlo Giorgetti ha ammesso che «non va tutto bene» e ha chiesto di coinvolgere chi ha consenso sui territori; Salvini ha citato lui, Durigon e il veneto Luca Zaia tra i «fuoriclasse» che vuole al suo fianco.</p>
-<p class="just">Salvini ha promesso che porterà in <span class="term" role="button" tabindex="0" data-d="La riunione di tutti i ministri con la presidente del Consiglio, dove il governo prende le decisioni.">Consiglio dei ministri</span> la linea della Lega contro nuovi aiuti economici e militari all&#x27;<span class="term" role="button" tabindex="0" data-d="Il Paese invaso dalla Russia nel 2022, che l&#x27;Italia e l&#x27;Europa sostengono con soldi e armi.">Ucraina</span>. Il nuovo simbolo ha la scritta «Lega», Alberto da Giussano al centro e la frase gialla «Italia <span class="term" role="button" tabindex="0" data-d="Uno Stato in cui le regioni hanno molti poteri e decidono da sole su tante materie.">federale</span>», ma non più il nome di Salvini.</p>
-    <div class="src"><a href="https://www.ansa.it/sito/notizie/politica/2026/10/25/salvini-riconfermato-segretario-della-lega-con-465-voti-contro-i-146_bcf46509-0de0-4534-8ceb-a67876aeff8b.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
-  </article>
-  <article class="spalla">
-    <img class="photo" src="https://www.aljazeera.com/wp-content/uploads/2026/10/AP26295569663365-1792897665.jpg?resize=1920%2C1440" alt="Serbia, affluenza record nel voto che sfida Vučić" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()">
-    <div>
-      <div class="kicker">Mondo · Serbia</div>
-      <h3>Serbia, affluenza record nel voto che sfida Vučić</h3>
-      <p class="just">Alle 14 aveva già votato il 46% dei 6,45 milioni di elettori, quasi un milione in più rispetto al 2023. Si sfidano il partito di Aleksandar Vučić, il <span class="term" role="button" tabindex="0" data-d="Il partito di destra nazionalista di Vučić, al potere in Serbia dal 2012.">Partito progressista serbo</span>, e la <span class="term" role="button" tabindex="0" data-d="L&#x27;alleanza elettorale nata dal movimento degli universitari che da due anni protestano contro il governo.">Lista degli studenti</span> nata dalle proteste dopo il crollo della pensilina della stazione di Novi Sad nel 2024, che uccise 16 persone. Vučić si è dimesso da presidente a settembre per correre come <span class="term" role="button" tabindex="0" data-d="Il capo del governo, cioè chi guida i ministri.">primo ministro</span>.</p>
-<p class="just">Gli <span class="term" role="button" tabindex="0" data-d="Persone di organizzazioni indipendenti o internazionali che sorvegliano i seggi per controllare che il voto sia regolare.">osservatori</span> segnalano aggressioni a giornalisti e un video da Niš che mostrerebbe schede già compilate, il cosiddetto <span class="term" role="button" tabindex="0" data-d="Un trucco: si consegna all&#x27;elettore una scheda già votata da infilare nell&#x27;urna, e lui riporta fuori quella pulita come prova." data-x="Funziona così: qualcuno porta fuori dal seggio una scheda bianca, la compila e la consegna a un elettore pagato o minacciato, che la mette nell&#x27;urna e riporta fuori la sua scheda bianca. Così chi organizza può controllare il voto di ogni persona. È uno dei brogli più vecchi e difficili da scoprire.">voto a catena</span>. I seggi chiudono alle 20, i primi risultati sono attesi verso le 22.</p>
-      <div class="src"><a href="https://www.aljazeera.com/news/2026/10/25/serbia-votes-in-election-pitting-longtime-leader-against-student-movement" target="_blank" rel="noopener">Fonte: Al Jazeera</a></div>
-    </div>
-  </article>
-  <div class="box2">
-    <div class="mini"><h5>La parola del giorno</h5><p class="t">Federalismo</p><p>È l&#x27;idea di uno Stato in cui le regioni hanno tanti poteri: decidono da sole su scuole, sanità, tasse locali, e lo Stato centrale si tiene solo le cose comuni come esercito e politica estera. Esempi veri sono gli Stati Uniti e la Germania. È la battaglia storica della Lega, nata come Lega Nord: oggi l&#x27;ha rimessa nel simbolo con la scritta «Italia federale».</p></div>
-    <div class="mini"><h5>Accadde oggi</h5><p class="t">25 ottobre 1983</p><p>Microsoft pubblica la prima versione di Word, allora chiamata Multi-Tool Word. Funzionava su computer con schermo solo testo, ma si poteva usare col mouse: è il programma da cui nascono quasi tutti i documenti che scriviamo ancora oggi.</p></div>
-  </div>
-  <div class="folio"><span>Il Corriere dello Steruz</span><span>Pagina 1</span><span>25.10.2026</span></div>
- </div>
-</section>
-<section class="sheet" data-name="Lumezzane e Brescia" aria-label="Lumezzane e Brescia" hidden>
- <div class="inner">
-  <div class="pghead"><h2>Lumezzane e Brescia</h2><span>Corriere dello Steruz</span></div>
-  <article class="item" id="n1">
-    <div class="kicker">Brescia · Inchiesta</div>
-    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/youssef-siher-636447.660x368.jpg" alt="Movimento 17 ottobre, indagata anche la moglie di Youssef Siher" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Movimento 17 ottobre, indagata anche la moglie di Youssef Siher</h3></div>
-    <p class="just">Novità sul presunto ideatore della pagina Instagram che ha chiamato i giovani in piazza: la moglie, 32 anni, italiana nata a Como e <span class="term" role="button" tabindex="0" data-d="Chi aiuta stranieri e istituzioni (scuole, ospedali, uffici) a capirsi, traducendo lingua e abitudini.">mediatrice culturale</span>, è <span class="term" role="button" tabindex="0" data-d="Una persona su cui i magistrati stanno facendo indagini perché sospettano un reato; non vuol dire colpevole.">indagata</span> ma non arrestata. Secondo gli inquirenti potrebbe aver gestito con lui i canali social. Proprio seguendo lei la <span class="term" role="button" tabindex="0" data-d="Il reparto della polizia che si occupa di terrorismo, estremismo politico e ordine pubblico.">Digos</span> ha trovato Siher in un appartamento a Milano.</p>
-<p class="just">Nella casa di famiglia a Mazzano sono stati sequestrati computer, hard disk e documenti. Siher è accusato di <span class="term" role="button" tabindex="0" data-d="Il reato di chi spinge pubblicamente altre persone a commettere reati.">istigazione a delinquere</span> aggravata dall&#x27;uso di internet e dalla <span class="term" role="button" tabindex="0" data-d="Quando un reato è fatto per spaventare la popolazione o colpire lo Stato: la pena diventa molto più alta.">finalità di terrorismo</span>. Entro 48 ore un <span class="term" role="button" tabindex="0" data-d="Il giudice per le indagini preliminari: controlla il lavoro dei pm e decide su arresti e misure.">gip</span> deve decidere se <span class="term" role="button" tabindex="0" data-d="Confermare che l&#x27;arresto fatto dalla polizia era giusto, e decidere se la persona resta in carcere." data-x="Il fermo lo decide il pubblico ministero quando teme che il sospettato scappi. Ma la Costituzione dice che nessuno può restare privato della libertà senza un giudice: per questo entro pochi giorni il gip controlla se il fermo era giustificato e decide se la persona resta in carcere, va ai domiciliari o torna libera.">convalidare il fermo</span>.</p>
-    <div class="src"><a href="https://quibrescia.it/cronaca/2026/10/25/movimento-17-ottobre-svolta-allalba-indagata-la-moglie-di-youssef-siher/846888" target="_blank" rel="noopener">Fonte: QuiBrescia</a></div>
-  </article>
-  <article class="item" id="n2">
-    <div class="kicker">Provincia · Bollette</div>
-    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/acqua-a2a-ciclo-idrico-636452.660x368.jpg" alt="Acqua più cara nel Bresciano: oltre il 25% in più in tre anni" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Acqua più cara nel Bresciano: oltre il 25% in più in tre anni</h3></div>
-    <p class="just">L&#x27;<span class="term" role="button" tabindex="0" data-d="L&#x27;Ambito territoriale ottimale: l&#x27;ente provinciale che organizza il servizio dell&#x27;acqua e propone le tariffe.">Ato</span> ha proposto un aumento delle tariffe del <span class="term" role="button" tabindex="0" data-d="Tutto il ciclo dell&#x27;acqua: acquedotto che la porta in casa, fogne e depuratori che la puliscono.">servizio idrico integrato</span> seguendo le regole di <span class="term" role="button" tabindex="0" data-d="L&#x27;autorità nazionale che controlla le tariffe di luce, gas e acqua." data-x="È un&#x27;autorità indipendente: non dipende dal governo. Fissa le regole con cui si calcolano le bollette, così i gestori come A2A non possono alzare i prezzi a piacere. Gli aumenti devono essere giustificati da investimenti, per esempio tubi nuovi o depuratori.">Arera</span>. Per una famiglia di tre persone servita da A2A la spesa annua salirebbe da circa 305 a 356 euro; aumenti simili per chi ha Acque Bresciane, che copre il resto della provincia.</p>
-<p class="just">I soldi servono per manutenzione, contatori digitali e depuratori nei comuni che non li hanno. Pesano le <span class="term" role="button" tabindex="0" data-d="L&#x27;acqua che si disperde dai tubi rotti o vecchi prima di arrivare nelle case.">perdite di rete</span>: il 44% dell&#x27;acqua di Acque Bresciane si perde per strada. Domani, lunedì, decide la <span class="term" role="button" tabindex="0" data-d="L&#x27;assemblea dei sindaci della provincia che approva o respinge le tariffe proposte dall&#x27;Ato.">Conferenza dei Comuni</span>; il centrosinistra chiede garanzie prima del voto.</p>
-    <div class="src"><a href="https://www.quibrescia.it/cronaca/2026/10/25/bollette-dellacqua-nel-bresciano-scatta-laumento-tariffe-su-del-25-in-tre-anni/846880/" target="_blank" rel="noopener">Fonte: QuiBrescia</a></div>
-  </article>
-  <article class="item" id="n3">
-    <div class="kicker">Brescia · Strade</div>
-    <div class="pr"><img class="photo" src="https://staticfanpage.akamaized.net/wp-content/uploads/sites/29/2026/06/ambulanza1.jpg" alt="Ciclista di Gussago travolto e ucciso in via Orzinuovi" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Ciclista di Gussago travolto e ucciso in via Orzinuovi</h3></div>
-    <p class="just">Roberto Frassine, 71 anni, è morto sul colpo ieri pomeriggio in via Orzinuovi, verso Roncadelle: è stato colpito da un Suv Jaguar guidato da una donna di 60 anni che andava nella sua stessa direzione. La donna si è fermata a soccorrerlo.</p>
-<p class="just">La <span class="term" role="button" tabindex="0" data-d="La polizia del Comune, che si occupa soprattutto di traffico e incidenti in città.">polizia locale</span> l&#x27;ha sottoposta ai test per alcol e droga e le ha <span class="term" role="button" tabindex="0" data-d="Tolto temporaneamente un oggetto per ordine delle autorità, per usarlo come prova.">sequestrato</span> il telefono, per capire se lo stava usando al momento dell&#x27;urto. Frassine avrebbe compiuto 72 anni tra pochi giorni.</p>
-    <div class="src"><a href="https://www.fanpage.it/milano/ciclista-investito-e-ucciso-a-brescia-da-una-jaguar-perde-la-vita-roberto-frassine/" target="_blank" rel="noopener">Fonte: Fanpage</a></div>
-  </article>
-  <article class="item" id="n4">
-    <div class="kicker">Sebino · Scuola</div>
-    <div class="pr"><img class="photo" src="https://www.ilgiorno.it/image-service/view/acePublic/alias/contentid/YmUwNzMwYjktMjMxMy00/0/image.jpg?f=16:9&amp;w=1200&amp;h=675" alt="Iseo, studente usa uno storditore elettrico su quattro compagni" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Iseo, studente usa uno storditore elettrico su quattro compagni</h3></div>
-    <p class="just">Giovedì, in un istituto di Iseo, un ragazzo minorenne aveva con sé un <span class="term" role="button" tabindex="0" data-d="Un&#x27;arma che dà una scossa elettrica e paralizza per qualche secondo; in Italia per i privati è vietata.">taser</span> e lo avrebbe usato contro quattro compagni di classe. Nessuno si è fatto male.</p>
-<p class="just">Quando è stato scoperto lo ha buttato nel cortile, poi ha indicato ai carabinieri dove trovarlo. È stato <span class="term" role="button" tabindex="0" data-d="Segnalato ai magistrati per un reato: si apre un procedimento, ma resta libero.">denunciato</span> alla <span class="term" role="button" tabindex="0" data-d="L&#x27;ufficio dei magistrati che si occupa dei reati commessi da chi ha meno di 18 anni.">Procura per i minorenni</span> ed è stato affidato ai genitori.</p>
-    <div class="src"><a href="https://www.ilgiorno.it/brescia/cronaca/iseo-utilizza-storditore-contro-compagni-classe-denunciato-minorenne-39eb9c35" target="_blank" rel="noopener">Fonte: Il Giorno</a></div>
-  </article>
-  <article class="item" id="n5">
-    <div class="kicker">Provincia · Lavoro</div>
-    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/carabinieri-compagnia-di-brescia-a-castenedolo-636454.660x368.jpg" alt="Controlli a Castenedolo: chiuso un bar, multe per 37mila euro" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Controlli a Castenedolo: chiuso un bar, multe per 37mila euro</h3></div>
-    <p class="just">Carabinieri e <span class="term" role="button" tabindex="0" data-d="L&#x27;ufficio dello Stato che controlla che i lavoratori siano in regola, pagati e protetti.">Ispettorato del lavoro</span> hanno controllato un bar e un ristorante contro il <span class="term" role="button" tabindex="0" data-d="Lo sfruttamento di lavoratori pagati pochissimo e senza diritti, spesso tramite intermediari illegali." data-x="Il caporale è un intermediario che recluta lavoratori, spesso stranieri o in difficoltà, e li fa lavorare in nero con paghe bassissime trattenendo una parte dei soldi. È un reato dal 2011 e dal 2016 si punisce anche il datore di lavoro che ne approfitta. Si pensa subito ai campi, ma succede anche in edilizia, logistica e ristorazione.">caporalato</span> e il lavoro in nero. In entrambi mancavano visite mediche e corsi di sicurezza per i dipendenti.</p>
-<p class="just">Il bar non aveva nemmeno il <span class="term" role="button" tabindex="0" data-d="Documento di valutazione dei rischi: il piano obbligatorio che dice quali pericoli ci sono sul lavoro e come evitarli.">Dvr</span>: l&#x27;attività è stata sospesa e i due titolari denunciati. Le multe superano i 37mila euro.</p>
-    <div class="src"><a href="https://quibrescia.it/cronaca/2026/10/25/sicurezza-per-i-lavoratori-blitz-a-castenedolo-chiuso-un-bar/846896" target="_blank" rel="noopener">Fonte: QuiBrescia</a></div>
-  </article>
-  <article class="item" id="n6">
-    <div class="kicker">Valcamonica · Strade</div>
-    <div class="pr"><img class="photo" src="https://www.quibrescia.it/photogallery_new/images/2026/10/vigili-del-fuoco-incidente-stradale-a-monno-636457.660x368.jpg" alt="Pioggia e asfalto viscido, auto contro il guardrail a Monno" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Pioggia e asfalto viscido, auto contro il guardrail a Monno</h3></div>
-    <p class="just">Venerdì sera sulla <span class="term" role="button" tabindex="0" data-d="La strada del Tonale e della Mendola, che attraversa la Valcamonica fino al Trentino.">statale 42</span> un&#x27;automobilista ha perso il controllo per la pioggia forte e ha colpito con violenza le barriere. Sono intervenuti i vigili del fuoco, anche i <span class="term" role="button" tabindex="0" data-d="Pompieri non di professione, che fanno servizio nei paesi di montagna accanto ai professionisti.">volontari</span> di Edolo: il conducente non è grave.</p>
-    <div class="src"><a href="https://www.quibrescia.it/cronaca/2026/10/25/sbanda-per-la-pioggia-sulla-statale-42-schianto-a-monno/846902/" target="_blank" rel="noopener">Fonte: QuiBrescia</a></div>
-  </article>
-  <div class="folio"><span>Il Corriere dello Steruz</span><span>Pagina 2</span><span>25.10.2026</span></div>
- </div>
-</section>
-<section class="sheet" data-name="Italia" aria-label="Italia" hidden>
- <div class="inner">
-  <div class="pghead"><h2>Italia</h2><span>Corriere dello Steruz</span></div>
-  <article class="item" id="n7">
-    <div class="kicker">Politica · Opposizione</div>
-    <div class="pr"><img class="photo" src="https://www.alanews.it/wp-content/uploads/2026/10/1789628134046-2099717784145981743.jpg" alt="Schlein: «Dopo quattro anni di Meloni l&#x27;Italia è più povera e più arrabbiata»" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Schlein: «Dopo quattro anni di Meloni l&#x27;Italia è più povera e più arrabbiata»</h3></div>
-    <p class="just">La <span class="term" role="button" tabindex="0" data-d="La leader del Partito democratico, il principale partito del centrosinistra.">segretaria del Pd</span> Elly Schlein ha chiuso a Montepulciano tre giorni organizzati dalle <span class="term" role="button" tabindex="0" data-d="Gruppi interni a un partito che la pensano in modo simile e si sostengono a vicenda.">correnti</span> che la sostengono. Ha difeso i cortei dei giovani di ieri: ha condannato le violenze, ma ha detto che non sono state una guerriglia generale.</p>
-<p class="just">Sui carburanti accusa le compagnie energetiche di <span class="term" role="button" tabindex="0" data-d="Guadagni molto più alti del normale, ottenuti grazie a una crisi e non a meriti propri." data-x="Quando i prezzi di petrolio e gas salgono per una crisi, le compagnie energetiche guadagnano molto più del solito senza aver fatto nulla di diverso. Alcuni partiti chiedono di tassare questa parte in più per aiutare famiglie e imprese; altri dicono che così si scoraggiano gli investimenti. L&#x27;Italia ha già usato una tassa simile nel 2022.">extraprofitti</span> e chiede un <span class="term" role="button" tabindex="0" data-d="Un limite massimo fissato per legge, oltre il quale un prodotto non può essere venduto.">tetto al prezzo</span> uguale per tutti, invece degli sconti volontari. E chiede unità alle opposizioni per non ripetere la sconfitta del 2022.</p>
-    <div class="src"><a href="https://www.alanews.it/2026/10/25/politica/schlein-contro-meloni-montepulciano" target="_blank" rel="noopener">Fonte: Alanews</a></div>
-  </article>
-  <article class="item" id="n8">
-    <div class="kicker">Politica · Social</div>
-    <div class="pr"><img class="photo" src="https://st.ilfattoquotidiano.it/wp-content/uploads/2026/10/25/puntata-presadiretta.jpg" alt="PresaDiretta: migliaia di account sospetti dietro la rete TikTok di Vannacci" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>PresaDiretta: migliaia di account sospetti dietro la rete TikTok di Vannacci</h3></div>
-    <p class="just">Stasera alle 20.30 su Rai 3 il programma d&#x27;inchiesta PresaDiretta racconta una rete di account TikTok legati al generale Roberto Vannacci. Con due gruppi di ricerca, AI Forensics e Trollrensics, ha scoperto migliaia di profili sospetti registrati in Benin e Nigeria, che diffondono <span class="term" role="button" tabindex="0" data-d="Immagini o video divertenti che girano velocemente sui social, spesso con un messaggio.">meme</span> e video fatti con l&#x27;IA per raggiungere i più giovani.</p>
-<p class="just">La puntata, «Democrazia artificiale», parla anche di <span class="term" role="button" tabindex="0" data-d="Comunicazione fatta apposta per convincere le persone di un&#x27;idea politica, spesso esagerando o manipolando.">propaganda</span> politica con l&#x27;IA e di <span class="term" role="button" tabindex="0" data-d="Un&#x27;azienda americana che crea programmi per analizzare enormi quantità di dati, usati da eserciti e polizie." data-x="Fondata nel 2003 anche con soldi della Cia, Palantir fa software che incrociano dati da fonti diverse per trovare persone, minacce o schemi. Lavora con il Pentagono e con governi di molti Paesi, Italia compresa. Se ne discute perché pochi controllano strumenti così potenti sulla vita dei cittadini.">Palantir</span>, che lavora per il Pentagono e ha contratti anche con la Difesa italiana.</p>
-    <div class="src"><a href="https://www.ilfattoquotidiano.it/2026/10/25/presadiretta-vannacci-tiktok-account-sospetti-video-anticipazione/8549349/" target="_blank" rel="noopener">Fonte: Il Fatto Quotidiano</a></div>
-  </article>
-  <article class="item" id="n9">
-    <div class="kicker">Economia · Welfare</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/44f37a3109f90433d0455b08d6ff1ef3.jpg" alt="Quattro premi Nobel a Torino: lo stato sociale è a rischio" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Quattro premi Nobel a Torino: lo stato sociale è a rischio</h3></div>
-    <p class="just">Al Festival internazionale dell&#x27;economia di Torino, tema «Salvare lo stato sociale», si sono confrontati quattro <span class="term" role="button" tabindex="0" data-d="Il premio più prestigioso per gli economisti, assegnato ogni anno in Svezia.">Nobel per l&#x27;economia</span>: Joel Mokyr, David Card, James Robinson e Alvin Roth, con l&#x27;economista Tito Boeri.</p>
-<p class="just">Mokyr si chiede se il <span class="term" role="button" tabindex="0" data-d="L&#x27;insieme dei servizi pubblici che proteggono le persone: pensioni, sanità, scuola, sussidi." data-x="Si chiama anche stato sociale. In Italia la parte più grande sono le pensioni, poi la sanità. Il problema è che la popolazione invecchia: ci sono sempre più pensionati e meno lavoratori che pagano i contributi, e in più ora crescono le spese per la difesa.">welfare</span> così com&#x27;è si possa ancora pagare, tra popolazione che invecchia, spese per la difesa e clima. Robinson dice che serve un nuovo <span class="term" role="button" tabindex="0" data-d="Un accordo, anche non scritto, tra Stato e cittadini su cosa ognuno dà e cosa riceve.">patto sociale</span> con i cittadini; Boeri propone di investire di più sui giovani.</p>
-    <div class="src"><a href="https://www.ansa.it/sito/notizie/economia/2026/10/25/allarme-nobel-economia-welfare-a-rischio-serve-un-nuovo-patto-sociale_956ca30e-4216-40c2-95ea-abb99e167c37.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
-  </article>
-  <article class="item" id="n10">
-    <div class="kicker">Cronaca · Napoli</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/5/2/04e916f992f706c29cb18292466969ea.jpg" alt="Ladri in casa del calciatore del Napoli Alisson Santos" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Ladri in casa del calciatore del Napoli Alisson Santos</h3></div>
-    <p class="just">Poche ore dopo il 3-3 tra Napoli e Roma, che aveva seguito dalla tribuna perché infortunato, i ladri sono entrati di notte nella villa del giocatore a Giugliano, mentre lui era in casa con la moglie. Hanno preso un Rolex e una collana e sono scappati con la sua auto, poi ritrovata a Villaricca.</p>
-    <div class="src"><a href="https://ansa.it/sito/notizie/cronaca/2026/10/25/i-ladri-a-casa-di-allison-santos-rubati-orologi-e-gioielli_76ba3df2-749f-4e40-aabf-e6f022a901a9.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
-  </article>
-  <div class="folio"><span>Il Corriere dello Steruz</span><span>Pagina 3</span><span>25.10.2026</span></div>
- </div>
-</section>
-<section class="sheet" data-name="Dal mondo" aria-label="Dal mondo" hidden>
- <div class="inner">
-  <div class="pghead"><h2>Dal mondo</h2><span>Corriere dello Steruz</span></div>
-  <article class="item" id="n11">
-    <div class="kicker">Mondo · Brasile</div>
-    <div class="pr"><img class="photo" src="https://www.quotidiano.net/image-service/view/acePublic/alias/contentid/ZTA1OWRjOTUtN2Q2MS00/0/topshot-brazil-election-runoff-debate.jpg?f=16:9&amp;w=1200&amp;h=675" alt="Brasile al ballottaggio: Lula contro Flávio Bolsonaro, testa a testa" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Brasile al ballottaggio: Lula contro Flávio Bolsonaro, testa a testa</h3></div>
-    <p class="just">Quasi 160 milioni di brasiliani votano per scegliere il presidente. Al primo turno <span class="term" role="button" tabindex="0" data-d="Senatore della destra brasiliana, figlio dell&#x27;ex presidente Jair Bolsonaro.">Flávio Bolsonaro</span>, figlio dell&#x27;ex presidente Jair, aveva preso il 47%, il <span class="term" role="button" tabindex="0" data-d="Il presidente in carica, che si ricandida per un altro mandato.">presidente uscente</span> <span class="term" role="button" tabindex="0" data-d="Luiz Inácio Lula da Silva, leader della sinistra brasiliana, presidente dal 2003 al 2010 e di nuovo dal 2023.">Lula</span> il 45%. Gli ultimi sondaggi li danno praticamente pari, intorno al 50%.</p>
-<p class="just">Al <span class="term" role="button" tabindex="0" data-d="Il secondo turno di un&#x27;elezione tra i due candidati più votati, quando nessuno ha superato il 50% al primo." data-x="Serve a far vincere chi ha la maggioranza assoluta dei voti. Al secondo turno contano molto gli elettori dei candidati esclusi e chi al primo turno era rimasto a casa: per questo i due sfidanti cercano accordi e provano a convincere gli astenuti. In Italia si usa per eleggere i sindaci nei comuni sopra i 15.000 abitanti.">ballottaggio</span> peserà l&#x27;<span class="term" role="button" tabindex="0" data-d="La scelta di non andare a votare.">astensione</span>: al primo turno non ha votato quasi il 22%, il dato più alto da trent&#x27;anni. I risultati arriveranno nella notte italiana.</p>
-    <div class="src"><a href="https://www.quotidiano.net/esteri/brasile-ballottaggio-lula-bolsonaro-voto-peseranno-gli-astenuti-etzcszuu" target="_blank" rel="noopener">Fonte: Quotidiano.net</a></div>
-  </article>
-  <article class="item" id="n12">
-    <div class="kicker">Mondo · Iran</div>
-    <div class="pr"><img class="photo" src="https://www.aljazeera.com/wp-content/uploads/2026/10/reuters_6ac557ed-1791317997.jpg?resize=1920%2C1440" alt="Gli Usa preparano nuovi attacchi all&#x27;Iran, forse dopo il voto di metà mandato" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Gli Usa preparano nuovi attacchi all&#x27;Iran, forse dopo il voto di metà mandato</h3></div>
-    <p class="just">Secondo diversi giornali americani il <span class="term" role="button" tabindex="0" data-d="Il comando militare Usa che controlla le operazioni in Medio Oriente.">Centcom</span> ha pronti piani per colpire di nuovo impianti energetici e siti nucleari iraniani, probabilmente dopo le elezioni di <span class="term" role="button" tabindex="0" data-d="Le elezioni di metà mandato negli Usa, due anni dopo le presidenziali: si rinnova il Congresso.">midterm</span> del 3 novembre. Trump dice che un attacco potrebbe arrivare anche «domani», ma non esclude un grande accordo.</p>
-<p class="just">Teheran dice di aver abbattuto un drone Usa su Bandar Abbas e minaccia di colpire i <span class="term" role="button" tabindex="0" data-d="I cavi stesi sul fondo del mare che trasportano internet e telefonate tra i continenti.">cavi sottomarini</span> nel Golfo. Le <span class="term" role="button" tabindex="0" data-d="Pasdaran: l&#x27;esercito parallelo e più fedele al regime iraniano, separato da quello normale.">Guardie della rivoluzione</span> annunciano una linea «offensiva». Ottobre è il mese peggiore per gli attacchi alle navi a <span class="term" role="button" tabindex="0" data-d="Lo stretto tra Iran e penisola arabica da cui passa circa un quinto del petrolio mondiale." data-x="Lo stretto tra Iran e Oman, largo una trentina di chilometri nel punto più stretto, da cui passa circa un quinto del petrolio mondiale. Ogni volta che l&#x27;Iran minaccia di bloccarlo il prezzo del petrolio sale, e con lui quello della benzina anche da noi.">Hormuz</span>: oltre 120.</p>
-    <div class="src"><a href="https://www.aljazeera.com/news/2026/10/25/centcom-reportedly-has-plans-for-iran-strikes-will-trump-approve-them" target="_blank" rel="noopener">Fonte: Al Jazeera</a></div>
-  </article>
-  <article class="item" id="n13">
-    <div class="kicker">Mondo · Guerra in Ucraina</div>
-    <div class="pr"><img class="photo" src="https://www.ansa.it/webimages/img_1280x720/2026/10/25/e6f6972d75f75207cf3e11841cfff410.jpg" alt="Quattro morti nella regione di Dnipro, Kiev colpisce una fabbrica in Siberia" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Quattro morti nella regione di Dnipro, Kiev colpisce una fabbrica in Siberia</h3></div>
-    <p class="just">Zelensky dice che gli attacchi russi uccidono «quasi ogni giorno»: ieri sera quattro morti e 22 feriti, tra cui una bambina di 11 anni, nella regione di Dnipro. A Kharkiv un drone ha colpito un centro commerciale e poi i soccorritori arrivati sul posto, la tecnica del <span class="term" role="button" tabindex="0" data-d="Colpire due volte lo stesso punto a pochi minuti di distanza, per colpire anche chi arriva a soccorrere." data-x="Il nome viene dall&#x27;inglese «doppio colpo»: si colpisce un luogo, si aspetta che arrivino soccorritori e curiosi, poi si colpisce di nuovo. Le organizzazioni umanitarie lo considerano un crimine di guerra, perché prende di mira chi presta soccorso.">double tap</span>. Danni a centrali e reti elettriche in nove regioni.</p>
-<p class="just">L&#x27;Ucraina ha colpito un impianto <span class="term" role="button" tabindex="0" data-d="Una fabbrica che trasforma il petrolio in plastica, gomma e altri prodotti chimici.">petrolchimico</span> a Omsk, in Siberia, a 2.500 chilometri dal confine.</p>
-    <div class="src"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/25/zelensky-4-morti-e-22-feriti-in-attacchi-nella-regione-di-dnipro_7c785177-b372-4e7b-a46d-25250bd7c350.html" target="_blank" rel="noopener">Fonte: ANSA</a></div>
-  </article>
-  <article class="item" id="n14">
-    <div class="kicker">Mondo · Francia</div>
-    <div class="pr"><img class="photo" src="https://www.tag24.it/storage/wp-content/uploads/2026/10/1792934922_tag24it-20261025142824566-1eac94a740babbf32cab648e636e91ca_800x533.webp" alt="Proteste in tutta la Francia, più di 1.300 arresti" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Proteste in tutta la Francia, più di 1.300 arresti</h3></div>
-    <p class="just">Ieri centinaia di migliaia di persone sono scese in piazza contro il carovita e le condizioni delle scuole: 410mila secondo il ministero dell&#x27;Interno, 800mila secondo i <span class="term" role="button" tabindex="0" data-d="Le associazioni che rappresentano i lavoratori e trattano per loro.">sindacati</span>. I cortei sono stati per lo più pacifici, ma ci sono stati 1.314 arresti e almeno 50 agenti feriti.</p>
-<p class="just">Dopo i disordini del 17 ottobre Macron aveva permesso solo i cortei organizzati dai sindacati e schierato 70mila agenti. A Orléans 13mila persone hanno protestato contro il congresso del <span class="term" role="button" tabindex="0" data-d="Il partito di estrema destra francese di Marine Le Pen e Jordan Bardella.">Rassemblement National</span>.</p>
-    <div class="src"><a href="https://www.tag24.it/1408088-francia-oltre-1300-arresti-durante-le-proteste-del-24-ottobre" target="_blank" rel="noopener">Fonte: Tag24</a></div>
-  </article>
-  <div class="folio"><span>Il Corriere dello Steruz</span><span>Pagina 4</span><span>25.10.2026</span></div>
- </div>
-</section>
-<section class="sheet" data-name="Tecnologia" aria-label="Tecnologia" hidden>
- <div class="inner">
-  <div class="pghead"><h2>Tecnologia</h2><span>Corriere dello Steruz</span></div>
-  <article class="item" id="n15">
-    <div class="kicker">Tecnologia · Chip</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/dell-blackwell-ultra-gb300-coreweave_720.jpg" alt="Chip Nvidia vietati trovati nella rete di China Telecom" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Chip Nvidia vietati trovati nella rete di China Telecom</h3></div>
-    <p class="just">Un&#x27;azienda israeliana di sicurezza informatica ha scoperto 32 acceleratori Nvidia B300, i più potenti per l&#x27;IA, nella rete della compagnia telefonica di Stato cinese, nonostante gli Usa ne vietino la vendita alla Cina. Li ha visti da remoto grazie a uno strumento di monitoraggio lasciato accessibile senza password.</p>
-<p class="just">Nvidia non smentisce ma minimizza: i chip finiti illegalmente in Cina sarebbero meno dello 0,5%. Ad agosto Taiwan aveva accusato nove persone di <span class="term" role="button" tabindex="0" data-d="Portare merci oltre confine violando i divieti o senza pagare le tasse.">contrabbando</span> di queste <span class="term" role="button" tabindex="0" data-d="Processori nati per la grafica, oggi usati soprattutto per addestrare e far funzionare l&#x27;IA." data-x="Le Gpu fanno migliaia di calcoli semplici contemporaneamente, ed è proprio ciò che serve alle reti neurali. Per questo Nvidia, che domina il mercato, è diventata una delle aziende più ricche del mondo. Gli Usa ne vietano l&#x27;export dei modelli migliori in Cina per non aiutarla nella corsa all&#x27;IA.">Gpu</span>.</p>
-    <div class="src"><a href="https://hwupgrade.it/news/server-workstation/gpu-vietate-in-cina-nvidia-b300-compare-nella-rete-di-china-telecom_161067.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
-  </article>
-  <article class="item" id="n16">
-    <div class="kicker">Tecnologia · Processori</div>
-    <div class="pr"><img class="photo" src="https://www.hwupgrade.it/i/n/amd-socket-am5-mobo_720.jpg" alt="Zen 6 di AMD, i primi test: fino al 24% più veloce a parità di frequenza" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Zen 6 di AMD, i primi test: fino al 24% più veloce a parità di frequenza</h3></div>
-    <p class="just">Su <span class="term" role="button" tabindex="0" data-d="Un programma che misura la velocità di un processore e dà un punteggio, per confrontare computer diversi.">Geekbench</span> è comparso un processore AMD Epyc per server con 256 <span class="term" role="button" tabindex="0" data-d="I «cervelli» dentro un processore: più core ci sono, più lavori può fare insieme." data-x="Ogni core è come un piccolo processore indipendente dentro il chip: più core ci sono, più lavori il computer riesce a fare insieme. Un pc normale ne ha 6-16; i processori per server come questo ne hanno centinaia, perché devono servire migliaia di utenti nello stesso momento.">core</span> e la nuova architettura Zen 6. Confrontato con gli attuali Zen 5, a frequenza simile sarebbe fino al 24% più veloce su un singolo core.</p>
-<p class="just">Il confronto non è perfetto perché le macchine sono diverse. I Ryzen Zen 6 per pc, chiamati «Olympic Ridge», dovrebbero arrivare nel 2027 con fino a 24 core e lo stesso <span class="term" role="button" tabindex="0" data-d="L&#x27;attacco sulla scheda madre dove si inserisce il processore: restando uguale, si può cambiare cpu senza cambiare scheda.">socket AM5</span>.</p>
-    <div class="src"><a href="https://hwupgrade.it/news/cpu/zen-6-contro-zen-5-a-parita-di-frequenza-cosa-dicono-i-primi-risultati-geekbench_161064.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></div>
-  </article>
-  <article class="item" id="n17">
-    <div class="kicker">Tecnologia · Videogiochi</div>
-    <div class="pr"><img class="photo" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/23/1792751076-AP23264251614685.jpg" alt="Konami torna grande con Silent Hill e Castlevania" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Konami torna grande con Silent Hill e Castlevania</h3></div>
-    <p class="just">Dopo anni passati quasi solo su giochi per telefono ed eFootball, la casa giapponese sta rilanciando le sue saghe storiche. A settembre è uscito il <span class="term" role="button" tabindex="0" data-d="Genere di videogiochi in cui bisogna sopravvivere a mostri e pericoli, con poche armi e tanta paura.">survival horror</span> Silent Hill: Townfall, a ottobre Castlevania: Belmont&#x27;s Curse, entrambi lodati dalla critica.</p>
-<p class="just">Il <span class="term" role="button" tabindex="0" data-d="Una nuova versione di un vecchio gioco o film, rifatta da zero con tecnologia moderna.">remake</span> di Silent Hill 2 ha venduto circa 6 milioni di copie. Su Metal Gear Konami punta invece su raccolte e remake, dopo l&#x27;addio di Hideo Kojima nel 2015.</p>
-    <div class="src"><a href="https://www.ilpost.it/2026/10/25/konami/" target="_blank" rel="noopener">Fonte: Il Post</a></div>
-  </article>
-  <div class="folio"><span>Il Corriere dello Steruz</span><span>Pagina 5</span><span>25.10.2026</span></div>
- </div>
-</section>
-<section class="sheet" data-name="Musica" aria-label="Musica" hidden>
- <div class="inner">
-  <div class="pghead"><h2>Musica</h2><span>Corriere dello Steruz</span></div>
-  <article class="item" id="n18">
-    <div class="kicker">Musica · Rap</div>
-    <div class="pr"><img class="photo" src="https://www.latiburtinanews.it/wp-content/uploads/2026/10/Kid-Yugi-lultimo-concerto-a-Roma-e-gli-eroi-che-muoiono-1024x683.jpg" alt="Kid Yugi chiude a Roma il suo primo tour nei palazzetti" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Kid Yugi chiude a Roma il suo primo tour nei palazzetti</h3></div>
-    <p class="just">Gran finale al Palazzo dello Sport per l&#x27;«Anche gli eroi muoiono Tour», il primo del rapper pugliese nei palasport, con un <span class="term" role="button" tabindex="0" data-d="Il ballo in cui il pubblico sotto il palco salta e si spinge addosso, tipico di rap e punk.">pogo</span> continuo sul parterre e gli spalti in piedi. L&#x27;album da cui nasce il tour, uscito a gennaio, è <span class="term" role="button" tabindex="0" data-d="Il riconoscimento per un album che ha venduto (o è stato ascoltato in streaming) quanto 50mila copie in Italia." data-x="Le certificazioni le dà la FIMI, l&#x27;associazione dei discografici italiani. Per un album in Italia oro vuol dire 25.000 copie e platino 50.000, contando insieme vendite e ascolti in streaming convertiti in copie. Per un singolo le soglie sono 50.000 e 100.000.">disco di platino</span>.</p>
-<p class="just">Per i fan c&#x27;è un&#x27;altra uscita in arrivo: venerdì 30 ottobre esce la versione <span class="term" role="button" tabindex="0" data-d="Un&#x27;edizione ampliata di un album, con canzoni in più.">deluxe</span> del disco, insieme a un fumetto Bonelli.</p>
-    <div class="src"><a href="https://www.latiburtinanews.it/2026/10/24/kid-yugi-lultimo-concerto-a-roma-e-gli-eroi-che-muoiono/" target="_blank" rel="noopener">Fonte: La Tiburtina</a></div>
-  </article>
-  <article class="item" id="n19">
-    <div class="kicker">Musica · Classifiche</div>
-    <div class="pr"><img class="photo" src="https://recensiamomusica.com/wp-content/uploads/2024/08/Spotify-Chart.jpg" alt="Spotify, Geolier supera Sfera Ebbasta. Dietro Shiva, Kid Yugi e Marracash" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>Spotify, Geolier supera Sfera Ebbasta. Dietro Shiva, Kid Yugi e Marracash</h3></div>
-    <p class="just">Nella classifica settimanale degli artisti più ascoltati su Spotify Italia Geolier torna primo e scavalca Sfera Ebbasta. Il podio lo chiude Shiva, poi Kid Yugi e Marracash: i primi cinque sono tutti rapper.</p>
-<p class="just">Tra i movimenti, sale di quattro posti Achille Lauro, mentre scendono Rkomi (-16) e Fabri Fibra (-9), che a inizio mese era uscito con l&#x27;album in coppia con Neffa.</p>
-    <div class="src"><a href="https://recensiamomusica.com/spotify-chart-2026-settimana-43-geolier-supera-sfera-ebbasta/" target="_blank" rel="noopener">Fonte: RecensiamoMusica</a></div>
-  </article>
-  <article class="item" id="n20">
-    <div class="kicker">Musica · Rap e lingua</div>
-    <div class="pr"><img class="photo" src="https://video.italpress.com/play/player/poster/nqAD?size=website" alt="A New York il primo festival rap dell&#x27;Istituto italiano di cultura" loading="lazy" referrerpolicy="no-referrer" onerror="(this.closest('figure')||this).remove()"><h3>A New York il primo festival rap dell&#x27;Istituto italiano di cultura</h3></div>
-    <p class="just">Per la Settimana mondiale della lingua italiana, l&#x27;<span class="term" role="button" tabindex="0" data-d="Un ufficio del ministero degli Esteri che promuove lingua e cultura italiana nelle città del mondo.">Istituto italiano di cultura</span> di New York ha organizzato il suo primo festival di rap. Il direttore Claudio Pagliara ne ha parlato con il rapper romano Amir Issaa, da anni impegnato nelle scuole: al centro il rap come nuova lingua dei giovani e come modo per far incontrare culture diverse.</p>
-    <div class="src"><a href="https://www.italpress.com/qui-new-york-il-rap-e-la-nuova-lingua-italiana/" target="_blank" rel="noopener">Fonte: Italpress</a></div>
-  </article>
-  <div class="folio"><span>Il Corriere dello Steruz</span><span>Pagina 6</span><span>25.10.2026</span></div>
- </div>
-</section>
-<section class="sheet" data-name="Meteo" aria-label="Meteo" hidden>
- <div class="inner">
-  <div class="pghead"><h2>Meteo</h2><span>Corriere dello Steruz</span></div>
-  <article class="item wxpage">
-    <div class="kicker">La situazione</div>
-    <h3>Stanotte cielo che si apre, da domani sole quasi ovunque</h3>
-    <p class="just">Le ultime nuvole se ne vanno in serata e da lunedì torna l&#x27;<span class="term" role="button" tabindex="0" data-d="Una zona di alta pressione che porta tempo stabile e asciutto.">anticiclone</span>: sole quasi ovunque e temperature miti di giorno, ma notti fresche. Attenzione all&#x27;<span class="term" role="button" tabindex="0" data-d="La differenza tra la temperatura più bassa della notte e quella più alta del giorno.">escursione termica</span>: tra mattina e pomeriggio anche 10 gradi di differenza, meglio vestirsi a strati. In pianura al Nord possibili nebbie al mattino; al Sud e in Sicilia qualche pioggia debole all&#x27;inizio della giornata.</p>
-  </article>
-  <article class="item">
-    <div class="kicker">Stasera · domenica 25</div>
-    <div class="wxwrap"><table class="wxt"><tr><th scope="row">Lumezzane</th><td><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M3 12h2M5.5 5.5l1.4 1.4M18.5 5.5l-1.4 1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 26h13a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0 0 8z" fill="var(--paper)" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></td><td>Nubi sparse, poi schiarite</td><td class="tt">5°–13°</td></tr><tr><th scope="row">Brescia</th><td><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M3 12h2M5.5 5.5l1.4 1.4M18.5 5.5l-1.4 1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 26h13a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0 0 8z" fill="var(--paper)" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></td><td>Poco nuvoloso, notte serena</td><td class="tt">8°–15°</td></tr><tr><th scope="row">Milano</th><td><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M3 12h2M5.5 5.5l1.4 1.4M18.5 5.5l-1.4 1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 26h13a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0 0 8z" fill="var(--paper)" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></td><td>Schiarite in serata</td><td class="tt">max 16°</td></tr><tr><th scope="row">Roma</th><td><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M8 24h16a6 6 0 0 0 0-12 8 8 0 0 0-15 2.5A5 5 0 0 0 8 24z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></td><td>Nuvoloso</td><td class="tt">8°–19°</td></tr><tr><th scope="row">Palermo</th><td><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 20h14a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0-1 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 24l-1.5 4M17 24l-1.5 4M23 24l-1.5 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></td><td>Nuvoloso con deboli piogge, vento</td><td class="tt">17°–19°</td></tr></table></div>
-  </article>
-  <article class="item">
-    <div class="kicker">Domani · lunedì 26</div>
-    <div class="wxwrap"><table class="wxt"><tr><th scope="row">Lumezzane</th><td><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M3 12h2M5.5 5.5l1.4 1.4M18.5 5.5l-1.4 1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 26h13a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0 0 8z" fill="var(--paper)" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></td><td>Nubi sparse</td><td class="tt">5°–15°</td></tr><tr><th scope="row">Brescia</th><td><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M7 7l3 3M22 22l3 3M7 25l3-3M22 10l3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></td><td>Soleggiato, poco nuvoloso la sera</td><td class="tt">6°–16°</td></tr><tr><th scope="row">Milano</th><td><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M7 7l3 3M22 22l3 3M7 25l3-3M22 10l3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></td><td>Soleggiato</td><td class="tt">8°–16°</td></tr><tr><th scope="row">Roma</th><td><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M7 7l3 3M22 22l3 3M7 25l3-3M22 10l3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></td><td>Soleggiato</td><td class="tt">9°–21°</td></tr><tr><th scope="row">Palermo</th><td><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 20h14a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0-1 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 24l-1.5 4M17 24l-1.5 4M23 24l-1.5 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></td><td>Pioggia debole al mattino, poi nuvole</td><td class="tt">18°–23°</td></tr></table></div>
-  </article>
-  <article class="item"><p class="just">Primo giorno con l&#x27;ora solare: domani il sole tramonta poco dopo le 17.</p></article>
-  <div class="src">Fonti: <a href="https://www.meteo.it/meteo/brescia-domani-17029" target="_blank" rel="noopener">Meteo.it</a> · <a href="https://www.blog.it/meteo-lombardia-di-lunedi-26-ottobre-2026-previsioni-provincia-per-provincia/" target="_blank" rel="noopener">Blog.it</a> · <a href="https://www.3bmeteo.com/giornale-meteo/residua-variabilit--domenica--torna-l-anticiclone-a-inizio-settimana-762718" target="_blank" rel="noopener">3BMeteo</a></div>
-  <div class="folio"><span>Il Corriere dello Steruz</span><span>Pagina 7</span><span>Fine</span></div>
- </div>
-</section>
-<div class="crease l" id="crL"></div><div class="crease r" id="crR" hidden></div><div class="flap" id="flap" hidden></div><div class="fshadow" id="fshadow" hidden></div>
+<body><div class="sheet">
+<h1>Il Corriere dello Steruz</h1>
+<div class="sub">Le mie parole · <a href="index.html">Ultima edizione →</a> · <a href="archivio.html">Archivio →</a></div>
+<div class="top"><input id="cerca" type="search" placeholder="Cerca una parola…" aria-label="Cerca una parola" autocomplete="off"><nav class="az" id="az"><a href="#l-A">A</a><a href="#l-B">B</a><a href="#l-C">C</a><a href="#l-D">D</a><a href="#l-E">E</a><a href="#l-F">F</a><a href="#l-G">G</a><a href="#l-H">H</a><a href="#l-I">I</a><a href="#l-J">J</a><a href="#l-L">L</a><a href="#l-M">M</a><a href="#l-N">N</a><a href="#l-O">O</a><a href="#l-P">P</a><a href="#l-Q">Q</a><a href="#l-R">R</a><a href="#l-S">S</a><a href="#l-T">T</a><a href="#l-U">U</a><a href="#l-V">V</a><a href="#l-W">W</a></nav></div>
+<p class="conta" id="conta">168 parole spiegate finora</p>
+<div id="lista"><h2 id="l-A">A</h2>
+<div class="voce" data-k="accordo di parigi il trattato sul clima del 2015 con cui quasi tutti i paesi si sono impegnati a limitare il riscaldamento globale."><p class="w">Accordo di Parigi</p><p class="d">Il trattato sul clima del 2015 con cui quasi tutti i paesi si sono impegnati a limitare il riscaldamento globale.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="agguato di stampo mafioso un attacco armato organizzato con le modalita tipiche delle cosche, di solito per regolare conti tra clan."><p class="w">Agguato di stampo mafioso</p><p class="d">Un attacco armato organizzato con le modalità tipiche delle cosche, di solito per regolare conti tra clan.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="algoritmi le regole automatiche con cui i social decidono cosa mostrarti."><p class="w">Algoritmi</p><p class="d">Le regole automatiche con cui i social decidono cosa mostrarti.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="alpini le truppe di montagna dell&#x27;esercito italiano, riconoscibili dal cappello con la penna nera."><p class="w">Alpini</p><p class="d">Le truppe di montagna dell&#x27;esercito italiano, riconoscibili dal cappello con la penna nera.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="anm associazione nazionale magistrati: il sindacato dei giudici e dei pubblici ministeri."><p class="w">Anm</p><p class="d">Associazione nazionale magistrati: il sindacato dei giudici e dei pubblici ministeri.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="anticiclone una zona di alta pressione che porta tempo stabile e asciutto."><p class="w">Anticiclone</p><p class="d">Una zona di alta pressione che porta tempo stabile e asciutto.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="antiterrorismo l&#x27;ufficio dei magistrati specializzato nei reati di terrorismo."><p class="w">Antiterrorismo</p><p class="d">L&#x27;ufficio dei magistrati specializzato nei reati di terrorismo.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="arera l&#x27;autorita nazionale che controlla le tariffe di luce, gas e acqua."><p class="w">Arera</p><p class="d">L&#x27;autorità nazionale che controlla le tariffe di luce, gas e acqua.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="astensione la scelta di non andare a votare."><p class="w">Astensione</p><p class="d">La scelta di non andare a votare.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="ato l&#x27;ambito territoriale ottimale: l&#x27;ente provinciale che organizza il servizio dell&#x27;acqua e propone le tariffe."><p class="w">Ato</p><p class="d">L&#x27;Ambito territoriale ottimale: l&#x27;ente provinciale che organizza il servizio dell&#x27;acqua e propone le tariffe.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="aventi diritto le persone che hanno il diritto di votare in quella elezione."><p class="w">Aventi diritto</p><p class="d">Le persone che hanno il diritto di votare in quella elezione.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<h2 id="l-B">B</h2>
+<div class="voce" data-k="backdoor un accesso nascosto che permette a un attaccante di rientrare in un sistema quando vuole."><p class="w">Backdoor</p><p class="d">Un accesso nascosto che permette a un attaccante di rientrare in un sistema quando vuole.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="ballottaggio il secondo turno di un&#x27;elezione, tra i due candidati piu votati al primo, quando nessuno ha superato il 50%."><p class="w">Ballottaggio</p><p class="d">Il secondo turno di un&#x27;elezione, tra i due candidati più votati al primo, quando nessuno ha superato il 50%.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="boom bap lo stile classico del rap anni &#x27;90, con batterie secche e campionamenti."><p class="w">Boom bap</p><p class="d">Lo stile classico del rap anni &#x27;90, con batterie secche e campionamenti.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<h2 id="l-C">C</h2>
+<div class="voce" data-k="caporalato lo sfruttamento di lavoratori pagati pochissimo e senza diritti, spesso tramite intermediari illegali."><p class="w">Caporalato</p><p class="d">Lo sfruttamento di lavoratori pagati pochissimo e senza diritti, spesso tramite intermediari illegali.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="carceri minorili gli istituti penali dove vengono detenuti i ragazzi che hanno commesso reati prima dei 18 anni."><p class="w">Carceri minorili</p><p class="d">Gli istituti penali dove vengono detenuti i ragazzi che hanno commesso reati prima dei 18 anni.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="carica di alleggerimento una spinta rapida della polizia con scudi e manganelli per far arretrare la folla, senza inseguirla."><p class="w">Carica di alleggerimento</p><p class="d">Una spinta rapida della polizia con scudi e manganelli per far arretrare la folla, senza inseguirla.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="carovita l&#x27;aumento dei prezzi di cibo, bollette, affitti e carburante, che rende la vita piu cara a parita di stipendio."><p class="w">Carovita</p><p class="d">L&#x27;aumento dei prezzi di cibo, bollette, affitti e carburante, che rende la vita più cara a parità di stipendio.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="carplay il sistema di apple che porta le app dell&#x27;iphone sullo schermo dell&#x27;auto."><p class="w">CarPlay</p><p class="d">Il sistema di Apple che porta le app dell&#x27;iPhone sullo schermo dell&#x27;auto.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="causalita quando si dimostra che una cosa provoca direttamente l&#x27;altra, non solo che capitano insieme."><p class="w">Causalità</p><p class="d">Quando si dimostra che una cosa provoca direttamente l&#x27;altra, non solo che capitano insieme.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="cavallo di ritorno il reato di chi ruba qualcosa e poi chiede soldi al proprietario per restituirglielo."><p class="w">Cavallo di ritorno</p><p class="d">Il reato di chi ruba qualcosa e poi chiede soldi al proprietario per restituirglielo.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="cavi sottomarini i cavi stesi sul fondo del mare che trasportano internet e telefonate tra i continenti."><p class="w">Cavi sottomarini</p><p class="d">I cavi stesi sul fondo del mare che trasportano internet e telefonate tra i continenti.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="centcom il comando militare usa che controlla le operazioni in medio oriente."><p class="w">Centcom</p><p class="d">Il comando militare Usa che controlla le operazioni in Medio Oriente.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="centrosinistra l&#x27;insieme dei partiti di opposizione come pd, movimento 5 stelle e avs, che vogliono presentarsi uniti alle prossime elezioni."><p class="w">Centrosinistra</p><p class="d">L&#x27;insieme dei partiti di opposizione come Pd, Movimento 5 Stelle e Avs, che vogliono presentarsi uniti alle prossime elezioni.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="certificazione un controllo ufficiale che un prodotto deve superare prima di essere venduto; spesso rivela dettagli in anticipo."><p class="w">Certificazione</p><p class="d">Un controllo ufficiale che un prodotto deve superare prima di essere venduto; spesso rivela dettagli in anticipo.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="cessate il fuoco lo stop ai combattimenti deciso dalle parti in guerra."><p class="w">Cessate il fuoco</p><p class="d">Lo stop ai combattimenti deciso dalle parti in guerra.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="cia l&#x27;agenzia dei servizi segreti degli stati uniti che opera all&#x27;estero."><p class="w">Cia</p><p class="d">L&#x27;agenzia dei servizi segreti degli Stati Uniti che opera all&#x27;estero.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="cisgiordania territorio palestinese occupato da israele dal 1967, dove vivono anche molti coloni israeliani."><p class="w">Cisgiordania</p><p class="d">Territorio palestinese occupato da Israele dal 1967, dove vivono anche molti coloni israeliani.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="classifica fimi la classifica ufficiale italiana di album e singoli piu ascoltati e venduti, uscita ogni venerdi."><p class="w">Classifica FIMI</p><p class="d">La classifica ufficiale italiana di album e singoli più ascoltati e venduti, uscita ogni venerdì.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="codice rosso il livello di massima gravita al pronto soccorso: il paziente e in pericolo di vita."><p class="w">Codice rosso</p><p class="d">Il livello di massima gravità al pronto soccorso: il paziente è in pericolo di vita.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="collegiale decisa insieme da piu persone, non da un capo solo."><p class="w">Collegiale</p><p class="d">Decisa insieme da più persone, non da un capo solo.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="colonie insediamenti israeliani nei territori palestinesi occupati, illegali per il diritto internazionale."><p class="w">Colonie</p><p class="d">Insediamenti israeliani nei territori palestinesi occupati, illegali per il diritto internazionale.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="congresso straordinario una riunione fuori programma in cui i delegati del partito eleggono il segretario e votano la linea politica."><p class="w">Congresso straordinario</p><p class="d">Una riunione fuori programma in cui i delegati del partito eleggono il segretario e votano la linea politica.</p><details><summary>Approfondisci</summary><p>Di solito i partiti fanno il congresso ogni qualche anno, a date fissate dallo statuto. Quello straordinario si convoca quando c&#x27;è una crisi o una sfida alla guida. Nella Lega lo ha chiesto Garavaglia raccogliendo le firme dei delegati, dopo i risultati deludenti alle elezioni.</p></details><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="consiglio dei ministri la riunione di tutti i ministri guidata dalla premier, dove il governo approva leggi e decreti."><p class="w">Consiglio dei ministri</p><p class="d">La riunione di tutti i ministri guidata dalla premier, dove il governo approva leggi e decreti.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="contrabbando portare merci oltre confine violando i divieti o senza pagare le tasse."><p class="w">Contrabbando</p><p class="d">Portare merci oltre confine violando i divieti o senza pagare le tasse.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="convalidare il fermo confermare che l&#x27;arresto fatto dalla polizia era giusto, e decidere se la persona resta in carcere."><p class="w">Convalidare il fermo</p><p class="d">Confermare che l&#x27;arresto fatto dalla polizia era giusto, e decidere se la persona resta in carcere.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="coprifuoco il divieto di uscire di casa in certe ore, deciso dalle autorita per motivi di sicurezza."><p class="w">Coprifuoco</p><p class="d">Il divieto di uscire di casa in certe ore, deciso dalle autorità per motivi di sicurezza.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="core i cervelli dentro un processore: piu core ci sono, piu lavori puo fare insieme."><p class="w">Core</p><p class="d">I «cervelli» dentro un processore: più core ci sono, più lavori può fare insieme.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="correnti gruppi interni a un partito che la pensano in modo simile e si sostengono a vicenda."><p class="w">Correnti</p><p class="d">Gruppi interni a un partito che la pensano in modo simile e si sostengono a vicenda.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="cpr centri di permanenza per il rimpatrio: strutture dove vengono trattenuti gli stranieri senza permesso in attesa di essere rimandati nel loro paese."><p class="w">Cpr</p><p class="d">Centri di permanenza per il rimpatrio: strutture dove vengono trattenuti gli stranieri senza permesso in attesa di essere rimandati nel loro Paese.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<h2 id="l-D">D</h2>
+<div class="voce" data-k="data breach un furto o una fuga di dati personali da un servizio online."><p class="w">Data breach</p><p class="d">Un furto o una fuga di dati personali da un servizio online.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="datafolha uno dei principali istituti di sondaggi del brasile."><p class="w">Datafolha</p><p class="d">Uno dei principali istituti di sondaggi del Brasile.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="decreto un atto del governo con valore di legge, che il parlamento deve poi confermare."><p class="w">Decreto</p><p class="d">Un atto del governo con valore di legge, che il Parlamento deve poi confermare.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="decreto sicurezza un decreto del governo con nuove regole su ordine pubblico e reati; ora deve essere approvato dal parlamento."><p class="w">Decreto sicurezza</p><p class="d">Un decreto del governo con nuove regole su ordine pubblico e reati; ora deve essere approvato dal Parlamento.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="delegati iscritti scelti dalle sezioni locali per votare a nome loro al congresso."><p class="w">Delegati</p><p class="d">Iscritti scelti dalle sezioni locali per votare a nome loro al congresso.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="deluxe una nuova edizione di un album gia uscito, con brani inediti in piu."><p class="w">Deluxe</p><p class="d">Una nuova edizione di un album già uscito, con brani inediti in più.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="denunciato segnalato ai magistrati per un reato: si apre un procedimento, ma resta libero."><p class="w">Denunciato</p><p class="d">Segnalato ai magistrati per un reato: si apre un procedimento, ma resta libero.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="digos il reparto della polizia che indaga sui reati politici e sui gruppi violenti legati alle manifestazioni."><p class="w">Digos</p><p class="d">Il reparto della polizia che indaga sui reati politici e sui gruppi violenti legati alle manifestazioni.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="direttissima un processo veloce, fatto subito dopo l&#x27;arresto quando le prove sono gia chiare."><p class="w">Direttissima</p><p class="d">Un processo veloce, fatto subito dopo l&#x27;arresto quando le prove sono già chiare.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="disco di platino il riconoscimento per un album che ha venduto (o e stato ascoltato in streaming) quanto 50mila copie in italia."><p class="w">Disco di platino</p><p class="d">Il riconoscimento per un album che ha venduto (o è stato ascoltato in streaming) quanto 50mila copie in Italia.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="donbass la regione dell&#x27;est dell&#x27;ucraina, in gran parte occupata dalla russia, che mosca vuole tutta per se."><p class="w">Donbass</p><p class="d">La regione dell&#x27;est dell&#x27;Ucraina, in gran parte occupata dalla Russia, che Mosca vuole tutta per sé.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="double tap colpire due volte lo stesso punto a pochi minuti di distanza, per colpire anche chi arriva a soccorrere."><p class="w">Double tap</p><p class="d">Colpire due volte lo stesso punto a pochi minuti di distanza, per colpire anche chi arriva a soccorrere.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="dvr documento di valutazione dei rischi: il piano obbligatorio che dice quali pericoli ci sono sul lavoro e come evitarli."><p class="w">Dvr</p><p class="d">Documento di valutazione dei rischi: il piano obbligatorio che dice quali pericoli ci sono sul lavoro e come evitarli.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<h2 id="l-E">E</h2>
+<div class="voce" data-k="elezioni anticipate elezioni fatte prima della scadenza naturale della legislatura."><p class="w">Elezioni anticipate</p><p class="d">Elezioni fatte prima della scadenza naturale della legislatura.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="elezioni di meta mandato le elezioni americane a meta del mandato del presidente, in cui si rinnovano camera e parte del senato."><p class="w">Elezioni di metà mandato</p><p class="d">Le elezioni americane a metà del mandato del presidente, in cui si rinnovano Camera e parte del Senato.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="escursione termica la differenza tra la temperatura piu bassa della notte e quella piu alta del giorno."><p class="w">Escursione termica</p><p class="d">La differenza tra la temperatura più bassa della notte e quella più alta del giorno.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="extraprofitti guadagni molto piu alti del normale, ottenuti grazie a una crisi e non a meriti propri."><p class="w">Extraprofitti</p><p class="d">Guadagni molto più alti del normale, ottenuti grazie a una crisi e non a meriti propri.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<h2 id="l-F">F</h2>
+<div class="voce" data-k="federale uno stato in cui le regioni hanno molti poteri e decidono da sole su tante materie."><p class="w">Federale</p><p class="d">Uno Stato in cui le regioni hanno molti poteri e decidono da sole su tante materie.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="fermo preventivo la possibilita per la polizia di trattenere per alcune ore chi sembra pronto a commettere violenze, prima che succeda."><p class="w">Fermo preventivo</p><p class="d">La possibilità per la polizia di trattenere per alcune ore chi sembra pronto a commettere violenze, prima che succeda.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="finalita di terrorismo quando un reato e fatto per spaventare la popolazione o colpire lo stato: la pena diventa molto piu alta."><p class="w">Finalità di terrorismo</p><p class="d">Quando un reato è fatto per spaventare la popolazione o colpire lo Stato: la pena diventa molto più alta.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<h2 id="l-G">G</h2>
+<div class="voce" data-k="geekbench un programma che misura la velocita di un processore e da un punteggio, per confrontare computer diversi."><p class="w">Geekbench</p><p class="d">Un programma che misura la velocità di un processore e dà un punteggio, per confrontare computer diversi.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="gip il giudice per le indagini preliminari: controlla il lavoro dei pm e decide su arresti e misure."><p class="w">Gip</p><p class="d">Il giudice per le indagini preliminari: controlla il lavoro dei pm e decide su arresti e misure.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="gpu processori nati per la grafica, oggi usati soprattutto per addestrare e far funzionare l&#x27;ia."><p class="w">Gpu</p><p class="d">Processori nati per la grafica, oggi usati soprattutto per addestrare e far funzionare l&#x27;IA.</p><details><summary>Approfondisci</summary><p>Le Gpu fanno migliaia di calcoli semplici contemporaneamente, ed è proprio ciò che serve alle reti neurali. Per questo Nvidia, che domina il mercato, è diventata una delle aziende più ricche del mondo. Gli Usa ne vietano l&#x27;export dei modelli migliori in Cina per non aiutarla nella corsa all&#x27;IA.</p></details><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="gran premio la gara principale di un weekend di motogp o formula 1, quella che assegna i punti pieni."><p class="w">Gran Premio</p><p class="d">La gara principale di un weekend di MotoGP o Formula 1, quella che assegna i punti pieni.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="guardie della rivoluzione pasdaran: l&#x27;esercito parallelo e piu fedele al regime iraniano, separato da quello normale."><p class="w">Guardie della rivoluzione</p><p class="d">Pasdaran: l&#x27;esercito parallelo e più fedele al regime iraniano, separato da quello normale.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<h2 id="l-H">H</h2>
+<div class="voce" data-k="hormuz lo stretto tra iran e penisola arabica da cui passa circa un quinto del petrolio mondiale."><p class="w">Hormuz</p><p class="d">Lo stretto tra Iran e penisola arabica da cui passa circa un quinto del petrolio mondiale.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="houthi un gruppo armato dello yemen alleato dell&#x27;iran, che controlla il nord del paese e la capitale sanaa."><p class="w">Houthi</p><p class="d">Un gruppo armato dello Yemen alleato dell&#x27;Iran, che controlla il nord del paese e la capitale Sanaa.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<h2 id="l-I">I</h2>
+<div class="voce" data-k="idranti mezzi della polizia che sparano getti d&#x27;acqua potenti per disperdere la folla."><p class="w">Idranti</p><p class="d">Mezzi della polizia che sparano getti d&#x27;acqua potenti per disperdere la folla.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="indagata una persona su cui i magistrati stanno facendo indagini perche sospettano un reato; non vuol dire colpevole."><p class="w">Indagata</p><p class="d">Una persona su cui i magistrati stanno facendo indagini perché sospettano un reato; non vuol dire colpevole.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="indagato una persona su cui la magistratura sta facendo indagini perche sospetta che abbia commesso un reato; non e ancora colpevole."><p class="w">Indagato</p><p class="d">Una persona su cui la magistratura sta facendo indagini perché sospetta che abbia commesso un reato; non è ancora colpevole.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="indice di gini un numero da 0 a 100 che misura quanto e diviso in modo diseguale il reddito: 0 vuol dire tutti uguali, 100 che una sola persona ha tutto."><p class="w">Indice di Gini</p><p class="d">Un numero da 0 a 100 che misura quanto è diviso in modo diseguale il reddito: 0 vuol dire tutti uguali, 100 che una sola persona ha tutto.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="intelligence i servizi segreti, che raccolgono informazioni riservate per la sicurezza di uno stato."><p class="w">Intelligence</p><p class="d">I servizi segreti, che raccolgono informazioni riservate per la sicurezza di uno Stato.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="irpef l&#x27;imposta sul reddito delle persone: la tassa principale che si paga su stipendi e pensioni."><p class="w">Irpef</p><p class="d">L&#x27;imposta sul reddito delle persone: la tassa principale che si paga su stipendi e pensioni.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="ispettorato del lavoro l&#x27;ufficio dello stato che controlla che i lavoratori siano in regola, pagati e protetti."><p class="w">Ispettorato del lavoro</p><p class="d">L&#x27;ufficio dello Stato che controlla che i lavoratori siano in regola, pagati e protetti.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="ispi istituto per gli studi di politica internazionale, un centro di ricerca di milano che studia la politica estera."><p class="w">Ispi</p><p class="d">Istituto per gli studi di politica internazionale, un centro di ricerca di Milano che studia la politica estera.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="istigazione a delinquere il reato di chi spinge pubblicamente altre persone a commettere reati."><p class="w">Istigazione a delinquere</p><p class="d">Il reato di chi spinge pubblicamente altre persone a commettere reati.</p><details><summary>Approfondisci</summary><p>Non serve che i reati vengano poi commessi: basta l&#x27;invito pubblico. Qui l&#x27;accusa è aggravata dalla «finalità di terrorismo» e dall&#x27;uso di internet, che rendono la pena più pesante. Le accuse sono ancora tutte da dimostrare in un processo.</p></details><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="istituto italiano di cultura un ufficio del ministero degli esteri che promuove lingua e cultura italiana nelle citta del mondo."><p class="w">Istituto italiano di cultura</p><p class="d">Un ufficio del ministero degli Esteri che promuove lingua e cultura italiana nelle città del mondo.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<h2 id="l-J">J</h2>
+<div class="voce" data-k="jailbreak una tecnica che toglie i blocchi del produttore e permette di installare programmi non autorizzati."><p class="w">Jailbreak</p><p class="d">Una tecnica che toglie i blocchi del produttore e permette di installare programmi non autorizzati.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<h2 id="l-L">L</h2>
+<div class="voce" data-k="legge di bilancio la legge che ogni anno decide le spese e le tasse dello stato per l&#x27;anno dopo; va approvata entro il 31 dicembre."><p class="w">Legge di bilancio</p><p class="d">La legge che ogni anno decide le spese e le tasse dello Stato per l&#x27;anno dopo; va approvata entro il 31 dicembre.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<h2 id="l-M">M</h2>
+<div class="voce" data-k="maestrale vento freddo da nord-ovest, che rende il mare molto mosso."><p class="w">Maestrale</p><p class="d">Vento freddo da nord-ovest, che rende il mare molto mosso.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="magnitudo la misura dell&#x27;energia sprigionata da un terremoto: ogni punto in piu vale circa 30 volte di piu."><p class="w">Magnitudo</p><p class="d">La misura dell&#x27;energia sprigionata da un terremoto: ogni punto in più vale circa 30 volte di più.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="mah milliampereora: l&#x27;unita che misura quanta energia tiene una batteria. piu e alta, piu dura."><p class="w">MAh</p><p class="d">Milliampereora: l&#x27;unità che misura quanta energia tiene una batteria. Più è alta, più dura.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="maremoto onde anomale causate da un terremoto sotto il mare, chiamate anche tsunami."><p class="w">Maremoto</p><p class="d">Onde anomale causate da un terremoto sotto il mare, chiamate anche tsunami.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="mdpv una droga sintetica stimolante, simile alle anfetamine, chiamata anche sale da bagno."><p class="w">Mdpv</p><p class="d">Una droga sintetica stimolante, simile alle anfetamine, chiamata anche «sale da bagno».</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="mediatrice culturale chi aiuta stranieri e istituzioni (scuole, ospedali, uffici) a capirsi, traducendo lingua e abitudini."><p class="w">Mediatrice culturale</p><p class="d">Chi aiuta stranieri e istituzioni (scuole, ospedali, uffici) a capirsi, traducendo lingua e abitudini.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="meme immagini o video divertenti che girano velocemente sui social, spesso con un messaggio."><p class="w">Meme</p><p class="d">Immagini o video divertenti che girano velocemente sui social, spesso con un messaggio.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="meme coin una criptovaluta nata da un meme o da una moda, che sale e crolla di valore molto in fretta."><p class="w">Meme coin</p><p class="d">Una criptovaluta nata da un meme o da una moda, che sale e crolla di valore molto in fretta.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="midterm le elezioni di meta mandato negli usa, due anni dopo le presidenziali: si rinnova il congresso."><p class="w">Midterm</p><p class="d">Le elezioni di metà mandato negli Usa, due anni dopo le presidenziali: si rinnova il Congresso.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="morosita quando l&#x27;inquilino non paga l&#x27;affitto o le spese dovute."><p class="w">Morosità</p><p class="d">Quando l&#x27;inquilino non paga l&#x27;affitto o le spese dovute.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="munizioni a grappolo bombe che si aprono in aria e spargono tante piccole cariche su una grande area; sono vietate da molti paesi."><p class="w">Munizioni a grappolo</p><p class="d">Bombe che si aprono in aria e spargono tante piccole cariche su una grande area; sono vietate da molti paesi.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<h2 id="l-N">N</h2>
+<div class="voce" data-k="neopromosso una squadra appena salita dalla serie b alla serie a."><p class="w">Neopromosso</p><p class="d">Una squadra appena salita dalla Serie B alla Serie A.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="nobel per l&#x27;economia il premio piu prestigioso per gli economisti, assegnato ogni anno in svezia."><p class="w">Nobel per l&#x27;economia</p><p class="d">Il premio più prestigioso per gli economisti, assegnato ogni anno in Svezia.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="nodi di uscita gli ultimi computer della rete tor, da cui il traffico esce verso internet."><p class="w">Nodi di uscita</p><p class="d">Gli ultimi computer della rete Tor, da cui il traffico esce verso internet.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<h2 id="l-O">O</h2>
+<div class="voce" data-k="open source software il cui codice e pubblico: chiunque puo leggerlo, modificarlo e riusarlo."><p class="w">Open source</p><p class="d">Software il cui codice è pubblico: chiunque può leggerlo, modificarlo e riusarlo.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="open-weight un&#x27;ia i cui pesi, cioe i numeri che la fanno funzionare, sono pubblici: chiunque puo scaricarla e usarla sui propri computer."><p class="w">Open-weight</p><p class="d">Un&#x27;IA i cui «pesi», cioè i numeri che la fanno funzionare, sono pubblici: chiunque può scaricarla e usarla sui propri computer.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="ora legale l&#x27;orario spostato avanti di un&#x27;ora in primavera ed estate, per sfruttare di piu la luce del sole."><p class="w">Ora legale</p><p class="d">L&#x27;orario spostato avanti di un&#x27;ora in primavera ed estate, per sfruttare di più la luce del sole.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="osce un&#x27;organizzazione di 57 paesi, con sede a vienna, che si occupa di sicurezza e controllo degli armamenti in europa."><p class="w">OSCE</p><p class="d">Un&#x27;organizzazione di 57 Paesi, con sede a Vienna, che si occupa di sicurezza e controllo degli armamenti in Europa.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<h2 id="l-P">P</h2>
+<div class="voce" data-k="palantir un&#x27;azienda americana che crea programmi per analizzare enormi quantita di dati, usati da eserciti e polizie."><p class="w">Palantir</p><p class="d">Un&#x27;azienda americana che crea programmi per analizzare enormi quantità di dati, usati da eserciti e polizie.</p><details><summary>Approfondisci</summary><p>Fondata nel 2003 anche con soldi della Cia, Palantir fa software che incrociano dati da fonti diverse per trovare persone, minacce o schemi. Lavora con il Pentagono e con governi di molti Paesi, Italia compresa. Se ne discute perché pochi controllano strumenti così potenti sulla vita dei cittadini.</p></details><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="partito progressista serbo il partito di destra nazionalista di vucic, al potere in serbia dal 2012."><p class="w">Partito progressista serbo</p><p class="d">Il partito di destra nazionalista di Vučić, al potere in Serbia dal 2012.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="patch la correzione che si installa per chiudere un difetto del software."><p class="w">Patch</p><p class="d">La correzione che si installa per chiudere un difetto del software.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="patto sociale un accordo, anche non scritto, tra stato e cittadini su cosa ognuno da e cosa riceve."><p class="w">Patto sociale</p><p class="d">Un accordo, anche non scritto, tra Stato e cittadini su cosa ognuno dà e cosa riceve.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="perdite di rete l&#x27;acqua che si disperde dai tubi rotti o vecchi prima di arrivare nelle case."><p class="w">Perdite di rete</p><p class="d">L&#x27;acqua che si disperde dai tubi rotti o vecchi prima di arrivare nelle case.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="perturbazione una massa d&#x27;aria instabile che porta nuvole e pioggia."><p class="w">Perturbazione</p><p class="d">Una massa d&#x27;aria instabile che porta nuvole e pioggia.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="petrolchimico una fabbrica che trasforma il petrolio in plastica, gomma e altri prodotti chimici."><p class="w">Petrolchimico</p><p class="d">Una fabbrica che trasforma il petrolio in plastica, gomma e altri prodotti chimici.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="pirolisi un processo che scalda i rifiuti a circa 350 gradi senza ossigeno per ricavarne combustibili."><p class="w">Pirolisi</p><p class="d">Un processo che scalda i rifiuti a circa 350 gradi senza ossigeno per ricavarne combustibili.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="pogo il ballo in cui il pubblico sotto il palco salta e si spinge addosso, tipico di rap e punk."><p class="w">Pogo</p><p class="d">Il ballo in cui il pubblico sotto il palco salta e si spinge addosso, tipico di rap e punk.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="pole position il primo posto in griglia di partenza, che spetta a chi fa il giro piu veloce nelle qualifiche."><p class="w">Pole position</p><p class="d">Il primo posto in griglia di partenza, che spetta a chi fa il giro più veloce nelle qualifiche.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="polizia locale la polizia del comune, che si occupa soprattutto di traffico e incidenti in citta."><p class="w">Polizia locale</p><p class="d">La polizia del Comune, che si occupa soprattutto di traffico e incidenti in città.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="precedenti segnalazioni o condanne precedenti registrate dalle forze dell&#x27;ordine."><p class="w">Precedenti</p><p class="d">Segnalazioni o condanne precedenti registrate dalle forze dell&#x27;ordine.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="precettazione l&#x27;ordine dell&#x27;autorita che obbliga chi sciopera a tornare al lavoro per garantire i servizi essenziali."><p class="w">Precettazione</p><p class="d">L&#x27;ordine dell&#x27;autorità che obbliga chi sciopera a tornare al lavoro per garantire i servizi essenziali.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="premio tenco il piu importante festival italiano dei cantautori, a sanremo, dedicato a chi scrive testi di qualita."><p class="w">Premio Tenco</p><p class="d">Il più importante festival italiano dei cantautori, a Sanremo, dedicato a chi scrive testi di qualità.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="price cap un tetto massimo al prezzo: il venditore si impegna a non superarlo."><p class="w">Price cap</p><p class="d">Un tetto massimo al prezzo: il venditore si impegna a non superarlo.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="primarie una votazione aperta agli elettori per scegliere il candidato di una coalizione prima delle elezioni vere."><p class="w">Primarie</p><p class="d">Una votazione aperta agli elettori per scegliere il candidato di una coalizione prima delle elezioni vere.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="primo ministro il capo del governo, cioe chi guida i ministri."><p class="w">Primo ministro</p><p class="d">Il capo del governo, cioè chi guida i ministri.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="procura per i minorenni l&#x27;ufficio dei magistrati che si occupa dei reati commessi da chi ha meno di 18 anni."><p class="w">Procura per i minorenni</p><p class="d">L&#x27;ufficio dei magistrati che si occupa dei reati commessi da chi ha meno di 18 anni.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="producer chi crea le basi musicali e cura il suono di un brano, non solo chi lo canta."><p class="w">Producer</p><p class="d">Chi crea le basi musicali e cura il suono di un brano, non solo chi lo canta.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="propaganda comunicazione fatta apposta per convincere le persone di un&#x27;idea politica, spesso esagerando o manipolando."><p class="w">Propaganda</p><p class="d">Comunicazione fatta apposta per convincere le persone di un&#x27;idea politica, spesso esagerando o manipolando.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="proporzionale un sistema in cui i seggi si dividono in base alla percentuale di voti presi da ciascuna lista."><p class="w">Proporzionale</p><p class="d">Un sistema in cui i seggi si dividono in base alla percentuale di voti presi da ciascuna lista.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="puristi chi vuole che un genere resti fedele alle sue regole originali, senza contaminazioni."><p class="w">Puristi</p><p class="d">Chi vuole che un genere resti fedele alle sue regole originali, senza contaminazioni.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<h2 id="l-Q">Q</h2>
+<div class="voce" data-k="quirinale il palazzo di roma dove vive e lavora il presidente della repubblica."><p class="w">Quirinale</p><p class="d">Il palazzo di Roma dove vive e lavora il presidente della Repubblica.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="quota 103 una regola che permetteva di andare in pensione prima, con almeno 62 anni d&#x27;eta e 41 di contributi."><p class="w">Quota 103</p><p class="d">Una regola che permetteva di andare in pensione prima, con almeno 62 anni d&#x27;età e 41 di contributi.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<h2 id="l-R">R</h2>
+<div class="voce" data-k="rassemblement national il partito di estrema destra francese di marine le pen e jordan bardella."><p class="w">Rassemblement National</p><p class="d">Il partito di estrema destra francese di Marine Le Pen e Jordan Bardella.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="rebrand il cambio di nome e immagine di un&#x27;azienda o di un prodotto."><p class="w">Rebrand</p><p class="d">Il cambio di nome e immagine di un&#x27;azienda o di un prodotto.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="recupero i minuti aggiunti alla fine di un tempo per compensare le interruzioni."><p class="w">Recupero</p><p class="d">I minuti aggiunti alla fine di un tempo per compensare le interruzioni.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="regeringskansliet l&#x27;apparato amministrativo che lavora per il governo svedese, simile ai nostri ministeri."><p class="w">Regeringskansliet</p><p class="d">L&#x27;apparato amministrativo che lavora per il governo svedese, simile ai nostri ministeri.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="remake una nuova versione di un vecchio gioco o film, rifatta da zero con tecnologia moderna."><p class="w">Remake</p><p class="d">Una nuova versione di un vecchio gioco o film, rifatta da zero con tecnologia moderna.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="remigrazione parola usata da gruppi di estrema destra per chiedere il rimpatrio di massa degli immigrati, anche di chi e in regola."><p class="w">Remigrazione</p><p class="d">Parola usata da gruppi di estrema destra per chiedere il rimpatrio di massa degli immigrati, anche di chi è in regola.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="reparto mobile il reparto della polizia specializzato nell&#x27;ordine pubblico, cioe nel gestire cortei e disordini."><p class="w">Reparto Mobile</p><p class="d">Il reparto della polizia specializzato nell&#x27;ordine pubblico, cioè nel gestire cortei e disordini.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="research trainee un tirocinante che fa ricerca, cioe un giovane che si forma lavorando in un centro studi."><p class="w">Research trainee</p><p class="d">Un tirocinante che fa ricerca, cioè un giovane che si forma lavorando in un centro studi.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="retroscena notizie su colloqui riservati raccontate dai giornali senza dichiarazioni ufficiali."><p class="w">Retroscena</p><p class="d">Notizie su colloqui riservati raccontate dai giornali senza dichiarazioni ufficiali.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="ricettazione il reato di chi tiene o usa cose che sa essere rubate."><p class="w">Ricettazione</p><p class="d">Il reato di chi tiene o usa cose che sa essere rubate.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="rigore tiro dal dischetto a 11 metri, concesso per un fallo in area, con solo il portiere davanti."><p class="w">Rigore</p><p class="d">Tiro dal dischetto a 11 metri, concesso per un fallo in area, con solo il portiere davanti.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="ristampe nuove edizioni di dischi gia usciti, spesso con brani o versioni in piu."><p class="w">Ristampe</p><p class="d">Nuove edizioni di dischi già usciti, spesso con brani o versioni in più.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="roll out la serie di singoli e annunci con cui un artista prepara l&#x27;uscita di un album."><p class="w">Roll out</p><p class="d">La serie di singoli e annunci con cui un artista prepara l&#x27;uscita di un album.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<h2 id="l-S">S</h2>
+<div class="voce" data-k="sai il sistema di accoglienza e integrazione: la rete dei comuni che ospitano richiedenti asilo e rifugiati."><p class="w">SAI</p><p class="d">Il Sistema di accoglienza e integrazione: la rete dei Comuni che ospitano richiedenti asilo e rifugiati.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="sanzioni misure punitive, soprattutto economiche, che uno stato o l&#x27;ue applicano a un altro paese."><p class="w">Sanzioni</p><p class="d">Misure punitive, soprattutto economiche, che uno Stato o l&#x27;Ue applicano a un altro Paese.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="sciopero a oltranza uno sciopero senza data di fine, che continua finche non arrivano risposte."><p class="w">Sciopero a oltranza</p><p class="d">Uno sciopero senza data di fine, che continua finché non arrivano risposte.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="sciopero fiscale una protesta in cui le imprese annunciano di sospendere il pagamento di tasse e contributi."><p class="w">Sciopero fiscale</p><p class="d">Una protesta in cui le imprese annunciano di sospendere il pagamento di tasse e contributi.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="scrutinio segreto un voto in cui nessuno puo sapere cosa ha scelto ciascun votante."><p class="w">Scrutinio segreto</p><p class="d">Un voto in cui nessuno può sapere cosa ha scelto ciascun votante.</p><details><summary>Approfondisci</summary><p>Si usa quando si vuole che ognuno voti libero da pressioni. Qui conta molto: in un voto palese pochi delegati si schiererebbero apertamente contro il capo, mentre nel segreto i delusi possono farlo senza conseguenze. Per questo Garavaglia chiedeva la «cabina aperta», per evitare sospetti sulle regole.</p></details><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="segretaria del pd la leader del partito democratico, il principale partito del centrosinistra."><p class="w">Segretaria del Pd</p><p class="d">La leader del Partito democratico, il principale partito del centrosinistra.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="segretario il capo politico di un partito, quello che lo guida e parla a nome di tutti."><p class="w">Segretario</p><p class="d">Il capo politico di un partito, quello che lo guida e parla a nome di tutti.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="segretario federale il capo nazionale della lega, che guida il partito e ne decide la linea."><p class="w">Segretario federale</p><p class="d">Il capo nazionale della Lega, che guida il partito e ne decide la linea.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="segreteria politica un piccolo gruppo di dirigenti che affianca il segretario nelle decisioni; qui fino a nove persone nominate da salvini."><p class="w">Segreteria politica</p><p class="d">Un piccolo gruppo di dirigenti che affianca il segretario nelle decisioni; qui fino a nove persone nominate da Salvini.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="sequestrato tolto temporaneamente un oggetto per ordine delle autorita, per usarlo come prova."><p class="w">Sequestrato</p><p class="d">Tolto temporaneamente un oggetto per ordine delle autorità, per usarlo come prova.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="servizio idrico integrato tutto il ciclo dell&#x27;acqua: acquedotto che la porta in casa, fogne e depuratori che la puliscono."><p class="w">Servizio idrico integrato</p><p class="d">Tutto il ciclo dell&#x27;acqua: acquedotto che la porta in casa, fogne e depuratori che la puliscono.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="sfratto la procedura con cui un proprietario, tramite il giudice, obbliga l&#x27;inquilino a lasciare la casa."><p class="w">Sfratto</p><p class="d">La procedura con cui un proprietario, tramite il giudice, obbliga l&#x27;inquilino a lasciare la casa.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="sicurezza delle informazioni la protezione dei dati riservati da furti o fughe, anche verso aziende esterne."><p class="w">Sicurezza delle informazioni</p><p class="d">La protezione dei dati riservati da furti o fughe, anche verso aziende esterne.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="sindacati le associazioni che rappresentano i lavoratori e trattano per loro."><p class="w">Sindacati</p><p class="d">Le associazioni che rappresentano i lavoratori e trattano per loro.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="socket am5 l&#x27;attacco sulla scheda madre dove si inserisce il processore: restando uguale, si puo cambiare cpu senza cambiare scheda."><p class="w">Socket AM5</p><p class="d">L&#x27;attacco sulla scheda madre dove si inserisce il processore: restando uguale, si può cambiare cpu senza cambiare scheda.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="ssh il sistema per controllare un server a distanza tramite riga di comando."><p class="w">SSH</p><p class="d">Il sistema per controllare un server a distanza tramite riga di comando.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="statale 42 la strada del tonale e della mendola, che attraversa la valcamonica fino al trentino."><p class="w">Statale 42</p><p class="d">La strada del Tonale e della Mendola, che attraversa la Valcamonica fino al Trentino.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="strade sicure il programma che dal 2008 impiega l&#x27;esercito per pattugliare citta e luoghi sensibili insieme alle forze dell&#x27;ordine."><p class="w">Strade Sicure</p><p class="d">Il programma che dal 2008 impiega l&#x27;esercito per pattugliare città e luoghi sensibili insieme alle forze dell&#x27;ordine.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="stretto di hormuz il passaggio di mare tra iran e penisola arabica da cui passa circa un quinto del petrolio mondiale."><p class="w">Stretto di Hormuz</p><p class="d">Il passaggio di mare tra Iran e penisola arabica da cui passa circa un quinto del petrolio mondiale.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="studio di fattibilita un&#x27;analisi che valuta se un&#x27;opera si puo fare davvero, con quali percorsi, costi e impatti."><p class="w">Studio di fattibilità</p><p class="d">Un&#x27;analisi che valuta se un&#x27;opera si può fare davvero, con quali percorsi, costi e impatti.</p><a class="da" href="archivio/2026-10-24-sera.html">Uscita il 24 ottobre · sera</a></div>
+<div class="voce" data-k="survival horror genere di videogiochi in cui bisogna sopravvivere a mostri e pericoli, con poche armi e tanta paura."><p class="w">Survival horror</p><p class="d">Genere di videogiochi in cui bisogna sopravvivere a mostri e pericoli, con poche armi e tanta paura.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<h2 id="l-T">T</h2>
+<div class="voce" data-k="tar il tribunale amministrativo regionale, che giudica i ricorsi contro le decisioni degli enti pubblici."><p class="w">Tar</p><p class="d">Il tribunale amministrativo regionale, che giudica i ricorsi contro le decisioni degli enti pubblici.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<div class="voce" data-k="taser un&#x27;arma che da una scossa elettrica e paralizza per qualche secondo; in italia per i privati e vietata."><p class="w">Taser</p><p class="d">Un&#x27;arma che dà una scossa elettrica e paralizza per qualche secondo; in Italia per i privati è vietata.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="tetto al prezzo un limite massimo fissato per legge, oltre il quale un prodotto non puo essere venduto."><p class="w">Tetto al prezzo</p><p class="d">Un limite massimo fissato per legge, oltre il quale un prodotto non può essere venduto.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="thc il principio attivo della cannabis, quello che da l&#x27;effetto."><p class="w">THC</p><p class="d">Il principio attivo della cannabis, quello che dà l&#x27;effetto.</p><a class="da" href="archivio/2026-10-23-sera.html">Uscita il 23 ottobre · sera</a></div>
+<div class="voce" data-k="tirapugni un&#x27;arma di metallo che si infila tra le dita per rendere i pugni piu violenti; e vietato portarla."><p class="w">Tirapugni</p><p class="d">Un&#x27;arma di metallo che si infila tra le dita per rendere i pugni più violenti; è vietato portarla.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="tregua umanitaria una pausa nei combattimenti per far arrivare cibo e medicine e far uscire i civili."><p class="w">Tregua umanitaria</p><p class="d">Una pausa nei combattimenti per far arrivare cibo e medicine e far uscire i civili.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<h2 id="l-U">U</h2>
+<div class="voce" data-k="ucraina il paese invaso dalla russia nel 2022, che l&#x27;italia e l&#x27;europa sostengono con soldi e armi."><p class="w">Ucraina</p><p class="d">Il Paese invaso dalla Russia nel 2022, che l&#x27;Italia e l&#x27;Europa sostengono con soldi e armi.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="unep il programma delle nazioni unite per l&#x27;ambiente."><p class="w">UNEP</p><p class="d">Il programma delle Nazioni Unite per l&#x27;ambiente.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<h2 id="l-V">V</h2>
+<div class="voce" data-k="variabilita tempo che cambia spesso, con nuvole e schiarite alternate."><p class="w">Variabilità</p><p class="d">Tempo che cambia spesso, con nuvole e schiarite alternate.</p><a class="da" href="archivio/2026-10-25-domenica.html">Uscita il 25 ottobre · domenica</a></div>
+<div class="voce" data-k="volontari pompieri non di professione, che fanno servizio nei paesi di montagna accanto ai professionisti."><p class="w">Volontari</p><p class="d">Pompieri non di professione, che fanno servizio nei paesi di montagna accanto ai professionisti.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="voto a catena un trucco: si consegna all&#x27;elettore una scheda gia votata da infilare nell&#x27;urna, e lui riporta fuori quella pulita come prova."><p class="w">Voto a catena</p><p class="d">Un trucco: si consegna all&#x27;elettore una scheda già votata da infilare nell&#x27;urna, e lui riporta fuori quella pulita come prova.</p><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div>
+<div class="voce" data-k="vulnerabilita un difetto del software che un attaccante puo sfruttare per entrare o bloccare il sistema."><p class="w">Vulnerabilità</p><p class="d">Un difetto del software che un attaccante può sfruttare per entrare o bloccare il sistema.</p><a class="da" href="archivio/2026-10-24-mattina.html">Uscita il 24 ottobre · mattina</a></div>
+<h2 id="l-W">W</h2>
+<div class="voce" data-k="welfare l&#x27;insieme dei servizi pubblici che proteggono le persone: pensioni, sanita, scuola, sussidi."><p class="w">Welfare</p><p class="d">L&#x27;insieme dei servizi pubblici che proteggono le persone: pensioni, sanità, scuola, sussidi.</p><details><summary>Approfondisci</summary><p>Si chiama anche stato sociale. In Italia la parte più grande sono le pensioni, poi la sanità. Il problema è che la popolazione invecchia: ci sono sempre più pensionati e meno lavoratori che pagano i contributi, e in più ora crescono le spese per la difesa.</p></details><a class="da" href="archivio/2026-10-25-sera.html">Uscita il 25 ottobre · sera</a></div></div>
+<p class="vuoto" id="vuoto" hidden>Nessuna parola trovata.</p>
 </div>
-</main>
-
-<nav class="bar" id="bar" aria-label="Sfoglia">
-  <button id="prev" type="button">← Indietro</button>
-  <button type="button" class="where" id="where" aria-haspopup="true" aria-expanded="false"><span class="name"><span id="pname">Prima pagina</span> ▾</span><span class="num" id="pnum">Pagina 1 di 7</span></button>
-  <button id="next" type="button">Avanti →</button>
-</nav>
-
-<div class="toc" id="toc" hidden><div class="box" role="menu" aria-label="Vai alla pagina"><p class="h">Vai alla pagina</p><div id="toclist"></div></div></div>
-
-<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden aria-expanded="false">Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>
-
 <script>
-(function(){
-  var sheets=[].slice.call(document.querySelectorAll('.sheet')), N=sheets.length, cur=0, busy=false;
-  var book=document.getElementById('book'), flap=document.getElementById('flap'), fsh=document.getElementById('fshadow');
-  var edgeL=document.getElementById('edgeL'), edgeR=document.getElementById('edgeR');
-  
-  var prev=document.getElementById('prev'), next=document.getElementById('next'), pname=document.getElementById('pname'), pnum=document.getElementById('pnum');
-  var bar=document.getElementById('bar'), pop=document.getElementById('pop'), openTerm=null;
-  var calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function setBar(){document.documentElement.style.setProperty('--barh',bar.offsetHeight+'px')}
-  setBar();window.addEventListener('resize',setBar);
-
-  function paint(){
-    pname.textContent=sheets[cur].dataset.name; pnum.textContent='Pagina '+(cur+1)+' di '+N;
-    prev.disabled=cur===0; next.disabled=cur===N-1;
-    
-    edgeL.style.width=Math.min(8,cur*2.5)+'px'; document.getElementById('crL').hidden=cur===N-1; document.getElementById('crR').hidden=cur!==N-1; edgeR.style.width=Math.min(8,(N-1-cur)*2.5)+'px';
-  }
-  // Indice: toccando il nome della pagina nella barra si sceglie dove andare
-  var where=document.getElementById('where'), toc=document.getElementById('toc'), toclist=document.getElementById('toclist');
-  function closeToc(){if(!toc)return;toc.hidden=true;where.setAttribute('aria-expanded','false')}
-  if(where&&toc){
-    sheets.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.setAttribute('role','menuitem');
-      b.innerHTML='<b>'+(i+1)+'</b> ';b.appendChild(document.createTextNode(s.dataset.name));
-      b.addEventListener('click',function(){closeToc();go(i)});toclist.appendChild(b)});
-    where.addEventListener('click',function(e){e.stopPropagation();closePop();
-      var open=toc.hidden; toc.hidden=!open; where.setAttribute('aria-expanded',open?'true':'false');
-      [].forEach.call(toclist.children,function(b,i){if(i===cur)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})});
-    document.addEventListener('click',function(e){if(!toc.hidden&&!e.target.closest('#toc'))closeToc()});
-  }
-  function closePop(){pop.hidden=true;if(openTerm)openTerm.setAttribute('aria-expanded','false');openTerm=null}
-
-  // Disegna la piega: "top" è il foglio che si piega, "under" quello che appare sotto. x = posizione della piega.
-  var T=null;
-  function begin(dir){
-    var to=cur+dir; if(to<0||to>=N)return false;
-    closePop();
-    var a=sheets[cur], b=sheets[to];
-    b.scrollTop=0; b.hidden=false;
-    var top=dir>0?a:b, under=dir>0?b:a;
-    top.classList.add('top'); under.classList.add('under');
-    flap.hidden=false; fsh.hidden=false;
-    T={dir:dir,to:to,top:top,under:under,W:book.clientWidth,x:dir>0?book.clientWidth:0};
-    render(T.x); return true;
-  }
-  function render(x){
-    var W=T.W; x=Math.max(0,Math.min(W,x)); T.x=x;
-    var v=Math.max(0,2*x-W);
-    T.top.style.clipPath='inset(0 '+(W-v)+'px 0 0)';
-    var fl=2*x-W, fw=W-x;
-    flap.style.left=fl+'px'; flap.style.width=fw+'px';
-    var k=Math.sin(Math.PI*x/W);
-    flap.style.opacity=fw<1?0:1;
-    fsh.style.left=x+'px'; fsh.style.opacity=(0.25+0.75*k).toFixed(2);
-  }
-  function finish(ok){
-    var t=T; T=null;
-    flap.hidden=true; fsh.hidden=true;
-    t.top.style.clipPath=''; t.top.classList.remove('top'); t.under.classList.remove('top','under'); t.top.classList.remove('under');
-    if(ok){sheets[cur].hidden=true; cur=t.to;} else {sheets[t.to].hidden=true;}
-    sheets.forEach(function(s,i){s.hidden=i!==cur}); if(ok)sheets[cur].scrollTop=0;
-    busy=false; paint();
-  }
-  function animateTo(target,ms,cb){
-    var from=T.x, t0=null;
-    function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/ms); var e=1-Math.pow(1-p,3);
-      render(from+(target-from)*e); if(p<1)requestAnimationFrame(step); else cb(); }
-    requestAnimationFrame(step);
-  }
-  function go(to,after){
-    if(busy||to===cur||to<0||to>=N)return;
-    if(calm){closePop();sheets[cur].hidden=true;cur=to;sheets[cur].hidden=false;sheets[cur].scrollTop=0;paint();if(after)after();return}
-    // salta più pagine: gira una alla volta, veloce
-    var dir=to>cur?1:-1; busy=true;
-    (function one(){
-      if(!begin(dir)){busy=false;return}
-      var fast=Math.abs(to-cur)>1;
-      animateTo(dir>0?0:T.W, fast?380:620, function(){ finish(true); busy=cur!==to; if(cur!==to){one()} else if(after)after(); });
-    })();
-  }
-  prev.addEventListener('click',function(){go(cur-1)});
-  next.addEventListener('click',function(){go(cur+1)});
-  document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Escape'){closePop();closeToc();} if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList.contains('term')){e.preventDefault();document.activeElement.click();}});
-
-  // Trascinamento col dito: la pagina si piega seguendo il dito
-  var sx=0,sy=0,dragging=false,decided=false,lastX=0,lastT=0,vel=0,pid=null;
-  book.addEventListener('pointerdown',function(e){
-    if(busy||e.button>0)return; if(e.target.closest('.term,a,.goto'))return;
-    sx=e.clientX;sy=e.clientY;decided=false;dragging=false;pid=e.pointerId;lastX=e.clientX;lastT=performance.now();vel=0;
-  });
-  book.addEventListener('pointermove',function(e){
-    if(pid!==e.pointerId||busy&&!dragging)return;
-    var dx=e.clientX-sx, dy=e.clientY-sy;
-    if(!decided){
-      if(Math.abs(dx)<10&&Math.abs(dy)<10)return;
-      decided=true;
-      if(Math.abs(dx)>Math.abs(dy)*1.2){
-        var dir=dx<0?1:-1;
-        if(begin(dir)){dragging=true;busy=true;try{book.setPointerCapture(e.pointerId)}catch(_){}}
-      }
-      if(!dragging){pid=null;return}
-    }
-    if(!dragging)return;
-    var now=performance.now(); vel=(e.clientX-lastX)/Math.max(1,now-lastT); lastX=e.clientX; lastT=now;
-    var W=T.W;
-    render(T.dir>0 ? W+dx*1.0 : dx*1.0);
-  });
-  function up(e){
-    if(pid!==e.pointerId)return; pid=null;
-    if(!dragging)return; dragging=false;
-    var W=T.W, done = T.dir>0 ? (T.x<W*0.72||vel<-0.5) : (T.x>W*0.28||vel>0.5);
-    if(T.dir>0&&vel>0.3)done=false; if(T.dir<0&&vel<-0.3)done=false;
-    var target = done ? (T.dir>0?0:W) : (T.dir>0?W:0);
-    animateTo(target,320,function(){finish(done)});
-  }
-  book.addEventListener('pointerup',up); book.addEventListener('pointercancel',up);
-
-  // Sommario
-  document.querySelectorAll('.goto').forEach(function(b){b.addEventListener('click',function(){go(+b.dataset.page)})});
-
-  // Termini
-  var pw=document.getElementById('pw'),pd=document.getElementById('pd');
-  document.addEventListener('click',function(e){
-    var t=e.target.closest('.term');
-    if(t){ if(openTerm===t){closePop();return}
-      if(openTerm)openTerm.setAttribute('aria-expanded','false');
-      openTerm=t;t.setAttribute('aria-expanded','true');
-      var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;
-      var pm=document.getElementById('pmore'),pl=document.getElementById('pl');
-      if(pm){ pl.hidden=true; pm.setAttribute('aria-expanded','false'); pm.textContent='Approfondisci ▾';
-        if(t.dataset.x){pm.hidden=false;pl.textContent=t.dataset.x;} else {pm.hidden=true;} }
-      pop.hidden=false;return; }
-    if(e.target.closest('#pmore')){var pm2=document.getElementById('pmore'),pl2=document.getElementById('pl');
-      var open=pl2.hidden; pl2.hidden=!open; pm2.setAttribute('aria-expanded',open?'true':'false'); pm2.textContent=open?'Chiudi ▴':'Approfondisci ▾'; return;}
-    if(e.target.closest('#px')||!e.target.closest('.pop .box'))closePop();
-  });
-  paint();
-})();
-
-// Se il giornale resta aperto in background (es. icona nella schermata Home), quando lo riapri
-// dopo un po' si ricarica da solo, così mostra sempre l'ultima edizione.
-(function(){
-  var aperto=Date.now();
-  document.addEventListener('visibilitychange',function(){
-    if(document.visibilityState==='visible' && Date.now()-aperto>10*60*1000){ location.reload(); }
-  });
+(function(){var q=document.getElementById('cerca'),voci=[].slice.call(document.querySelectorAll('.voce')),h=[].slice.call(document.querySelectorAll('#lista h2'));
+function norm(t){return t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
+q.addEventListener('input',function(){var t=norm(q.value.trim()),n=0;
+ voci.forEach(function(v){var ok=!t||v.dataset.k.indexOf(t)>-1;v.hidden=!ok;if(ok)n++});
+ h.forEach(function(x){var e=x.nextElementSibling,vis=false;while(e&&e.tagName!=='H2'){if(!e.hidden)vis=true;e=e.nextElementSibling}x.hidden=!vis});
+ document.getElementById('az').hidden=!!t;document.getElementById('vuoto').hidden=n>0;
+ document.getElementById('conta').textContent=t?(n+(n===1?' parola trovata':' parole trovate')):'168 parole spiegate finora';});
 })();
 </script>
-</body>
-</html>
+</body></html>
