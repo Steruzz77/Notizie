@@ -142,6 +142,10 @@ Per sapere cosa è già uscito, guarda il JSON più recente in `archivio/` prima
    Billboard Italia, classifiche FIMI. Fai almeno due ricerche separate (es. "rap italiano nuovo album" e
    "rapper tour date annuncio") per arrivare a 4 notizie: valgono anche annunci di concerti, featuring,
    certificazioni FIMI e classifiche Spotify.
+   **Almeno 3 notizie su 4 devono essere di rap italiano**; la musica straniera o di altri generi entra
+   solo se è un fatto davvero grande, e mai come prima notizia della pagina se c'è una notizia di rap italiano.
+   **Niente doppioni con il riquadro Uscite**: un brano o un album che sta già nelle Uscite non diventa
+   anche una notizia, salvo fatti nuovi che vanno oltre l'uscita (es. un'inchiesta, un record, un annuncio).
    Sotto le notizie la pagina ha un carosello con tre riquadri (formato sotto, "Musica: uscite e classifiche"):
    - **Uscite**: le uscite di rap italiano dell'ultimo venerdì (3–5, prese da un articolo letto, es.
      All Music Italia "le nuove uscite"). Nell'edizione della domenica, del lunedì e così via fino al
