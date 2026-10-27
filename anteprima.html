@@ -54,9 +54,9 @@ html,body{height:100%;overflow:hidden;overscroll-behavior:none}
   left:max(6px,env(safe-area-inset-left,0px));right:max(6px,env(safe-area-inset-right,0px));max-width:1400px;margin:0 auto}
 .book::before,.book::after{content:"";position:absolute;inset:0;border:1px solid var(--edge);border-radius:4px;background:var(--paper);box-shadow:0 2px 10px var(--shadow)}
 .book::before{transform:translate(3px,4px)}.book::after{transform:translate(1.5px,2px)}
-.page{position:absolute;inset:0;z-index:2;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;
+.page{position:absolute;inset:0;z-index:2;overflow-x:hidden;overflow-y:auto;overscroll-behavior:none;-webkit-overflow-scrolling:touch;touch-action:pan-y;
   border:1px solid var(--edge);border-radius:4px;background-color:var(--paper);background-image:var(--grain),var(--crump),var(--spine);
-  background-size:220px 220px,700px 900px,auto;background-blend-mode:normal,var(--crumple),normal;background-attachment:local}
+  background-size:220px 220px,700px 900px,auto;background-blend-mode:normal,var(--crumple),normal}
 :root{--grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .22  0 0 0 .16 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   --crump:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='900'><filter id='c' x='0' y='0' width='100%' height='100%'><feTurbulence type='turbulence' baseFrequency='.0065' numOctaves='4' seed='11' stitchTiles='stitch'/><feDiffuseLighting lighting-color='white' surfaceScale='3.2' diffuseConstant='1.2'><feDistantLight azimuth='225' elevation='38'/></feDiffuseLighting><feComponentTransfer><feFuncR type='linear' slope='.6' intercept='.4'/><feFuncG type='linear' slope='.6' intercept='.4'/><feFuncB type='linear' slope='.6' intercept='.4'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
   --spine:linear-gradient(90deg,rgba(80,60,20,.12),transparent 4%,transparent 96%,rgba(80,60,20,.08))}
@@ -68,7 +68,7 @@ html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 .ush{z-index:3}.flapw{z-index:5}
 .flap{position:absolute;inset:0;overflow:hidden;border-radius:4px;background-color:var(--paper);background-image:var(--grain),var(--crump);background-blend-mode:normal,var(--crumple);background-size:220px 220px,700px 900px}
 /* la stampa dell'altra faccia che traspare al contrario, poi la luce della curva sopra */
-.ghost{position:absolute;left:0;top:0;transform-origin:0 0;opacity:.13;filter:blur(.5px) grayscale(1);pointer-events:none}
+.ghost{position:absolute;left:0;top:0;transform-origin:0 0;opacity:.2;filter:blur(.5px) grayscale(1);pointer-events:none}
 .ghost img{opacity:.6}
 .flap::after{content:"";position:absolute;inset:0;background-image:var(--curva)}
 :root[data-retro="forte"] .ghost{opacity:.3;filter:blur(.35px) grayscale(1)}
@@ -274,10 +274,9 @@ h4+.lnk{border-top:0}
 .menu .box,.guide .box{border:0;border-radius:2px;padding:0 16px 14px;background-color:var(--paper);background-image:var(--grain);box-shadow:0 1px 0 var(--edge),0 14px 34px rgba(20,12,0,.38);overflow-x:hidden}
 .menu .box{padding:0;max-width:440px}
 .menu .x,.guide .x{position:absolute;width:34px;height:34px;border-radius:50%;border:0;background:none;color:var(--ink);font:700 20px var(--label);cursor:pointer;top:6px;right:6px;z-index:2}
-.views{display:flex;width:200%;transition:transform .3s ease}
-.views.set{transform:translateX(-50%)}
+.views{display:flex;width:300%;transition:transform .3s ease}
 @media (prefers-reduced-motion:reduce){.views{transition:none}}
-.view{width:50%;padding:0 16px 14px;display:flex;flex-direction:column}
+.view{width:33.3333%;padding:0 16px 14px;display:flex;flex-direction:column}
 .mh{text-align:center;padding:12px 30px 8px;border-bottom:4px double var(--rule);margin:0 0 4px}
 .mh .g{display:block;font:400 30px/1.05 var(--gothic)}
 .mh small{font:700 10.5px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -296,16 +295,26 @@ h4+.lnk{border-top:0}
 .sample{margin-top:8px;padding:7px 12px 6px}
 .sample h3{font-size:18px}
 .view .lnk{margin-top:12px;border-top:1px dotted var(--soft)}
-/* Nota sulla parola: si appoggia sopra il testo, vicino alla parola, senza spostare la pagina */
-.pop{left:0;top:0;right:auto;bottom:auto;padding:0;display:block}
-.pop .box{width:calc(min(340px,100vw - 24px) / var(--z,1));max-height:none;border:0;border-radius:2px;background-color:var(--paper);background-image:var(--grain);box-shadow:0 1px 0 var(--edge),0 10px 28px rgba(20,12,0,.35);padding:10px 40px 12px 14px;overflow:visible}
-.pop .box::before{content:"";position:absolute;top:-7px;left:var(--ax,40px);width:14px;height:14px;background:var(--paper);box-shadow:-1px -1px 0 var(--edge);transform:rotate(45deg)}
-.pop.sopra .box::before{top:auto;bottom:-7px;box-shadow:1px 1px 0 var(--edge)}
+/* Nota sulla parola: ferma in basso sopra la barra, cresce verso l'alto e non salta mai */
+.pop{left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));top:auto;bottom:calc(64px + env(safe-area-inset-bottom,0px));padding:0;display:flex;justify-content:center}
+.pop .box{width:100%;max-width:560px;max-height:55vh;overflow-y:auto;border:0;border-top:3px solid var(--term);border-radius:2px;padding:10px 40px 12px 14px}
 .pop .w{font-size:22px;font-style:italic;color:var(--ink);margin:0 0 6px}
 .pop .w::after{content:"";display:block;width:36px;height:3px;background:var(--term);margin-top:5px}
 .pop .x{border:0;top:4px;right:4px;font-size:19px;background:none}
 .pop .more{border-top:1px solid var(--rule);text-align:right;color:var(--red)}
 .pop .long{border-left:3px solid var(--soft);padding-left:10px}
+/* Pannelli di carta stropicciata, come il foglio, con il giornale dietro un po' sfocato */
+.menu .box,.guide .box,.pop .box{background-color:var(--paper);background-image:var(--grain),var(--crump);background-size:220px 220px,700px 900px;background-blend-mode:normal,var(--crumple);
+  box-shadow:0 1px 0 var(--edge),0 3px 6px rgba(20,12,0,.18),0 18px 40px rgba(20,12,0,.38)}
+.menu,.guide{-webkit-backdrop-filter:blur(2.5px);backdrop-filter:blur(2.5px)}
+/* Archivio */
+.arcl{list-style:none;margin:0;padding:0}
+.arcl a{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:8px;padding:9px 2px;border-bottom:1px dotted var(--soft);color:var(--ink);text-decoration:none}
+.arcl b{font:700 17px var(--head)}
+.arcl small{font:600 11px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.arcl a.on small{color:var(--loc)}
+.arcl .day{font:800 10.5px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--red);padding:12px 0 2px}
+.mfoot .tutte{margin-left:auto;text-decoration:none}
 /* Numeri quadrati a destra anche in "Nelle altre pagine" */
 .tz{grid-template-columns:minmax(0,1fr) auto}
 .tz b{grid-column:2;grid-row:1;border-radius:0}
@@ -334,13 +343,18 @@ h4+.lnk{border-top:0}
 <div class="views" id="views">
 <section class="view" id="vSom"><div class="mh"><span class="g">Sommario</span><small>Edizione della sera · lunedì 26 ottobre</small></div>
 <ol class="idx"><li><button type="button" class="pri" data-go="0"><span class="t">Prima pagina</span><span class="dl"></span><b>1</b></button></li><li><button type="button" class="loc" data-go="1"><span class="t">Lumezzane e Brescia</span><span class="dl"></span><b>2</b></button></li><li><button type="button" class="ita" data-go="2"><span class="t">Italia</span><span class="dl"></span><b>3</b></button></li><li><button type="button" class="mon" data-go="3"><span class="t">Dal mondo</span><span class="dl"></span><b>4</b></button></li><li><button type="button" class="tec" data-go="4"><span class="t">Tecnologia</span><span class="dl"></span><b>5</b></button></li><li><button type="button" class="mus" data-go="5"><span class="t">Musica</span><span class="dl"></span><b>6</b></button></li><li><button type="button" class="met" data-go="6"><span class="t">Meteo</span><span class="dl"></span><b>7</b></button></li></ol>
-<div class="mfoot"><button type="button" class="mbtn" id="toSet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Impostazioni</button><a class="mbtn" href="archivio.html">≡ Archivio</a></div></section>
+<div class="mfoot"><button type="button" class="mbtn" id="toSet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Impostazioni</button><button type="button" class="mbtn" id="toArc">≡ Archivio</button></div></section>
 <section class="view" id="vSet" inert><div class="mh"><span class="g">Impostazioni</span><small>Come vuoi leggere il giornale</small></div>
 <div class="row"><span class="lab">Tema</span><div class="seg" id="segTema"><button type="button" data-v="auto">Automatico</button><button type="button" data-v="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>Chiaro</button><button type="button" data-v="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>Scuro</button></div></div>
 <div class="row"><span class="lab">Grandezza del testo</span><div class="seg sz" id="segTesto"><button type="button" data-v="-1" style="font-size:13px" aria-label="Piccolo">A</button><button type="button" data-v="0" style="font-size:16px" aria-label="Normale">A</button><button type="button" data-v="1" style="font-size:19px" aria-label="Grande">A</button><button type="button" data-v="2" style="font-size:22px" aria-label="Molto grande">A</button></div>
 <div class="sample"><div class="kick">Così si legge</div><h3>Titoli e testo crescono insieme</h3><p>Vale per tutto il giornale.</p></div></div>
 <button type="button" class="lnk" id="homebtn"><img src="icona.png" alt="" width="36" height="36"><span><b>Aggiungi alla schermata Home</b><small>Istruzioni per iPhone e Android</small></span></button>
-<div class="mfoot"><button type="button" class="back" id="toSom">← Torna al sommario</button></div></section>
+<div class="mfoot"><button type="button" class="back" data-som>← Torna al sommario</button></div></section>
+<section class="view" id="vArc" inert><div class="mh"><span class="g">Archivio</span><small>Le ultime edizioni</small></div>
+<ol class="arcl"><li class="day">Lunedì 26 ottobre</li><li><a class="on" aria-current="page"><b>Sera</b><small>Stai leggendo</small></a></li><li><a href="archivio/2026-10-26-mattina.html"><b>Mattina</b><small>Apri ›</small></a></li>
+<li class="day">Domenica 25 ottobre</li><li><a href="archivio/2026-10-25-sera.html"><b>Sera</b><small>Apri ›</small></a></li><li><a href="archivio/2026-10-25-domenica.html"><b>Mattina della domenica</b><small>Apri ›</small></a></li>
+<li class="day">Sabato 24 ottobre</li><li><a href="archivio/2026-10-24-sera.html"><b>Sera</b><small>Apri ›</small></a></li></ol>
+<div class="mfoot"><button type="button" class="back" data-som>← Torna al sommario</button><a class="back tutte" href="archivio.html">Tutte le edizioni →</a></div></section>
 </div></div></div><div class="guide" id="guide" hidden><div class="box" role="dialog" aria-label="Aggiungi alla schermata Home">
 <button class="x" id="gx" type="button" aria-label="Chiudi">×</button>
 <div class="gh"><img src="icona.png" alt="" width="60" height="60"><div><b>Il Corriere sulla schermata Home</b><small>Lo apri con un tocco e si vede a tutto schermo, come un'app.</small></div></div>
@@ -533,15 +547,11 @@ h4+.lnk{border-top:0}
   var pop=document.getElementById('pop'),pbox=pop.querySelector('.box'),pw=document.getElementById('pw'),pd=document.getElementById('pd'),pm=document.getElementById('pmore'),pl=document.getElementById('pl'),open=null;
   document.querySelectorAll('.term').forEach(function(t){t.setAttribute('aria-expanded','false')});
   function closePop(){pop.hidden=true;if(open)open.setAttribute('aria-expanded','false');open=null}
+  // la nota sta ferma in basso: si chiude solo se la parola esce dal foglio
   function piazza(){
     if(!open)return;
-    var r=open.getClientRects()[0]||open.getBoundingClientRect(), b=book.getBoundingClientRect();
-    if(r.bottom<b.top||r.top>b.bottom){closePop();return}
-    var bx=pbox.getBoundingClientRect(), w=bx.width, h=bx.height, vw=document.documentElement.clientWidth;
-    var l=Math.max(12,Math.min(vw-w-12,r.left+r.width/2-w/2)), sotto=r.bottom+12+h<=b.bottom||r.top-12-h<b.top;
-    pop.classList.toggle('sopra',!sotto);
-    pop.style.transform='translate('+l+'px,'+(sotto?r.bottom+12:r.top-12-h)+'px)';
-    pbox.style.setProperty('--ax',Math.max(10,Math.min(w-24,(r.left+r.width/2-l)/(parseFloat(getComputedStyle(pbox).zoom)||1)-7))+'px');
+    var r=open.getBoundingClientRect(), b=book.getBoundingClientRect();
+    if(r.bottom<b.top||r.top>b.bottom)closePop();
   }
   document.addEventListener('click',function(e){
     var t=e.target.closest('.term');
@@ -556,11 +566,13 @@ h4+.lnk{border-top:0}
 
   // Indice in basso: tutte le pagine, tema e grandezza del testo
   var menu=document.getElementById('menu');
-  var views=document.getElementById('views'), vSom=document.getElementById('vSom'), vSet=document.getElementById('vSet');
-  function faccia(set){views.classList.toggle('set',set);vSet.inert=!set;vSom.inert=set}
-  document.getElementById('toSet').addEventListener('click',function(){faccia(true)});
-  document.getElementById('toSom').addEventListener('click',function(){faccia(false)});
-  function apri(o){menu.hidden=!o;where.setAttribute('aria-expanded',String(o));if(o){closePop();faccia(false);menu.querySelector('.box').scrollTop=0}}
+  // Sommario, Impostazioni e Archivio: tre facce della stessa scheda, che scorre di lato
+  var views=document.getElementById('views'), facce=[].slice.call(views.children);
+  function faccia(k){views.style.transform='translateX('+(-100*k/facce.length)+'%)';facce.forEach(function(f,i){f.inert=i!==k})}
+  document.getElementById('toSet').addEventListener('click',function(){faccia(1)});
+  document.getElementById('toArc').addEventListener('click',function(){faccia(2)});
+  [].forEach.call(views.querySelectorAll('[data-som]'),function(b){b.addEventListener('click',function(){faccia(0)})});
+  function apri(o){menu.hidden=!o;where.setAttribute('aria-expanded',String(o));if(o){closePop();faccia(0);menu.querySelector('.box').scrollTop=0}}
   where.addEventListener('click',function(){apri(menu.hidden)});
   document.getElementById('mx').addEventListener('click',function(){apri(false)});
   menu.addEventListener('click',function(e){if(!e.target.closest('.box'))apri(false)});
