@@ -486,7 +486,7 @@ h4+.lnk{border-top:0}
     }
     R.cv=el('t-curva',R.fl); R.cv.style.height=2*BIG+'px'; R.sh.style.height=2*BIG+'px';
     // la pagina vera resta visibile finché le foto della copia non sono pronte: niente lampo di foto vuote
-    kp.style.opacity='0'; R.kp=kp;
+    R.kp=kp; if(dir<0){top.style.visibility='hidden'}else kp.style.opacity='0';
     var pronti=[].map.call(kp.querySelectorAll('img'),function(i){return i.decode?i.decode().catch(function(){}):0});
     var via=function(){if(R&&R.kp===kp&&kp.style.opacity==='0'){kp.style.opacity='';top.style.visibility='hidden'}};
     Promise.all(pronti).then(function(){requestAnimationFrame(via)}); setTimeout(via,250);
@@ -564,7 +564,7 @@ h4+.lnk{border-top:0}
     var dx=x-P.sx, dy=y-P.sy;
     if(P.lock===null){
       if(Math.abs(dx)<10&&Math.abs(dy)<10)return false;
-      if(Math.abs(dx)>Math.abs(dy)*1.2&&begin(cur+(dx<0?1:-1),P.oy))P.lock='x';
+      if(Math.abs(dx)>Math.abs(dy)*1.5&&begin(cur+(dx<0?1:-1),P.oy))P.lock='x';
       else{P=null;return false}
     }
     if(!R||R.anim)return true;
