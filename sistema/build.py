@@ -394,7 +394,7 @@ FONTI_OK = """ansa.it ilpost.it rainews.it tg24.sky.it agi.it adnkronos.com ital
 corriere.it repubblica.it lastampa.it ilsole24ore.com ilgiornale.it ilmessaggero.it avvenire.it
 ilfattoquotidiano.it open.online ilfoglio.it today.it tgcom24.mediaset.it ilgiorno.it quotidiano.net fanpage.it
 internazionale.it reuters.com apnews.com bbc.com bbc.co.uk aljazeera.com theguardian.com nytimes.com
-giornaledibrescia.it bresciatoday.it bresciaoggi.it quibrescia.it valtrompia.it
+giornaledibrescia.it bresciatoday.it bresciaoggi.it quibrescia.it bsnews.it valtrompia.it
 hwupgrade.it wired.it dday.it tomshw.it multiplayer.it everyeye.it hdblog.it punto-informatico.it theverge.com
 rockol.it rollingstone.it allmusicitalia.it rapologia.it esse-magazine.it billboard.it fimi.it newsic.it
 3bmeteo.com ilmeteo.it meteo.it""".split()

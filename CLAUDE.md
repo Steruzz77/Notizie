@@ -45,8 +45,8 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
 - Ogni notizia ha la sua **fonte** con link all'articolo.
 - **Fonti affidabili**: prendi le notizie solo da testate serie e conosciute. Nazionali: ANSA, Il Post,
   Rainews, Sky TG24, AGI, Adnkronos, Corriere, Repubblica, La Stampa, Il Sole 24 Ore, Open, Il Giorno.
-  Mondo: le stesse, più Reuters, AP, BBC, Al Jazeera. Brescia: Giornale di Brescia, BresciaToday,
-  Bresciaoggi (QuiBrescia solo se manca altrove). Tecnologia: HWupgrade, Il Post, Wired, DDay,
+  Mondo: le stesse, più Reuters, AP, BBC, Al Jazeera. Brescia: Giornale di Brescia, Il Giorno
+  (cronaca di Brescia), QuiBrescia, BsNews (BresciaToday e Bresciaoggi non si aprono: vedi sotto). Tecnologia: HWupgrade, Il Post, Wired, DDay,
   Tom's Hardware, Multiplayer.it. Musica: Rockol, Rolling Stone Italia, All Music Italia, Rapologia,
   Esse Magazine, Billboard Italia, FIMI. Vanno bene anche siti piccoli o poco noti, purché affidabili:
   testate giornalistiche vere (con redazione e direttore) o siti specializzati seri. Da evitare blog
@@ -94,7 +94,7 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   senza chiedere. Se aggiungi un sito a `FONTI_OK`, aggiungilo anche lì.
 - Se un sito rifiuta WebFetch (paywall, blocco dei robot) o chiede un'approvazione, non insistere:
   passa subito a un'altra fonte che racconta lo stesso fatto (es. ANSA, Il Post, Sky TG24, Rainews,
-  Giornale di Brescia, BresciaToday, Bresciaoggi).
+  Giornale di Brescia, QuiBrescia, BsNews).
 - Lavora con ordine: fai le ricerche delle varie sezioni in parallelo, così resta tempo per la
   verifica finale (vedi "Verifica delle notizie prima di pubblicare").
 
@@ -118,7 +118,13 @@ Per sapere cosa è già uscito, guarda il JSON più recente in `archivio/` prima
    Villa Carcina, Concesio, Marcheno, Tavernole, Bovegno, Collio, Polaveno, Lodrino, Caino...): cronaca,
    Comune, lavori e strade, scuole, aziende, eventi, la squadra no (niente sport). Metti in cima alla pagina
    la notizia più vicina a Lumezzane. Poi completa con Brescia città e il resto della provincia.
-   Fonti: Giornale di Brescia, BresciaToday, Bresciaoggi.
+   Fonti: Giornale di Brescia, Il Giorno (cronaca di Brescia), QuiBrescia e BsNews: sono tutte testate
+   registrate e si aprono con WebFetch. Cercale con WebSearch usando `allowed_domains` (es. "Lumezzane"
+   o il nome di un comune della Valtrompia su quibrescia.it e bsnews.it). **BresciaToday e Bresciaoggi
+   bloccano i programmi automatici**: non provare ad aprirli e non aggirare il blocco. Usa i loro titoli
+   nei risultati di ricerca solo per scoprire le notizie, poi leggi lo stesso fatto su una delle altre
+   testate. Se un fatto importante su Lumezzane o la Valtrompia c'è solo su BresciaToday o Bresciaoggi,
+   non scriverlo: segnalalo in una riga nel riepilogo finale con il link, così Alex lo apre da sé.
 3. **Italia**: 6–7 notizie (politica, cronaca, economia, società).
 4. **Dal mondo**: 5–6 notizie.
 5. **Tecnologia**: 3–4 notizie (smartphone, IA, informatica, videogiochi, internet). Fonti es. HWupgrade, Il Post.
