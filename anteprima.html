@@ -331,6 +331,19 @@ h4+.lnk{border-top:0}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--velo:rgba(42,38,31,.55)}}
 :root[data-theme="dark"]{--velo:rgba(42,38,31,.55)}
 [data-schede="carta"] .card,[data-schede="carta"] .tzs{background-image:linear-gradient(var(--velo),var(--velo)),var(--crump);background-size:auto,700px 900px;background-blend-mode:normal,var(--crumple)}
+/* carta che scorre col testo, anche nel rimbalzo: lo sfondo sta sul foglio e si muove con il contenuto */
+.page{background-image:var(--grain),var(--crump),var(--crump),var(--spine);background-size:220px 220px,700px 900px,700px 900px,auto;background-blend-mode:normal,var(--crumple),var(--crumple),normal;background-attachment:local,local,local,scroll;background-position:0 0,0 0,350px 450px,0 0}
+.in{background:none}
+/* schede: stessa carta del foglio, che traspare */
+.card,.tzs{background-color:color-mix(in srgb,var(--card) 50%,transparent)}
+[data-schede="liscia"] .card,[data-schede="liscia"] .tzs{background-color:var(--card)}
+[data-schede="carta"] .card,[data-schede="carta"] .tzs{background-image:none}
+/* retro: carta vera che gira insieme al foglio, stampa più leggibile */
+.ghost{opacity:1;filter:none}
+.gpaper{position:absolute;inset:0;background-color:var(--paper);background-image:var(--grain),var(--crump),var(--crump);background-size:220px 220px,700px 900px,700px 900px;background-position:0 0,0 0,350px 450px;background-blend-mode:normal,var(--crumple),var(--crumple)}
+.gink{position:relative;opacity:.34;filter:blur(.4px) grayscale(1)}
+:root[data-retro="forte"] .ghost{opacity:1;filter:none}
+:root[data-retro="forte"] .gink{opacity:.42}
 </style>
 </head>
 <body>
@@ -425,7 +438,7 @@ h4+.lnk{border-top:0}
     flap.textContent=''; R.g=null;
     if(root.getAttribute('data-retro')!=='liscio'){
       var g=document.createElement('div'); g.className='ghost'; g.setAttribute('aria-hidden','true');
-      g.style.width=top.clientWidth+'px'; g.appendChild(top.querySelector('.in').cloneNode(true));
+      g.style.width=top.clientWidth+'px'; g.style.height=top.scrollHeight+'px'; var gp=document.createElement('div'); gp.className='gpaper'; var gi=document.createElement('div'); gi.className='gink'; gi.appendChild(top.querySelector('.in').cloneNode(true)); g.appendChild(gp); g.appendChild(gi);
       flap.appendChild(g); R.g=g; R.sc=top.scrollTop;
     }
     flapw.hidden=false; ush.hidden=false; draw(R.fx,R.fy);
@@ -626,7 +639,7 @@ h4+.lnk{border-top:0}
     if(punto&&punto.ed!==ED)avvisa('Nuova edizione: '+book.dataset.edl+'.');
   }
 })();
-;if(/schede=carta/.test(location.search))document.documentElement.setAttribute("data-schede","carta");
+;if(/schede=liscia/.test(location.search))document.documentElement.setAttribute("data-schede","liscia");
 </script>
 </body>
 </html>
