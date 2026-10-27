@@ -39,12 +39,18 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   nella spalla, e in tutte le notizie dove c'è un termine complesso. Non metterlo su parole che si
   capiscono già con la frase corta: solo dove c'è davvero qualcosa in più da capire.
   Esempio: `[[direttissima|Un processo veloce, fatto subito dopo l'arresto quando le prove sono già chiare.||Di solito tra arresto e processo passano mesi. Con la direttissima l'arrestato va davanti al giudice entro pochi giorni, perché colto sul fatto o reo confesso. Si usa spesso dopo scontri o furti in flagrante.]]`
-- **Nomi ("Chi è")**: le persone citate che Alex potrebbe non conoscere (politici stranieri, ministri,
-  manager, artisti poco noti) si scrivono con la chiocciola davanti: `[[@Gadi Eisenkot|Ex capo
-  dell'esercito israeliano, oggi alla guida di un partito di opposizione.]]`. Nella pagina compare il
-  nome sottolineato a puntini e, toccandolo, la nota "Chi è". La frase dice chi è e cosa fa oggi; si
-  può aggiungere `||approfondimento` come per i termini. Non serve per i nomi che tutti conoscono
-  (Meloni, Mattarella, Trump, il papa) né per persone citate solo di passaggio.
+- **Nomi ("Chi è")**: **tutte le persone citate** hanno la nota "Chi è", anche le più famose (Netanyahu,
+  Trump, Putin, Meloni, Mattarella, il papa) e anche gli artisti: Alex vuole sapere sempre di chi si parla.
+  Si scrivono con la chiocciola davanti, con **nome e cognome** la prima volta che compaiono nella
+  notizia (non solo il cognome): `[[@Benjamin Netanyahu|Primo ministro di Israele e leader del Likud, il
+  principale partito della destra israeliana.]]`. Per gli artisti con nome d'arte, la nota dà anche il nome
+  vero se è certo (es. «Emanuele Palumbo, rapper napoletano»). La frase dice chi è, cosa fa oggi o cosa
+  ha fatto; per i personaggi più importanti aggiungi `||approfondimento` come per i termini. Nella pagina
+  compare il nome sottolineato a puntini e, toccandolo, la nota "Chi è". Ogni persona si spiega una volta
+  per notizia. Usa solo informazioni certe (ruolo, carica, da quando): se non sei sicuro di un dettaglio
+  non scriverlo, e per le persone poco note scrivi il ruolo che dà l'articolo (es. «Presidente del Gal
+  Valle Trompia»). Non serve la nota per le vittime e per i privati cittadini già descritti nel testo
+  (età, paese, cosa è successo).
 - **Cronaca nera e fatti violenti**: non escluderli e non addolcirli. Fatti concreti, al livello dei
   giornali seri, senza toni sensazionalistici.
 - **Politica**: neutrale. Fatti e posizioni delle varie parti, senza dire chi ha ragione.
