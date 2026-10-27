@@ -331,17 +331,21 @@ h4+.lnk{border-top:0}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--velo:rgba(42,38,31,.55)}}
 :root[data-theme="dark"]{--velo:rgba(42,38,31,.55)}
 [data-schede="carta"] .card,[data-schede="carta"] .tzs{background-image:linear-gradient(var(--velo),var(--velo)),var(--crump);background-size:auto,700px 900px;background-blend-mode:normal,var(--crumple)}
-/* carta che scorre col testo, anche nel rimbalzo: lo sfondo sta sul foglio e si muove con il contenuto */
-.page{background-image:var(--grain),var(--crump),var(--crump),var(--spine);background-size:220px 220px,700px 900px,700px 900px,auto;background-blend-mode:normal,var(--crumple),var(--crumple),normal;background-attachment:local,local,local,scroll;background-position:0 0,0 0,350px 450px,0 0}
-.in{background:none}
+/* carta: sta sul testo e scorre con lui; sopra e sotto (rimbalzo) la continua il foglio, con la stessa trama allineata */
+:root{--velo2:linear-gradient(transparent,transparent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--crumple:soft-light;--velo2:linear-gradient(rgba(36,32,26,.5),rgba(36,32,26,.5))}}
+:root[data-theme="dark"]{--crumple:soft-light;--velo2:linear-gradient(rgba(36,32,26,.5),rgba(36,32,26,.5))}
+.page{background-image:var(--grain),var(--velo2),var(--crump),var(--crump),var(--spine);background-size:220px 220px,auto,700px 900px,700px 900px,auto;background-blend-mode:normal,normal,var(--crumple),var(--crumple),normal;background-position:0 0,0 0,0 0,350px 450px,0 0}
+.in{position:relative;z-index:0;background-image:var(--grain),var(--velo2),var(--crump),var(--crump),var(--spine);background-size:220px 220px,auto,700px 900px,700px 900px,auto;background-blend-mode:normal,normal,var(--crumple),var(--crumple),normal;background-position:0 0,0 0,0 0,350px 450px,0 0}
+.in::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:100vh;pointer-events:none;background-color:var(--paper);background-image:var(--grain),var(--velo2),var(--crump),var(--crump),var(--spine);background-size:220px 220px,auto,700px 900px,700px 900px,auto;background-blend-mode:normal,normal,var(--crumple),var(--crumple),normal;background-position:0 100%,0 0,0 100%,350px calc(100% + 450px),0 0}
 /* schede: stessa carta del foglio, che traspare */
 .card,.tzs{background-color:color-mix(in srgb,var(--card) 50%,transparent)}
 [data-schede="liscia"] .card,[data-schede="liscia"] .tzs{background-color:var(--card)}
 [data-schede="carta"] .card,[data-schede="carta"] .tzs{background-image:none}
 /* retro: carta vera che gira insieme al foglio, stampa più leggibile */
 .ghost{opacity:1;filter:none}
-.gpaper{position:absolute;inset:0;background-color:var(--paper);background-image:var(--grain),var(--crump),var(--crump);background-size:220px 220px,700px 900px,700px 900px;background-position:0 0,0 0,350px 450px;background-blend-mode:normal,var(--crumple),var(--crumple)}
-.gink{position:relative;opacity:.34;filter:blur(.4px) grayscale(1)}
+.gpaper{position:absolute;inset:0;background-color:var(--paper);background-image:var(--grain),var(--velo2),var(--crump),var(--crump),var(--spine);background-size:220px 220px,auto,700px 900px,700px 900px,auto;background-blend-mode:normal,normal,var(--crumple),var(--crumple),normal;background-position:0 0,0 0,0 0,350px 450px,0 0}
+.ghost{will-change:transform}.gink{position:relative;opacity:.34}.gink img{filter:grayscale(1)}
 :root[data-retro="forte"] .ghost{opacity:1;filter:none}
 :root[data-retro="forte"] .gink{opacity:.42}
 </style>
@@ -462,6 +466,7 @@ h4+.lnk{border-top:0}
   }
   function draw(fx,fy){
     var W=R.W,H=R.H, ox=W, oy=R.oy;
+    var lim=.3*Math.abs(W-fx); fy=oy+Math.max(-lim,Math.min(lim,fy-oy));
     // un foglio vero non si piega dritto: il bordo si alza un po' in diagonale, più a metà giro
     var tilt=.13*(W-fx)*(fx+W)/W*(R.low?-1:1);
     fy=fy+tilt; R.fx=fx; R.fy=fy-tilt;
@@ -473,12 +478,12 @@ h4+.lnk{border-top:0}
     var lembo=via.map(function(p){var s=(p[0]-mx)*nx+(p[1]-my)*ny;return[p[0]-2*s*nx,p[1]-2*s*ny]});
     flap.style.clipPath=poly(lembo);
     var w=Math.max(8,Math.min(L/2,W)), k=Math.sin(Math.PI*Math.min(1,Math.max(0,(W-fx)/(2*W)))); // k: quanto è alzato il foglio (0 fermo, 1 a metà)
-    flap.style.setProperty('--curva',sfuma(W,H,mx,my,-nx,-ny,[[0,'rgba(30,20,5,.30)'],[w*.06,'rgba(30,20,5,.13)'],[w*.22,'rgba(30,20,5,.04)'],[w*.55,'rgba(30,20,5,0)'],[w,'rgba(30,20,5,.10)']]));
+    flap.style.setProperty('--curva',sfuma(W,H,mx,my,-nx,-ny,[[0,'rgba(30,20,5,.22)'],[w*.06,'rgba(30,20,5,.10)'],[w*.22,'rgba(30,20,5,.04)'],[w*.55,'rgba(30,20,5,0)'],[w,'rgba(30,20,5,.10)']]));
     if(R.g){var c=2*(mx*nx+my*ny);R.g.style.transform='matrix('+[1-2*nx*nx,-2*nx*ny,-2*nx*ny,1-2*ny*ny,c*nx,c*ny].map(function(v){return v.toFixed(4)}).join(',')+') translateY('+(-R.sc)+'px)'}
     ush.style.clipPath=poly(via);
     ush.style.backgroundImage=sfuma(W,H,mx,my,nx,ny,[[0,'rgba(20,12,0,'+(.45*k+.1).toFixed(2)+')'],[Math.min(70,w*.5)*.25,'rgba(20,12,0,'+(.2*k).toFixed(2)+')'],[Math.min(70,w*.5),'rgba(20,12,0,0)']]);
-    var sh=(6+10*k).toFixed(1);
-    flapw.style.filter='drop-shadow('+(-nx*sh*.6).toFixed(1)+'px '+(-ny*sh*.6).toFixed(1)+'px '+sh+'px rgba(20,12,0,'+(.18+.22*k).toFixed(2)+'))';
+    var sh=(3+6*k).toFixed(1);
+    flapw.style.filter='drop-shadow('+(-nx*sh*.6).toFixed(1)+'px '+(-ny*sh*.6).toFixed(1)+'px '+sh+'px rgba(20,12,0,'+(.12+.14*k).toFixed(2)+'))';
   }
   function finish(ok){
     var r=R; R=null;
@@ -501,15 +506,15 @@ h4+.lnk{border-top:0}
   function lascia(v){
     var ok=R.dir>0?(R.fx<R.W*.25||v<-.45):(R.fx>-R.W*.25||v>.45);
     var avanti=R.dir>0?ok:!ok;   // "avanti" = il foglio sopra finisce girato a sinistra
-    animateTo(avanti?-R.W-4:R.W,R.oy,ok?300:240,function(){finish(ok)});
+    animateTo(avanti?-R.W-4:R.W,R.oy,ok?240:200,function(){finish(ok)});
   }
   // girata con i tasti o dall'indice: parte dall'angolo in basso
   function go(i){
     if(i===cur||i<0||i>=N||R)return;
     if(calm){show(i);return}
     begin(i,book.clientHeight*.86);
-    if(R.dir>0)animateTo(-R.W-4,R.oy,520,function(){finish(true)});
-    else{R.fx=-R.W;animateTo(R.W,R.oy,520,function(){finish(true)})}
+    if(R.dir>0)animateTo(-R.W-4,R.oy,400,function(){finish(true)});
+    else{R.fx=-R.W;animateTo(R.W,R.oy,400,function(){finish(true)})}
   }
   document.addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(g){apri(false);go(+g.dataset.go)}});
   prev.addEventListener('click',function(){go(cur-1)}); next.addEventListener('click',function(){go(cur+1)});
@@ -628,6 +633,10 @@ h4+.lnk{border-top:0}
   var ED=book.dataset.ed, sTimer;
   function salva(){clearTimeout(sTimer);sTimer=setTimeout(function(){put('corriere-punto',JSON.stringify({ed:ED,p:cur,y:Math.round(pages[cur].scrollTop)}))},300)}
   book.addEventListener('scroll',function(e){if(e.target===pages[cur])salva()},true);
+  function fondo(p){var st=p.scrollTop,mx=p.scrollHeight-p.clientHeight,y=st<0||st>mx?-st:(st<mx/2?0:-mx);
+    if(p._fy===y)return; p._fy=y; p.style.backgroundPosition='0 '+y+'px,0 0,0 '+y+'px,350px '+(450+y)+'px,0 0'}
+  book.addEventListener('scroll',function(e){if(e.target.classList&&e.target.classList.contains('page'))fondo(e.target)},true);
+  pages.forEach(fondo);
   var h=(location.hash.match(/^#p(\d+)$/)||[])[1], punto=null;
   try{punto=JSON.parse(get('corriere-punto')||'null')}catch(e){}
   if(h){show(Math.min(N,Math.max(1,+h))-1)}
