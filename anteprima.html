@@ -554,15 +554,15 @@ h4+.lnk{border-top:0}
   function lascia(v){
     var ok=R.dir>0?(R.fx<R.W*.25||v<-.45):(R.fx>-R.W*.25||v>.45);
     var avanti=R.dir>0?ok:!ok;   // "avanti" = il foglio sopra finisce girato a sinistra
-    animateTo(avanti?-R.W-4:R.W,R.oy,ok?240:200,function(){finish(ok)});
+    animateTo(avanti?-R.W-4:R.W,R.oy,ok?380:300,function(){finish(ok)});
   }
   // girata con i tasti o dall'indice: parte dall'angolo in basso
   function go(i){
     if(i===cur||i<0||i>=N||R)return;
     if(calm){show(i);return}
     begin(i,book.clientHeight*.86);
-    if(R.dir>0)animateTo(-R.W-4,R.oy,400,function(){finish(true)});
-    else{R.fx=-R.W;animateTo(R.W,R.oy,400,function(){finish(true)})}
+    if(R.dir>0)animateTo(-R.W-4,R.oy,620,function(){finish(true)});
+    else{R.fx=-R.W;animateTo(R.W,R.oy,620,function(){finish(true)})}
   }
   document.addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(g){apri(false);go(+g.dataset.go)}});
   prev.addEventListener('click',function(){go(cur-1)}); next.addEventListener('click',function(){go(cur+1)});
@@ -581,10 +581,16 @@ h4+.lnk{border-top:0}
     var dx=x-P.sx, dy=y-P.sy;
     if(P.lock===null){
       if(Math.abs(dx)<10&&Math.abs(dy)<10)return false;
-      if(Math.abs(dx)>Math.abs(dy)*1.5&&begin(cur+(dx<0?1:-1),P.oy))P.lock='x';
-      else{P=null;return false}
+      if(Math.abs(dx)>Math.abs(dy)*1.5){
+        var to=cur+(dx<0?1:-1);
+        if(begin(to,P.oy))P.lock='x';
+        // oltre la prima o l'ultima pagina il foglio non si gira: lo diciamo, e il gesto non passa al browser
+        else if(to<0||to>=N){P.lock='fine';
+          if(to>=N)avvisa("Fine dell'edizione.",'Archivio',function(){apri(true);faccia(2)});else avvisa('Sei alla prima pagina.');}
+        else{P=null;return false}
+      }else{P=null;return false}
     }
-    if(!R||R.anim)return true;
+    if(P.lock==='fine'||!R||R.anim)return true;
     var now=performance.now(); P.v=P.v*.6+.4*(x-P.lx)/Math.max(1,now-P.lt); P.lx=x; P.lt=now;
     var base=R.dir>0?R.W:-R.W;
     voglio(Math.max(-R.W,Math.min(R.W,base+dx*1.7)), P.oy+Math.max(-80,Math.min(80,dy*.5)));
@@ -598,7 +604,7 @@ h4+.lnk{border-top:0}
     if(p.lock==='x'&&R&&!R.anim){if(raf){cancelAnimationFrame(raf);raf=0;draw(vx,vy)}noClick=true;setTimeout(function(){noClick=false},350);lascia(annulla?0:p.v)}
   }
   book.addEventListener('touchstart',function(e){if(e.touches.length===1){var t=e.touches[0];giu(t.identifier,t.clientX,t.clientY,e.target)}else P=null},{passive:true});
-  book.addEventListener('touchmove',function(e){var t=e.changedTouches[0];if(P&&muovi(t.identifier,t.clientX,t.clientY)&&P&&P.lock==='x')e.preventDefault()},{passive:false});
+  book.addEventListener('touchmove',function(e){var t=e.changedTouches[0];if(P&&muovi(t.identifier,t.clientX,t.clientY)&&P&&P.lock)e.preventDefault()},{passive:false});
   book.addEventListener('touchend',function(e){su(e.changedTouches[0].identifier,false)});
   book.addEventListener('touchcancel',function(e){su(e.changedTouches[0].identifier,true)});
   book.addEventListener('pointerdown',function(e){if(e.pointerType==='mouse'&&e.button===0)giu('m',e.clientX,e.clientY,e.target)});
