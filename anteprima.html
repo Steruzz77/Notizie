@@ -377,6 +377,20 @@ h4+.lnk{border-top:0}
 .gink .ph,.gink figure{background:none!important}
 :root[data-theme="dark"] .gink{opacity:.26}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gink{opacity:.26}}
+/* === effetto carta regolabile: la trama è al doppio, un velo del colore medio la attenua (--ca: 0 = piena, 1 = liscia) === */
+:root{--ca:.5;--cm:200 193 180;--carta:url(carta-chiara.jpg)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cm:33 29 24;--carta:url(carta-scura.jpg)}}
+:root[data-theme="dark"]{--cm:33 29 24;--carta:url(carta-scura.jpg)}
+.in,.t-keep{background-color:rgb(var(--cm));background-image:linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta),var(--spine);background-size:auto,700px 900px,auto;background-position:0 0,0 0,0 0}
+/* in fondo la trama sfuma nel colore del foglio: nel rimbalzo non si vede lo stacco */
+.in{background-image:linear-gradient(rgb(var(--cm) / 0) calc(100% - 110px),rgb(var(--cm))),linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta),var(--spine);background-size:auto,auto,700px 900px,auto;background-position:0 0,0 0,0 0,0 0}
+.in::before{background-color:rgb(var(--cm));background-image:linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta),var(--spine);background-size:auto,700px 900px,auto;background-position:0 0,0 100%,0 0}
+.page{background-color:rgb(var(--cm));background-image:var(--spine);background-size:auto;background-position:0 0}
+.gpaper,.menu .box,.guide .box,.pop .box{background-color:rgb(var(--cm));background-image:linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta);background-size:auto,700px 900px}
+.fine .prec{background-color:color-mix(in srgb,var(--card) 50%,transparent)}
+.cartar{display:flex;align-items:center;gap:10px}
+.cartar small{font:600 11px var(--label);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.cartar input{flex:1;accent-color:var(--ink);height:28px}
 </style>
 </head>
 <body>
@@ -402,6 +416,7 @@ h4+.lnk{border-top:0}
 <div class="row"><span class="lab">Tema</span><div class="seg" id="segTema"><button type="button" data-v="auto">Automatico</button><button type="button" data-v="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>Chiaro</button><button type="button" data-v="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>Scuro</button></div></div>
 <div class="row"><span class="lab">Grandezza del testo</span><div class="seg sz" id="segTesto"><button type="button" data-v="-1" style="font-size:13px" aria-label="Piccolo">A</button><button type="button" data-v="0" style="font-size:16px" aria-label="Normale">A</button><button type="button" data-v="1" style="font-size:19px" aria-label="Grande">A</button><button type="button" data-v="2" style="font-size:22px" aria-label="Molto grande">A</button></div>
 <div class="sample"><div class="kick">Così si legge</div><h3>Titoli e testo crescono insieme</h3><p>Vale per tutto il giornale.</p></div></div>
+<div class="row"><span class="lab">Effetto carta</span><div class="cartar"><small>Liscia</small><input type="range" id="cartaR" min="0" max="100" step="5" value="50" aria-label="Effetto carta"><small>Stropicciata</small></div></div>
 <button type="button" class="lnk" id="homebtn"><img src="icona.png" alt="" width="36" height="36"><span><b>Aggiungi alla schermata Home</b><small>Istruzioni per iPhone e Android</small></span></button>
 <div class="mfoot"><button type="button" class="back" data-som>← Torna al sommario</button></div></section>
 <section class="view" id="vArc" inert><div class="mh"><span class="g">Archivio</span><small>Le ultime edizioni</small></div>
@@ -478,10 +493,10 @@ h4+.lnk{border-top:0}
     R.sh=el('t-ush',flapw);
     R.clip=el('t-clip',flapw); R.clip.style.width=BIG+'px'; R.clip.style.height=2*BIG+'px';
     R.wrl=el('t-wrl',R.clip); R.wrl.style.width=W+'px'; R.wrl.style.height=H+'px';
-    var kp=el('t-keep '+top.className.replace(/\b(page|top|under)\b/g,''),R.wrl), kin=copia(); kp.appendChild(kin); kp.style.backgroundPosition='0 '+(-sc)+'px,0 0';
+    var kp=el('t-keep '+top.className.replace(/\b(page|top|under)\b/g,''),R.wrl), kin=copia(); kp.appendChild(kin); kp.style.backgroundPosition='0 0,0 '+(-sc)+'px,0 0';
     R.fl=el('t-flap',R.wrl);
     if(root.getAttribute('data-retro')!=='liscio'){
-      var gp=el('gpaper',R.fl); gp.style.backgroundPosition='0 '+(-sc)+'px';
+      var gp=el('gpaper',R.fl); gp.style.backgroundPosition='0 0,0 '+(-sc)+'px';
       var gi=el('gink',R.fl), gin=copia(); gi.appendChild(gin);
     }
     R.cv=el('t-curva',R.fl); R.cv.style.height=2*BIG+'px'; R.sh.style.height=2*BIG+'px';
@@ -641,6 +656,11 @@ h4+.lnk{border-top:0}
   document.getElementById('segTema').addEventListener('click',function(e){var b=e.target.closest('button');if(b)tema(b.dataset.v)});
   document.getElementById('segTesto').addEventListener('click',function(e){var b=e.target.closest('button');if(b)testo(b.dataset.v)});
   testo(get('corriere-testo')||'0'); segni();
+  // effetto carta: 0 liscia, 50 come di base, 100 il doppio
+  var cr=document.getElementById('cartaR');
+  function carta(v){v=+v;root.style.setProperty('--ca',(1-v/100).toFixed(2));cr.value=v;put('corriere-carta',v===50?null:String(v))}
+  cr.addEventListener('input',function(){carta(cr.value)});
+  carta(get('corriere-carta')||50);
 
   // Istruzioni per la schermata Home: si apre già sul telefono giusto
   var guide=document.getElementById('guide'), ua=navigator.userAgent, inst=document.getElementById('inst'), richiesta=null;
@@ -664,10 +684,7 @@ h4+.lnk{border-top:0}
   var ED=book.dataset.ed, sTimer;
   function salva(){clearTimeout(sTimer);sTimer=setTimeout(function(){put('corriere-punto',JSON.stringify({ed:ED,p:cur,y:Math.round(pages[cur].scrollTop)}))},300)}
   book.addEventListener('scroll',function(e){if(e.target===pages[cur])salva()},true);
-  function fondo(p){var st=p.scrollTop,mx=p.scrollHeight-p.clientHeight,y=st<0||st>mx?-st:(st<mx/2?0:-mx);
-    if(p._fy===y)return; p._fy=y; p.style.backgroundPosition='0 '+y+'px,0 0'}
-  book.addEventListener('scroll',function(e){if(e.target.classList&&e.target.classList.contains('page'))fondo(e.target)},true);
-  pages.forEach(fondo);
+
   var h=(location.hash.match(/^#p(\d+)$/)||[])[1], punto=null;
   try{punto=JSON.parse(get('corriere-punto')||'null')}catch(e){}
   if(h){show(Math.min(N,Math.max(1,+h))-1)}
