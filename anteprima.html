@@ -855,8 +855,11 @@ img.ph{filter:grayscale(.08) sepia(.06) contrast(1.03)}
       casa+='<li><span class="ic">'+ico(tipo(w))+'</span><span class="lu">'+c.n+'<small>'+(DESC[w]||'')+'</small></span><b>'+gr(V[i].temperature_2m_min[d])+'–'+gr(V[i].temperature_2m_max[d])+'</b></li>'});
     [].forEach.call(box.querySelectorAll('.casa-l'),function(u){u.innerHTML=casa});
   }
+  // i tasti prendono il giorno vero delle previsioni: se apri il giornale il giorno dopo, "Oggi" è davvero oggi
+  function etichette(tt){var gg=['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+    [].forEach.call(t.querySelectorAll('button'),function(b,i){var p=tt[i].split('-'),d=new Date(+p[0],p[1]-1,+p[2]);b.textContent=(i?'Domani':'Oggi')+' · '+gg[d.getDay()]+' '+d.getDate()})}
   var u='https://api.open-meteo.com/v1/forecast?latitude='+D.cap.map(function(c){return c.lat}).join(',')+'&longitude='+D.cap.map(function(c){return c.lon}).join(',')+'&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FRome&forecast_days=2';
-  fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){V=(Array.isArray(j)?j:[j]).map(function(x){return x.daily});box.removeAttribute('data-attesa');box.setAttribute('data-vivo','1');disegna()})
+  fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){V=(Array.isArray(j)?j:[j]).map(function(x){return x.daily});box.removeAttribute('data-attesa');box.setAttribute('data-vivo','1');etichette(V[0].time);disegna()})
     .catch(function(){box.removeAttribute('data-attesa');box.setAttribute('data-vivo','0')});
   t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;g=b.dataset.g;
     [].forEach.call(t.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x===b))});
