@@ -348,6 +348,26 @@ h4+.lnk{border-top:0}
 .ghost{will-change:transform}.gink{position:relative;opacity:.34}.gink img{filter:grayscale(1)}
 :root[data-retro="forte"] .ghost{opacity:1;filter:none}
 :root[data-retro="forte"] .gink{opacity:.42}
+/* === carta in immagine (leggera da disegnare) e girata fatta solo di spostamenti === */
+:root{--carta:url(carta-chiara.jpg)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--carta:url(carta-scura.jpg)}}
+:root[data-theme="dark"]{--carta:url(carta-scura.jpg)}
+.page,.in,.t-keep{background-color:var(--paper);background-image:var(--carta),var(--spine);background-size:700px 900px,auto;background-position:0 0,0 0;background-blend-mode:normal}
+.in::before{background-image:var(--carta),var(--spine);background-size:700px 900px,auto;background-position:0 100%,0 0;background-blend-mode:normal}
+.gpaper,.menu .box,.guide .box,.pop .box{background-image:var(--carta);background-size:700px 900px;background-blend-mode:normal}
+.gpaper{background-position:0 0}
+.book.turning .page{overflow-y:auto}
+.flapw{overflow:hidden;border-radius:4px}
+.t-clip,.t-wrl,.t-flap,.t-curva,.t-ush{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform;pointer-events:none}
+.t-clip{overflow:hidden}
+.t-keep{position:absolute;inset:0;overflow:hidden;border-radius:4px}
+.t-keep>.in{min-height:100%}
+.t-flap{width:100%;height:100%;overflow:hidden;border-radius:4px;background:var(--paper);box-shadow:0 0 12px rgba(20,12,0,.25)}
+.t-flap .gpaper{position:absolute;inset:0}
+.t-flap .gink{position:absolute;left:0;top:0;right:0;opacity:.34}
+.t-curva{width:100px;background:linear-gradient(90deg,rgba(30,20,5,.22),rgba(30,20,5,.10) 6%,rgba(30,20,5,.04) 22%,rgba(30,20,5,0) 55%,rgba(30,20,5,.10))}
+.t-ush{width:100px;background:linear-gradient(90deg,rgba(20,12,0,.55),rgba(20,12,0,.2) 25%,rgba(20,12,0,0))}
+.gink .in{background:none}.gink .in::before{display:none}
 </style>
 </head>
 <body>
@@ -429,6 +449,7 @@ h4+.lnk{border-top:0}
      Il foglio sopra viene tagliato lungo la piega; il pezzo tagliato si ribalta e diventa il lembo,
      che mostra il retro della carta con la luce della curva; sotto si vede la pagina nuova con l'ombra. */
   var R=null;
+  function el(cls,parent){var d=document.createElement('div');d.className=cls;if(parent)parent.appendChild(d);return d}
   function begin(to,oy){
     if(R||to===cur||to<0||to>=N)return false;
     closePop();
@@ -436,59 +457,54 @@ h4+.lnk{border-top:0}
     b.scrollTop=0; b.hidden=false;
     var top=dir>0?a:b, under=dir>0?b:a;
     top.classList.add('top'); under.classList.add('under'); book.classList.add('turning');
-    var W=book.clientWidth, H=book.clientHeight;
-    R={dir:dir,to:to,top:top,under:under,W:W,H:H,oy:oy,low:oy>H*.5,fx:dir>0?W:-W,fy:oy};
-    // retro del foglio: la stampa dell'altra faccia traspare al contrario, come nella carta di giornale vera
-    flap.textContent=''; R.g=null;
+    var W=book.clientWidth, H=book.clientHeight, sc=top.scrollTop, BIG=Math.ceil(Math.hypot(W,H))*2;
+    R={dir:dir,to:to,top:top,under:under,W:W,H:H,oy:oy,low:oy>H*.5,fx:dir>0?W:-W,fy:oy,BIG:BIG};
+    // Il foglio che si gira è fatto di copie ferme della pagina: a ogni passo cambiano solo le posizioni,
+    // così il telefono non deve ridisegnare niente e la girata resta fluida.
+    flapw.textContent='';
+    var src=top.querySelector('.in');
+    R.sh=el('t-ush',flapw);
+    R.clip=el('t-clip',flapw); R.clip.style.width=BIG+'px'; R.clip.style.height=2*BIG+'px';
+    R.wrl=el('t-wrl',R.clip); R.wrl.style.width=W+'px'; R.wrl.style.height=H+'px';
+    var kp=el('t-keep '+top.className.replace(/\b(page|top|under)\b/g,''),R.wrl), kin=src.cloneNode(true);
+    kin.style.transform='translateY('+(-sc)+'px)'; kp.appendChild(kin); kp.style.backgroundPosition='0 '+(-sc)+'px,0 0';
+    R.fl=el('t-flap',R.wrl);
     if(root.getAttribute('data-retro')!=='liscio'){
-      var g=document.createElement('div'); g.className='ghost'; g.setAttribute('aria-hidden','true');
-      g.style.width=top.clientWidth+'px'; g.style.height=top.scrollHeight+'px'; var gp=document.createElement('div'); gp.className='gpaper'; var gi=document.createElement('div'); gi.className='gink'; gi.appendChild(top.querySelector('.in').cloneNode(true)); g.appendChild(gp); g.appendChild(gi);
-      flap.appendChild(g); R.g=g; R.sc=top.scrollTop;
+      var gp=el('gpaper',R.fl); gp.style.backgroundPosition='0 '+(-sc)+'px';
+      var gi=el('gink',R.fl), gin=src.cloneNode(true); gin.style.transform='translateY('+(-sc)+'px)'; gi.appendChild(gin);
     }
-    flapw.hidden=false; ush.hidden=false; draw(R.fx,R.fy);
+    R.cv=el('t-curva',R.fl); R.cv.style.height=2*BIG+'px'; R.sh.style.height=2*BIG+'px';
+    top.style.visibility='hidden';
+    flapw.hidden=false; draw(R.fx,R.fy);
     return true;
   }
-  // taglia il rettangolo del foglio con la retta della piega (s>0 = lato del bordo che si alza)
-  function taglia(W,H,mx,my,nx,ny,lato){
-    var q=[[0,0],[W,0],[W,H],[0,H]], out=[];
-    for(var i=0;i<4;i++){
-      var p=q[i], r=q[(i+1)%4], sp=((p[0]-mx)*nx+(p[1]-my)*ny)*lato, sr=((r[0]-mx)*nx+(r[1]-my)*ny)*lato;
-      if(sp>=0)out.push(p);
-      if((sp>=0)!==(sr>=0)){var t=sp/(sp-sr);out.push([p[0]+(r[0]-p[0])*t,p[1]+(r[1]-p[1])*t])}
-    }
-    return out;
-  }
-  function poly(pts){return pts.length<3?'polygon(0 0,0 0,0 0)':'polygon('+pts.map(function(p){return p[0].toFixed(1)+'px '+p[1].toFixed(1)+'px'}).join(',')+')'}
-  // sfumatura lineare che parte dalla piega e va nella direzione (dx,dy), con le fermate in pixel
-  function sfuma(W,H,mx,my,dx,dy,stops){
-    var ang=Math.atan2(dx,-dy)*180/Math.PI, L=Math.abs(W*dx)+Math.abs(H*dy), s0=(mx-W/2)*dx+(my-H/2)*dy+L/2;
-    return 'linear-gradient('+ang.toFixed(2)+'deg,'+stops.map(function(s){return s[1]+' '+(s0+s[0]).toFixed(1)+'px'}).join(',')+')';
-  }
   function draw(fx,fy){
-    var W=R.W,H=R.H, ox=W, oy=R.oy;
+    var W=R.W,H=R.H, ox=W, oy=R.oy, BIG=R.BIG;
     var lim=.3*Math.abs(W-fx); fy=oy+Math.max(-lim,Math.min(lim,fy-oy));
     // un foglio vero non si piega dritto: il bordo si alza un po' in diagonale, più a metà giro
     var tilt=.13*(W-fx)*(fx+W)/W*(R.low?-1:1);
     fy=fy+tilt; R.fx=fx; R.fy=fy-tilt;
     var dx=ox-fx, dy=oy-fy, L=Math.hypot(dx,dy);
-    if(L<1){R.top.style.clipPath='';flap.style.clipPath='polygon(0 0,0 0,0 0)';ush.style.clipPath='polygon(0 0,0 0,0 0)';return}
-    var nx=dx/L, ny=dy/L, mx=(ox+fx)/2, my=(oy+fy)/2;
-    var resta=taglia(W,H,mx,my,nx,ny,-1), via=taglia(W,H,mx,my,nx,ny,1);
-    R.top.style.clipPath=poly(resta);
-    var lembo=via.map(function(p){var s=(p[0]-mx)*nx+(p[1]-my)*ny;return[p[0]-2*s*nx,p[1]-2*s*ny]});
-    flap.style.clipPath=poly(lembo);
-    var w=Math.max(8,Math.min(L/2,W)), k=Math.sin(Math.PI*Math.min(1,Math.max(0,(W-fx)/(2*W)))); // k: quanto è alzato il foglio (0 fermo, 1 a metà)
-    flap.style.setProperty('--curva',sfuma(W,H,mx,my,-nx,-ny,[[0,'rgba(30,20,5,.22)'],[w*.06,'rgba(30,20,5,.10)'],[w*.22,'rgba(30,20,5,.04)'],[w*.55,'rgba(30,20,5,0)'],[w,'rgba(30,20,5,.10)']]));
-    if(R.g){var c=2*(mx*nx+my*ny);R.g.style.transform='matrix('+[1-2*nx*nx,-2*nx*ny,-2*nx*ny,1-2*ny*ny,c*nx,c*ny].map(function(v){return v.toFixed(4)}).join(',')+') translateY('+(-R.sc)+'px)'}
-    ush.style.clipPath=poly(via);
-    ush.style.backgroundImage=sfuma(W,H,mx,my,nx,ny,[[0,'rgba(20,12,0,'+(.45*k+.1).toFixed(2)+')'],[Math.min(70,w*.5)*.25,'rgba(20,12,0,'+(.2*k).toFixed(2)+')'],[Math.min(70,w*.5),'rgba(20,12,0,0)']]);
-    var sh=(3+6*k).toFixed(1);
-    flapw.style.filter='drop-shadow('+(-nx*sh*.6).toFixed(1)+'px '+(-ny*sh*.6).toFixed(1)+'px '+sh+'px rgba(20,12,0,'+(.12+.14*k).toFixed(2)+'))';
+    if(L<1){dx=1;dy=0;L=1;fx=ox-1}
+    var nx=dx/L, ny=dy/L, mx=(ox+fx)/2, my=(oy+fy)/2, th=Math.atan2(ny,nx)*180/Math.PI;
+    var w=Math.max(8,Math.min(L/2,W)), k=Math.sin(Math.PI*Math.min(1,Math.max(0,(W-fx)/(2*W))));
+    var at='translate('+mx.toFixed(1)+'px,'+my.toFixed(1)+'px) rotate('+th.toFixed(3)+'deg)';
+    // ritaglio: tiene solo la parte del foglio che resta giù (prima della piega)
+    R.clip.style.transform=at+' translate('+(-BIG)+'px,'+(-BIG)+'px)';
+    R.wrl.style.transform='translate('+BIG+'px,'+BIG+'px) rotate('+(-th).toFixed(3)+'deg) translate('+(-mx).toFixed(1)+'px,'+(-my).toFixed(1)+'px)';
+    // lembo: il foglio ribaltato lungo la piega
+    var c=2*(mx*nx+my*ny);
+    R.fl.style.transform='matrix('+[1-2*nx*nx,-2*nx*ny,-2*nx*ny,1-2*ny*ny,c*nx,c*ny].map(function(v){return v.toFixed(4)}).join(',')+')';
+    R.cv.style.transform=at+' translate(0,'+(-BIG)+'px) scaleX('+(w/100).toFixed(3)+')';
+    // ombra sulla pagina nuova, appena oltre la piega
+    var sw=Math.min(70,w*.5);
+    R.sh.style.transform=at+' translate(0,'+(-BIG)+'px) scaleX('+(sw/100).toFixed(3)+')';
+    R.sh.style.opacity=((.45*k+.1)/.55).toFixed(2);
   }
   function finish(ok){
     var r=R; R=null;
-    flapw.hidden=true; ush.hidden=true; flapw.style.filter='';
-    r.top.style.clipPath=''; r.top.classList.remove('top'); r.under.classList.remove('under'); book.classList.remove('turning');
+    flapw.hidden=true; flapw.textContent='';
+    r.top.style.visibility=''; r.top.classList.remove('top'); r.under.classList.remove('under'); book.classList.remove('turning');
     if(ok){pages[cur].hidden=true; pages[r.to].hidden=false; cur=r.to; segna()}
     else pages[r.to].hidden=true;
   }
@@ -634,7 +650,7 @@ h4+.lnk{border-top:0}
   function salva(){clearTimeout(sTimer);sTimer=setTimeout(function(){put('corriere-punto',JSON.stringify({ed:ED,p:cur,y:Math.round(pages[cur].scrollTop)}))},300)}
   book.addEventListener('scroll',function(e){if(e.target===pages[cur])salva()},true);
   function fondo(p){var st=p.scrollTop,mx=p.scrollHeight-p.clientHeight,y=st<0||st>mx?-st:(st<mx/2?0:-mx);
-    if(p._fy===y)return; p._fy=y; p.style.backgroundPosition='0 '+y+'px,0 0,0 '+y+'px,350px '+(450+y)+'px,0 0'}
+    if(p._fy===y)return; p._fy=y; p.style.backgroundPosition='0 '+y+'px,0 0'}
   book.addEventListener('scroll',function(e){if(e.target.classList&&e.target.classList.contains('page'))fondo(e.target)},true);
   pages.forEach(fondo);
   var h=(location.hash.match(/^#p(\d+)$/)||[])[1], punto=null;
