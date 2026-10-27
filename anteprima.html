@@ -418,6 +418,10 @@ h4+.lnk{border-top:0}
 [data-schede="stampa"] .tz:first-child{border-top:0}
 [data-schede="stampa"] .fine .prec{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:8px 0}
 @media (min-width:700px){[data-schede="stampa"] .rest{column-rule:1px solid var(--filo)}[data-schede="stampa"] .rest .card:first-child{border-top:0}}
+/* foto come stampate: il bianco prende il colore della carta invece di accendersi */
+img.ph{mix-blend-mode:multiply}
+:root[data-theme="dark"] img.ph{mix-blend-mode:normal;filter:grayscale(.3) sepia(.15) brightness(.72) contrast(1.05)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) img.ph{mix-blend-mode:normal;filter:grayscale(.3) sepia(.15) brightness(.72) contrast(1.05)}}
 </style>
 </head>
 <body>
@@ -443,6 +447,7 @@ h4+.lnk{border-top:0}
 <div class="row"><span class="lab">Tema</span><div class="seg" id="segTema"><button type="button" data-v="auto">Automatico</button><button type="button" data-v="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>Chiaro</button><button type="button" data-v="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>Scuro</button></div></div>
 <div class="row"><span class="lab">Grandezza del testo</span><div class="seg sz" id="segTesto"><button type="button" data-v="-1" style="font-size:13px" aria-label="Piccolo">A</button><button type="button" data-v="0" style="font-size:16px" aria-label="Normale">A</button><button type="button" data-v="1" style="font-size:19px" aria-label="Grande">A</button><button type="button" data-v="2" style="font-size:22px" aria-label="Molto grande">A</button></div>
 <div class="sample"><div class="kick">Così si legge</div><h3>Titoli e testo crescono insieme</h3><p>Vale per tutto il giornale.</p></div></div>
+<div class="row"><span class="lab">Notizie</span><div class="seg" id="segSchede"><button type="button" data-v="stampa">Stampate sul foglio</button><button type="button" data-v="schede">In schede</button></div></div>
 <div class="row"><span class="lab">Effetto carta</span><div class="cartar"><small>Liscia</small><input type="range" id="cartaR" min="0" max="100" step="5" value="50" aria-label="Effetto carta"><small>Stropicciata</small></div></div>
 <button type="button" class="lnk" id="homebtn"><img src="icona.png" alt="" width="36" height="36"><span><b>Aggiungi alla schermata Home</b><small>Istruzioni per iPhone e Android</small></span></button>
 <div class="mfoot"><button type="button" class="back" data-som>← Torna al sommario</button></div></section>
@@ -694,6 +699,11 @@ h4+.lnk{border-top:0}
   function carta(v){v=+v;root.style.setProperty('--ca',(1-v/100).toFixed(2));cr.value=v;put('corriere-carta',v===50?null:String(v))}
   cr.addEventListener('input',function(){carta(cr.value)});
   carta(get('corriere-carta')||50);
+  // notizie stampate sul foglio (di base) o in schede, più separate tra loro
+  function schede(v){if(v==='schede')root.removeAttribute('data-schede');else root.setAttribute('data-schede','stampa');put('corriere-schede',v==='schede'?'schede':null);
+    [].forEach.call(document.querySelectorAll('#segSchede button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.v===v))})}
+  document.getElementById('segSchede').addEventListener('click',function(e){var b=e.target.closest('button');if(b)schede(b.dataset.v)});
+  schede(get('corriere-schede')||'stampa');
 
   // Istruzioni per la schermata Home: si apre già sul telefono giusto
   var guide=document.getElementById('guide'), ua=navigator.userAgent, inst=document.getElementById('inst'), richiesta=null;
