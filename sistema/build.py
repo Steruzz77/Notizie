@@ -42,8 +42,12 @@ def testo(t):
         out.append(E(t[last:m.start()]))
         breve, _, lungo = m.group(2).partition("||")
         extra = ' data-x="%s"' % E(lungo.strip()) if lungo.strip() else ""
-        out.append('<span class="term" role="button" tabindex="0" data-d="%s"%s>%s</span>'
-                   % (E(breve.strip()), extra, E(m.group(1).strip())))
+        parola = m.group(1).strip()
+        cls = "term"
+        if parola.startswith("@"):
+            parola, cls = parola[1:], "term nome"
+        out.append('<span class="%s" role="button" tabindex="0" data-d="%s"%s>%s</span>'
+                   % (cls, E(breve.strip()), extra, E(parola)))
         last = m.end()
     out.append(E((t or "")[last:]))
     return "".join(out)
@@ -117,6 +121,16 @@ def scheda(n, cls=""):
         cls, foto(n), E(n.get("occhiello")), E(n.get("titolo")), paragrafi(n), fonte(n))
 
 
+def tinta(occhiello):
+    """Colore dell'occhiello in prima pagina: quello della sezione da cui viene la notizia."""
+    o = (occhiello or "").lower()
+    for chiave, c in (("mondo", "mon"), ("tecnologia", "tec"), ("musica", "mus"), ("meteo", "met"),
+                      ("lumezzane", "loc"), ("valtrompia", "loc"), ("brescia", "loc"), ("italia", "ita")):
+        if o.startswith(chiave):
+            return c
+    return "ita"
+
+
 def pghead(nome):
     return '<header class="pghead"><h2>%s</h2><span>Corriere dello Steruz</span></header>' % E(nome)
 
@@ -155,21 +169,32 @@ def prima(ed, pagine_dopo, numero, archivio):
                     % (E(pr["accadde"].get("data")), testo(pr["accadde"].get("testo"))))
     box = ('<div class="car boxes"><div class="track">%s</div><div class="dots" aria-hidden="true"></div></div>' % "".join(mini)) if mini else ""
     arch = ('<a class="old" href="../index.html">Edizione passata · vai all\'ultima →</a>' if archivio
-            else '<a class="arch" href="archivio.html">Archivio →</a>')
+            else '<span class="ult">● Ultima edizione</span>')
     out = ('<header class="mast"><h1>Il Corriere dello Steruz</h1>'
-           '<div class="line"><span>%s</span><span>Anno I · N. %d</span></div>'
-           '<div class="line2"><span>%s</span>%s</div></header><div class="prima">'
-           % (data_lunga(ed["data"]), numero, EDIZIONI.get(ed.get("edizione"), "Edizione speciale"), arch))
+           '<div class="line"><span>%s · %s</span>%s</div></header><div class="prima">'
+           % ((data_lunga(ed["data"]).rsplit(" ", 1)[0] if not archivio else data_lunga(ed["data"])), {"mattina":"Mattina","sera":"Sera","domenica":"Domenica"}.get(ed.get("edizione"),"Speciale"), arch))
     out += '<article class="card hero %s">%s<div class="kick">%s</div><h2>%s</h2>%s%s%s</article>' % (
-        "ita", foto(a, "ph big"), E(a.get("occhiello")), E(a.get("titolo")),
+        tinta(a.get("occhiello")), foto(a, "ph big"), E(a.get("occhiello")), E(a.get("titolo")),
         ('<p class="deck">%s</p>' % testo(a["sommario"])) if a.get("sommario") else "", paragrafi(a, True), fonte(a))
     for sp in spalle:
-        out += '<article class="card spalla mon">%s<div class="kick">%s</div><h3>%s</h3>%s%s</article>' % (
-            foto(sp), E(sp.get("occhiello")), E(sp.get("titolo")), paragrafi(sp), fonte(sp))
+        out += '<article class="card spalla %s">%s<div class="kick">%s</div><h3>%s</h3>%s%s</article>' % (
+            tinta(sp.get("occhiello")), foto(sp), E(sp.get("occhiello")), E(sp.get("titolo")), paragrafi(sp), fonte(sp))
     out += box
     if tz:
         out += '<section class="inside"><h4>Nelle altre pagine</h4><div class="tzs">%s</div></section>' % tz
     return out + '</div>'
+
+
+def cov_attr(x, tipo):
+    """Copertina: quella scritta nel JSON, altrimenti ricerca dal vivo; foto_riserva se la ricerca non trova niente."""
+    a = ""
+    if x.get("copertina"):
+        a += ' data-img="%s"' % E(x["copertina"])
+    elif x.get("cerca") is not False:
+        a += ' data-q="%s" data-e="%s"' % (E(x.get("cerca") or (x["artista"] + " " + x["titolo"])), tipo)
+    if x.get("foto_riserva"):
+        a += ' data-alt="%s"' % E(x["foto_riserva"])
+    return a
 
 
 def sezione(s):
@@ -181,7 +206,18 @@ def sezione(s):
     else:
         lead = scheda(l, "lead")
     intro = '<p class="intro">%s</p>' % testo(s["intro"]) if s.get("intro") else ""
-    return pghead(s["nome"]) + intro + '<div class="grid">%s<div class="rest">%s</div></div>' % (lead, "".join(scheda(n) for n in ns[1:])) + segnalate(s)
+    extra = ""
+    if s.get("uscite"):
+        extra += ('<section class="card box-mus"><div class="kick">Musica · Uscite</div><p class="sotto">%s</p><ul class="usc">%s</ul></section>' % (E(s.get("uscite_titolo") or "Le uscite della settimana"),
+                  "".join('<li><span class="cov"%s>%s</span><i>%s</i><b>%s</b><span>%s</span></li>' % (cov_attr(u, "album" if u["tipo"].lower().startswith(("album", "ep")) else "song"), E(u["artista"][:1]), E(u["tipo"]), E(u["artista"]), E(u["titolo"])) for u in s["uscite"])))
+    for k in ("classifica", "classifica_singoli"):
+        if s.get(k):
+            c = s[k]
+            extra += ('<section class="card box-mus"><div class="kick">Musica · %s FIMI</div><p class="sotto">%s</p><ol class="clas">%s</ol><p class="src">%s</p></section>' % ("Album" if k == "classifica" else "Singoli", E(c["titolo"]),
+                      "".join('<li><span class="cov"%s>%s</span><b>%s</b><span>%s</span><em>%s</em></li>' % (cov_attr(r, "album" if k == "classifica" else "song"), E(r["artista"][:1]), E(r["titolo"]), E(r["artista"]), E(r.get("nota",""))) for r in c["righe"]), E(c.get("fonte",""))))
+    if extra:
+        extra = '<div class="car muscar"><div class="track">%s</div><div class="dots" aria-hidden="true"></div></div>' % extra
+    return pghead(s["nome"]) + intro + '<div class="grid">%s<div class="rest">%s</div></div>' % (lead, "".join(scheda(n) for n in ns[1:])) + extra + segnalate(s)
 
 
 def segnalate(s):
@@ -229,7 +265,7 @@ def meteo(m, archivio):
     zone = "".join('<div class="zch" data-z="%s"><i>%s</i><span class="zi"></span><b>—</b></div>' % (z, n) for z, n in (("n", "Nord"), ("c", "Centro"), ("s", "Sud")))
     dati = json.dumps({"cap": [{"n": c["n"], "lat": c["lat"], "lon": c["lon"], "z": c["z"]} for c in MAPPA["cap"]], "ico": ICONE},
                       ensure_ascii=False).replace("</", "<\\/")
-    out += ('<section class="card wxmap" data-attesa="1"><div class="seg wxtab"><button type="button" aria-pressed="true" data-g="oggi">%s</button>'
+    out += ('<section class="card wxmap" data-attesa="1"><div class="casa2"><div class="kick casa">Lumezzane</div><div class="c2row"></div></div><div class="seg wxtab"><button type="button" aria-pressed="true" data-g="oggi">%s</button>'
             '<button type="button" aria-pressed="false" data-g="domani">%s</button></div>'
             % (E(m.get("oggi_etichetta") or "Oggi"), E(m.get("domani_etichetta") or "Domani")))
     out += ('<div class="mapbox">%s<div class="ctip" hidden></div></div><div class="zrow">%s</div>'
@@ -306,17 +342,21 @@ GUIDA = '''<div class="guide" id="guide" hidden><div class="box" role="dialog" a
 </div></div>''' % (SVG_SHARE, SVG_PLUS, SVG_DOTS, SVG_PLUS)
 
 
-def fine(nome_ed, archivio):
+PROSSIMA = {"mattina": "Prossima edizione: stasera, verso le 18:30", "domenica": "Prossima edizione: stasera, verso le 18:30",
+            "sera": "Prossima edizione: domattina, verso le 8:30"}
+
+
+def gerenza(ed, nome_ed, numero, archivio):
+    """Chiusura dell'ultima pagina, come il riquadro in fondo ai quotidiani."""
     pre = "" if archivio else "archivio/"
-    tutte = edizioni_salvate()
-    prec = [v for v in tutte if v < nome_ed]
-    link = ""
-    if prec:
-        v = prec[0]
-        link = '<a class="prec" href="%s%s.html"><span>← Edizione precedente</span><b>%s · %s</b></a>' % (
-            pre, E(v), E(giorno_breve(v[:10])), E(TIPO_BREVE.get(v[11:], v[11:]).lower()))
-    return ('<div class="fine"><p class="h">Fine dell\'edizione</p>%s<a class="tutte" href="%sarchivio.html">Tutte le edizioni nell\'Archivio →</a></div>'
-            % (link, "../" if archivio else ""))
+    prec = [v for v in edizioni_salvate() if v < nome_ed]
+    sx = ('<a class="gz-b" href="%s%s.html"><i>← Edizione precedente</i><b>%s · %s</b></a>' % (
+        pre, E(prec[0]), E(giorno_breve(prec[0][:10])), E(TIPO_BREVE.get(prec[0][11:], prec[0][11:]).lower()))) if prec else ""
+    dx = '' if archivio else '<div class="gz-b"><i>Prossima edizione</i><b>%s</b></div>' % E(PROSSIMA.get(ed.get("edizione"), "").replace("Prossima edizione: ", "").capitalize())
+    etichetta = EDIZIONI.get(ed.get("edizione"), "Edizione speciale")
+    return ('<footer class="gerenza"><div class="kick">Fine dell\'edizione</div><div class="gz-row">%s%s</div>'
+            '<div class="gz-link"><a href="%sarchivio.html">Tutte le edizioni nell\'Archivio →</a><button type="button" data-go="0">↑ Prima pagina</button></div>'
+            '</footer>' % (sx, dx, "../" if archivio else ""))
 
 
 def impagina(ed, numero, archivio=False):
@@ -328,9 +368,9 @@ def impagina(ed, numero, archivio=False):
     N = len(pagine)
     corpi = [prima(ed, pagine_dopo, numero, archivio)] + [sezione(s) for s in sezioni] + ([meteo(ed["meteo"], archivio)] if ed.get("meteo") else [])
     etichetta = EDIZIONI.get(ed.get("edizione"), "Edizione speciale")
-    piede = "%s · %s" % (data_lunga(ed["data"]), etichetta.replace("Edizione", "edizione"))
-    fogli = "".join('<section class="page %s" data-name="%s"%s><div class="in">%s%s<footer class="folio"><span class="fn">Il Corriere dello Steruz</span><span class="fm">%s</span></footer></div></section>'
-                    % (COLORI.get(n, "pri"), E(n), "" if i == 0 else " hidden", c, fine(nome_ed, archivio) if i == N - 1 else "", E(piede))
+    piede = "Il Corriere dello Steruz · Anno I · N. %d · %s · %s · Lumezzane (BS)" % (numero, data_lunga(ed["data"]), etichetta.replace("Edizione", "edizione"))
+    fogli = "".join('<section class="page %s" data-name="%s"%s><div class="in">%s%s<footer class="folio"><span class="fm">%s</span></footer></div></section>'
+                    % (COLORI.get(n, "pri"), E(n), "" if i == 0 else " hidden", c, gerenza(ed, nome_ed, numero, archivio) if i == N - 1 else "", E(piede))
                     for i, (n, c) in enumerate(zip(pagine, corpi)))
     edl = "%s di %s" % (TIPO_BREVE.get(ed.get("edizione"), "").lower() or "edizione", giorno_breve(ed["data"]).lower())
     head = open(os.path.join(SYS, "head.html"), encoding="utf-8").read()
@@ -341,7 +381,7 @@ def impagina(ed, numero, archivio=False):
               '</head>\n<body>\n<main class="book" id="book" data-ed="%s" data-edl="%s"%s>%s<div class="ush" id="ush" hidden></div><div class="flapw" id="flapw" hidden><div class="flap" id="flap"></div></div></main>\n'
               '<nav class="bar" aria-label="Sfoglia"><button type="button" class="nav" id="prev" aria-label="Pagina precedente">←</button><button type="button" class="where" id="where" aria-expanded="false" aria-haspopup="dialog"><span class="name" id="pname">Prima pagina</span><span class="num" id="pnum">Pagina 1 di %d</span></button><button type="button" class="nav" id="next" aria-label="Pagina successiva">→</button></nav>\n'
               '%s%s\n<div class="toast" id="toast" hidden><span id="toastt"></span><button type="button" id="toastb" hidden></button></div>\n'
-              '<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden>Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>\n'
+              '<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="k" id="pk" hidden>Chi è</p><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden>Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>\n'
               '<script>%s</script>\n</body>\n</html>\n'
               % (head, css, E(nome_ed), E(edl), ' data-arch="1"' if archivio else "", fogli, N, menu(ed, pagine, nome_ed, archivio), GUIDA, js))
     radice = ".." if archivio else "."
@@ -350,7 +390,11 @@ def impagina(ed, numero, archivio=False):
         # carta, icona e manifest stanno nella cartella principale
         pagina = (pagina.replace("url(carta-", "url(../carta-").replace('href="icona.png"', 'href="../icona.png"')
                   .replace('href="manifest.webmanifest"', 'href="../manifest.webmanifest"'))
-    return pagina
+    return GOTICO.sub(lambda m: m.group(0).replace("C", '<span class="gc">C</span>', 1).replace("Steruz", '<span class="gc">S</span>teruz').replace(">Il ", '><span class="gc">I</span>l '), pagina)
+
+
+# Nella testata gotica S, C e I vengono da un altro carattere (Manufacturing Consent), più leggibile
+GOTICO = re.compile(r">(Il )?Corriere dello Steruz<")
 
 
 def archivio_html():
@@ -402,7 +446,8 @@ h2{font-family:"Playfair Display",Georgia,serif;font-weight:900;font-size:20px;m
 # Controllo finale: segnala cosa non rispetta le regole di CLAUDE.md, senza bloccare l'impaginazione.
 NOTIZIE_ATTESE = {"Riepilogo della settimana": 6, "Lumezzane e Brescia": 6, "Italia": 7, "Dal mondo": 6,
                   "Tecnologia": 4, "Musica": 4}
-FONTI_OK = """ansa.it ilpost.it rainews.it tg24.sky.it agi.it adnkronos.com italpress.com askanews.it
+FONTI_OK = """music.apple.com open.spotify.com youtube.com
+ansa.it ilpost.it rainews.it tg24.sky.it agi.it adnkronos.com italpress.com askanews.it
 corriere.it repubblica.it lastampa.it ilsole24ore.com ilgiornale.it ilmessaggero.it avvenire.it
 ilfattoquotidiano.it open.online ilfoglio.it today.it tgcom24.mediaset.it ilgiorno.it quotidiano.net fanpage.it
 internazionale.it reuters.com apnews.com bbc.com bbc.co.uk aljazeera.com theguardian.com nytimes.com
@@ -458,6 +503,16 @@ def controlla(ed):
         testi = [json.dumps(n, ensure_ascii=False).lower() for n in loc[0].get("notizie") or []]
         if not any(v in t for t in testi for v in VALTROMPIA):
             avvisi.append("Lumezzane e Brescia: nessuna notizia su Lumezzane o la Valtrompia")
+    mus = [s for s in ed.get("sezioni", []) if s["nome"] == "Musica"]
+    if mus:
+        m = mus[0]
+        for k, cosa in (("uscite", "le uscite"), ("classifica", "la classifica FIMI degli album"), ("classifica_singoli", "la classifica FIMI dei singoli")):
+            if not m.get(k):
+                avvisi.append("Musica: manca %s" % cosa)
+        righe = (m.get("uscite") or []) + ((m.get("classifica") or {}).get("righe") or []) + ((m.get("classifica_singoli") or {}).get("righe") or [])
+        for r in righe:
+            if not r.get("copertina"):
+                avvisi.append("Musica · «%s»: manca la copertina%s" % (r.get("titolo", ""), "" if r.get("foto_riserva") else " e anche la foto di riserva (così non si mette)"))
     return avvisi
 
 

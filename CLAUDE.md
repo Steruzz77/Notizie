@@ -39,6 +39,12 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   nella spalla, e in tutte le notizie dove c'è un termine complesso. Non metterlo su parole che si
   capiscono già con la frase corta: solo dove c'è davvero qualcosa in più da capire.
   Esempio: `[[direttissima|Un processo veloce, fatto subito dopo l'arresto quando le prove sono già chiare.||Di solito tra arresto e processo passano mesi. Con la direttissima l'arrestato va davanti al giudice entro pochi giorni, perché colto sul fatto o reo confesso. Si usa spesso dopo scontri o furti in flagrante.]]`
+- **Nomi ("Chi è")**: le persone citate che Alex potrebbe non conoscere (politici stranieri, ministri,
+  manager, artisti poco noti) si scrivono con la chiocciola davanti: `[[@Gadi Eisenkot|Ex capo
+  dell'esercito israeliano, oggi alla guida di un partito di opposizione.]]`. Nella pagina compare il
+  nome sottolineato a puntini e, toccandolo, la nota "Chi è". La frase dice chi è e cosa fa oggi; si
+  può aggiungere `||approfondimento` come per i termini. Non serve per i nomi che tutti conoscono
+  (Meloni, Mattarella, Trump, il papa) né per persone citate solo di passaggio.
 - **Cronaca nera e fatti violenti**: non escluderli e non addolcirli. Fatti concreti, al livello dei
   giornali seri, senza toni sensazionalistici.
 - **Politica**: neutrale. Fatti e posizioni delle varie parti, senza dire chi ha ragione.
@@ -136,6 +142,26 @@ Per sapere cosa è già uscito, guarda il JSON più recente in `archivio/` prima
    Billboard Italia, classifiche FIMI. Fai almeno due ricerche separate (es. "rap italiano nuovo album" e
    "rapper tour date annuncio") per arrivare a 4 notizie: valgono anche annunci di concerti, featuring,
    certificazioni FIMI e classifiche Spotify.
+   Sotto le notizie la pagina ha un carosello con tre riquadri (formato sotto, "Musica: uscite e classifiche"):
+   - **Uscite**: le uscite di rap italiano dell'ultimo venerdì (3–5, prese da un articolo letto, es.
+     All Music Italia "le nuove uscite"). Nell'edizione della domenica, del lunedì e così via fino al
+     giovedì restano quelle dell'ultimo venerdì.
+   - **Album FIMI** e **Singoli FIMI**: la top 5 della **classifica FIMI più recente**, sempre
+     l'ultima uscita (esce il venerdì). Prendila dalla pagina ufficiale "Archivio classifiche per
+     settimana" di fimi.it (trovala con WebSearch, `allowed_domains: ["fimi.it"]`): ha le schede Album e
+     Singoli con posizione, titolo, artista, movimento e copertina. Controlla la settimana con un
+     articolo del giorno di uscita (es. Il Giorno/ANSA "hit parade").
+   - **Copertine, sempre e sempre esatte**: ogni riga ha la sua copertina nel campo `copertina`.
+     Per le classifiche usa le immagini della pagina FIMI (`media.fimi.it`). Per le uscite cerca
+     il brano con WebSearch su `music.apple.com` o `open.spotify.com` e apri il link del risultato con
+     WebFetch chiedendo l'URL esatto di `og:image`. Se il brano è uscito da pochi giorni e non si
+     trova, cerca su youtube.com il video automatico "Artista - Topic" ("Provided to YouTube by...")
+     del brano e usa la sua miniatura (`https://i.ytimg.com/vi/ID/maxresdefault.jpg`, con l'ID del
+     video aperto), che è la copertina ufficiale. Se i singoli in classifica stanno nello stesso album,
+     metti a tutti la copertina dell'album. Solo se proprio non trovi la copertina usa in
+     `foto_riserva` la foto ufficiale dell'articolo sull'uscita; un album annunciato ma non ancora
+     uscito ha `"cerca": false` e la foto ufficiale. Senza nessuna immagine l'uscita non si mette:
+     il riquadro non deve mai restare vuoto. Usa solo URL che hai visto davvero.
 7. **Meteo**: la pagina dell'ultima edizione mostra da sola una mappa dell'Italia con le previsioni dal vivo
    (Open-Meteo, aggiornate ogni volta che Alex apre il giornale): non devi cercare i capoluoghi. Il campo
    `meteo` serve comunque: la situazione, le righe che restano nelle copie d'archivio e fanno da riserva se la
@@ -175,6 +201,21 @@ Esempio completo e funzionante: `sistema/esempio.json`.
 NOTIZIA = `{"occhiello": "Sezione · Tema", "titolo": "...", "sommario": "solo per l'apertura",
 "testo": ["paragrafo 1", "paragrafo 2"], "fonte": {"nome": "ANSA", "url": "https://..."},
 "foto": {"url": "https://...", "didascalia": "facoltativa"}}`
+
+L'**occhiello** comincia sempre con il nome della sezione da cui viene la notizia (Mondo, Italia,
+Lumezzane, Valtrompia, Brescia, Tecnologia, Musica): in prima pagina dà il colore all'apertura e alla spalla.
+
+Solo per la sezione "Musica": accanto a `"nome"` e `"notizie"` vanno `"uscite_titolo"` (es. "Rap
+italiano · venerdì 23 ottobre"), `"uscite"`, `"classifica"` (album) e `"classifica_singoli"`:
+```json
+"uscite": [{"tipo": "Singolo", "artista": "Battista", "titolo": "'O cavallo 'e ritorno",
+            "copertina": "https://...", "foto_riserva": "facoltativa", "cerca": false}],
+"classifica": {"titolo": "I più venduti · 16–22 ottobre", "fonte": "Fonte: FIMI/NIQ, settimana 43",
+               "righe": [{"titolo": "...", "artista": "...", "nota": "▲1 | ▼2 | = | nuovo", "copertina": "https://..."}]},
+"classifica_singoli": {stesso formato, top 5 singoli}
+```
+`tipo` per le uscite: "Singolo", "EP", "Album" (aggiungi la data se non è ancora uscito, es.
+"Album · 6/11"). Ometti `cerca` e `foto_riserva` se hai la copertina.
 
 Solo per la sezione "Lumezzane e Brescia", facoltativo: `"segnalate": [{"titolo": "titolo esatto",
 "testata": "BresciaToday", "data": "26 ottobre", "url": "https://..."}]` accanto a `"nome"` e `"notizie"`.

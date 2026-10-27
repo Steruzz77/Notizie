@@ -198,7 +198,7 @@
     var t=e.target.closest('.term');
     if(t){if(open===t){closePop();return}if(open)open.setAttribute('aria-expanded','false');open=t;t.setAttribute('aria-expanded','true');
       var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;
-      pl.hidden=true;pm.textContent='Approfondisci ▾';if(t.dataset.x){pm.hidden=false;pl.textContent=t.dataset.x}else pm.hidden=true;pop.hidden=false;piazza();return}
+      document.getElementById('pk').hidden=!t.classList.contains('nome');pl.hidden=true;pm.textContent='Approfondisci ▾';if(t.dataset.x){pm.hidden=false;pl.textContent=t.dataset.x}else pm.hidden=true;pop.hidden=false;piazza();return}
     if(e.target.closest('#pmore')){pl.hidden=!pl.hidden;pm.textContent=pl.hidden?'Approfondisci ▾':'Chiudi ▴';piazza();return}
     if(e.target.closest('#px')||!e.target.closest('.pop .box'))closePop();
   });
@@ -286,6 +286,10 @@
   var DESC={0:'Sereno',1:'Poco nuvoloso',2:'Nuvole e schiarite',3:'Coperto',45:'Nebbia',48:'Nebbia con brina',51:'Pioviggine debole',53:'Pioviggine',55:'Pioviggine fitta',56:'Pioviggine gelata',57:'Pioviggine gelata',61:'Pioggia debole',63:'Pioggia',65:'Pioggia forte',66:'Pioggia gelata',67:'Pioggia gelata forte',71:'Neve debole',73:'Neve',75:'Neve forte',77:'Nevischio',80:'Rovesci deboli',81:'Rovesci',82:'Rovesci forti',85:'Rovesci di neve',86:'Forti rovesci di neve',95:'Temporale',96:'Temporale con grandine',99:'Temporale con grandine'};
   function ico(k){return D.ico[k]||D.ico.nuvole}
   function gr(v){return Math.round(v)+'°'}
+  // Lumezzane oggi e domani, sempre visibili sopra la mappa
+  function lum2(){var i=-1;D.cap.forEach(function(c,k){if(c.n==='Lumezzane')i=k});if(i<0)return;var gg=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+    box.querySelector('.c2row').innerHTML=[0,1].map(function(d){var w=V[i].weather_code[d],p=V[i].time[d].split('-'),dt=new Date(+p[0],p[1]-1,+p[2]);
+      return '<button type="button" class="c2" data-g="'+(d?'domani':'oggi')+'" aria-pressed="'+(g===(d?'domani':'oggi'))+'"><i>'+(d?'Domani':'Oggi')+' · '+gg[dt.getDay()]+' '+dt.getDate()+'</i><span class="ic">'+ico(tipo(w))+'</span><b>'+gr(V[i].temperature_2m_min[d])+'–'+gr(V[i].temperature_2m_max[d])+'</b><small>'+(DESC[w]||'')+'</small></button>'}).join('')}
   function disegna(){
     if(!V)return; var d=g==='oggi'?0:1;
     [].forEach.call(box.querySelectorAll('.cap'),function(el){var c=V[+el.dataset.i];var k=tipo(c.weather_code[d]);
@@ -294,7 +298,7 @@
       D.cap.forEach(function(c,i){if(c.z!==z)return;n++;mi+=V[i].temperature_2m_min[d];ma+=V[i].temperature_2m_max[d];var k=tipo(V[i].weather_code[d]);cnt[k]=(cnt[k]||0)+1});
       var best=Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a]})[0], ch=box.querySelector('.zch[data-z="'+z+'"]');
       ch.querySelector('.zi').innerHTML=ico(best); ch.querySelector('b').textContent=gr(mi/n)+'–'+gr(ma/n)});
-    var casa='';D.cap.forEach(function(c,i){if(c.z!=='l')return;var w=V[i].weather_code[d];
+    var casa='';D.cap.forEach(function(c,i){if(c.n!=='Lumezzane')return;var w=V[i].weather_code[d];
       casa+='<li><span class="ic">'+ico(tipo(w))+'</span><span class="lu">'+c.n+'<small>'+(DESC[w]||'')+'</small></span><b>'+gr(V[i].temperature_2m_min[d])+'–'+gr(V[i].temperature_2m_max[d])+'</b></li>'});
     [].forEach.call(box.querySelectorAll('.casa-l'),function(u){u.innerHTML=casa});
   }
@@ -302,8 +306,10 @@
   function etichette(tt){var gg=['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
     [].forEach.call(t.querySelectorAll('button'),function(b,i){var p=tt[i].split('-'),d=new Date(+p[0],p[1]-1,+p[2]);b.textContent=(i?'Domani':'Oggi')+' · '+gg[d.getDay()]+' '+d.getDate()})}
   var u='https://api.open-meteo.com/v1/forecast?latitude='+D.cap.map(function(c){return c.lat}).join(',')+'&longitude='+D.cap.map(function(c){return c.lon}).join(',')+'&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FRome&forecast_days=2';
-  fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){V=(Array.isArray(j)?j:[j]).map(function(x){return x.daily});box.removeAttribute('data-attesa');box.setAttribute('data-vivo','1');etichette(V[0].time);disegna()})
+  fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){V=(Array.isArray(j)?j:[j]).map(function(x){return x.daily});box.removeAttribute('data-attesa');box.setAttribute('data-vivo','1');etichette(V[0].time);disegna();lum2()})
     .catch(function(){box.removeAttribute('data-attesa');box.setAttribute('data-vivo','0')});
+  box.querySelector('.c2row').addEventListener('click',function(e){var c=e.target.closest('.c2');if(!c)return;t.querySelector('button[data-g="'+c.dataset.g+'"]').click();
+    [].forEach.call(box.querySelectorAll('.c2'),function(x){x.setAttribute('aria-pressed',String(x===c))})});
   t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;g=b.dataset.g;
     [].forEach.call(t.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x===b))});
     [].forEach.call(box.querySelectorAll('.gday'),function(x){x.hidden=x.dataset.g!==g});tip.hidden=true;disegna()});
@@ -318,3 +324,24 @@
     var r=el.getBoundingClientRect(),b=mb.getBoundingClientRect();tip.hidden=false;
     var x=Math.max(0,Math.min(b.width-tip.offsetWidth,r.left-b.left+r.width/2-tip.offsetWidth/2));tip.style.left=x+'px';tip.style.top=(r.top-b.top-tip.offsetHeight-6)+'px'});
 })();
+
+// Copertine di album e singoli: prima quella scritta nel giornale, poi la memoria del telefono, poi Deezer e iTunes dal vivo
+(function(){var n=0;
+  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function put(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function metti(el,u,ko){var im=new Image();im.onload=function(){el.style.backgroundImage='url("'+u+'")';el.classList.add('on')};if(ko)im.onerror=ko;im.src=u}
+  function jsonp(url,pick,ok,ko){var cb='cop'+(n++),fatto=false,s=document.createElement('script');
+    var t=setTimeout(function(){if(!fatto){fatto=true;ko()}},5000);
+    window[cb]=function(r){if(fatto)return;fatto=true;clearTimeout(t);var u=pick(r);u?ok(u):ko()};
+    s.src=url+(url.indexOf('?')<0?'?':'&')+'callback='+cb;s.onerror=function(){if(!fatto){fatto=true;clearTimeout(t);ko()}};document.body.appendChild(s)}
+  function deezer(q,e,ok,ko){jsonp('https://api.deezer.com/search/'+(e==='album'?'album':'track')+'?output=jsonp&limit=1&q='+encodeURIComponent(q),
+    function(r){var x=r&&r.data&&r.data[0];return x&&(e==='album'?x.cover_medium:x.album&&x.album.cover_medium)},ok,ko)}
+  function itunes(q,e,ok,ko){jsonp('https://itunes.apple.com/search?country=it&limit=1&media=music&entity='+e+'&term='+encodeURIComponent(q),
+    function(r){var x=r&&r.results&&r.results[0];return x&&x.artworkUrl100&&x.artworkUrl100.replace('100x100','300x300')},ok,ko)}
+  [].forEach.call(document.querySelectorAll('.cov'),function(el){
+    var alt=function(){if(el.dataset.alt)metti(el,el.dataset.alt)};
+    if(el.dataset.img)return metti(el,el.dataset.img,alt);
+    if(!el.dataset.q)return alt();
+    var k='cop2:'+el.dataset.e+':'+el.dataset.q.toLowerCase(),c=get(k);if(c)return metti(el,c);
+    var ok=function(u){put(k,u);metti(el,u)};
+    deezer(el.dataset.q,el.dataset.e,ok,function(){itunes(el.dataset.q,el.dataset.e,ok,alt)})})})();

@@ -115,7 +115,11 @@
       "WebFetch(domain:www.newsic.it)",
       "WebFetch(domain:www.3bmeteo.com)",
       "WebFetch(domain:www.ilmeteo.it)",
-      "WebFetch(domain:www.meteo.it)"
+      "WebFetch(domain:www.meteo.it)",
+      "WebFetch(domain:music.apple.com)",
+      "WebFetch(domain:open.spotify.com)",
+      "WebFetch(domain:www.youtube.com)",
+      "WebFetch(domain:youtube.com)"
     ]
   }
 }

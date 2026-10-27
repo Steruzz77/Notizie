@@ -115,7 +115,7 @@ img.ph{display:block;width:100%;object-fit:cover;padding:0;filter:grayscale(.3) 
 .grid{display:grid;gap:14px}
 .folio{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;border-top:4px double var(--rule);padding:10px 0 6px}
 .folio .fn{font-family:var(--gothic);font-size:20px;line-height:1.1}
-.folio .fm{font:600 11px var(--label);letter-spacing:.06em;color:var(--muted)}
+.folio .fm{font:500 11px var(--label);letter-spacing:.02em;line-height:1.5;color:var(--muted)}
 .fine{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding-top:6px}
 .fine .h{font-family:var(--gothic);font-size:24px;margin:0}
 .fine .prec{display:flex;flex-direction:column;gap:2px;border:1px solid var(--cardline);border-top:3px solid var(--red);background:var(--card);border-radius:10px;padding:10px 18px;width:100%;max-width:340px;text-decoration:none;color:var(--ink)}
@@ -500,3 +500,94 @@ img.ph{filter:grayscale(.08) sepia(.06) contrast(1.03)}
 .segn li b{display:block;font:700 16px/1.3 var(--head)}
 .segn li small{display:block;margin-top:3px;font:600 12px var(--label);color:var(--muted);letter-spacing:.02em}
 .segn li b::after{content:" ↗";color:var(--c);font-weight:400}
+
+/* nomi */
+.term.nome{color:var(--ink);text-decoration:underline dotted;text-decoration-color:var(--term);text-decoration-thickness:2.5px;text-underline-offset:4px}
+.pop .k{margin:0 0 2px;font:700 11px var(--label);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+/* testata compatta */
+.mast h1{font-size:clamp(30px,8.6vw,64px);margin:0 0 6px;white-space:nowrap}
+.mast .line{border-bottom:4px double var(--rule);font-size:11px}
+.prima .hero .ph.big{margin-top:2px}
+/* meteo, prima le tue città */
+
+
+.wxmap .casa.kick{margin-top:4px}
+.wxmap .casa-l li .lu{font-size:19px}
+/* musica */
+.muscar{margin:6px 0 16px}.box-mus{margin:0;padding-bottom:6px}
+.usc,.clas{list-style:none;margin:6px 0 0;padding:0}
+.usc li{display:grid;grid-template-columns:62px 1fr;column-gap:10px;padding:7px 0;border-bottom:1.5px dotted var(--muted)}
+.usc li i{grid-row:span 2;font:700 10px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);align-self:center}
+.usc li b{font-family:var(--head);font-size:17px}.usc li span{font-style:italic}
+.clas{counter-reset:c}.clas li{counter-increment:c;display:grid;grid-template-columns:30px 1fr auto;column-gap:8px;padding:6px 0;border-bottom:1.5px dotted var(--muted)}
+.clas li::before{content:counter(c);grid-row:span 2;font:900 22px var(--head);align-self:center}
+.clas li b{font-family:var(--head);font-size:16px}.clas li span{grid-column:2;color:var(--muted);font-size:14px}.clas li em{grid-row:1/span 2;grid-column:3;align-self:center;font:700 10px var(--label);color:var(--red);text-transform:uppercase}
+
+.muscar .dots{display:flex!important}
+.muscar .track{align-items:start}
+
+.wxmap .gday .casa,.wxmap .gday .casa-l{display:none!important}
+.wxmap:not([data-vivo="1"]) .casa2{display:none}
+.casa2{margin:0 0 12px}.casa2 .kick{margin:0 0 6px}
+.c2row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c2{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center;border:1px solid var(--rule);border-radius:10px;padding:8px 10px}
+.c2 i{grid-column:1/-1;font:700 10.5px var(--label);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.c2 .ic{grid-row:span 2}.c2 .ic svg{width:30px;height:30px}
+.c2 b{font:800 19px var(--label)}.c2 small{grid-column:2;font-size:13px;color:var(--muted);line-height:1.2}
+.wxmap .gday .avv{margin-top:10px}
+.muscar{margin:16px 0 6px}
+
+/* meteo in uno schermo: mappa a sinistra, Nord/Centro/Sud in colonna a destra */
+.wxmap{display:grid;grid-template-columns:minmax(0,1fr) 96px;column-gap:10px;align-items:start}
+.wxmap>*{grid-column:1/-1}
+.wxmap .casa2{grid-row:1}.wxmap .wxtab{grid-row:2;margin-bottom:4px}
+.wxmap .mapbox{grid-column:1;grid-row:3;margin:0;max-width:none}
+.wxmap .zrow{grid-column:2;grid-row:3;grid-template-columns:1fr;gap:8px;margin:0;align-self:center}
+.wxmap .mapnota{grid-row:4;text-align:left;margin-top:4px}
+.wxmap .gday{grid-row:5}.wxmap .omsrc{grid-row:6}
+.wxmap .zch b{font-size:15px}
+.muscar{border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding:4px 0 10px;margin:16px 0 6px}
+/* carosello musica come quello della prima pagina, zone meteo senza riquadro in rilievo */
+.muscar{border-top:0;border-bottom:0;margin-bottom:0}
+[data-schede="stampa"] .muscar .card{border-top:3px double var(--rule)}
+.wxmap .zch{background:none;box-shadow:none}
+
+/* copertine */
+.usc li{grid-template-columns:46px 62px 1fr}.usc li .cov{grid-row:span 2}
+.usc li i{grid-column:2}.usc li b,.usc li span:not(.cov){grid-column:3}
+.clas li{grid-template-columns:26px 46px 1fr auto}.clas li .cov{grid-row:span 2;grid-column:2}
+.clas li b{grid-column:3}.clas li span:not(.cov){grid-column:3}.clas li em{grid-column:4}
+.cov{width:46px;height:46px;border-radius:4px;border:1px solid var(--rule);background:var(--soft) center/cover no-repeat;display:grid;place-items:center;font:400 22px var(--gothic);color:var(--paper);align-self:center}
+.cov.on{color:transparent}
+/* meteo: i giorni di Lumezzane sono i tasti */
+.wxmap[data-vivo="1"] .wxtab{display:none}
+.c2{font:inherit;color:var(--ink);background:none;text-align:left;cursor:pointer}
+.c2[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.c2[aria-pressed="true"] i,.c2[aria-pressed="true"] small{color:var(--paper);opacity:.8}
+.casa2 .kick::after{content:" · tocca un giorno per la mappa";color:var(--muted);letter-spacing:.04em;text-transform:none;font-weight:500}
+.wxmap .mapbox{margin-top:8px}
+/* testata: S e C nuove, un po' piu marcata */
+.gc{font-family:"Manufacturing Consent",var(--gothic);font-size:1.02em}
+.mast h1{-webkit-text-stroke:.7px currentColor}
+.pghead span,.folio .fn,.fine .h,.mh .g{-webkit-text-stroke:.35px currentColor}
+.c2[aria-pressed="true"] .ic{color:var(--paper)}.c2[aria-pressed="true"] .ic svg *{fill:none}
+
+/* musica: sottotitolo sotto l'occhiello */
+.box-mus .sotto{margin:2px 0 4px;font-family:var(--head);font-weight:700;font-size:17px}
+/* testata: piu grande, I nuova */
+.mast h1{font-size:calc((min(100vw,620px) - 44px) / 9.6);letter-spacing:-.01em}
+
+/* gerenza */
+.gerenza{margin-top:4px;padding-top:4px}
+.gerenza .kick{color:var(--red)}
+.gz-row{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:6px;border-bottom:1px solid var(--rule)}
+.gz-b{display:flex;flex-direction:column;gap:2px;padding:8px 0 10px;text-decoration:none;color:var(--ink)}
+.gz-b+.gz-b{border-left:1px solid var(--rule);padding-left:12px}
+.gz-b i{font:800 10.5px var(--label);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.gz-b b{font-family:var(--head);font-size:17px;line-height:1.2}
+.gz-link{display:flex;justify-content:space-between;align-items:center;padding:9px 0 14px}
+.gz-link a,.gz-link button{font:700 12.5px var(--label);color:var(--red);text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
+.gz-link button{color:var(--ink)}
+
+.mast .ult{color:var(--red);font-weight:700}
+@media (max-width:699px){.pghead{flex-direction:row;align-items:baseline;gap:8px}.pghead h2{font-size:24px}.pghead span{font-size:13px;line-height:1;white-space:nowrap;flex:none}}
