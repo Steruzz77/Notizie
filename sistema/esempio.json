@@ -120,6 +120,14 @@
     "nome": "3BMeteo",
     "url": "https://www.3bmeteo.com/meteo/italia"
    }
-  ]
+  ],
+  "avvisi": {
+   "domani": [
+    {
+     "icona": "vento",
+     "testo": "Vento forte da nord sulle regioni del Sud"
+    }
+   ]
+  }
  }
 }

@@ -49,221 +49,309 @@ def testo(t):
     return "".join(out)
 
 
+# --- Impaginazione -------------------------------------------------------------------------------
+# Ogni sezione ha il suo colore (linguetta, occhielli, filetti): classi definite in stile.css.
+COLORI = {"Lumezzane e Brescia": "loc", "Italia": "ita", "Dal mondo": "mon", "Tecnologia": "tec",
+          "Musica": "mus", "Meteo": "met"}
+MAPPA = json.load(open(os.path.join(SYS, "mappa.json"), encoding="utf-8"))
+AVVISI_ICONE = {
+    "vento": '<svg class="wx" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h15a4 4 0 1 0-4-4"/><path d="M4 18h21a4 4 0 1 1-4 4"/><path d="M4 24h9"/></svg>',
+    "mare": '<svg class="wx" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 14c3 0 3-3 6-3s3 3 6 3 3-3 6-3 3 3 6 3"/><path d="M3 21c3 0 3-3 6-3s3 3 6 3 3-3 6-3 3 3 6 3"/></svg>',
+    "allerta": '<svg class="wx" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M16 4L29 27H3z"/><path d="M16 12v7M16 23v.5"/></svg>',
+    "caldo": '<svg class="wx" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M13 19V6a3 3 0 0 1 6 0v13a5 5 0 1 1-6 0z"/><path d="M16 12v9"/></svg>',
+    "gelo": '<svg class="wx" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M16 3v26M4.7 9.5l22.6 13M4.7 22.5l22.6-13M12 5l4 4 4-4M12 27l4-4 4 4"/></svg>',
+}
+SVG_SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5v10h14V11h-1"/></svg>'
+SVG_PLUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></svg>'
+SVG_DOTS = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>'
+SVG_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>'
+SVG_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>'
+SVG_GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>'
+TIPO_BREVE = {"mattina": "Mattina", "sera": "Sera", "domenica": "Mattina della domenica"}
+
+
+def data_lunga(iso):
+    d = datetime.date.fromisoformat(iso)
+    return "%s %d %s %d" % (GIORNI[d.weekday()], d.day, MESI[d.month - 1], d.year)
+
+
+def giorno_breve(iso):
+    d = datetime.date.fromisoformat(iso)
+    return "%s %d %s" % (GIORNI[d.weekday()], d.day, MESI[d.month - 1])
+
+
 def paragrafi(n, prima_lettera=False):
     ps = n.get("testo") or []
     if isinstance(ps, str):
         ps = [ps]
-    res = []
-    for i, p in enumerate(ps):
-        cls = "just dropcap" if (prima_lettera and i == 0) else "just"
-        res.append('<p class="%s">%s</p>' % (cls, testo(p)))
-    return "\n".join(res)
+    return "".join('<p%s>%s</p>' % (' class="drop"' if prima_lettera and i == 0 else "", testo(p)) for i, p in enumerate(ps))
 
 
-def foto(n, cls="photo", eager=False):
+def foto(n, cls="ph"):
     f = n.get("foto") or {}
     url = f.get("url") if isinstance(f, dict) else f
     if not url or not str(url).startswith("https://"):
         return ""
-    return ('<img class="%s" src="%s" alt="%s" loading="%s" referrerpolicy="no-referrer" onerror="(this.closest(\'figure\')||this).remove()">'
-            % (cls, E(url), E((f.get("didascalia") if isinstance(f, dict) else "") or n.get("titolo")),
-               "eager" if eager else "lazy"))
+    alt = (f.get("didascalia") if isinstance(f, dict) else "") or n.get("titolo")
+    # se la foto non si carica sparisce, e la notizia in testa alla pagina torna a tutta larghezza
+    return ('<img class="%s" src="%s" alt="%s" loading="lazy" referrerpolicy="no-referrer" '
+            'onerror="var c=this.closest(\'.lead\');if(c)c.classList.remove(\'wf\');(this.closest(\'.lp\')||this).remove()">'
+            % (cls, E(url), E(alt)))
 
 
 def fonte(n):
     f = n.get("fonte") or {}
     if isinstance(f, list):
-        parts = ['<a href="%s" target="_blank" rel="noopener">%s</a>' % (E(x.get("url")), E(x.get("nome"))) for x in f]
-        return '<div class="src">Fonti: %s</div>' % " · ".join(parts) if parts else ""
+        parts = ['<a href="%s" target="_blank" rel="noopener">%s</a>' % (E(x.get("url")), E(x.get("nome"))) if x.get("url")
+                 else E(x.get("nome")) for x in f]
+        return '<p class="src">Fonti: %s</p>' % " · ".join(parts) if parts else ""
+    if not f.get("nome") and not f.get("url"):
+        return ""
     if not f.get("url"):
-        return '<div class="src">Fonte: %s</div>' % E(f.get("nome")) if f.get("nome") else ""
-    return '<div class="src"><a href="%s" target="_blank" rel="noopener">Fonte: %s</a></div>' % (E(f["url"]), E(f.get("nome")))
+        return '<p class="src">Fonte: %s</p>' % E(f.get("nome"))
+    return '<p class="src"><a href="%s" target="_blank" rel="noopener">Fonte: %s</a></p>' % (E(f["url"]), E(f.get("nome")))
 
 
-def apertura(n):
-    did = (n.get("foto") or {}).get("didascalia") if isinstance(n.get("foto"), dict) else ""
-    return """  <article class="lead">
-    <figure class="fig">%s%s</figure>
-    <div class="kicker" style="margin-top:10px">%s</div>
-    <h2>%s</h2>
-    %s
-    %s
-    %s
-  </article>
-""" % (foto(n, eager=True), ('\n    <div class="cap">%s</div>' % E(did)) if did and foto(n) else "",
-       E(n.get("occhiello")), E(n.get("titolo")),
-       ('<p class="deck">%s</p>' % testo(n["sommario"])) if n.get("sommario") else "",
-       paragrafi(n, True), fonte(n))
+def scheda(n, cls=""):
+    return '<article class="card %s">%s<div class="kick">%s</div><h3>%s</h3>%s%s</article>' % (
+        cls, foto(n), E(n.get("occhiello")), E(n.get("titolo")), paragrafi(n), fonte(n))
 
 
-def spalla(n):
-    return """  <article class="spalla">
-    %s
-    <div>
-      <div class="kicker">%s</div>
-      <h3>%s</h3>
-      %s
-      %s
-    </div>
-  </article>
-""" % (foto(n), E(n.get("occhiello")), E(n.get("titolo")), paragrafi(n), fonte(n))
+def pghead(nome):
+    return '<header class="pghead"><h2>%s</h2><span>Corriere dello Steruz</span></header>' % E(nome)
 
 
-def notizia(n, idx):
-    return """  <article class="item" id="n%d">
-    <div class="kicker">%s</div>
-    <div class="pr">%s<h3>%s</h3></div>
-    %s
-    %s
-  </article>
-""" % (idx, E(n.get("occhiello")), foto(n), E(n.get("titolo")), paragrafi(n), fonte(n))
+def riga_meteo(r):
+    return '<li><span class="ic">%s</span><span class="lu">%s<small>%s</small></span><b>%s</b></li>' % (
+        ICONE.get(r.get("icona"), ICONE["nuvole"]), E(r.get("luogo")), E(r.get("cond")), E(r.get("temp")))
 
 
-def folio(num, data_breve, ultima=False):
-    return ('  <div class="folio"><span>Il Corriere dello Steruz</span><span>Pagina %d</span><span>%s</span></div>\n'
-            % (num, "Fine" if ultima else data_breve))
+def lumezzane_domani(m):
+    for k in ("domani", "oggi"):
+        for r in m.get(k) or []:
+            if (r.get("luogo") or "").startswith("Lumezzane") and r.get("temp"):
+                return "Lumezzane %s %s" % (k, r["temp"])
+    return "Oggi e domani"
 
 
-def foglio(nome, corpo, hidden=True):
-    return ('<section class="sheet" data-name="%s" aria-label="%s"%s>\n <div class="inner">\n%s </div>\n</section>\n'
-            % (E(nome), E(nome), " hidden" if hidden else "", corpo))
-
-
-def tabella_meteo(righe):
-    r = []
-    for x in righe or []:
-        r.append('<tr><th scope="row">%s</th><td>%s</td><td>%s</td><td class="tt">%s</td></tr>'
-                 % (E(x.get("luogo")), ICONE.get(x.get("icona"), ICONE["nuvole"]), E(x.get("cond")), E(x.get("temp"))))
-    return '<div class="wxwrap"><table class="wxt">%s</table></div>' % "".join(r)
-
-
-def pagina_meteo(m):
-    s = m.get("situazione") or {}
-    corpo = """  <article class="item wxpage">
-    <div class="kicker">La situazione</div>
-    <h3>%s</h3>
-    %s
-  </article>
-""" % (E(s.get("titolo")), paragrafi(s))
-    for chiave, etichetta in (("oggi", "oggi_etichetta"), ("domani", "domani_etichetta")):
-        if m.get(chiave):
-            corpo += """  <article class="item">
-    <div class="kicker">%s</div>
-    %s
-  </article>
-""" % (E(m.get(etichetta) or chiave.capitalize()), tabella_meteo(m[chiave]))
-    if m.get("nota"):
-        corpo += '  <article class="item"><p class="just">%s</p></article>\n' % testo(m["nota"])
-    if m.get("fonti"):
-        corpo += "  " + fonte({"fonte": m["fonti"]}) + "\n"
-    return corpo
-
-
-def impagina(ed, numero):
-    d = datetime.date.fromisoformat(ed["data"])
-    data_lunga = "%s %d %s %d" % (GIORNI[d.weekday()], d.day, MESI[d.month - 1], d.year)
-    data_breve = d.strftime("%d.%m.%Y")
-    etichetta = EDIZIONI.get(ed.get("edizione"), "Edizione speciale")
+def prima(ed, pagine_dopo, numero, archivio):
     pr = ed["prima"]
+    a = pr["apertura"]
+    spalle = pr.get("spalle") or ([pr["spalla"]] if pr.get("spalla") else [])
+    tz = ""
+    for i, (nome, s) in enumerate(pagine_dopo):
+        if nome == "Meteo":
+            tz += ('<button type="button" class="tz met" data-go="%d"><b>%d</b><span><i>Meteo</i>%s</span><em>%s</em></button>'
+                   % (i + 1, i + 2, E((s.get("situazione") or {}).get("titolo") or "Le previsioni"), E(lumezzane_domani(s))))
+        else:
+            tz += ('<button type="button" class="tz %s" data-go="%d"><b>%d</b><span><i>%s</i>%s</span><em>%d notizie</em></button>'
+                   % (COLORI.get(nome, "pri"), i + 1, i + 2, E(nome), E(s["notizie"][0].get("titolo")), len(s["notizie"])))
+    mini = []
+    if pr.get("parola"):
+        mini.append('<aside class="card mini"><h5>La parola del giorno</h5><p class="t">%s</p><p>%s</p></aside>'
+                    % (E(pr["parola"].get("termine")), testo(pr["parola"].get("testo"))))
+    if pr.get("accadde"):
+        mini.append('<aside class="card mini"><h5>Accadde oggi</h5><p class="t">%s</p><p>%s</p></aside>'
+                    % (E(pr["accadde"].get("data")), testo(pr["accadde"].get("testo"))))
+    box = ('<div class="car boxes"><div class="track">%s</div><div class="dots" aria-hidden="true"></div></div>' % "".join(mini)) if mini else ""
+    arch = ('<a class="old" href="../index.html">Edizione passata · vai all\'ultima →</a>' if archivio
+            else '<a class="arch" href="archivio.html">Archivio →</a>')
+    out = ('<header class="mast"><h1>Il Corriere dello Steruz</h1>'
+           '<div class="line"><span>%s</span><span>Anno I · N. %d</span></div>'
+           '<div class="line2"><span>%s</span>%s</div></header><div class="prima">'
+           % (data_lunga(ed["data"]), numero, EDIZIONI.get(ed.get("edizione"), "Edizione speciale"), arch))
+    out += '<article class="card hero %s">%s<div class="kick">%s</div><h2>%s</h2>%s%s%s</article>' % (
+        "ita", foto(a, "ph big"), E(a.get("occhiello")), E(a.get("titolo")),
+        ('<p class="deck">%s</p>' % testo(a["sommario"])) if a.get("sommario") else "", paragrafi(a, True), fonte(a))
+    for sp in spalle:
+        out += '<article class="card spalla mon">%s<div class="kick">%s</div><h3>%s</h3>%s%s</article>' % (
+            foto(sp), E(sp.get("occhiello")), E(sp.get("titolo")), paragrafi(sp), fonte(sp))
+    out += box
+    if tz:
+        out += '<section class="inside"><h4>Nelle altre pagine</h4><div class="tzs">%s</div></section>' % tz
+    return out + '</div>'
 
+
+def sezione(s):
+    ns = s["notizie"]
+    l = ns[0]
+    if foto(l):
+        lead = '<article class="card lead wf"><div class="lp">%s</div><div class="lt"><div class="kick">%s</div><h3>%s</h3>%s%s</div></article>' % (
+            foto(l), E(l.get("occhiello")), E(l.get("titolo")), paragrafi(l), fonte(l))
+    else:
+        lead = scheda(l, "lead")
+    intro = '<p class="intro">%s</p>' % testo(s["intro"]) if s.get("intro") else ""
+    return pghead(s["nome"]) + intro + '<div class="grid">%s<div class="rest">%s</div></div>' % (lead, "".join(scheda(n) for n in ns[1:]))
+
+
+def meteo(m, archivio):
+    si = m.get("situazione") or {}
+    out = pghead("Meteo") + '<div class="grid wx wxm">'
+    out += '<article class="card lead"><div class="kick">La situazione</div><h3>%s</h3>%s</article>' % (E(si.get("titolo")), paragrafi(si))
+    giorni = [k for k in ("oggi", "domani") if m.get(k)]
+    if archivio:
+        # le copie d'archivio mostrano le previsioni scritte quel giorno, non quelle di oggi
+        out += '<div class="car wxcar"><div class="track">'
+        for k in giorni:
+            out += '<article class="card"><div class="kick">%s</div><ul class="wxl">%s</ul></article>' % (
+                E(m.get(k + "_etichetta") or k.capitalize()), "".join(riga_meteo(r) for r in m[k]))
+        out += '</div><div class="dots" aria-hidden="true"></div></div>'
+        av = "".join(avvisi(m, k) for k in giorni)
+        out += '</div>' + ('<section class="wxav">%s</section>' % av if av else "")
+        if m.get("nota"):
+            out += '<p class="note">%s</p>' % testo(m["nota"])
+        if m.get("fonti"):
+            out += fonte({"fonte": m["fonti"]})
+        return out
+    # edizione di oggi: mappa con le previsioni dal vivo (Open-Meteo); le righe dell'edizione restano di riserva
+    W, H = MAPPA["W"], MAPPA["H"]
+    blocchi = ""
+    for i, k in enumerate(("oggi", "domani")):
+        blocchi += ('<div class="gday" data-g="%s"%s>%s<div class="kick casa">Le tue città</div><ul class="wxl casa-l"></ul><ul class="wxl riserva">%s</ul></div>'
+                    % (k, "" if i == 0 else " hidden", avvisi(m, k, titolo=False), "".join(riga_meteo(r) for r in m.get(k) or [])))
+    caps = "".join('<g class="cap%s" data-i="%d" transform="translate(%s %s)"><circle r="2.2"/></g>'
+                   % (" lum" if c["n"] == "Lumezzane" else "", n, c["x"], c["y"]) for n, c in enumerate(MAPPA["cap"]) if c["n"] != "Brescia")
+    svg = ('<svg class="itmap" viewBox="0 0 %s %s"><defs><clipPath id="itc"><path d="%s"/></clipPath></defs>'
+           '<path class="land" d="%s"/><g clip-path="url(#itc)"><path class="conf" d="M0 %s L%s %s"/><path class="conf" d="M0 %s L%s %s"/></g>%s</svg>'
+           % (W, H, MAPPA["d"], MAPPA["d"], MAPPA["yN"] + 6, W, MAPPA["yN"] - 6, MAPPA["yS"] + 16, W, MAPPA["yS"] - 14, caps))
+    zone = "".join('<div class="zch" data-z="%s"><i>%s</i><span class="zi"></span><b>—</b></div>' % (z, n) for z, n in (("n", "Nord"), ("c", "Centro"), ("s", "Sud")))
+    dati = json.dumps({"cap": [{"n": c["n"], "lat": c["lat"], "lon": c["lon"], "z": c["z"]} for c in MAPPA["cap"]], "ico": ICONE},
+                      ensure_ascii=False).replace("</", "<\\/")
+    out += ('<section class="card wxmap" data-attesa="1"><div class="seg wxtab"><button type="button" aria-pressed="true" data-g="oggi">%s</button>'
+            '<button type="button" aria-pressed="false" data-g="domani">%s</button></div>'
+            % (E(m.get("oggi_etichetta") or "Oggi"), E(m.get("domani_etichetta") or "Domani")))
+    out += ('<div class="mapbox">%s<div class="ctip" hidden></div></div><div class="zrow">%s</div>'
+            '<p class="mapnota">Tocca un\'icona per vedere la città. Minime e massime sono la media dei capoluoghi di regione di ogni zona.</p>%s'
+            '<p class="omsrc">Previsioni dal vivo: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p>'
+            '<script type="application/json" id="wxdati">%s</script></section></div>' % (svg, zone, blocchi, dati))
+    if m.get("nota"):
+        out += '<p class="note">%s</p>' % testo(m["nota"])
+    return out
+
+
+def avvisi(m, k, titolo=True):
+    """Avvisi meteo (nebbia, vento, mare mosso, allerta...): compaiono solo se ci sono."""
+    lista = (m.get("avvisi") or {}).get(k) or []
+    if not lista:
+        return ""
+    li = "".join('<li><span class="ic">%s</span>%s</li>' % (AVVISI_ICONE.get(a.get("icona")) or ICONE.get(a.get("icona"), AVVISI_ICONE["allerta"]),
+                                                           testo(a.get("testo"))) for a in lista)
+    tit = '<div class="kick">Avvisi · %s</div>' % E(m.get(k + "_etichetta") or k) if titolo else ""
+    return tit + '<ul class="avv">%s</ul>' % li
+
+
+def edizioni_salvate():
+    return sorted((f[:-5] for f in os.listdir(ARCH) if f.endswith(".json")), reverse=True)
+
+
+def menu(ed, pagine, nome_ed, archivio):
+    pre = "" if archivio else "archivio/"
+    li = "".join('<li><button type="button" class="%s" data-go="%d"><span class="t">%s</span><span class="dl"></span><b>%d</b></button></li>'
+                 % (COLORI.get(n, "pri"), i, E(n), i + 1) for i, n in enumerate(pagine))
+    arc, giorno = [], None
+    for v in edizioni_salvate()[:7]:
+        if v[:10] != giorno:
+            arc.append('<li class="day">%s</li>' % giorno_breve(v[:10]))
+            giorno = v[:10]
+        tipo = TIPO_BREVE.get(v[11:], v[11:])
+        if v == nome_ed:
+            arc.append('<li><a class="on" aria-current="page"><b>%s</b><small>Stai leggendo</small></a></li>' % E(tipo))
+        else:
+            arc.append('<li><a href="%s%s.html"><b>%s</b><small>Apri ›</small></a></li>' % (pre, E(v), E(tipo)))
+    return ('<div class="menu" id="menu" hidden><div class="box" role="dialog" aria-label="Sommario e impostazioni">'
+            '<button class="x" id="mx" type="button" aria-label="Chiudi">×</button><div class="views" id="views">'
+            '<section class="view" id="vSom"><div class="mh"><span class="g">Sommario</span><small>%s · %s</small></div><ol class="idx">%s</ol>'
+            '<div class="mfoot"><button type="button" class="mbtn" id="toSet">%s Impostazioni</button><button type="button" class="mbtn" id="toArc">≡ Archivio</button></div></section>'
+            '<section class="view" id="vSet" inert><div class="mh"><span class="g">Impostazioni</span><small>Come vuoi leggere il giornale</small></div>'
+            '<div class="row"><span class="lab">Tema</span><div class="seg" id="segTema"><button type="button" data-v="auto">Automatico</button><button type="button" data-v="light">%sChiaro</button><button type="button" data-v="dark">%sScuro</button></div></div>'
+            '<div class="row"><span class="lab">Grandezza del testo</span><div class="seg sz" id="segTesto"><button type="button" data-v="-1" style="font-size:13px" aria-label="Piccolo">A</button><button type="button" data-v="0" style="font-size:16px" aria-label="Normale">A</button><button type="button" data-v="1" style="font-size:19px" aria-label="Grande">A</button><button type="button" data-v="2" style="font-size:22px" aria-label="Molto grande">A</button></div>'
+            '<div class="sample"><div class="kick">Così si legge</div><h3>Titoli e testo crescono insieme</h3><p>Vale per tutto il giornale.</p></div></div>'
+            '<div class="row"><span class="lab">Notizie</span><div class="seg" id="segSchede"><button type="button" data-v="stampa">Stampate sul foglio</button><button type="button" data-v="schede">In schede</button></div></div>'
+            '<div class="row"><span class="lab">Effetto carta</span><div class="cartar"><small>Liscia</small><input type="range" id="cartaR" min="0" max="100" step="5" value="50" aria-label="Effetto carta"><small>Stropicciata</small></div></div>'
+            '<button type="button" class="lnk" id="homebtn"><img src="RADICE/icona.png" alt="" width="36" height="36"><span><b>Aggiungi alla schermata Home</b><small>Istruzioni per iPhone e Android</small></span></button>'
+            '<div class="mfoot"><button type="button" class="back" data-som>← Torna al sommario</button></div></section>'
+            '<section class="view" id="vArc" inert><div class="mh"><span class="g">Archivio</span><small>Le ultime edizioni</small></div><ol class="arcl">%s</ol>'
+            '<div class="mfoot"><button type="button" class="back" data-som>← Torna al sommario</button><a class="back tutte" href="RADICE/archivio.html">Tutte le edizioni →</a></div></section>'
+            '</div></div></div>' % (E(EDIZIONI.get(ed.get("edizione"), "Edizione")), E(giorno_breve(ed["data"]).lower()), li, SVG_GEAR, SVG_SUN, SVG_MOON, "".join(arc)))
+
+
+GUIDA = '''<div class="guide" id="guide" hidden><div class="box" role="dialog" aria-label="Aggiungi alla schermata Home">
+<button class="x" id="gx" type="button" aria-label="Chiudi">×</button>
+<div class="gh"><img src="RADICE/icona.png" alt="" width="60" height="60"><div><b>Il Corriere sulla schermata Home</b><small>Lo apri con un tocco e si vede a tutto schermo, come un'app.</small></div></div>
+<div class="seg" id="segOs"><button type="button" data-v="ios">iPhone e iPad</button><button type="button" data-v="and">Android</button></div>
+<ol class="steps" data-os="ios">
+<li><div>Apri il giornale con <b>Safari</b>.</div></li>
+<li><div>Tocca <span class="k">%s Condividi</span> nella barra di Safari. Se non lo vedi, tocca prima <span class="k">···</span> in basso a destra.</div></li>
+<li><div>Scorri l'elenco e tocca <span class="k">%s Aggiungi alla schermata Home</span>.</div></li>
+<li><div>Tocca <b>Aggiungi</b> in alto a destra. L'icona del Corriere compare tra le tue app.</div></li></ol>
+<ol class="steps" data-os="and" hidden>
+<li><div>Apri il giornale con <b>Chrome</b>.</div></li>
+<li><div>Tocca <span class="k">%s</span> in alto a destra.</div></li>
+<li><div>Tocca <span class="k">%s Aggiungi a schermata Home</span>. Su alcuni telefoni la voce si chiama <b>Installa app</b>.</div></li>
+<li><div>Conferma con <b>Aggiungi</b> (o <b>Installa</b>). L'icona del Corriere compare nella schermata Home.</div></li></ol>
+<button type="button" class="inst" id="inst" hidden>Aggiungi ora alla schermata Home</button>
+<p class="gok" id="gok" hidden>✓ Stai già leggendo il giornale dall'icona sulla schermata Home.</p>
+</div></div>''' % (SVG_SHARE, SVG_PLUS, SVG_DOTS, SVG_PLUS)
+
+
+def fine(nome_ed, archivio):
+    pre = "" if archivio else "archivio/"
+    tutte = edizioni_salvate()
+    prec = [v for v in tutte if v < nome_ed]
+    link = ""
+    if prec:
+        v = prec[0]
+        link = '<a class="prec" href="%s%s.html"><span>← Edizione precedente</span><b>%s · %s</b></a>' % (
+            pre, E(v), E(giorno_breve(v[:10])), E(TIPO_BREVE.get(v[11:], v[11:]).lower()))
+    return ('<div class="fine"><p class="h">Fine dell\'edizione</p>%s<a class="tutte" href="%sarchivio.html">Tutte le edizioni nell\'Archivio →</a></div>'
+            % (link, "../" if archivio else ""))
+
+
+def impagina(ed, numero, archivio=False):
+    """archivio=True: la copia in archivio/ (link che risalgono di una cartella, meteo dell'epoca)."""
+    nome_ed = "%s-%s" % (ed["data"], ed["edizione"])
     sezioni = [s for s in ed.get("sezioni", []) if s.get("notizie")]
-    pagine_dopo = [s["nome"] for s in sezioni] + (["Meteo"] if ed.get("meteo") else [])
-    N = 1 + len(pagine_dopo)
-
-    sommario = "\n".join('    <button type="button" class="goto" data-page="%d"><b>%d</b> %s</button>'
-                         % (i + 1, i + 2, E(nome)) for i, nome in enumerate(pagine_dopo))
-
-    box = ""
-    if pr.get("parola") or pr.get("accadde"):
-        mini = []
-        if pr.get("parola"):
-            mini.append('<div class="mini"><h5>La parola del giorno</h5><p class="t">%s</p><p>%s</p></div>'
-                        % (E(pr["parola"].get("termine")), testo(pr["parola"].get("testo"))))
-        if pr.get("accadde"):
-            mini.append('<div class="mini"><h5>Accadde oggi</h5><p class="t">%s</p><p>%s</p></div>'
-                        % (E(pr["accadde"].get("data")), testo(pr["accadde"].get("testo"))))
-        box = '  <div class="box2">\n    %s\n  </div>\n' % "\n    ".join(mini)
-
-    prima = """  <header class="mast">
-    <h1>Il Corriere dello Steruz</h1>
-    <div class="line"><span>%s</span><span>Anno I · N. %d</span></div>
-    <div class="line2"><span>%s</span><a href="archivio.html" class="arch">Archivio →</a></div>
-  </header>
-  <nav class="summary" aria-label="Sommario">
-%s
-  </nav>
-%s%s%s%s""" % (data_lunga, numero, etichetta, sommario,
-               apertura(pr["apertura"]),
-               "".join(spalla(x) for x in (pr.get("spalle") or ([pr["spalla"]] if pr.get("spalla") else []))),
-               box, folio(1, data_breve, N == 1))
-
-    fogli = [foglio("Prima pagina", prima, hidden=False)]
-    idx, num = 0, 2
-    for s in sezioni:
-        corpo = '  <div class="pghead"><h2>%s</h2><span>Corriere dello Steruz</span></div>\n' % E(s["nome"])
-        if s.get("intro"):
-            corpo += '  <p class="just" style="margin:0">%s</p>\n' % testo(s["intro"])
-        for n in s["notizie"]:
-            idx += 1
-            corpo += notizia(n, idx)
-        corpo += folio(num, data_breve, num == N)
-        fogli.append(foglio(s["nome"], corpo))
-        num += 1
-    if ed.get("meteo"):
-        corpo = '  <div class="pghead"><h2>Meteo</h2><span>Corriere dello Steruz</span></div>\n' + pagina_meteo(ed["meteo"])
-        corpo += folio(num, data_breve, True)
-        fogli.append(foglio("Meteo", corpo))
-
+    pagine_dopo = [(s["nome"], s) for s in sezioni] + ([("Meteo", ed["meteo"])] if ed.get("meteo") else [])
+    pagine = ["Prima pagina"] + [n for n, _ in pagine_dopo]
+    N = len(pagine)
+    corpi = [prima(ed, pagine_dopo, numero, archivio)] + [sezione(s) for s in sezioni] + ([meteo(ed["meteo"], archivio)] if ed.get("meteo") else [])
+    etichetta = EDIZIONI.get(ed.get("edizione"), "Edizione speciale")
+    piede = "%s · %s" % (data_lunga(ed["data"]), etichetta.replace("Edizione", "edizione"))
+    fogli = "".join('<section class="page %s" data-name="%s"%s><div class="in">%s%s<footer class="folio"><span class="fn">Il Corriere dello Steruz</span><span class="fm">%s</span></footer></div></section>'
+                    % (COLORI.get(n, "pri"), E(n), "" if i == 0 else " hidden", c, fine(nome_ed, archivio) if i == N - 1 else "", E(piede))
+                    for i, (n, c) in enumerate(zip(pagine, corpi)))
+    edl = "%s di %s" % (TIPO_BREVE.get(ed.get("edizione"), "").lower() or "edizione", giorno_breve(ed["data"]).lower())
     head = open(os.path.join(SYS, "head.html"), encoding="utf-8").read()
     css = open(os.path.join(SYS, "stile.css"), encoding="utf-8").read()
     js = open(os.path.join(SYS, "giornale.js"), encoding="utf-8").read()
-    return """<!doctype html>
-<html lang="it">
-<head>%s<style>%s
-.line2 .arch{color:var(--red);text-decoration:none;font-weight:700}
-.pop .more{margin-top:8px;background:none;border:0;border-top:1px dotted var(--soft);width:100%%;text-align:left;padding:8px 0 0;font:700 12px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--term);cursor:pointer}
-.pop .long{margin-top:6px;font-size:15px;color:var(--ink)}
-.pop .box{max-height:calc(100vh - var(--barh,64px) - 40px);overflow-y:auto}
-</style>
-</head>
-<body>
-
-<main class="stack" id="stack">
-<div class="edge l" id="edgeL"></div><div class="edge r" id="edgeR"></div>
-<div class="book" id="book">
-%s<div class="crease l" id="crL"></div><div class="crease r" id="crR" hidden></div><div class="flap" id="flap" hidden></div><div class="fshadow" id="fshadow" hidden></div>
-</div>
-</main>
-
-<nav class="bar" id="bar" aria-label="Sfoglia">
-  <button id="prev" type="button">← Indietro</button>
-  <button type="button" class="where" id="where" aria-haspopup="true" aria-expanded="false"><span class="name"><span id="pname">Prima pagina</span> ▾</span><span class="num" id="pnum">Pagina 1 di %d</span></button>
-  <button id="next" type="button">Avanti →</button>
-</nav>
-
-<div class="toc" id="toc" hidden><div class="box" role="menu" aria-label="Vai alla pagina"><p class="h">Vai alla pagina</p><div id="toclist"></div></div></div>
-
-<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden aria-expanded="false">Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>
-
-<script>%s</script>
-</body>
-</html>
-""" % (head, css, "".join(fogli), N, js)
+    pagina = ('<!doctype html>\n<html lang="it">\n<head>%s<style>%s</style>\n'
+              '<script>try{var t=localStorage.getItem("corriere-tema");if(t)document.documentElement.setAttribute("data-theme",t);var z=localStorage.getItem("corriere-testo");if(z)document.documentElement.setAttribute("data-testo",z)}catch(e){}</script>\n'
+              '</head>\n<body>\n<main class="book" id="book" data-ed="%s" data-edl="%s"%s>%s<div class="ush" id="ush" hidden></div><div class="flapw" id="flapw" hidden><div class="flap" id="flap"></div></div></main>\n'
+              '<nav class="bar" aria-label="Sfoglia"><button type="button" class="nav" id="prev" aria-label="Pagina precedente">←</button><button type="button" class="where" id="where" aria-expanded="false" aria-haspopup="dialog"><span class="name" id="pname">Prima pagina</span><span class="num" id="pnum">Pagina 1 di %d</span></button><button type="button" class="nav" id="next" aria-label="Pagina successiva">→</button></nav>\n'
+              '%s%s\n<div class="toast" id="toast" hidden><span id="toastt"></span><button type="button" id="toastb" hidden></button></div>\n'
+              '<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden>Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>\n'
+              '<script>%s</script>\n</body>\n</html>\n'
+              % (head, css, E(nome_ed), E(edl), ' data-arch="1"' if archivio else "", fogli, N, menu(ed, pagine, nome_ed, archivio), GUIDA, js))
+    radice = ".." if archivio else "."
+    pagina = pagina.replace("RADICE/", radice + "/")
+    if archivio:
+        # carta, icona e manifest stanno nella cartella principale
+        pagina = (pagina.replace("url(carta-", "url(../carta-").replace('href="icona.png"', 'href="../icona.png"')
+                  .replace('href="manifest.webmanifest"', 'href="../manifest.webmanifest"'))
+    return pagina
 
 
 def archivio_html():
-    voci = sorted((f[:-5] for f in os.listdir(ARCH) if f.endswith(".json")), reverse=True)
     righe, giorno_prec = [], None
-    for v in voci:
+    for v in edizioni_salvate():
         data, tipo = v[:10], v[11:]
         try:
             ed = json.load(open(os.path.join(ARCH, v + ".json"), encoding="utf-8"))
             titolo = ed["prima"]["apertura"]["titolo"]
         except Exception:
             titolo = ""
-        d = datetime.date.fromisoformat(data)
         if data != giorno_prec:
-            righe.append('<h2>%s %d %s %d</h2>' % (GIORNI[d.weekday()], d.day, MESI[d.month - 1], d.year))
+            righe.append('<h2>%s</h2>' % data_lunga(data))
             giorno_prec = data
         righe.append('<a class="ed" href="archivio/%s.html"><b>%s</b><span>%s</span></a>'
                      % (E(v), E(EDIZIONI.get(tipo, tipo)), E(titolo)))
@@ -272,19 +360,24 @@ def archivio_html():
     return """<!doctype html>
 <html lang="it">
 <head>%s<style>
-:root{--paper:#ede6d7;--ink:#1c1a16;--muted:#5a5446;--rule:#1c1a16;--soft:#b9b09c;--red:#8e1f17;--desk:#cfc6b2}
+:root{--ink:#1c1a16;--muted:#5a5446;--rule:#1c1a16;--red:#8e1f17;--desk:#cfc6b2;--cm:200 193 180;--card:#f6f1e5;--carta:url(carta-chiara.jpg);--shadow:rgba(40,30,10,.3);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#ece4d3;--muted:#aaa08c;--rule:#d9cfbc;--red:#e27a68;--desk:#141210;--cm:33 29 24;--card:#2a261f;--carta:url(carta-scura.jpg);--shadow:rgba(0,0,0,.55);color-scheme:dark}}
+:root[data-theme="dark"]{--ink:#ece4d3;--muted:#aaa08c;--rule:#d9cfbc;--red:#e27a68;--desk:#141210;--cm:33 29 24;--card:#2a261f;--carta:url(carta-scura.jpg);--shadow:rgba(0,0,0,.55);color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--desk);color:var(--ink);font-family:"Source Serif 4",Georgia,serif}
-.sheet{max-width:700px;margin:12px auto;background:var(--paper);box-shadow:0 2px 10px rgba(40,30,10,.3);
+html,body{background:var(--desk)}
+body{margin:0;color:var(--ink);font-family:"Source Serif 4",Georgia,serif}
+.sheet{max-width:700px;margin:12px auto;border-radius:3px;box-shadow:0 2px 10px var(--shadow);
+  background-color:rgb(var(--cm));background-image:linear-gradient(rgb(var(--cm) / .5),rgb(var(--cm) / .5)),var(--carta);background-size:auto,700px 900px;
   padding:18px max(16px,env(safe-area-inset-right,0px)) 28px max(16px,env(safe-area-inset-left,0px))}
 h1{font-family:"UnifrakturMaguntia",Georgia,serif;font-weight:400;font-size:clamp(34px,10vw,60px);text-align:center;margin:0 0 4px}
 .sub{text-align:center;font-family:"Libre Franklin",Arial,sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;border-top:1px solid var(--rule);border-bottom:4px double var(--rule);padding:6px 0;margin-bottom:8px}
 .sub a{color:var(--red);text-decoration:none;font-weight:700}
 h2{font-family:"Playfair Display",Georgia,serif;font-weight:900;font-size:20px;margin:18px 0 6px;border-bottom:1px solid var(--rule);padding-bottom:4px}
-.ed{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px dotted var(--soft);color:var(--ink);text-decoration:none}
+.ed{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px dotted var(--muted);color:var(--ink);text-decoration:none}
 .ed b{font-family:"Libre Franklin",Arial,sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
 .ed span{font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:17px;line-height:1.25}
 </style>
+<script>try{var t=localStorage.getItem("corriere-tema");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 </head>
 <body><div class="sheet">
 <h1>Il Corriere dello Steruz</h1>
@@ -367,14 +460,11 @@ def main():
     nome = "%s-%s" % (ed["data"], ed["edizione"])
     gia = sorted(f[:-5] for f in os.listdir(ARCH) if f.endswith(".json"))
     numero = (gia.index(nome) + 1) if nome in gia else len(gia) + 1
-    pagina = impagina(ed, numero)
-    # la copia in archivio sta in una sottocartella: i link relativi devono risalire
-    arch_pag = pagina.replace('href="archivio.html"', 'href="../archivio.html"').replace(
-        '  <header class="mast">',
-        '  <a class="old" href="../index.html">Stai leggendo un\'edizione passata · <b>Vai all\'ultima →</b></a>\n  <header class="mast">', 1)
+    # prima si salva il JSON, così archivio e "edizione precedente" contano anche questa
     open(os.path.join(ARCH, nome + ".json"), "w", encoding="utf-8").write(json.dumps(ed, ensure_ascii=False, indent=1))
-    open(os.path.join(ARCH, nome + ".html"), "w", encoding="utf-8").write(arch_pag)
-    open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(pagina)
+    open(os.path.join(ARCH, nome + ".html"), "w", encoding="utf-8").write(impagina(ed, numero, archivio=True))
+    if nome == edizioni_salvate()[0]:
+        open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(impagina(ed, numero))
     open(os.path.join(ROOT, "archivio.html"), "w", encoding="utf-8").write(archivio_html())
     print("ok: edizione N. %d -> index.html, archivio/%s.html" % (numero, nome))
     avvisi = controlla(ed)

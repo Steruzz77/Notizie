@@ -115,9 +115,13 @@ Per sapere cosa è già uscito, guarda il JSON più recente in `archivio/` prima
    Billboard Italia, classifiche FIMI. Fai almeno due ricerche separate (es. "rap italiano nuovo album" e
    "rapper tour date annuncio") per arrivare a 4 notizie: valgono anche annunci di concerti, featuring,
    certificazioni FIMI e classifiche Spotify.
-7. **Meteo**: generato dal campo `meteo` (vedi formato). Cerca le previsioni su 3BMeteo/ilMeteo per
-   oggi e domani: Lumezzane, Brescia, Milano, Roma, Napoli, Palermo (e altre se utili) con min–max;
-   se per domani mancano i dati per città, usa righe per zona (Nord, Centro, Sud).
+7. **Meteo**: la pagina dell'ultima edizione mostra da sola una mappa dell'Italia con le previsioni dal vivo
+   (Open-Meteo, aggiornate ogni volta che Alex apre il giornale): non devi cercare i capoluoghi. Il campo
+   `meteo` serve comunque: la situazione, le righe che restano nelle copie d'archivio e fanno da riserva se la
+   mappa non si carica, e gli avvisi. Cerca le previsioni su 3BMeteo/ilMeteo per oggi e domani: righe per
+   Lumezzane e Brescia (sempre, con min–max) e per Nord, Centro e Sud (o città come Milano, Roma, Napoli,
+   Palermo) con min–max. Se le fonti segnalano fenomeni particolari (nebbia, vento forte, mare mosso, allerte
+   della Protezione civile, caldo o gelo intensi) mettili in `avvisi`; se non ce ne sono, ometti il campo.
 
 Ogni notizia normale: titolo breve e 2–4 frasi. Alex vuole un giornale ricco: punta al numero massimo
 di notizie indicato per ogni sezione. Solo se davvero non ci sono notizie rilevanti mettine meno, ma
@@ -141,6 +145,7 @@ Esempio completo e funzionante: `sistema/esempio.json`.
   "situazione": {"titolo": "...", "testo": ["..."]},
   "oggi_etichetta": "Oggi · venerdì 23", "oggi": [RIGA, ...],
   "domani_etichetta": "Domani · sabato 24", "domani": [RIGA, ...],
+  "avvisi": {"oggi": [AVVISO, ...], "domani": [AVVISO, ...]},
   "nota": "facoltativa",
   "fonti": [{"nome": "3BMeteo", "url": "https://..."}]
  }
@@ -152,6 +157,9 @@ NOTIZIA = `{"occhiello": "Sezione · Tema", "titolo": "...", "sommario": "solo p
 
 RIGA meteo = `{"luogo": "Brescia", "icona": "sole|parz|nuvole|pioggia|temporale|neve|nebbia",
 "cond": "Pioggia debole in serata", "temp": "11°–16°"}`
+
+AVVISO meteo (facoltativo, solo se le fonti lo dicono) = `{"icona": "nebbia|vento|mare|allerta|caldo|gelo|pioggia|neve|temporale",
+"testo": "Nebbia al mattino nella pianura del Nord"}`
 
 Le sezioni sono pagine del giornale: il sommario in prima pagina si crea da solo.
 
