@@ -391,6 +391,8 @@ h4+.lnk{border-top:0}
 .cartar{display:flex;align-items:center;gap:10px}
 .cartar small{font:600 11px var(--label);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .cartar input{flex:1;accent-color:var(--ink);height:28px}
+/* ombra della curva: copre tutto il lembo, anche oltre la parte sfumata (prima restava una fascia più chiara) */
+.t-curva{background:linear-gradient(90deg,rgba(30,20,5,.22),rgba(30,20,5,.10) 3%,rgba(30,20,5,.04) 11%,rgba(30,20,5,0) 27.5%,rgba(30,20,5,.10) 50%,rgba(30,20,5,.10))}
 </style>
 </head>
 <body>
@@ -525,7 +527,7 @@ h4+.lnk{border-top:0}
     // lembo: il foglio ribaltato lungo la piega
     var c=2*(mx*nx+my*ny);
     R.fl.style.transform='matrix('+[1-2*nx*nx,-2*nx*ny,-2*nx*ny,1-2*ny*ny,c*nx,c*ny].map(function(v){return v.toFixed(4)}).join(',')+')';
-    R.cv.style.transform=at+' translate(0,'+(-BIG)+'px) scaleX('+(w/100).toFixed(3)+')';
+    R.cv.style.transform=at+' translate(0,'+(-BIG)+'px) scaleX('+(w/50).toFixed(3)+')';
     // ombra sulla pagina nuova, appena oltre la piega
     var sw=Math.min(70,w*.5);
     R.sh.style.transform=at+' translate(0,'+(-BIG)+'px) scaleX('+(sw/100).toFixed(3)+')';
