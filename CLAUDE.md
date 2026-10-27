@@ -134,6 +134,22 @@ Per sapere cosa è già uscito, guarda il JSON più recente in `archivio/` prima
    esatto del risultato di ricerca, la testata, la data se la conosci e il link esatto. Compare in fondo
    alla pagina nel riquadro "Segnalate da altre testate" e Alex lo apre da sé. Solo fatti recenti (del
    periodo dell'edizione) e solo di Brescia e provincia, al massimo 4; non inventare né riassumere.
+   **Per avere più notizie della valle** (ne escono solo 2–3 al giorno in tutta la Valtrompia):
+   - **Parti dalle pagine della valle**: cerca con WebSearch e apri la pagina "Notizie Valtrompia" di BsNews
+     (bsnews.it, solo notizie della valle con la data) e "Valtrompia e Lumezzane" del Giornale di Brescia.
+     Leggi i titoli, poi cerca ogni titolo interessante con WebSearch e apri il link del risultato
+     (mai i link letti dentro la pagina). Cercare solo "Lumezzane" dà soprattutto calcio e articoli vecchi.
+   - **Finestra più larga solo per Lumezzane e la Valtrompia**: valgono anche le notizie degli ultimi
+     3 giorni, purché non siano già uscite (controlla i JSON recenti in `archivio/`). Per Brescia e il resto
+     della provincia resta il periodo normale dell'edizione.
+   - **Storie aperte**: se ci sono novità su vicende già raccontate della valle (es. raccordo autostradale
+     Valtrompia, impianto di pirolisi di Sarezzo, depuratore, Comunità montana), raccontale come
+     aggiornamento con occhiello "Valtrompia · ... · Storia aperta".
+   - **Agenda della settimana**: quando ci sono, una notizia con gli eventi dei prossimi giorni a Lumezzane
+     e in valle (concerti, teatro, festival, sagre, strade chiuse), occhiello "Lumezzane · Agenda della
+     settimana", 2–4 frasi con giorno, ora e luogo esatti presi dagli articoli.
+   - **Pagina unica, massimo 6 notizie**: prima Lumezzane e la valle, poi Brescia e provincia. Le notizie
+     minori di Brescia si scrivono in 2–3 frasi, così la pagina non diventa troppo lunga.
 3. **Italia**: 6–7 notizie (politica, cronaca, economia, società).
 4. **Dal mondo**: 5–6 notizie.
 5. **Tecnologia**: 3–4 notizie (smartphone, IA, informatica, videogiochi, internet). Fonti es. HWupgrade, Il Post.
