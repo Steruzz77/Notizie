@@ -447,6 +447,16 @@ img.ph{filter:grayscale(.08) sepia(.06) contrast(1.03)}
 :root[data-theme="dark"] .phw img.ph{mix-blend-mode:multiply;filter:grayscale(.08) sepia(.06) contrast(1.03)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .phw{isolation:isolate;background:url(carta-chiara.jpg) 0 0/700px 900px;filter:brightness(.8)}
 :root:not([data-theme="light"]) .phw img.ph{mix-blend-mode:multiply;filter:grayscale(.08) sepia(.06) contrast(1.03)}}
+/* parola aperta: evidenziata nel colore delle parole spiegate, si vede anche sulla carta */
+.term[aria-expanded="true"]{background:color-mix(in srgb,var(--term) 26%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--term) 26%,transparent);border-radius:3px;text-decoration-style:solid;text-decoration-thickness:2px}
+:root[data-theme="dark"] .term[aria-expanded="true"]{background:color-mix(in srgb,var(--term) 32%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--term) 32%,transparent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .term[aria-expanded="true"]{background:color-mix(in srgb,var(--term) 32%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--term) 32%,transparent)}}
+/* meteo su telefono: il carosello chiuso da due filetti doppi, come quello della prima pagina */
+@media (max-width:699px){
+  [data-schede="stampa"] .wxcar{border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding-bottom:10px;margin-top:4px}
+  [data-schede="stampa"] .wxcar .card{border-top:0}
+  [data-schede="stampa"] .wx .note{margin-top:12px}
+}
 </style>
 </head>
 <body>
