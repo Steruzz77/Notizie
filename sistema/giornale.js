@@ -198,7 +198,7 @@
     var t=e.target.closest('.term');
     if(t){if(open===t){closePop();return}if(open)open.setAttribute('aria-expanded','false');open=t;t.setAttribute('aria-expanded','true');
       var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;
-      document.getElementById('pk').hidden=!t.classList.contains('nome');pl.hidden=true;pm.textContent='Approfondisci ▾';if(t.dataset.x){pm.hidden=false;pl.textContent=t.dataset.x}else pm.hidden=true;pop.hidden=false;piazza();return}
+      var pk=document.getElementById('pk');pk.hidden=!t.classList.contains('nome');pk.textContent=t.classList.contains('org')?'Cos\'è':'Chi è';pl.hidden=true;pm.textContent='Approfondisci ▾';if(t.dataset.x){pm.hidden=false;pl.textContent=t.dataset.x}else pm.hidden=true;pop.hidden=false;piazza();return}
     if(e.target.closest('#pmore')){pl.hidden=!pl.hidden;pm.textContent=pl.hidden?'Approfondisci ▾':'Chiudi ▴';piazza();return}
     if(e.target.closest('#px')||!e.target.closest('.pop .box'))closePop();
   });

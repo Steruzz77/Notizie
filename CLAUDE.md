@@ -51,6 +51,13 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   non scriverlo, e per le persone poco note scrivi il ruolo che dà l'articolo (es. «Presidente del Gal
   Valle Trompia»). Non serve la nota per le vittime e per i privati cittadini già descritti nel testo
   (età, paese, cosa è successo).
+- **Partiti e organizzazioni ("Cos'è")**: partiti, movimenti, gruppi armati, sindacati, associazioni e
+  aziende poco note si scrivono con il cancelletto davanti: `[[#Likud|Il principale partito della destra
+  israeliana, guidato da Benjamin Netanyahu.]]`. Toccandoli si apre la nota "Cos'è". Valgono le stesse
+  regole dei nomi: la prima volta che compaiono in ogni notizia (in una notizia diversa si spiegano di
+  nuovo), solo informazioni certe, `||approfondimento` per i più importanti. Non serve per i marchi che
+  tutti conoscono (Samsung, Apple, Gucci, Fiat) né per le istituzioni già spiegate come termini
+  (Knesset, Camera, Viminale), che restano con la sintassi normale `[[termine|...]]`.
 - **Cronaca nera e fatti violenti**: non escluderli e non addolcirli. Fatti concreti, al livello dei
   giornali seri, senza toni sensazionalistici.
 - **Politica**: neutrale. Fatti e posizioni delle varie parti, senza dire chi ha ragione.

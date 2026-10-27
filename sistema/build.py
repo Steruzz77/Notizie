@@ -46,6 +46,8 @@ def testo(t):
         cls = "term"
         if parola.startswith("@"):
             parola, cls = parola[1:], "term nome"
+        elif parola.startswith("#"):
+            parola, cls = parola[1:], "term nome org"
         out.append('<span class="%s" role="button" tabindex="0" data-d="%s"%s>%s</span>'
                    % (cls, E(breve.strip()), extra, E(parola)))
         last = m.end()
