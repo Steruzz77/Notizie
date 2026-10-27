@@ -54,7 +54,7 @@ html,body{height:100%;overflow:hidden;overscroll-behavior:none}
   left:max(6px,env(safe-area-inset-left,0px));right:max(6px,env(safe-area-inset-right,0px));max-width:1400px;margin:0 auto}
 .book::before,.book::after{content:"";position:absolute;inset:0;border:1px solid var(--edge);border-radius:4px;background:var(--paper);box-shadow:0 2px 10px var(--shadow)}
 .book::before{transform:translate(3px,4px)}.book::after{transform:translate(1.5px,2px)}
-.page{position:absolute;inset:0;z-index:2;overflow-x:hidden;overflow-y:auto;overscroll-behavior:none;-webkit-overflow-scrolling:touch;touch-action:pan-y;
+.page{position:absolute;inset:0;z-index:2;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;
   border:1px solid var(--edge);border-radius:4px;background-color:var(--paper);background-image:var(--grain),var(--crump),var(--spine);
   background-size:220px 220px,700px 900px,auto;background-blend-mode:normal,var(--crumple),normal}
 :root{--grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .22  0 0 0 .16 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
@@ -62,6 +62,9 @@ html,body{height:100%;overflow:hidden;overscroll-behavior:none}
   --spine:linear-gradient(90deg,rgba(80,60,20,.12),transparent 4%,transparent 96%,rgba(80,60,20,.08))}
 .page::-webkit-scrollbar{width:0}
 .in{padding:16px 14px 12px;display:flex;flex-direction:column;gap:14px;min-height:100%}
+/* la carta scorre insieme al testo; sotto resta la stessa carta, così il rimbalzo non mostra mai un blocco vuoto */
+.in{background-color:var(--paper);background-image:var(--grain),var(--crump),var(--spine);background-size:220px 220px,700px 900px,auto;background-blend-mode:normal,var(--crumple),normal}
+.page{background-position:0 0,0 -300px,0 0}
 /* Pagina che si gira: il foglio sopra viene ritagliato lungo la piega, il lembo piegato mostra il retro della carta */
 .page.top{z-index:4}.page.under{z-index:2}
 .ush,.flapw{position:absolute;inset:0;pointer-events:none}
@@ -306,7 +309,6 @@ h4+.lnk{border-top:0}
 /* Pannelli di carta stropicciata, come il foglio, con il giornale dietro un po' sfocato */
 .menu .box,.guide .box,.pop .box{background-color:var(--paper);background-image:var(--grain),var(--crump);background-size:220px 220px,700px 900px;background-blend-mode:normal,var(--crumple);
   box-shadow:0 1px 0 var(--edge),0 3px 6px rgba(20,12,0,.18),0 18px 40px rgba(20,12,0,.38)}
-.menu,.guide{-webkit-backdrop-filter:blur(2.5px);backdrop-filter:blur(2.5px)}
 /* Archivio */
 .arcl{list-style:none;margin:0;padding:0}
 .arcl a{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:8px;padding:9px 2px;border-bottom:1px dotted var(--soft);color:var(--ink);text-decoration:none}
@@ -323,6 +325,12 @@ h4+.lnk{border-top:0}
 @media (min-width:700px){.tz b{grid-row:1/span 2}}
 /* Testata un po' più giù, fuori dalla sfumatura di Safari sotto l'ora */
 .book{top:calc(env(safe-area-inset-top,0px) + 16px)}
+
+/* Prova: carta stropicciata anche nelle schede, più leggera del foglio */
+:root{--velo:rgba(246,241,229,.55)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--velo:rgba(42,38,31,.55)}}
+:root[data-theme="dark"]{--velo:rgba(42,38,31,.55)}
+[data-schede="carta"] .card,[data-schede="carta"] .tzs{background-image:linear-gradient(var(--velo),var(--velo)),var(--crump);background-size:auto,700px 900px;background-blend-mode:normal,var(--crumple)}
 </style>
 </head>
 <body>
@@ -452,7 +460,7 @@ h4+.lnk{border-top:0}
     var lembo=via.map(function(p){var s=(p[0]-mx)*nx+(p[1]-my)*ny;return[p[0]-2*s*nx,p[1]-2*s*ny]});
     flap.style.clipPath=poly(lembo);
     var w=Math.max(8,Math.min(L/2,W)), k=Math.sin(Math.PI*Math.min(1,Math.max(0,(W-fx)/(2*W)))); // k: quanto è alzato il foglio (0 fermo, 1 a metà)
-    flap.style.setProperty('--curva',sfuma(W,H,mx,my,-nx,-ny,[[0,'rgba(0,0,0,.28)'],[w*.05,'rgba(0,0,0,.10)'],[w*.18,'rgba(255,255,255,.20)'],[w*.32,'rgba(255,255,255,.04)'],[w*.75,'rgba(0,0,0,0)'],[w,'rgba(0,0,0,.12)']]));
+    flap.style.setProperty('--curva',sfuma(W,H,mx,my,-nx,-ny,[[0,'rgba(30,20,5,.30)'],[w*.06,'rgba(30,20,5,.13)'],[w*.22,'rgba(30,20,5,.04)'],[w*.55,'rgba(30,20,5,0)'],[w,'rgba(30,20,5,.10)']]));
     if(R.g){var c=2*(mx*nx+my*ny);R.g.style.transform='matrix('+[1-2*nx*nx,-2*nx*ny,-2*nx*ny,1-2*ny*ny,c*nx,c*ny].map(function(v){return v.toFixed(4)}).join(',')+') translateY('+(-R.sc)+'px)'}
     ush.style.clipPath=poly(via);
     ush.style.backgroundImage=sfuma(W,H,mx,my,nx,ny,[[0,'rgba(20,12,0,'+(.45*k+.1).toFixed(2)+')'],[Math.min(70,w*.5)*.25,'rgba(20,12,0,'+(.2*k).toFixed(2)+')'],[Math.min(70,w*.5),'rgba(20,12,0,0)']]);
