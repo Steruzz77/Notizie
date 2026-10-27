@@ -407,6 +407,17 @@ h4+.lnk{border-top:0}
 .where,.bar .nav{background-color:rgb(var(--cm));background-image:linear-gradient(var(--scheda),var(--scheda)),linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta);background-size:auto,auto,700px 900px}
 @media (max-width:699px){.tzs .tz{background:none}}
 @media (min-width:700px){.tzs{background:none}}
+/* === prova "stampato sul foglio": niente riquadri, le notizie separate da filetti come in un quotidiano === */
+[data-schede="stampa"] .card,[data-schede="stampa"] .tzs,[data-schede="stampa"] .tz,[data-schede="stampa"] .fine .prec{background:none!important;border:0;border-radius:0;box-shadow:none;padding-left:0;padding-right:0}
+[data-schede="stampa"] .card{border-top:1px solid var(--rule);padding-top:12px;padding-bottom:4px}
+[data-schede="stampa"] .card.hero,[data-schede="stampa"] .grid>.card:first-child,[data-schede="stampa"] .prima>.card:first-child{border-top:0;padding-top:4px}
+[data-schede="stampa"] .card.mini{border-top:3px double var(--rule)}
+[data-schede="stampa"] .ph{border-radius:2px}
+[data-schede="stampa"] .tzs{padding:0}
+[data-schede="stampa"] .tz{border-top:1px dotted var(--filo);padding:9px 0}
+[data-schede="stampa"] .tz:first-child{border-top:0}
+[data-schede="stampa"] .fine .prec{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:8px 0}
+@media (min-width:700px){[data-schede="stampa"] .rest{column-rule:1px solid var(--filo)}[data-schede="stampa"] .rest .card:first-child{border-top:0}}
 </style>
 </head>
 <body>
