@@ -368,6 +368,7 @@ h4+.lnk{border-top:0}
 .t-curva{width:100px;background:linear-gradient(90deg,rgba(30,20,5,.22),rgba(30,20,5,.10) 6%,rgba(30,20,5,.04) 22%,rgba(30,20,5,0) 55%,rgba(30,20,5,.10))}
 .t-ush{width:100px;background:linear-gradient(90deg,rgba(20,12,0,.55),rgba(20,12,0,.2) 25%,rgba(20,12,0,0))}
 .gink .in{background:none}.gink .in::before{display:none}
+.t-copia{position:absolute;left:0;top:0}.t-keep .t-copia>.in{min-height:0}
 </style>
 </head>
 <body>
@@ -462,16 +463,18 @@ h4+.lnk{border-top:0}
     // Il foglio che si gira è fatto di copie ferme della pagina: a ogni passo cambiano solo le posizioni,
     // così il telefono non deve ridisegnare niente e la girata resta fluida.
     flapw.textContent='';
-    var src=top.querySelector('.in');
+    var src=top.querySelector('.in'), br=book.getBoundingClientRect(), sr=src.getBoundingClientRect();
+    // la copia deve avere la stessa larghezza e la stessa posizione del testo vero, così va a capo uguale
+    var cw=sr.width.toFixed(2), cx=(sr.left-br.left).toFixed(2), cy=(sr.top-br.top).toFixed(2);
+    function copia(){var w=document.createElement('div');w.className='t-copia';w.style.width=cw+'px';w.style.transform='translate('+cx+'px,'+cy+'px)';w.appendChild(src.cloneNode(true));return w}
     R.sh=el('t-ush',flapw);
     R.clip=el('t-clip',flapw); R.clip.style.width=BIG+'px'; R.clip.style.height=2*BIG+'px';
     R.wrl=el('t-wrl',R.clip); R.wrl.style.width=W+'px'; R.wrl.style.height=H+'px';
-    var kp=el('t-keep '+top.className.replace(/\b(page|top|under)\b/g,''),R.wrl), kin=src.cloneNode(true);
-    kin.style.transform='translateY('+(-sc)+'px)'; kp.appendChild(kin); kp.style.backgroundPosition='0 '+(-sc)+'px,0 0';
+    var kp=el('t-keep '+top.className.replace(/\b(page|top|under)\b/g,''),R.wrl), kin=copia(); kp.appendChild(kin); kp.style.backgroundPosition='0 '+(-sc)+'px,0 0';
     R.fl=el('t-flap',R.wrl);
     if(root.getAttribute('data-retro')!=='liscio'){
       var gp=el('gpaper',R.fl); gp.style.backgroundPosition='0 '+(-sc)+'px';
-      var gi=el('gink',R.fl), gin=src.cloneNode(true); gin.style.transform='translateY('+(-sc)+'px)'; gi.appendChild(gin);
+      var gi=el('gink',R.fl), gin=copia(); gi.appendChild(gin);
     }
     R.cv=el('t-curva',R.fl); R.cv.style.height=2*BIG+'px'; R.sh.style.height=2*BIG+'px';
     top.style.visibility='hidden';
