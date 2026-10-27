@@ -6,13 +6,13 @@
 <title>Anteprima · Il Corriere dello Steruz</title>
 <meta name="robots" content="noindex, nofollow, noimageindex">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Corriere Steruz">
+<meta name="apple-mobile-web-app-title" content="Anteprima">
 <meta name="theme-color" content="#cfc6b2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Franklin:wght@500;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <link rel="apple-touch-icon" href="icona.png">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="anteprima.webmanifest">
 <style>/* Stile misto: il foglio di carta di oggi sulla scrivania, linguette delle sezioni come segnalibri, notizie in schede di carta più chiara con il colore della sezione */
 :root{
   --desk:#cfc6b2; --paper:#ede6d7; --card:#f6f1e5; --ink:#1c1a16; --muted:#5a5446; --soft:#b9b09c; --rule:#1c1a16;
@@ -562,6 +562,10 @@ img.ph{filter:grayscale(.08) sepia(.06) contrast(1.03)}
 .wxmap .gday{grid-row:5}.wxmap .omsrc{grid-row:6}
 .wxmap .zch b{font-size:15px}
 .muscar{border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding:4px 0 10px;margin:16px 0 6px}
+/* PROVA: carosello musica come quello della prima pagina, zone meteo senza riquadro in rilievo */
+.muscar{border-top:0}
+[data-schede="stampa"] .muscar .card{border-top:3px double var(--rule)}
+.wxmap .zch{background:none;box-shadow:none}
 </style>
 <script>try{var t=localStorage.getItem("corriere-tema");if(t)document.documentElement.setAttribute("data-theme",t);var z=localStorage.getItem("corriere-testo");if(z)document.documentElement.setAttribute("data-testo",z)}catch(e){}</script>
 </head>
