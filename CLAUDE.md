@@ -68,23 +68,35 @@ Vuole notizie vere e complete, spiegate in modo semplice, senza essere trattato 
   scarta la notizia e scegline un'altra. Non aggiungere dettagli presi dalla memoria o "di contesto"
   (numeri, date, nomi, posizioni dei partiti) che non hai letto in una fonte. Riporta sempre le
   precisazioni che cambiano il senso: pena sospesa, "secondo la polizia", stime, dati non verificati.
+- **Precisione prima di tutto.** Numeri, date, nomi, età e luoghi devono essere esattamente quelli
+  dell'articolo letto. Non prendere mai un numero dal titolo di un risultato di ricerca. Fai attenzione
+  ai bilanci che sommano più fatti (es. "da ieri sera un morto e 14 feriti in tutta la città") e non
+  attribuirli a un solo episodio; non confondere la data di un fatto con quella di un altro (es. data
+  del trapianto e data della morte). Non lasciare fuori i dettagli che servono a capire la notizia
+  (es. che la vittima era un bambino). Se servono due frasi in più per essere chiari e precisi,
+  scrivile: meglio una notizia un po' più lunga che una notizia imprecisa.
 
 ## Come cercare (importante per non bloccarti)
 - Usa **solo WebSearch e WebFetch** per cercare notizie, leggere articoli e trovare le foto.
   Non usare mai curl, wget o script Python per scaricare pagine o immagini dai siti di notizie:
   dalla shell quei siti sono bloccati e serve un'approvazione che durante le uscite automatiche
   nessuno può dare.
-- Con WebFetch apri **solo indirizzi che hai visto nei risultati di WebSearch** (o in una pagina già
-  letta). Non costruire indirizzi a mano (es. `sito.it/meteo/milano`) e non aprire homepage digitate
+- Con WebFetch apri **solo indirizzi che hai visto nei risultati di WebSearch**, copiati esattamente.
+  Non costruire indirizzi a mano (es. `sito.it/meteo/milano`) e non aprire homepage digitate
   a memoria: vengono bloccati perché richiedono l'approvazione di Alex. Per trovare una pagina, prima
   cercala con WebSearch e poi apri il link esatto del risultato.
+- **Non aprire i link letti dentro una homepage o un elenco di notizie** (es. "ultime notizie" di ANSA,
+  la pagina Valtrompia del Giornale di Brescia): WebFetch li riscrive a modo suo, a volte sbagliati, e
+  il sistema li blocca anche sui siti autorizzati, facendo perdere 5 minuti a ogni tentativo. Se una
+  homepage ti fa vedere un titolo interessante, cerca quel titolo con WebSearch e apri il link del
+  risultato. Se un WebFetch si blocca in attesa di approvazione, non riprovare lo stesso link: cercalo.
 - I siti dell'elenco `FONTI_OK` sono già autorizzati in `.claude/settings.json`: WebFetch li apre
   senza chiedere. Se aggiungi un sito a `FONTI_OK`, aggiungilo anche lì.
 - Se un sito rifiuta WebFetch (paywall, blocco dei robot) o chiede un'approvazione, non insistere:
   passa subito a un'altra fonte che racconta lo stesso fatto (es. ANSA, Il Post, Sky TG24, Rainews,
   Giornale di Brescia, BresciaToday, Bresciaoggi).
-- Lavora veloce: Alex vuole l'edizione pronta in orario. Fai le ricerche delle varie sezioni in
-  parallelo e non leggere più articoli del necessario.
+- Lavora con ordine: fai le ricerche delle varie sezioni in parallelo, così resta tempo per la
+  verifica finale (vedi "Verifica delle notizie prima di pubblicare").
 
 ## Le due edizioni
 - **Mattina** (`"edizione": "mattina"`): cosa è successo dalle 18 del giorno prima a stamattina, più le
@@ -172,6 +184,16 @@ le sigle e i nomi poco noti che hai lasciato senza spiegazione; se davvero non c
 com'è e non aggiungere parole comuni solo per far sparire l'avviso. Per le fonti fuori elenco controlla che la notizia sia confermata da una fonte seria, altrimenti sostituiscila; cerca
 le notizie mancanti, poi rilancia `build.py`: riscrive la stessa edizione. Ripeti finché restano solo
 avvisi che non si possono risolvere (es. davvero nessuna notizia su Lumezzane oggi).
+
+## Verifica delle notizie prima di pubblicare
+Dopo il CONTROLLO di `build.py` e prima del `git push`, rileggi l'edizione notizia per notizia e
+confrontala con gli articoli che hai letto (riaprili con WebFetch se non hai più i dettagli). Per ogni
+notizia controlla: numeri, date, nomi, età e luoghi uguali alla fonte; nessun dettaglio preso da un
+titolo o dalla memoria; precisazioni importanti presenti ("secondo la polizia", "indiscrezione", pena
+sospesa); data dell'articolo nel periodo giusto; nessuna notizia già uscita nelle ultime edizioni. Per
+la politica controlla che ci siano le posizioni di tutte le parti citate nella fonte. Correggi il JSON,
+rilancia `build.py` e solo dopo pubblica. Nel riepilogo finale scrivi in una riga cosa hai corretto
+durante la verifica (o "nessuna correzione").
 
 ## Pubblicare
 ```
