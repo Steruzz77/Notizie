@@ -393,6 +393,11 @@ h4+.lnk{border-top:0}
 .cartar input{flex:1;accent-color:var(--ink);height:28px}
 /* ombra della curva: copre tutto il lembo, anche oltre la parte sfumata (prima restava una fascia più chiara) */
 .t-curva{background:linear-gradient(90deg,rgba(30,20,5,.22),rgba(30,20,5,.10) 3%,rgba(30,20,5,.04) 11%,rgba(30,20,5,0) 27.5%,rgba(30,20,5,.10) 50%,rgba(30,20,5,.10))}
+/* filetti e puntini: un solo colore, più deciso quanto più la carta è stropicciata */
+:root{--filo:color-mix(in srgb,var(--muted) calc(45% + (1 - var(--ca)) * 45%),transparent)}
+.lnk,.view .lnk,.steps li,.wxl li,.tz{border-top-color:var(--filo)}
+.idx button,.arcl a,.idx .dl{border-bottom-color:var(--filo)}
+.dots span:not(.on){background:var(--filo)}
 </style>
 </head>
 <body>
