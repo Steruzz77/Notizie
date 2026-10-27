@@ -597,13 +597,17 @@ img.ph{filter:grayscale(.08) sepia(.06) contrast(1.03)}
   }
   function animateTo(tx,ty,ms,done){
     if(calm){done();return}
-    var sx=R.fx, sy=R.fy, t0=performance.now();
+    var sx=R.fx, sy=R.fy, t0=performance.now(), r=R, fatto=false;
     R.anim=true;
+    function fine(){if(fatto)return;fatto=true;if(R===r){draw(tx,ty);done()}}
     (function step(now){
-      var t=Math.min(1,(now-t0)/ms), e=1-Math.pow(1-t,3);
+      if(fatto||R!==r)return;
+      var t=Math.max(0,Math.min(1,(now-t0)/ms)), e=1-Math.pow(1-t,3);
       draw(sx+(tx-sx)*e, sy+(ty-sy)*e);
-      if(t<1)requestAnimationFrame(step);else done();
+      if(t<1)requestAnimationFrame(step);else fine();
     })(t0);
+    // se Safari smette di disegnare (app in secondo piano, risparmio energetico) la girata si chiude lo stesso
+    setTimeout(fine,ms+400);
   }
   // fine del gesto: il foglio va avanti se è oltre metà o se il dito ha dato uno strappo
   function lascia(v){
@@ -626,8 +630,12 @@ img.ph{filter:grayscale(.08) sepia(.06) contrast(1.03)}
   // I caroselli e le parole spiegate restano per conto loro.
   var P=null, noClick=false;
   function giu(id,x,y,t){
+    // un gesto rimasto a metà (dito perso da Safari) non deve bloccare i successivi
+    if(P&&performance.now()-P.lt>1500)P=null;
+    if(R&&!R.anim&&!P)finish(false);
     if(R||P)return;
-    if(t.closest('.track,.term,a,input'))return;
+    // si può girare partendo anche da una parola spiegata o da un link: il tocco semplice li apre comunque
+    if(t.closest('.track,input'))return;
     var b=book.getBoundingClientRect();
     P={id:id,sx:x,sy:y,oy:y-b.top,lock:null,lx:x,lt:performance.now(),v:0};
   }
@@ -660,8 +668,8 @@ img.ph{filter:grayscale(.08) sepia(.06) contrast(1.03)}
   }
   book.addEventListener('touchstart',function(e){if(e.touches.length===1){var t=e.touches[0];giu(t.identifier,t.clientX,t.clientY,e.target)}else P=null},{passive:true});
   book.addEventListener('touchmove',function(e){var t=e.changedTouches[0];if(P&&muovi(t.identifier,t.clientX,t.clientY)&&P&&P.lock)e.preventDefault()},{passive:false});
-  book.addEventListener('touchend',function(e){su(e.changedTouches[0].identifier,false)});
-  book.addEventListener('touchcancel',function(e){su(e.changedTouches[0].identifier,true)});
+  book.addEventListener('touchend',function(e){su(e.changedTouches[0].identifier,false);if(P&&!e.touches.length)su(P.id,false)});
+  book.addEventListener('touchcancel',function(e){su(e.changedTouches[0].identifier,true);if(P&&!e.touches.length)su(P.id,true)});
   book.addEventListener('pointerdown',function(e){if(e.pointerType==='mouse'&&e.button===0)giu('m',e.clientX,e.clientY,e.target)});
   window.addEventListener('pointermove',function(e){if(e.pointerType==='mouse')muovi('m',e.clientX,e.clientY)});
   window.addEventListener('pointerup',function(e){if(e.pointerType==='mouse')su('m',false)});
