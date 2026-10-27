@@ -491,3 +491,12 @@ img.ph{filter:grayscale(.08) sepia(.06) contrast(1.03)}
 .src a{color:inherit;text-decoration:none}
 .src a:hover{text-decoration:underline}
 .mast .old{color:var(--red);font-weight:700;text-decoration:none}
+
+.segn{margin-top:18px;border-top-style:double;border-top-width:4px}
+.segn .segn-n{font:italic 14px var(--body,inherit);color:var(--muted);margin:2px 0 6px}
+.segn ul{list-style:none;margin:0;padding:0}
+.segn li{border-top:1px dotted var(--filo)}
+.segn li a{display:block;padding:9px 0 8px;color:inherit;text-decoration:none}
+.segn li b{display:block;font:700 16px/1.3 var(--head)}
+.segn li small{display:block;margin-top:3px;font:600 12px var(--label);color:var(--muted);letter-spacing:.02em}
+.segn li b::after{content:" ↗";color:var(--c);font-weight:400}

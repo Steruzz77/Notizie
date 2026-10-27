@@ -181,7 +181,19 @@ def sezione(s):
     else:
         lead = scheda(l, "lead")
     intro = '<p class="intro">%s</p>' % testo(s["intro"]) if s.get("intro") else ""
-    return pghead(s["nome"]) + intro + '<div class="grid">%s<div class="rest">%s</div></div>' % (lead, "".join(scheda(n) for n in ns[1:]))
+    return pghead(s["nome"]) + intro + '<div class="grid">%s<div class="rest">%s</div></div>' % (lead, "".join(scheda(n) for n in ns[1:])) + segnalate(s)
+
+
+def segnalate(s):
+    """Notizie viste solo su siti che non si possono leggere in automatico: solo titolo e link, senza testo."""
+    lista = s.get("segnalate") or []
+    if not lista:
+        return ""
+    li = "".join('<li><a href="%s" target="_blank" rel="noopener"><b>%s</b><small>%s%s</small></a></li>' % (
+        E(x.get("url")), E(x.get("titolo")), E(x.get("testata")), (" · " + E(x["data"])) if x.get("data") else "") for x in lista)
+    return ('<section class="card segn"><div class="kick">Segnalate da altre testate</div>'
+            '<p class="segn-n">Notizie che non ho potuto leggere per intero: tocca il titolo per aprirle sul loro sito.</p>'
+            '<ul>%s</ul></section>' % li)
 
 
 def meteo(m, archivio):

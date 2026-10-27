@@ -124,7 +124,10 @@ Per sapere cosa è già uscito, guarda il JSON più recente in `archivio/` prima
    bloccano i programmi automatici**: non provare ad aprirli e non aggirare il blocco. Usa i loro titoli
    nei risultati di ricerca solo per scoprire le notizie, poi leggi lo stesso fatto su una delle altre
    testate. Se un fatto importante su Lumezzane o la Valtrompia c'è solo su BresciaToday o Bresciaoggi,
-   non scriverlo: segnalalo in una riga nel riepilogo finale con il link, così Alex lo apre da sé.
+   non scriverlo come notizia: mettilo in `"segnalate"` della sezione (vedi il formato), con il titolo
+   esatto del risultato di ricerca, la testata, la data se la conosci e il link esatto. Compare in fondo
+   alla pagina nel riquadro "Segnalate da altre testate" e Alex lo apre da sé. Solo fatti recenti (del
+   periodo dell'edizione) e solo di Brescia e provincia, al massimo 4; non inventare né riassumere.
 3. **Italia**: 6–7 notizie (politica, cronaca, economia, società).
 4. **Dal mondo**: 5–6 notizie.
 5. **Tecnologia**: 3–4 notizie (smartphone, IA, informatica, videogiochi, internet). Fonti es. HWupgrade, Il Post.
@@ -172,6 +175,9 @@ Esempio completo e funzionante: `sistema/esempio.json`.
 NOTIZIA = `{"occhiello": "Sezione · Tema", "titolo": "...", "sommario": "solo per l'apertura",
 "testo": ["paragrafo 1", "paragrafo 2"], "fonte": {"nome": "ANSA", "url": "https://..."},
 "foto": {"url": "https://...", "didascalia": "facoltativa"}}`
+
+Solo per la sezione "Lumezzane e Brescia", facoltativo: `"segnalate": [{"titolo": "titolo esatto",
+"testata": "BresciaToday", "data": "26 ottobre", "url": "https://..."}]` accanto a `"nome"` e `"notizie"`.
 
 RIGA meteo = `{"luogo": "Brescia", "icona": "sole|parz|nuvole|pioggia|temporale|neve|nebbia",
 "cond": "Pioggia debole in serata", "temp": "11°–16°"}`
