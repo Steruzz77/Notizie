@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title><span class="gc">I</span>l <span class="gc">C</span>orriere dello <span class="gc">S</span>teruz</title>
+<meta name="robots" content="noindex, nofollow, noimageindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Corriere Steruz">
+<meta name="theme-color" content="#cfc6b2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Manufacturing+Consent&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Franklin:wght@500;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="apple-touch-icon" href="../icona.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<style>/* Stile misto: il foglio di carta di oggi sulla scrivania, linguette delle sezioni come segnalibri, notizie in schede di carta più chiara con il colore della sezione */
+:root{
+  --desk:#cfc6b2; --paper:#ede6d7; --card:#f6f1e5; --ink:#1c1a16; --muted:#5a5446; --soft:#b9b09c; --rule:#1c1a16;
+  --red:#8e1f17; --term:#1d3f73; --term-bg:#d9d3c2;
+  --loc:#3d6b46; --ita:#8e1f17; --mon:#1d3f73; --tec:#5b3d7a; --mus:#a3521c; --met:#2d6a73;
+  --gothic:"UnifrakturMaguntia","Old English Text MT",Georgia,serif;
+  --head:"Playfair Display",Georgia,"Times New Roman",serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --label:"Libre Franklin","Helvetica Neue",Arial,sans-serif;
+  --tab:#e2dac8; --edge:#a89e88; --cardline:#d3cab6; --shadow:rgba(40,30,10,.3); --shadow2:rgba(40,30,10,.09);
+  --dot:rgba(60,50,30,.18); --ph1:#d6ccb6; --ph2:#bdb197; --crumple:multiply;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --desk:#141210; --paper:#211d18; --card:#2a261f; --ink:#ece4d3; --muted:#aaa08c; --soft:#4d463a; --rule:#d9cfbc;
+  --red:#e27a68; --term:#9dc1ff; --term-bg:#3b3a46;
+  --loc:#82c28d; --ita:#e27a68; --mon:#8fb6f0; --tec:#bb9de2; --mus:#e9a46e; --met:#6fc5ce;
+  --tab:#262219; --edge:#3e382d; --cardline:#3a342a; --shadow:rgba(0,0,0,.55); --shadow2:rgba(0,0,0,.3);
+  --dot:rgba(255,240,210,.08); --ph1:#3a342a; --ph2:#2c2821; --crumple:multiply; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --desk:#141210; --paper:#211d18; --card:#2a261f; --ink:#ece4d3; --muted:#aaa08c; --soft:#4d463a; --rule:#d9cfbc;
+  --red:#e27a68; --term:#9dc1ff; --term-bg:#3b3a46;
+  --loc:#82c28d; --ita:#e27a68; --mon:#8fb6f0; --tec:#bb9de2; --mus:#e9a46e; --met:#6fc5ce;
+  --tab:#262219; --edge:#3e382d; --cardline:#3a342a; --shadow:rgba(0,0,0,.55); --shadow2:rgba(0,0,0,.3);
+  --dot:rgba(255,240,210,.08); --ph1:#3a342a; --ph2:#2c2821; --crumple:multiply; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--desk)}
+html{transition:background-color .2s}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+/* Grandezza del testo: ingrandisce tutto il contenuto della pagina (titoli, sommari, testo), non solo il testo */
+:root[data-testo="-1"]{--z:.9}:root[data-testo="1"]{--z:1.12}:root[data-testo="2"]{--z:1.25}
+.in,.pop .box,.sample{zoom:var(--z,1)}
+.loc{--c:var(--loc)}.ita{--c:var(--ita)}.mon{--c:var(--mon)}.tec{--c:var(--tec)}.mus{--c:var(--mus)}.met{--c:var(--met)}.pri{--c:var(--ink)}
+
+/* Il giornale: una pila di fogli sulla scrivania; ogni foglio scorre per conto suo */
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+.book{position:fixed;z-index:1;top:calc(env(safe-area-inset-top,0px) + 8px);bottom:calc(64px + env(safe-area-inset-bottom,0px));
+  left:max(6px,env(safe-area-inset-left,0px));right:max(6px,env(safe-area-inset-right,0px));max-width:1400px;margin:0 auto}
+.book::before,.book::after{content:"";position:absolute;inset:0;border:1px solid var(--edge);border-radius:4px;background:var(--paper);box-shadow:0 2px 10px var(--shadow)}
+.book::before{transform:translate(3px,4px)}.book::after{transform:translate(1.5px,2px)}
+.page{position:absolute;inset:0;z-index:2;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;
+  border:1px solid var(--edge);border-radius:4px;background-color:var(--paper);background-image:var(--grain),var(--crump),var(--spine);
+  background-size:220px 220px,700px 900px,auto;background-blend-mode:normal,var(--crumple),normal}
+:root{--grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .22  0 0 0 .16 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --crump:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='900'><filter id='c' x='0' y='0' width='100%' height='100%'><feTurbulence type='turbulence' baseFrequency='.0065' numOctaves='4' seed='11' stitchTiles='stitch'/><feDiffuseLighting lighting-color='white' surfaceScale='3.2' diffuseConstant='1.2'><feDistantLight azimuth='225' elevation='38'/></feDiffuseLighting><feComponentTransfer><feFuncR type='linear' slope='.6' intercept='.4'/><feFuncG type='linear' slope='.6' intercept='.4'/><feFuncB type='linear' slope='.6' intercept='.4'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  --spine:linear-gradient(90deg,rgba(80,60,20,.12),transparent 4%,transparent 96%,rgba(80,60,20,.08))}
+.page::-webkit-scrollbar{width:0}
+.in{padding:16px 14px 12px;display:flex;flex-direction:column;gap:14px;min-height:100%}
+/* la carta scorre insieme al testo; sotto resta la stessa carta, così il rimbalzo non mostra mai un blocco vuoto */
+.in{background-color:var(--paper);background-image:var(--grain),var(--crump),var(--spine);background-size:220px 220px,700px 900px,auto;background-blend-mode:normal,var(--crumple),normal}
+.page{background-position:0 0,0 -300px,0 0}
+/* Pagina che si gira: il foglio sopra viene ritagliato lungo la piega, il lembo piegato mostra il retro della carta */
+.page.top{z-index:4}.page.under{z-index:2}
+.ush,.flapw{position:absolute;inset:0;pointer-events:none}
+.ush{z-index:3}.flapw{z-index:5}
+.flap{position:absolute;inset:0;overflow:hidden;border-radius:4px;background-color:var(--paper);background-image:var(--grain),var(--crump);background-blend-mode:normal,var(--crumple);background-size:220px 220px,700px 900px}
+/* la stampa dell'altra faccia che traspare al contrario, poi la luce della curva sopra */
+.ghost{position:absolute;left:0;top:0;transform-origin:0 0;opacity:.2;filter:blur(.5px) grayscale(1);pointer-events:none}
+.ghost img{opacity:.6}
+.flap::after{content:"";position:absolute;inset:0;background-image:var(--curva)}
+:root[data-retro="forte"] .ghost{opacity:.3;filter:blur(.35px) grayscale(1)}
+:root[data-retro="forte"] .flap{background-color:#e3d5b8}
+.book.turning{-webkit-user-select:none;user-select:none}
+.book.turning .page{overflow:hidden}
+/* Testata (come oggi) */
+.mast{text-align:center}
+.mast h1{font-family:var(--gothic);font-weight:400;font-size:clamp(38px,11.5vw,78px);line-height:1;margin:4px 0 8px;text-wrap:balance}
+.line,.line2{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font:700 11px var(--label);letter-spacing:.08em;text-transform:uppercase;padding:5px 0}
+.line{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.line2{font-weight:500;color:var(--muted);border-bottom:4px double var(--rule);text-transform:none;letter-spacing:.02em;font-size:12px}
+.arch{color:var(--red);font-weight:700}
+.pghead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:4px double var(--rule);padding-bottom:6px}
+.pghead h2{font-family:var(--head);font-weight:900;font-size:30px;margin:0;color:var(--c)}
+.pghead span{font-family:var(--gothic);font-size:17px;color:var(--muted)}
+
+/* Schede */
+.card{background:var(--card);border:1px solid var(--cardline);border-top:3px solid var(--c,var(--ink));border-radius:10px;padding:12px 14px 10px;box-shadow:0 1px 0 var(--shadow2),0 6px 16px var(--shadow2);min-width:0}
+.card p{margin:0 0 .55em}
+.kick{font:800 11px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--c,var(--red));margin-top:2px}
+h2,h3{font-family:var(--head);text-wrap:balance;margin:4px 0 8px}
+.hero h2{font-weight:900;font-size:clamp(28px,7.5vw,42px);line-height:1.05}
+h3{font-weight:700;font-size:22px;line-height:1.15}
+.spalla h3,.lead h3{font-weight:900;font-size:25px}
+.deck{font-family:var(--head);font-style:italic;font-weight:700;font-size:18px;line-height:1.35;color:var(--muted)}
+.drop::first-letter{font-family:var(--head);font-weight:900;float:left;font-size:58px;line-height:.82;padding:6px 8px 0 0}
+.src{font-style:italic;font-size:13px;color:var(--muted);margin:2px 0 0!important}
+.ph{aspect-ratio:16/9;max-width:100%;border-radius:6px;margin:0 0 10px;border:1px solid var(--cardline);display:flex;align-items:flex-end;padding:8px 10px;
+  background:radial-gradient(circle at 1px 1px,var(--dot) 1px,transparent 1.4px) 0 0/5px 5px,linear-gradient(135deg,var(--ph1),var(--ph2))}
+.ph span{font:700 10px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--card);padding:2px 6px;border-radius:3px}
+.grid .card:not(.lead) .ph{aspect-ratio:2.3/1}
+img.ph{display:block;width:100%;object-fit:cover;padding:0;filter:grayscale(.3) sepia(.15) contrast(1.05)}
+.ph.sq{aspect-ratio:16/9}
+.rest{display:grid;gap:14px}
+.term{color:var(--term);font-weight:600;cursor:pointer;text-decoration:underline dashed;text-decoration-thickness:1.5px;text-underline-offset:4px}
+.term[aria-expanded="true"]{background:var(--term-bg)}
+
+/* Prima pagina */
+.prima{display:grid;gap:14px}
+.boxes{display:block;min-width:0}
+.mini{--c:var(--red);padding:10px 12px}
+.mini h5{font:800 10.5px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin:0 0 4px}
+.mini .t{font-family:var(--head);font-weight:900;font-size:19px;line-height:1.1;margin:0 0 4px}
+.mini p{font-size:15px;line-height:1.45}
+.inside h4{font:800 11px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin:0 0 8px;padding-top:8px;border-top:3px double var(--rule)}
+.tzs{display:grid;gap:8px}
+.tz{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;text-align:left;background:var(--card);border:1px solid var(--cardline);border-left:4px solid var(--c);border-radius:8px;padding:10px 12px;cursor:pointer;color:var(--ink);font:inherit;width:100%}
+.tz b{grid-row:span 2;align-self:start;font:700 11px var(--label);border:1px solid var(--rule);padding:0 5px;margin-top:3px}
+.tz span{font:700 17px/1.25 var(--head)}
+.tz span i{display:block;font:800 10.5px var(--label);font-style:normal;letter-spacing:.12em;text-transform:uppercase;color:var(--c);margin-bottom:2px}
+.tz em{font:500 12px var(--label);font-style:normal;color:var(--muted)}
+.tz em::after{content:" →"}
+
+/* Sezioni */
+.grid{display:grid;gap:14px}
+.folio{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;border-top:4px double var(--rule);padding:10px 0 6px}
+.folio .fn{font-family:var(--gothic);font-size:20px;line-height:1.1}
+.folio .fm{font:500 11px var(--label);letter-spacing:.02em;line-height:1.5;color:var(--muted)}
+.fine{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding-top:6px}
+.fine .h{font-family:var(--gothic);font-size:24px;margin:0}
+.fine .prec{display:flex;flex-direction:column;gap:2px;border:1px solid var(--cardline);border-top:3px solid var(--red);background:var(--card);border-radius:10px;padding:10px 18px;width:100%;max-width:340px;text-decoration:none;color:var(--ink)}
+.fine .prec span{font:800 11px var(--label);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.fine .prec b{font-family:var(--head);font-size:18px}
+.fine .tutte{font:700 12px var(--label);color:var(--red);text-decoration:none}
+/* Caroselli con i pallini */
+.car{min-width:0}
+.track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;align-items:stretch;padding-bottom:2px}
+.track::-webkit-scrollbar{display:none}
+.track>*{flex:0 0 100%;scroll-snap-align:start;min-width:0}
+.dots{display:flex;justify-content:center;gap:7px;padding-top:9px}
+.dots span{width:7px;height:7px;border-radius:50%;background:var(--soft);transition:background .2s,transform .2s}
+.dots span.on{background:var(--ink);transform:scale(1.2)}
+/* Indice in basso: pagine del giornale e impostazioni di lettura */
+.menu,.guide{position:fixed;inset:0;z-index:20;background:rgba(20,14,4,.38);display:flex;align-items:flex-end;justify-content:center;
+  padding:calc(env(safe-area-inset-top,0px) + 30px) max(8px,env(safe-area-inset-right,0px)) calc(64px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+.guide{align-items:center;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.menu .box,.guide .box{position:relative;width:100%;max-width:520px;max-height:100%;overflow-y:auto;overscroll-behavior:contain;background:var(--card);border:1px solid var(--rule);border-top:4px double var(--rule);
+  border-radius:14px;padding:14px 16px 16px;box-shadow:0 -8px 30px var(--shadow)}
+@media (prefers-reduced-motion:no-preference){.menu:not([hidden]) .box{animation:su .22s ease-out}@keyframes su{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}}
+.menu .row{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.menu .lab{font:700 13px var(--label)}
+.seg{display:flex;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.seg button{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;min-height:40px;background:none;border:0;border-left:1px solid var(--rule);color:var(--ink);font:600 13px var(--label);cursor:pointer;padding:6px 4px}
+.seg button:first-child{border-left:0}
+.seg button svg{width:16px;height:16px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg.sz button{font-family:var(--head);font-weight:900}
+.sample{border:1px solid var(--cardline);border-top:3px solid var(--ita);border-radius:10px;background:var(--paper);padding:9px 12px 8px;--c:var(--ita)}
+.sample h3{font-size:20px;margin:2px 0 4px}
+.sample p{margin:0;font-size:15px;line-height:1.45}
+.lnk{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:0;border-top:1px dotted var(--soft);padding:9px 2px;color:var(--ink);text-decoration:none;cursor:pointer;font:inherit}
+h4+.lnk{border-top:0}
+.lnk img{border-radius:9px;flex:none;box-shadow:0 1px 4px var(--shadow2)}
+.lnk .ar{flex:none;width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--cardline);border-radius:9px;font:700 17px var(--head)}
+.lnk span{flex:1;min-width:0}
+.lnk b{display:block;font:700 14px var(--label)}
+.lnk small{font-size:13px;color:var(--muted)}
+.lnk::after{content:"›";font:400 24px var(--head);color:var(--muted)}
+/* Istruzioni per la schermata Home */
+.gh{display:flex;align-items:center;gap:12px;padding:2px 34px 12px 0}
+.gh img{border-radius:14px;box-shadow:0 2px 8px var(--shadow2);flex:none}
+.gh b{display:block;font:900 20px/1.15 var(--head)}
+.gh small{display:block;font-size:14px;line-height:1.35;color:var(--muted);margin-top:3px}
+.steps{list-style:none;margin:12px 0 0;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;padding:10px 0;border-top:1px dotted var(--soft);font-size:16px;line-height:1.4}
+.steps li:first-child{border-top:0}
+.steps li::before{counter-increment:s;content:counter(s);width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font:700 13px var(--label)}
+.steps .k{display:inline-flex;align-items:center;gap:4px;vertical-align:middle;border:1px solid var(--rule);border-radius:7px;padding:1px 7px;font:700 13px var(--label);white-space:nowrap;background:var(--paper)}
+.steps .k svg{width:16px;height:16px}
+.gok{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:var(--paper);border:1px solid var(--loc);color:var(--loc);font:700 14px var(--label)}
+.inst{margin-top:12px;width:100%;min-height:44px;border-radius:10px;border:0;background:var(--ink);color:var(--paper);font:700 15px var(--label);cursor:pointer}
+/* Avviso */
+.toast{position:fixed;left:12px;right:12px;margin:0 auto;width:fit-content;bottom:calc(72px + env(safe-area-inset-bottom,0px));z-index:15;display:flex;align-items:center;gap:10px;max-width:calc(100% - 24px);background:var(--ink);color:var(--paper);border-radius:10px;padding:9px 10px 9px 14px;font:600 13px var(--label);box-shadow:0 8px 24px var(--shadow)}
+.toast button{background:var(--paper);color:var(--ink);border:0;border-radius:7px;font:700 12px var(--label);padding:6px 10px;white-space:nowrap;cursor:pointer}
+
+/* Meteo */
+.wxl{list-style:none;margin:6px 0 0;padding:0}
+.wxl li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px dotted var(--soft)}
+.wxl li:first-child{border-top:0}
+.wx svg{width:26px;height:26px;color:var(--ink);display:block}
+.wx .wxl svg{--paper:var(--card)}
+.lu{font:700 16px/1.2 var(--head)}
+.lu small{display:block;font:400 14px/1.35 var(--body);color:var(--muted)}
+.wxl b{font:700 14px var(--label);font-variant-numeric:tabular-nums;white-space:nowrap}
+.note{font-size:15px;color:var(--muted);margin:0}
+
+/* Barra in basso: frecce per sfogliare, al centro l'indice (tocca per tutte le pagine e le impostazioni) */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:21;display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--desk);border-top:1px solid var(--edge);
+  height:calc(56px + env(safe-area-inset-bottom,0px));padding:0 max(10px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(10px,env(safe-area-inset-left,0px))}
+.bar .nav{flex:none;width:46px;height:40px;font:700 18px var(--label);background:var(--paper);border:1px solid var(--rule);color:var(--ink);cursor:pointer;border-radius:8px;padding:0}
+.bar .nav:disabled{opacity:.3;cursor:default}
+.where{flex:1;min-width:0;max-width:340px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:var(--paper);border:1px solid var(--edge);border-top:3px solid var(--c,var(--ink));border-radius:8px;color:var(--ink);cursor:pointer;padding:0 8px}
+.where .name{font:800 12px var(--label);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;color:var(--c,var(--ink))}
+.where .name::after{content:" ▾";color:var(--muted)}
+.where[aria-expanded="true"] .name::after{content:" ▴"}
+.where .num{font:500 11px var(--label);color:var(--muted)}
+/* Spiegazione delle parole (come oggi) */
+.pop{position:fixed;left:0;right:0;bottom:calc(60px + env(safe-area-inset-bottom,0px));z-index:9;display:flex;justify-content:center;padding:0 max(12px,env(safe-area-inset-right,0px)) 10px max(12px,env(safe-area-inset-left,0px))}
+.pop .box{max-width:620px;width:100%;background:var(--card);border:1px solid var(--rule);border-top:4px double var(--rule);border-radius:10px;padding:12px 44px 12px 14px;box-shadow:0 8px 24px var(--shadow);position:relative;max-height:60vh;overflow-y:auto}
+.pop .w{font-family:var(--head);font-weight:900;font-size:20px;color:var(--term);margin:0 0 4px}
+.pop .d{margin:0;font-size:16px;line-height:1.45}
+.pop .long{margin-top:6px;font-size:15px}
+.pop .x{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:1px solid var(--rule);background:none;color:var(--ink);font:700 16px var(--label);cursor:pointer}
+.pop .more{margin-top:8px;background:none;border:0;border-top:1px dotted var(--soft);width:100%;text-align:left;padding:8px 0 0;font:700 12px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--term);cursor:pointer}
+
+/* Tablet */
+@media (min-width:700px){
+  body{font-size:18px}
+  .book{top:calc(env(safe-area-inset-top,0px) + 14px);left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px))}
+  .in{padding:22px 26px 16px;gap:18px}
+  .menu .box{max-width:460px}
+  .prima{grid-template-columns:1.6fr 1fr;align-items:start;gap:18px}
+  .hero{grid-row:span 2}
+  .boxes .track{display:grid;grid-template-columns:1fr;gap:14px;overflow:visible}
+  .car .dots{display:none}
+  .wxcar{grid-column:1/-1}
+  .wxcar .track{display:grid;grid-template-columns:1fr 1fr;gap:18px;overflow:visible}
+  .inside{grid-column:1/-1}
+  .tzs{grid-template-columns:repeat(3,1fr);gap:12px}
+  .grid{gap:18px}
+  .grid .lead .lp .ph{aspect-ratio:2.4/1;margin:0 0 12px}
+  .grid .lead .lt{column-count:2;column-gap:24px}
+  .grid .lead .lt .kick,.grid .lead .lt h3{column-span:all}
+  .grid .lead h3{font-size:30px}
+  .rest{display:block;column-count:2;column-gap:18px}
+  .rest .card{break-inside:avoid;display:block;margin-bottom:18px}
+  .wx{grid-template-columns:1fr 1fr;align-items:start}
+  .wx .lead{grid-column:1/-1}
+}
+
+/* Tablet in orizzontale e schermi larghi */
+@media (min-width:1080px){
+  .in{padding:24px 32px 18px}
+  .prima{grid-template-columns:1.5fr 1fr 1fr}
+  .hero{grid-row:span 2}
+  .spalla{grid-column:2}
+  .boxes{grid-column:3;grid-row:1/span 2}
+  .tzs{grid-template-columns:repeat(3,1fr)}
+  .rest{column-count:3}
+  .grid .lead .lp .ph{aspect-ratio:3.6/1}
+}
+
+/* Telefono: più spazio al testo, titoli su una riga, schede compatte */
+@media (max-width:699px){
+  .in{padding:14px 10px 10px;gap:12px}
+  .card{padding:11px 12px 8px}
+  .pghead{flex-direction:column-reverse;align-items:flex-start;gap:2px}
+  .pghead span{font-size:15px;line-height:1}
+  .pghead h2{font-size:27px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .mini p{font-size:15.5px}
+
+  .mini h5{margin-bottom:6px}
+  .tzs{gap:0;background:var(--card);border:1px solid var(--cardline);border-radius:10px;padding:2px 12px;box-shadow:0 1px 0 var(--shadow2),0 6px 16px var(--shadow2)}
+  .tz{background:none;border:0;border-top:1px dotted var(--soft);border-radius:0;padding:9px 0;grid-template-columns:auto 1fr;align-items:baseline}
+  .tz:first-child{border-top:0}
+  .tz b{grid-row:auto;margin-top:0;border-color:var(--c);color:var(--c)}
+  .tz span{font-size:16px}
+  .tz em{display:none}
+}
+
+/* Pannelli come ritagli di carta: Sommario e Impostazioni sono le due facce della stessa scheda */
+.menu .box,.guide .box{border:0;border-radius:2px;padding:0 16px 14px;background-color:var(--paper);background-image:var(--grain);box-shadow:0 1px 0 var(--edge),0 14px 34px rgba(20,12,0,.38);overflow-x:hidden}
+.menu .box{padding:0;max-width:440px}
+.menu .x,.guide .x{position:absolute;width:34px;height:34px;border-radius:50%;border:0;background:none;color:var(--ink);font:700 20px var(--label);cursor:pointer;top:6px;right:6px;z-index:2}
+.views{display:flex;width:300%;transition:transform .3s ease}
+@media (prefers-reduced-motion:reduce){.views{transition:none}}
+.view{width:33.3333%;padding:0 16px 14px;display:flex;flex-direction:column}
+.mh{text-align:center;padding:12px 30px 8px;border-bottom:4px double var(--rule);margin:0 0 4px}
+.mh .g{display:block;font:400 30px/1.05 var(--gothic)}
+.mh small{font:700 10.5px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.idx{list-style:none;margin:0;padding:0}
+.idx button{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:8px;width:100%;background:none;border:0;border-bottom:1px dotted var(--soft);padding:10px 2px 9px;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.idx .t{font:700 18px var(--head)}
+.idx .dl{border-bottom:2px dotted var(--soft);align-self:end;margin-bottom:6px}
+.idx b{font:700 11px var(--label);border:1px solid var(--c);color:var(--c);padding:1px 6px;font-variant-numeric:tabular-nums}
+.idx button[aria-current="page"]{background:linear-gradient(90deg,transparent,var(--card) 8%,var(--card) 92%,transparent)}
+.idx button[aria-current="page"] b{background:var(--c);color:var(--paper)}
+.mfoot{display:flex;gap:10px;margin-top:auto;padding-top:14px}
+.mbtn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;min-height:44px;border:1px solid var(--rule);background:var(--card);color:var(--ink);font:700 13px var(--label);border-radius:4px;text-decoration:none;cursor:pointer}
+.mbtn svg{width:18px;height:18px}
+.back{background:none;border:0;padding:6px 0;font:700 13px var(--label);color:var(--red);cursor:pointer}
+.menu .row{margin:10px 0 0}
+.sample{margin-top:8px;padding:7px 12px 6px}
+.sample h3{font-size:18px}
+.view .lnk{margin-top:12px;border-top:1px dotted var(--soft)}
+/* Nota sulla parola: ferma in basso sopra la barra, cresce verso l'alto e non salta mai */
+.pop{left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));top:auto;bottom:calc(64px + env(safe-area-inset-bottom,0px));padding:0;display:flex;justify-content:center}
+.pop .box{width:100%;max-width:560px;max-height:55vh;overflow-y:auto;border:0;border-top:3px solid var(--term);border-radius:2px;padding:10px 40px 12px 14px}
+.pop .w{font-size:22px;font-style:italic;color:var(--ink);margin:0 0 6px}
+.pop .w::after{content:"";display:block;width:36px;height:3px;background:var(--term);margin-top:5px}
+.pop .x{border:0;top:4px;right:4px;font-size:19px;background:none}
+.pop .more{border-top:1px solid var(--rule);text-align:right;color:var(--red)}
+.pop .long{border-left:3px solid var(--soft);padding-left:10px}
+/* Pannelli di carta stropicciata, come il foglio, con il giornale dietro un po' sfocato */
+.menu .box,.guide .box,.pop .box{background-color:var(--paper);background-image:var(--grain),var(--crump);background-size:220px 220px,700px 900px;background-blend-mode:normal,var(--crumple);
+  box-shadow:0 1px 0 var(--edge),0 3px 6px rgba(20,12,0,.18),0 18px 40px rgba(20,12,0,.38)}
+/* Archivio */
+.arcl{list-style:none;margin:0;padding:0}
+.arcl a{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:8px;padding:9px 2px;border-bottom:1px dotted var(--soft);color:var(--ink);text-decoration:none}
+.arcl b{font:700 17px var(--head)}
+.arcl small{font:600 11px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.arcl a.on small{color:var(--loc)}
+.arcl .day{font:800 10.5px var(--label);letter-spacing:.12em;text-transform:uppercase;color:var(--red);padding:12px 0 2px}
+.mfoot .tutte{margin-left:auto;text-decoration:none}
+/* Numeri quadrati a destra anche in "Nelle altre pagine" */
+.tz{grid-template-columns:minmax(0,1fr) auto}
+.tz b{grid-column:2;grid-row:1;border-radius:0}
+.tz span{grid-column:1;grid-row:1}
+.tz em{grid-column:1}
+@media (min-width:700px){.tz b{grid-row:1/span 2}}
+/* Testata un po' più giù, fuori dalla sfumatura di Safari sotto l'ora */
+.book{top:calc(env(safe-area-inset-top,0px) + 16px)}
+
+/* Prova: carta stropicciata anche nelle schede, più leggera del foglio */
+:root{--velo:rgba(246,241,229,.55)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--velo:rgba(42,38,31,.55)}}
+:root[data-theme="dark"]{--velo:rgba(42,38,31,.55)}
+[data-schede="carta"] .card,[data-schede="carta"] .tzs{background-image:linear-gradient(var(--velo),var(--velo)),var(--crump);background-size:auto,700px 900px;background-blend-mode:normal,var(--crumple)}
+/* carta: sta sul testo e scorre con lui; sopra e sotto (rimbalzo) la continua il foglio, con la stessa trama allineata */
+:root{--velo2:linear-gradient(transparent,transparent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--crumple:soft-light;--velo2:linear-gradient(rgba(36,32,26,.5),rgba(36,32,26,.5))}}
+:root[data-theme="dark"]{--crumple:soft-light;--velo2:linear-gradient(rgba(36,32,26,.5),rgba(36,32,26,.5))}
+.page{background-image:var(--grain),var(--velo2),var(--crump),var(--crump),var(--spine);background-size:220px 220px,auto,700px 900px,700px 900px,auto;background-blend-mode:normal,normal,var(--crumple),var(--crumple),normal;background-position:0 0,0 0,0 0,350px 450px,0 0}
+.in{position:relative;z-index:0;background-image:var(--grain),var(--velo2),var(--crump),var(--crump),var(--spine);background-size:220px 220px,auto,700px 900px,700px 900px,auto;background-blend-mode:normal,normal,var(--crumple),var(--crumple),normal;background-position:0 0,0 0,0 0,350px 450px,0 0}
+.in::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:100vh;pointer-events:none;background-color:var(--paper);background-image:var(--grain),var(--velo2),var(--crump),var(--crump),var(--spine);background-size:220px 220px,auto,700px 900px,700px 900px,auto;background-blend-mode:normal,normal,var(--crumple),var(--crumple),normal;background-position:0 100%,0 0,0 100%,350px calc(100% + 450px),0 0}
+/* schede: stessa carta del foglio, che traspare */
+.card,.tzs{background-color:color-mix(in srgb,var(--card) 50%,transparent)}
+[data-schede="liscia"] .card,[data-schede="liscia"] .tzs{background-color:var(--card)}
+[data-schede="carta"] .card,[data-schede="carta"] .tzs{background-image:none}
+/* retro: carta vera che gira insieme al foglio, stampa più leggibile */
+.ghost{opacity:1;filter:none}
+.gpaper{position:absolute;inset:0;background-color:var(--paper);background-image:var(--grain),var(--velo2),var(--crump),var(--crump),var(--spine);background-size:220px 220px,auto,700px 900px,700px 900px,auto;background-blend-mode:normal,normal,var(--crumple),var(--crumple),normal;background-position:0 0,0 0,0 0,350px 450px,0 0}
+.ghost{will-change:transform}.gink{position:relative;opacity:.34}.gink img{filter:grayscale(1)}
+:root[data-retro="forte"] .ghost{opacity:1;filter:none}
+:root[data-retro="forte"] .gink{opacity:.42}
+/* === carta in immagine (leggera da disegnare) e girata fatta solo di spostamenti === */
+:root{--carta:url(../carta-chiara.jpg)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--carta:url(../carta-scura.jpg)}}
+:root[data-theme="dark"]{--carta:url(../carta-scura.jpg)}
+.page,.in,.t-keep{background-color:var(--paper);background-image:var(--carta),var(--spine);background-size:700px 900px,auto;background-position:0 0,0 0;background-blend-mode:normal}
+.in::before{background-image:var(--carta),var(--spine);background-size:700px 900px,auto;background-position:0 100%,0 0;background-blend-mode:normal}
+.gpaper,.menu .box,.guide .box,.pop .box{background-image:var(--carta);background-size:700px 900px;background-blend-mode:normal}
+.gpaper{background-position:0 0}
+.book.turning .page{overflow-y:auto}
+.flapw{overflow:hidden;border-radius:4px}
+.t-clip,.t-wrl,.t-flap,.t-curva,.t-ush{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform;pointer-events:none}
+.t-clip{overflow:hidden}
+.t-keep{position:absolute;inset:0;overflow:hidden;border-radius:4px}
+.t-keep>.in{min-height:100%}
+.t-flap{width:100%;height:100%;overflow:hidden;border-radius:4px;background:var(--paper);box-shadow:0 0 12px rgba(20,12,0,.25)}
+.t-flap .gpaper{position:absolute;inset:0}
+.t-flap .gink{position:absolute;left:0;top:0;right:0;opacity:.34}
+.t-curva{width:100px;background:linear-gradient(90deg,rgba(30,20,5,.22),rgba(30,20,5,.10) 6%,rgba(30,20,5,.04) 22%,rgba(30,20,5,0) 55%,rgba(30,20,5,.10))}
+.t-ush{width:100px;background:linear-gradient(90deg,rgba(20,12,0,.55),rgba(20,12,0,.2) 25%,rgba(20,12,0,0))}
+.gink .in{background:none}.gink .in::before{display:none}
+.t-copia{position:absolute;left:0;top:0}.t-keep .t-copia>.in{min-height:0}
+/* freccetta disegnata: gira su se stessa senza cambiare misura, la scritta resta ferma */
+.where .name::after{content:"";display:inline-block;vertical-align:middle;margin:-2px 0 0 .5em;width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--muted);transition:transform .2s}
+.where[aria-expanded="true"] .name::after{content:"";transform:rotate(180deg)}
+/* retro: le foto della pagina girata si intravedono appena, come l'inchiostro */
+.gink img{opacity:.3;filter:grayscale(1)}
+.gink .ph,.gink figure{background:none!important}
+:root[data-theme="dark"] .gink{opacity:.26}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gink{opacity:.26}}
+/* === effetto carta regolabile: la trama è al doppio, un velo del colore medio la attenua (--ca: 0 = piena, 1 = liscia) === */
+:root{--ca:.5;--cm:200 193 180;--carta:url(../carta-chiara.jpg)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cm:33 29 24;--carta:url(../carta-scura.jpg)}}
+:root[data-theme="dark"]{--cm:33 29 24;--carta:url(../carta-scura.jpg)}
+.in,.t-keep{background-color:rgb(var(--cm));background-image:linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta),var(--spine);background-size:auto,700px 900px,auto;background-position:0 0,0 0,0 0}
+/* in fondo la trama sfuma nel colore del foglio: nel rimbalzo non si vede lo stacco */
+.in{background-image:linear-gradient(rgb(var(--cm) / 0) calc(100% - 110px),rgb(var(--cm))),linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta),var(--spine);background-size:auto,auto,700px 900px,auto;background-position:0 0,0 0,0 0,0 0}
+.in::before{background-color:rgb(var(--cm));background-image:linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta),var(--spine);background-size:auto,700px 900px,auto;background-position:0 0,0 100%,0 0}
+.page{background-color:rgb(var(--cm));background-image:var(--spine);background-size:auto;background-position:0 0}
+.gpaper,.menu .box,.guide .box,.pop .box{background-color:rgb(var(--cm));background-image:linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta);background-size:auto,700px 900px}
+.fine .prec{background-color:color-mix(in srgb,var(--card) 50%,transparent)}
+.cartar{display:flex;align-items:center;gap:10px}
+.cartar small{font:600 11px var(--label);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.cartar input{flex:1;accent-color:var(--ink);height:28px}
+/* ombra della curva: copre tutto il lembo, anche oltre la parte sfumata (prima restava una fascia più chiara) */
+.t-curva{background:linear-gradient(90deg,rgba(30,20,5,.22),rgba(30,20,5,.10) 3%,rgba(30,20,5,.04) 11%,rgba(30,20,5,0) 27.5%,rgba(30,20,5,.10) 50%,rgba(30,20,5,.10))}
+/* filetti e puntini: un solo colore, più deciso quanto più la carta è stropicciata */
+:root{--filo:color-mix(in srgb,var(--muted) calc(45% + (1 - var(--ca)) * 45%),transparent)}
+.lnk,.view .lnk,.steps li,.wxl li,.tz{border-top-color:var(--filo)}
+.idx button,.arcl a,.idx .dl{border-bottom-color:var(--filo)}
+.dots span:not(.on){background:var(--filo)}
+/* === una sola "scheda" in tutto il giornale: carta più chiara che lascia vedere la trama del foglio === */
+:root{--scheda:color-mix(in srgb,var(--card) 50%,transparent)}
+.card,.tz,.tzs,.fine .prec,.sample,.mbtn,.gok,.steps .k{background-color:var(--scheda)}
+[data-schede="liscia"] .card,[data-schede="liscia"] .tzs{background-color:var(--card)}
+.idx button[aria-current="page"]{background:linear-gradient(90deg,transparent,var(--scheda) 8%,var(--scheda) 92%,transparent)}
+/* sulla barra in basso sotto non c'è il foglio: la carta la portano i tasti stessi */
+.where,.bar .nav{background-color:rgb(var(--cm));background-image:linear-gradient(var(--scheda),var(--scheda)),linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta);background-size:auto,auto,700px 900px}
+@media (max-width:699px){.tzs .tz{background:none}}
+@media (min-width:700px){.tzs{background:none}}
+/* === prova "stampato sul foglio": niente riquadri, le notizie separate da filetti come in un quotidiano === */
+[data-schede="stampa"] .card,[data-schede="stampa"] .tzs,[data-schede="stampa"] .tz,[data-schede="stampa"] .fine .prec{background:none!important;border:0;border-radius:0;box-shadow:none;padding-left:0;padding-right:0}
+[data-schede="stampa"] .card{border-top:1px solid var(--rule);padding-top:12px;padding-bottom:4px}
+[data-schede="stampa"] .card.hero,[data-schede="stampa"] .grid>.card:first-child,[data-schede="stampa"] .prima>.card:first-child{border-top:0;padding-top:4px}
+[data-schede="stampa"] .card.mini{border-top:3px double var(--rule)}
+[data-schede="stampa"] .ph{border-radius:2px}
+[data-schede="stampa"] .tzs{padding:0}
+[data-schede="stampa"] .tz{border-top:1px dotted var(--filo);padding:9px 0}
+[data-schede="stampa"] .tz:first-child{border-top:0}
+[data-schede="stampa"] .fine .prec{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:8px 0}
+@media (min-width:700px){[data-schede="stampa"] .rest{column-rule:1px solid var(--filo)}[data-schede="stampa"] .rest .card:first-child{border-top:0}}
+/* foto come stampate: il bianco prende il colore della carta invece di accendersi */
+img.ph{mix-blend-mode:multiply}
+:root[data-theme="dark"] img.ph{mix-blend-mode:normal;filter:grayscale(.3) sepia(.15) brightness(.72) contrast(1.05)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) img.ph{mix-blend-mode:normal;filter:grayscale(.3) sepia(.15) brightness(.72) contrast(1.05)}}
+/* caroselli: si vede l'inizio del pezzo dopo, così si capisce che si scorre di lato */
+@media (max-width:699px){
+  .track>*{flex-basis:86%}
+  [data-schede="stampa"] .track{gap:0}
+  [data-schede="stampa"] .track>*{padding-right:14px}
+  [data-schede="stampa"] .track>*+*{border-left:1px solid var(--filo);padding-left:14px}
+}
+/* foto: più vive, con la trama della carta sopra in tutti e due i temi */
+img.ph{filter:grayscale(.08) sepia(.06) contrast(1.03)}
+.phw{position:relative;display:block;margin:0 0 10px;cursor:zoom-in}
+.phw>img.ph{margin:0}
+.phw::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:url(../carta-chiara.jpg) 0 0/700px 900px;mix-blend-mode:soft-light;opacity:calc(1 - var(--ca))}
+:root[data-theme="dark"] img.ph{mix-blend-mode:normal;filter:grayscale(.08) sepia(.06) brightness(.88) contrast(1.03)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) img.ph{mix-blend-mode:normal;filter:grayscale(.08) sepia(.06) brightness(.88) contrast(1.03)}}
+/* foto ingrandita al tocco */
+.zoom{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,8,5,.86);cursor:zoom-out;animation:zf .18s ease-out}
+.zoom img{max-width:100%;max-height:100%;border-radius:3px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.zoom small{position:absolute;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));text-align:center;font:600 12px var(--label);color:#e9e2d2}
+@keyframes zf{from{opacity:0}to{opacity:1}}
+.phw:empty{display:none}
+/* tema scuro: la foto è "stampata" su un ritaglio di carta chiara un po' in ombra, così il bianco non abbaglia */
+:root[data-theme="dark"] .phw{isolation:isolate;background:url(../carta-chiara.jpg) 0 0/700px 900px;filter:brightness(.8)}
+:root[data-theme="dark"] .phw img.ph{mix-blend-mode:multiply;filter:grayscale(.08) sepia(.06) contrast(1.03)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .phw{isolation:isolate;background:url(../carta-chiara.jpg) 0 0/700px 900px;filter:brightness(.8)}
+:root:not([data-theme="light"]) .phw img.ph{mix-blend-mode:multiply;filter:grayscale(.08) sepia(.06) contrast(1.03)}}
+/* parola aperta: evidenziata nel colore delle parole spiegate, si vede anche sulla carta */
+.term[aria-expanded="true"]{background:color-mix(in srgb,var(--term) 26%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--term) 26%,transparent);border-radius:3px;text-decoration-style:solid;text-decoration-thickness:2px}
+:root[data-theme="dark"] .term[aria-expanded="true"]{background:color-mix(in srgb,var(--term) 32%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--term) 32%,transparent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .term[aria-expanded="true"]{background:color-mix(in srgb,var(--term) 32%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--term) 32%,transparent)}}
+/* meteo su telefono: il carosello chiuso da due filetti doppi, come quello della prima pagina */
+@media (max-width:699px){
+  [data-schede="stampa"] .wxcar{border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding-bottom:10px;margin-top:4px}
+  [data-schede="stampa"] .wxcar .card{border-top:0}
+  [data-schede="stampa"] .wx .note{margin-top:12px}
+}
+/* === meteo con la mappa: Nord, Centro e Sud su una cartina, Oggi/Domani con due tasti === */
+.wxm{display:block}
+.wxmap{padding-top:12px}
+[data-schede="stampa"] .wxmap{border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding-bottom:10px;margin-top:4px}
+.wxtab{margin:0 0 6px}
+.wxtab button{font-size:12.5px}
+.mapbox{position:relative;max-width:330px;margin:0 auto}
+.wx svg.itmap{display:block;width:100%;height:auto;color:inherit}
+.itmap .land{fill:color-mix(in srgb,var(--ink) 7%,transparent);stroke:var(--ink);stroke-width:1.1;stroke-linejoin:round}
+.itmap .conf{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 4;fill:none}
+.itmap .casa{fill:var(--red)}
+.itmap .casat{font:700 9.5px var(--label);fill:var(--red);text-anchor:start;paint-order:stroke;stroke:rgb(var(--cm));stroke-width:3px;letter-spacing:.02em}
+.zl{position:absolute;inset:0;pointer-events:none}
+.zch{position:absolute;display:grid;grid-template-columns:auto auto;grid-template-rows:auto auto;column-gap:7px;align-items:center;padding:5px 9px 6px 7px;border:1px solid var(--rule);border-radius:9px;background-color:rgb(var(--cm));background-image:linear-gradient(var(--scheda),var(--scheda)),linear-gradient(rgb(var(--cm) / var(--ca)),rgb(var(--cm) / var(--ca))),var(--carta);background-size:auto,auto,700px 900px;box-shadow:0 2px 6px var(--shadow)}
+.zch i{grid-column:1/-1;font:800 10px var(--label);font-style:normal;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.zch .zi svg{width:26px;height:26px}
+.zch b{font:800 16px var(--label);font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1.1}
+.zch b small{display:block;font:600 9.5px var(--label);color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.zn{left:56%;top:4%}
+.zc{left:0;top:37%}
+.zs{left:58%;top:60%}
+.avv{list-style:none;margin:10px 0 0;padding:0}
+.avv li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;padding:7px 0;border-top:1px dotted var(--filo);font:600 14px var(--label)}
+.avv li:first-child{border-top:3px double var(--rule)}
+.avv .ic svg{width:24px;height:24px;color:var(--ink);display:block}
+.avv0{margin:10px 0 0;padding-top:8px;border-top:3px double var(--rule);font:italic 14px var(--body,inherit);color:var(--muted)}
+.wxmap .casa.kick{margin-top:12px}
+/* mappa v2: icone sui capoluoghi, le tre zone in fila sotto la cartina */
+.wxmap .zch{position:static;box-shadow:none;justify-items:center;grid-template-columns:auto;padding:7px 4px 8px;text-align:center;row-gap:2px}
+.zrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.zch i{grid-column:auto}
+.zch b{font-size:15.5px}
+.itmap .cap circle{fill:var(--muted)}
+.itmap .cap circle.bg{fill:rgb(var(--cm));stroke:var(--rule);stroke-width:.8}
+.itmap .cap svg{color:var(--ink);overflow:visible}
+.itmap .cap.lum circle.bg{stroke:var(--red);stroke-width:2}
+.itmap .cap{cursor:pointer}
+.ctip{position:absolute;z-index:2;padding:6px 10px;border:1px solid var(--rule);border-radius:8px;background:rgb(var(--cm));box-shadow:0 4px 12px var(--shadow);font:700 13px var(--label);white-space:nowrap;pointer-events:none}
+.ctip small{display:block;font-weight:500;color:var(--muted);font-size:11.5px}
+.mapnota{margin:8px 0 0;font:italic 12.5px var(--body,inherit);color:var(--muted);text-align:center}
+.omsrc{margin:10px 0 0;font:600 11px var(--label);color:var(--muted);text-align:right}
+.omsrc a{color:inherit}
+.wxmap[data-vivo="1"] .riserva{display:none}
+.wxmap:not([data-vivo="1"]) .casa-l,.wxmap:not([data-vivo="1"]) .zrow,.wxmap:not([data-vivo="1"]) .mapnota,.wxmap[data-vivo="0"] .omsrc{display:none}
+.wxmap[data-vivo="0"] .itmap .cap{display:none}
+.wxm:has(.wxmap[data-vivo="1"])+.note{display:none}
+.src a{color:inherit;text-decoration:none}
+.src a:hover{text-decoration:underline}
+.mast .old{color:var(--red);font-weight:700;text-decoration:none}
+
+.segn{margin-top:18px;border-top-style:double;border-top-width:4px}
+.segn .segn-n{font:italic 14px var(--body,inherit);color:var(--muted);margin:2px 0 6px}
+.segn ul{list-style:none;margin:0;padding:0}
+.segn li{border-top:1px dotted var(--filo)}
+.segn li a{display:block;padding:9px 0 8px;color:inherit;text-decoration:none}
+.segn li b{display:block;font:700 16px/1.3 var(--head)}
+.segn li small{display:block;margin-top:3px;font:600 12px var(--label);color:var(--muted);letter-spacing:.02em}
+.segn li b::after{content:" ↗";color:var(--c);font-weight:400}
+
+/* nomi */
+.term.nome{color:var(--ink);text-decoration:underline dotted;text-decoration-color:var(--term);text-decoration-thickness:2.5px;text-underline-offset:4px}
+.pop .k{margin:0 0 2px;font:700 11px var(--label);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+/* testata compatta */
+.mast h1{font-size:clamp(30px,8.6vw,64px);margin:0 0 6px;white-space:nowrap}
+.mast .line{border-bottom:4px double var(--rule);font-size:11px}
+.prima .hero .ph.big{margin-top:2px}
+/* meteo, prima le tue città */
+
+
+.wxmap .casa.kick{margin-top:4px}
+.wxmap .casa-l li .lu{font-size:19px}
+/* musica */
+.muscar{margin:6px 0 16px}.box-mus{margin:0;padding-bottom:6px}
+.usc,.clas{list-style:none;margin:6px 0 0;padding:0}
+.usc li{display:grid;grid-template-columns:62px 1fr;column-gap:10px;padding:7px 0;border-bottom:1.5px dotted var(--muted)}
+.usc li i{grid-row:span 2;font:700 10px var(--label);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);align-self:center}
+.usc li b{font-family:var(--head);font-size:17px}.usc li span{font-style:italic}
+.clas{counter-reset:c}.clas li{counter-increment:c;display:grid;grid-template-columns:30px 1fr auto;column-gap:8px;padding:6px 0;border-bottom:1.5px dotted var(--muted)}
+.clas li::before{content:counter(c);grid-row:span 2;font:900 22px var(--head);align-self:center}
+.clas li b{font-family:var(--head);font-size:16px}.clas li span{grid-column:2;color:var(--muted);font-size:14px}.clas li em{grid-row:1/span 2;grid-column:3;align-self:center;font:700 10px var(--label);color:var(--red);text-transform:uppercase}
+
+.muscar .dots{display:flex!important}
+.muscar .track{align-items:start}
+
+.wxmap .gday .casa,.wxmap .gday .casa-l{display:none!important}
+.wxmap:not([data-vivo="1"]) .casa2{display:none}
+.casa2{margin:0 0 12px}.casa2 .kick{margin:0 0 6px}
+.c2row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c2{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center;border:1px solid var(--rule);border-radius:10px;padding:8px 10px}
+.c2 i{grid-column:1/-1;font:700 10.5px var(--label);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.c2 .ic{grid-row:span 2}.c2 .ic svg{width:30px;height:30px}
+.c2 b{font:800 19px var(--label)}.c2 small{grid-column:2;font-size:13px;color:var(--muted);line-height:1.2}
+.wxmap .gday .avv{margin-top:10px}
+.muscar{margin:16px 0 6px}
+
+/* meteo in uno schermo: mappa a sinistra, Nord/Centro/Sud in colonna a destra */
+.wxmap{display:grid;grid-template-columns:minmax(0,1fr) 96px;column-gap:10px;align-items:start}
+.wxmap>*{grid-column:1/-1}
+.wxmap .casa2{grid-row:1}.wxmap .wxtab{grid-row:2;margin-bottom:4px}
+.wxmap .mapbox{grid-column:1;grid-row:3;margin:0;max-width:none}
+.wxmap .zrow{grid-column:2;grid-row:3;grid-template-columns:1fr;gap:8px;margin:0;align-self:center}
+.wxmap .mapnota{grid-row:4;text-align:left;margin-top:4px}
+.wxmap .gday{grid-row:5}.wxmap .omsrc{grid-row:6}
+.wxmap .zch b{font-size:15px}
+.muscar{border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding:4px 0 10px;margin:16px 0 6px}
+/* carosello musica come quello della prima pagina, zone meteo senza riquadro in rilievo */
+.muscar{border-top:0;border-bottom:0;margin-bottom:0}
+[data-schede="stampa"] .muscar .card{border-top:3px double var(--rule)}
+.wxmap .zch{background:none;box-shadow:none}
+
+/* copertine */
+.usc li{grid-template-columns:46px 62px 1fr}.usc li .cov{grid-row:span 2}
+.usc li i{grid-column:2}.usc li b,.usc li span:not(.cov){grid-column:3}
+.clas li{grid-template-columns:26px 46px 1fr auto}.clas li .cov{grid-row:span 2;grid-column:2}
+.clas li b{grid-column:3}.clas li span:not(.cov){grid-column:3}.clas li em{grid-column:4}
+.cov{width:46px;height:46px;border-radius:4px;border:1px solid var(--rule);background:var(--soft) center/cover no-repeat;display:grid;place-items:center;font:400 22px var(--gothic);color:var(--paper);align-self:center}
+.cov.on{color:transparent}
+/* meteo: i giorni di Lumezzane sono i tasti */
+.wxmap[data-vivo="1"] .wxtab{display:none}
+.c2{font:inherit;color:var(--ink);background:none;text-align:left;cursor:pointer}
+.c2[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.c2[aria-pressed="true"] i,.c2[aria-pressed="true"] small{color:var(--paper);opacity:.8}
+.casa2 .kick::after{content:" · tocca un giorno per la mappa";color:var(--muted);letter-spacing:.04em;text-transform:none;font-weight:500}
+.wxmap .mapbox{margin-top:8px}
+/* testata: S e C nuove, un po' piu marcata */
+.gc{font-family:"Manufacturing Consent",var(--gothic);font-size:1.02em}
+.mast h1{-webkit-text-stroke:.7px currentColor}
+.pghead span,.folio .fn,.fine .h,.mh .g{-webkit-text-stroke:.35px currentColor}
+.c2[aria-pressed="true"] .ic{color:var(--paper)}.c2[aria-pressed="true"] .ic svg *{fill:none}
+
+/* musica: sottotitolo sotto l'occhiello */
+.box-mus .sotto{margin:2px 0 4px;font-family:var(--head);font-weight:700;font-size:17px}
+/* testata: piu grande, I nuova */
+.mast h1{font-size:calc((min(100vw,620px) - 44px) / 9.6);letter-spacing:-.01em}
+
+/* gerenza */
+.gerenza{margin-top:4px;padding-top:4px}
+.gerenza .kick{color:var(--red)}
+.gz-row{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:6px;border-bottom:1px solid var(--rule)}
+.gz-b{display:flex;flex-direction:column;gap:2px;padding:8px 0 10px;text-decoration:none;color:var(--ink)}
+.gz-b+.gz-b{border-left:1px solid var(--rule);padding-left:12px}
+.gz-b i{font:800 10.5px var(--label);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.gz-b b{font-family:var(--head);font-size:17px;line-height:1.2}
+.gz-link{display:flex;justify-content:space-between;align-items:center;padding:9px 0 14px}
+.gz-link a,.gz-link button{font:700 12.5px var(--label);color:var(--red);text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
+.gz-link button{color:var(--ink)}
+
+.mast .ult{color:var(--red);font-weight:700}
+@media (max-width:699px){.pghead{flex-direction:row;align-items:baseline;gap:8px}.pghead h2{font-size:24px}.pghead span{font-size:13px;line-height:1;white-space:nowrap;flex:none}}
+</style>
+<script>try{var t=localStorage.getItem("corriere-tema");if(t)document.documentElement.setAttribute("data-theme",t);var z=localStorage.getItem("corriere-testo");if(z)document.documentElement.setAttribute("data-testo",z)}catch(e){}</script>
+</head>
+<body>
+<main class="book" id="book" data-ed="2026-10-31-sera" data-edl="sera di sabato 31 ottobre" data-arch="1"><section class="page pri" data-name="Prima pagina"><div class="in"><header class="mast"><h1><span class="gc">I</span>l <span class="gc">C</span>orriere dello <span class="gc">S</span>teruz</h1><div class="line"><span>Sabato 31 ottobre 2026 · Sera</span><a class="old" href="../index.html">Edizione passata · vai all'ultima →</a></div></header><div class="prima"><article class="card hero ita"><img class="ph big" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/31/1793442488-GettyImages-2228275234.jpg" alt="Lo stabilimento ex Ilva di Taranto" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Italia · Lavoro</div><h2>Ex Ilva, si spegne l&#x27;ultimo altoforno: quasi 7mila lavoratori di Taranto verso la cassa integrazione</h2><p class="deck">La Cassazione ha confermato la chiusura dell&#x27;area a caldo. L&#x27;azienda chiede la cassa integrazione per 8.622 dipendenti del gruppo su 9.626, l&#x27;indotto annuncia migliaia di licenziamenti. L&#x27;8 novembre scade il termine per le offerte di chi vuole comprare gli stabilimenti.</p><p class="drop">La <span class="term" role="button" tabindex="0" data-d="Il tribunale più alto d&#x27;Italia: controlla che le sentenze degli altri giudici abbiano applicato bene la legge, e la sua decisione è definitiva.">Corte di Cassazione</span> ha confermato la sentenza della Corte d&#x27;appello di Milano di luglio: l&#x27;<span class="term" role="button" tabindex="0" data-d="La parte dell&#x27;acciaieria dove si fonde il minerale negli altiforni per produrre l&#x27;acciaio: è la più importante e la più inquinante." data-x="Negli altiforni il minerale di ferro viene fuso con il carbone a temperature altissime: è qui che nasce l&#x27;acciaio, ma è anche da qui che escono i fumi e le polveri che da decenni fanno discutere a Taranto. Le altre parti dello stabilimento, l&#x27;«area a freddo», lavorano l&#x27;acciaio già prodotto. Senza area a caldo, quindi, la fabbrica non produce più acciaio da sola.">area a caldo</span> dell&#x27;ex <span class="term nome org" role="button" tabindex="0" data-d="La più grande acciaieria d&#x27;Italia, a Taranto, oggi chiamata Acciaierie d&#x27;Italia." data-x="Per decenni è stata uno dei simboli dell&#x27;industria italiana e allo stesso tempo un caso di inquinamento grave, con processi e sequestri. Dopo vari proprietari privati, oggi è gestita da commissari nominati dal governo, che da tempo cerca un compratore.">Ilva</span> di Taranto deve chiudere entro la fine di ottobre. <span class="term nome org" role="button" tabindex="0" data-d="L&#x27;azienda che gestisce l&#x27;ex Ilva, oggi affidata a commissari nominati dal governo.">Acciaierie d&#x27;Italia</span>, in <span class="term" role="button" tabindex="0" data-d="La procedura con cui lo Stato affida un&#x27;azienda grande in crisi a dei commissari, per salvarla o venderla.">amministrazione straordinaria</span>, aveva fatto ricorso fino all&#x27;ultimo grado. Dei quattro altiforni dall&#x27;8 ottobre ne funzionava solo uno, tenuto al minimo: ora va spento anche quello, con tempi che decideranno i commissari.</p><p>A Taranto lavorano 7.875 dipendenti e più di 3.800 erano già in <span class="term" role="button" tabindex="0" data-d="Un aiuto pagato in parte dallo Stato ai lavoratori quando l&#x27;azienda riduce o sospende il lavoro: restano assunti ma prendono meno dello stipendio.">cassa integrazione</span>. A metà ottobre l&#x27;azienda ha chiesto di estenderla a 8.622 dipendenti del gruppo su 9.626: a Taranto riguarderebbe poco meno di 7mila persone, ne resterebbero circa mille, soprattutto per sicurezza e vigilanza. Le imprese dell&#x27;<span class="term" role="button" tabindex="0" data-d="Le aziende esterne che lavorano per una grande fabbrica, fornendo servizi, materiali o manutenzione." data-x="Intorno a una fabbrica grande come l&#x27;ex Ilva lavorano centinaia di piccole imprese: pulizie, trasporti, manutenzione, mense. Se la fabbrica si ferma, perdono i loro clienti e spesso licenziano. Per questo la crisi colpisce molte più persone dei soli dipendenti dell&#x27;acciaieria.">indotto</span> hanno già annunciato migliaia di licenziamenti. Il presidente della Puglia <span class="term nome" role="button" tabindex="0" data-d="Presidente della Regione Puglia, ex sindaco di Bari.">Antonio Decaro</span> chiede un fondo dello Stato per formare e ricollocare circa 20mila lavoratori e il blocco dei licenziamenti nell&#x27;indotto fino al 30 giugno 2027.</p><p>Il governo ha approvato due settimane fa un <span class="term" role="button" tabindex="0" data-d="Una legge che il governo approva subito in caso di urgenza; il Parlamento deve confermarla entro 60 giorni.">decreto-legge</span> da 187 milioni: copre la cassa integrazione al 70% per tutti i dipendenti, aiuta 4.200 lavoratori dell&#x27;indotto e dà fino a 20mila euro alle aziende che li assumono a tempo indeterminato. Il piano è sostituire gli altiforni a carbone con forni elettrici. Secondo il Post il sottosegretario <span class="term nome" role="button" tabindex="0" data-d="Sottosegretario alla Presidenza del Consiglio, uno dei collaboratori più stretti di Giorgia Meloni.">Alfredo Mantovano</span> avrebbe già incontrato Leonardo, Ferrovie dello Stato, Fincantieri e Rheinmetall per valutare se possono assumere lavoratori ex Ilva. Gli stabilimenti di Genova, Novi Ligure e Racconigi dipendono dall&#x27;acciaio di Taranto: il governo vuole comprarlo all&#x27;estero, i primi carichi arriverebbero a gennaio. Per la vendita ci sono state trattative con l&#x27;indiana Jindal e la statunitense Flacks, e 14 imprese italiane si sono dette interessate a tutto tranne l&#x27;area a caldo: l&#x27;8 novembre, a <span class="term" role="button" tabindex="0" data-d="La sede del governo italiano, a Roma.">Palazzo Chigi</span>, scade il termine per le offerte.</p><p class="src"><a href="https://www.ilpost.it/2026/10/31/ex-ilva-taranto-lavoratori-cassa-integrazione/" target="_blank" rel="noopener">Fonte: Il Post</a></p></article><article class="card spalla mon"><img class="ph" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/31/1793427074-GettyImages-2302275058.jpg" alt="Polonia, il presidente torna dal Senegal ed entra di notte nella Corte costituzionale" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Mondo · Polonia · Aggiornamento</div><h3>Polonia, il presidente torna dal Senegal ed entra di notte nella Corte costituzionale</h3><p>Stamattina avevamo raccontato la sospensione del presidente della Corte costituzionale polacca. I dettagli: cinque giudici eletti dal Parlamento, dove ha la maggioranza il governo filoeuropeo di <span class="term nome" role="button" tabindex="0" data-d="Primo ministro della Polonia, leader del centro filoeuropeo ed ex presidente del Consiglio europeo.">Donald Tusk</span>, hanno sospeso il presidente <span class="term nome" role="button" tabindex="0" data-d="Presidente della Corte costituzionale polacca, considerato vicino al partito di destra PiS.">Bogdan Święczkowski</span> e il vicepresidente Bartłomiej Sochański, entrambi vicini a <span class="term nome org" role="button" tabindex="0" data-d="Il principale partito della destra nazionalista polacca, chiamato PiS: ha governato dal 2015 al 2023." data-x="Quando era al governo, il PiS ha cambiato le regole della giustizia e nominato giudici vicini alle sue idee, anche alla Corte costituzionale. L&#x27;Unione europea lo ha accusato più volte di aver tolto indipendenza ai giudici, e alcune sentenze della Corte hanno messo la legge polacca sopra quella europea. Il governo Tusk vuole ridurre questa influenza.">Diritto e Giustizia</span> (PiS). L&#x27;Ue critica da anni la Corte come troppo vicina al PiS e poco indipendente.</p><p>Il presidente della Repubblica <span class="term nome" role="button" tabindex="0" data-d="Presidente della Polonia, vicino al PiS e avversario del governo Tusk.">Karol Nawrocki</span> ha annullato una visita in Senegal ed è tornato a Varsavia: verso l&#x27;una di notte ha superato il cordone di polizia ed è entrato nella Corte, parlando di «violazione dell&#x27;ordine costituzionale». Davanti all&#x27;edificio centinaia di sostenitori del PiS gridavano al «colpo di Stato». Stamattina Nawrocki ha convocato i partiti per colloqui urgenti, parlando di una «minaccia alla sicurezza interna». L&#x27;ambasciatore degli Stati Uniti Tom Rose ha chiesto a tutti di evitare azioni che possano portare a violenze.</p><p class="src"><a href="https://www.ilpost.it/2026/10/31/corte-costituzionale-polonia-proteste/" target="_blank" rel="noopener">Fonte: Il Post</a></p></article><div class="car boxes"><div class="track"><aside class="card mini"><h5>La parola del giorno</h5><p class="t">Cassa integrazione</p><p>È un aiuto per i lavoratori quando un&#x27;azienda in difficoltà riduce o ferma la produzione: i dipendenti non vengono licenziati, ma lavorano meno ore o per niente e ricevono una parte dello stipendio, pagata in gran parte dallo Stato tramite l&#x27;Inps. Serve a superare un periodo di crisi senza perdere il posto. All&#x27;ex Ilva di Taranto il governo ha messo i soldi per coprirla al 70% dello stipendio, mentre si cerca un compratore per gli stabilimenti.</p></aside><aside class="card mini"><h5>Accadde oggi</h5><p class="t">31 ottobre 2011</p><p>Secondo le stime delle <span class="term" role="button" tabindex="0" data-d="L&#x27;Onu, l&#x27;organizzazione di quasi tutti gli Stati del mondo nata nel 1945 per mantenere la pace e collaborare.">Nazioni Unite</span>, la popolazione mondiale raggiunge i 7 miliardi di persone. La data era simbolica: nessuno può sapere il giorno esatto, ma l&#x27;Onu scelse il 31 ottobre come «giorno dei sette miliardi» per far discutere di crescita della popolazione, cibo e risorse. Dodici anni prima, nel 1999, gli abitanti della Terra erano 6 miliardi.</p></aside></div><div class="dots" aria-hidden="true"></div></div><section class="inside"><h4>Nelle altre pagine</h4><div class="tzs"><button type="button" class="tz loc" data-go="1"><b>2</b><span><i>Lumezzane e Brescia</i>Stasera Zucchero all&#x27;Odeon per l&#x27;Aido, domani Halloween nel bosco a Sarezzo</span><em>6 notizie</em></button><button type="button" class="tz ita" data-go="2"><b>3</b><span><i>Italia</i>Violenze nei cortei, 60 perquisizioni in 23 città per i messaggi sui social</span><em>7 notizie</em></button><button type="button" class="tz mon" data-go="3"><b>4</b><span><i>Dal mondo</i>Francia, terzo sabato di proteste: 320mila in piazza, scontri a Parigi e Marsiglia</span><em>6 notizie</em></button><button type="button" class="tz tec" data-go="4"><b>5</b><span><i>Tecnologia</i>Google accende l&#x27;IA nello spazio: il primo satellite con chip TPU risponde da orbita</span><em>4 notizie</em></button><button type="button" class="tz mus" data-go="5"><b>6</b><span><i>Musica</i>Rkomi, cinque serate al Fabrique di Milano: quattro già sold out</span><em>3 notizie</em></button><button type="button" class="tz met" data-go="6"><b>7</b><span><i>Meteo</i>Ognissanti più freddo, con pioggia al Nord-Est e neve in Appennino</span><em>Lumezzane domani 6°–10°</em></button></div></section></div><footer class="folio"><span class="fm">Il Corriere dello Steruz · Anno I · N. 17 · Sabato 31 ottobre 2026 · edizione della sera · Lumezzane (BS)</span></footer></div></section><section class="page loc" data-name="Lumezzane e Brescia" hidden><div class="in"><header class="pghead"><h2>Lumezzane e Brescia</h2><span><span class="gc">C</span>orriere dello <span class="gc">S</span>teruz</span></header><div class="grid"><article class="card lead wf"><div class="lp"><img class="ph" src="https://bsnews.it/wp-content/uploads/2026/10/854132495_1836800920847740_6971190054252048421_n.jpeg" alt="Stasera Zucchero all&#x27;Odeon per l&#x27;Aido, domani Halloween nel bosco a Sarezzo" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"></div><div class="lt"><div class="kick">Lumezzane · Agenda della settimana</div><h3>Stasera Zucchero all&#x27;Odeon per l&#x27;Aido, domani Halloween nel bosco a Sarezzo</h3><p>Stasera, sabato 31 ottobre alle 20.45, il teatro Odeon «Giacinto Prandelli» di via Marconi 5 a Lumezzane ospita gli Spirito Divino, una <span class="term" role="button" tabindex="0" data-d="Un gruppo che suona dal vivo le canzoni di un artista famoso, imitandone lo stile.">tribute band</span> di <span class="term nome" role="button" tabindex="0" data-d="Adelmo Fornaciari, cantautore emiliano tra i più famosi del rock e blues italiano.">Zucchero</span>. L&#x27;ingresso è a <span class="term" role="button" tabindex="0" data-d="Non c&#x27;è un prezzo fisso: ognuno dà quanto vuole.">offerta libera</span> e il ricavato va all&#x27;<span class="term nome org" role="button" tabindex="0" data-d="L&#x27;Associazione italiana per la donazione di organi, tessuti e cellule.">Aido</span>; la serata è organizzata dagli Amici degli Anziani di Lumezzane e ricorda l&#x27;imprenditore Attilio Caimozzi.</p><p>Domani, domenica 1 novembre, dalle 14 alle 17 l&#x27;agriturismo Catena Rossa di via D&#x27;Azeglio a Sarezzo chiude la sua festa di Halloween per bambini delle elementari: una caccia al tesoro nel bosco tra ragni finti, laboratori e marshmallow sulla brace. Si entra solo su prenotazione: 18 euro per i bambini dai 3 agli 11 anni, 9 per gli adulti.</p><p class="src"><a href="https://bsnews.it/2026/10/23/lumezzane-il-31-ottobre-al-teatro-odeon-una-serata-con-la-tribute-band-di-zucchero/" target="_blank" rel="noopener">Fonte: BsNews</a></p></div></article><div class="rest"><article class="card "><img class="ph" src="https://bsnews.it/wp-content/uploads/2026/10/chiusura-totale-crocedomini.jpg" alt="Passo Crocedomini, da lunedì chiuso per l&#x27;inverno: stop anche dal Bonardi" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Valtrompia · Strade</div><h3>Passo Crocedomini, da lunedì chiuso per l&#x27;inverno: stop anche dal Bonardi</h3><p>Da lunedì 2 novembre alle 14 chiudono per l&#x27;inverno le strade che portano al passo Crocedomini, per tutti i veicoli e «fino a revoca», cioè senza una data di riapertura. Il motivo è la sicurezza con il maltempo della stagione fredda.</p><p>Sono tre tratti: la <span class="term" role="button" tabindex="0" data-d="Strada provinciale ex statale: una strada che prima gestiva lo Stato e ora gestisce la Provincia.">Spbs</span> 345 «delle Tre Valli» dal rifugio Bonardi al passo, la stessa strada dal rifugio Bazena al passo (l&#x27;accesso dalla Valcamonica) e la Spbs 669 dal Gaver al passo (l&#x27;accesso dalla Valsabbia). Le chiusure interessano i versanti della Valtrompia, della Valcamonica e della Valsabbia.</p><p class="src"><a href="https://bsnews.it/2026/10/29/passo-crocedomini-chiusura-invernale-dal-2-novembre-stop-al-transito-su-tre-tratti/" target="_blank" rel="noopener">Fonte: BsNews</a></p></article><article class="card "><img class="ph" src="https://www.ilgiorno.it/image-service/view/acePublic/alias/contentid/OTY4MDRjYjEtYTU4Yi00/0/image.jpg?f=16:9&amp;w=1200&amp;h=675" alt="Agente della Polstrada arrestato per pedopornografia: trovato da un software" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Brescia · Cronaca</div><h3>Agente della Polstrada arrestato per pedopornografia: trovato da un software</h3><p>Un agente della <span class="term" role="button" tabindex="0" data-d="La Polizia stradale, il reparto della Polizia di Stato che controlla strade e autostrade.">Polstrada</span> di Brescia di 41 anni, <span class="term" role="button" tabindex="0" data-d="Che non ha mai avuto condanne penali.">incensurato</span>, è stato arrestato giovedì sera <span class="term" role="button" tabindex="0" data-d="Colto mentre commette il reato, cosa che permette di arrestarlo subito senza un ordine del giudice." data-x="Di solito per arrestare qualcuno serve un ordine del giudice. In flagranza invece polizia e carabinieri possono farlo da soli, ma entro pochi giorni un giudice deve «convalidare» l&#x27;arresto, cioè controllare che sia stato fatto bene e decidere se la persona resta in carcere.">in flagranza</span> per detenzione di materiale pedopornografico. Lo ha scoperto un software usato dalla <span class="term" role="button" tabindex="0" data-d="Il reparto della Polizia di Stato che indaga sui reati commessi su internet.">Polizia postale</span>, che segnala chi scambia file illegali in rete e lo localizza.</p><p>Nella sua casa sarebbero stati trovati migliaia di foto e video di abusi su minori; la quantità è ancora da verificare. Indaga il pm Alessio Bernardi: si vuole capire da dove arriva il materiale, se l&#x27;uomo lo abbia anche scambiato e se si possano identificare le vittime. L&#x27;arresto deve essere convalidato dal <span class="term" role="button" tabindex="0" data-d="Il giudice per le indagini preliminari, che controlla il lavoro dei pm e decide sugli arresti prima del processo.">gip</span>.</p><p class="src"><a href="https://www.ilgiorno.it/brescia/cronaca/guarda-foto-luci-rossi-minori-agente-stradale-arrestato-pedopornografia-l7kq3kb0" target="_blank" rel="noopener">Fonte: Il Giorno</a></p></article><article class="card "><img class="ph" src="https://www.ilgiorno.it/image-service/view/acePublic/alias/contentid/ZTE5MzRhNGMtMzM2Ny00/1/il-fatidico-taglio-del-nastro-questa-mattina-30-ottobre.jpg?f=16:9&amp;w=1200&amp;h=675" alt="Montichiari, aperto il nuovo magazzino merci dell&#x27;aeroporto: il cliente principale è Amazon" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Brescia · Economia</div><h3>Montichiari, aperto il nuovo magazzino merci dell&#x27;aeroporto: il cliente principale è Amazon</h3><p>All&#x27;aeroporto di Brescia-Montichiari è stato inaugurato ieri un nuovo magazzino per le merci di 4.300 metri quadrati, grande come due Boeing 737 o 16 campi da tennis. È costato 10 milioni e può smistare migliaia di pacchi al giorno; lo usa soprattutto Amazon, che da settembre ha quattro voli al giorno, sei giorni su sette.</p><p>In tutto l&#x27;aeroporto ha 20mila metri quadrati di magazzini, usati anche da Poste Italiane e DHL. Il nuovo <span class="term" role="button" tabindex="0" data-d="Il documento del governo che decide il ruolo di ogni aeroporto italiano nei prossimi anni.">Piano nazionale degli aeroporti</span> 2026–2035 dà a Montichiari un ruolo dedicato interamente alle merci.</p><p class="src"><a href="https://www.ilgiorno.it/brescia/economia/hub-logistico-amazon-cargo-aeroporto-montichiari-brescia-ko742fx7" target="_blank" rel="noopener">Fonte: Il Giorno</a></p></article><article class="card "><img class="ph" src="https://bsnews.it/wp-content/uploads/2026/10/intervento-autosalone.jpeg" alt="Distrugge le auto di un autosalone e ferisce un poliziotto: fermato con taser e spray" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Brescia · Cronaca</div><h3>Distrugge le auto di un autosalone e ferisce un poliziotto: fermato con taser e spray</h3><p>Un uomo romeno di 38 anni, con molti precedenti, ha scavalcato il cancello di un autosalone di Brescia, ha rotto le vetrate e danneggiato diverse auto. Secondo la polizia, all&#x27;arrivo della <span class="term" role="button" tabindex="0" data-d="La pattuglia della Polizia di Stato che gira in auto e interviene per le chiamate al 112.">Volante</span> ha minacciato gli agenti con due lastre di vetro e ha colpito un poliziotto a un occhio con una scheggia; il <span class="term" role="button" tabindex="0" data-d="Una pistola che dà una scossa elettrica per bloccare una persona senza ferirla gravemente.">taser</span> non lo ha fermato ed è servito anche lo spray al peperoncino.</p><p>È stato arrestato per danneggiamento, lesioni, minaccia e resistenza a pubblico ufficiale. Il questore Paolo Sartori gli ha dato un <span class="term" role="button" tabindex="0" data-d="L&#x27;ordine del questore che vieta a una persona di tornare in un comune per un certo tempo." data-x="Non è una pena decisa da un giudice ma una misura di prevenzione: il questore la usa per chi è considerato pericoloso e non vive in quella città. Chi la viola commette un reato, che qui può costare fino a un anno e mezzo di carcere e 10mila euro di multa.">foglio di via</span>: per tre anni non potrà tornare a Brescia.</p><p class="src"><a href="https://bsnews.it/2026/10/31/danneggia-le-vetture-dellautosalone-e-ferisce-un-poliziotto-38enne-fermato-con-taser-e-spray-urticante/" target="_blank" rel="noopener">Fonte: BsNews</a></p></article><article class="card "><div class="kick">Brescia · Valcamonica</div><h3>Vezza d&#x27;Oglio, scontro tra auto e moto: motociclista in elicottero all&#x27;ospedale</h3><p>Oggi verso le 14.20, sulla <span class="term" role="button" tabindex="0" data-d="La strada statale del Tonale e della Mendola, che attraversa la Valcamonica e porta verso il Trentino.">statale 42</span> a Vezza d&#x27;Oglio, in località San Carlo, un&#x27;auto e una moto si sono scontrate. Il motociclista è stato portato in ospedale con l&#x27;elisoccorso; l&#x27;articolo non dice quanto sia grave. Sono intervenuti i vigili del fuoco e il traffico ha avuto rallentamenti.</p><p class="src"><a href="https://www.quibrescia.it/cronaca/2026/10/31/si-scontra-con-unauto-a-vezza-doglio-motociclista-a-terra/847889/" target="_blank" rel="noopener">Fonte: QuiBrescia</a></p></article></div></div><footer class="folio"><span class="fm">Il Corriere dello Steruz · Anno I · N. 17 · Sabato 31 ottobre 2026 · edizione della sera · Lumezzane (BS)</span></footer></div></section><section class="page ita" data-name="Italia" hidden><div class="in"><header class="pghead"><h2>Italia</h2><span><span class="gc">C</span>orriere dello <span class="gc">S</span>teruz</span></header><div class="grid"><article class="card lead wf"><div class="lp"><img class="ph" src="https://www.ansa.it/webimages/img_1280x720/2026/10/24/e760c73ec006225888c56a24c50c073f.jpg" alt="Violenze nei cortei, 60 perquisizioni in 23 città per i messaggi sui social" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"></div><div class="lt"><div class="kick">Italia · Sciopero · Aggiornamento</div><h3>Violenze nei cortei, 60 perquisizioni in 23 città per i messaggi sui social</h3><p>Dopo gli scontri nei cortei dello sciopero generale di venerdì, la <span class="term" role="button" tabindex="0" data-d="La parte della polizia che si occupa di reati politici, terrorismo e ordine pubblico nelle manifestazioni.">Digos</span> e la <span class="term" role="button" tabindex="0" data-d="Il reparto della Polizia di Stato che indaga sui reati commessi su internet.">Polizia postale</span> hanno fatto 60 perquisizioni in 23 città. Secondo la polizia, le persone controllate avrebbero usato chat e social per incitare alla violenza nelle ultime manifestazioni; non sono stati resi noti i reati contestati.</p><p>A Roma la <span class="term" role="button" tabindex="0" data-d="L&#x27;ufficio della Polizia di Stato che dirige la sicurezza in una provincia.">Questura</span> ha denunciato 7 persone e ne ha identificate 369, per reati come resistenza a pubblico ufficiale, volto coperto e blocco stradale; per chi viene da altre città valuta il foglio di via.</p><p class="src"><a href="https://ansa.it/sito/notizie/topnews/2026/10/31/cortei-60-perquisizioni-in-23-citta_fe539273-8101-4e61-9893-05d851cb2f96.html" target="_blank" rel="noopener">Fonte: ANSA</a></p></div></article><div class="rest"><article class="card "><img class="ph" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/31/1793455370-24877546_large.jpg" alt="I 500 soldati a Milano resteranno fino a marzo" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Italia · Sicurezza</div><h3>I 500 soldati a Milano resteranno fino a marzo</h3><p>La <span class="term" role="button" tabindex="0" data-d="La legge con cui ogni anno il governo decide entrate e spese dello Stato per l&#x27;anno dopo; va approvata entro il 31 dicembre.">legge di bilancio</span> prolunga fino al 31 marzo 2027 la presenza dei 500 militari mandati a Milano dopo i disordini del 17 e 18 ottobre; prima dovevano andarsene a fine dicembre. I tre mesi in più costano oltre 6 milioni, che si aggiungono ai quasi 5 già stanziati. Il Parlamento però può ancora cambiare la norma.</p><p>I paracadutisti della <span class="term nome org" role="button" tabindex="0" data-d="La brigata di paracadutisti dell&#x27;Esercito italiano.">Folgore</span> presidiano piazza Duomo e le stazioni insieme ai soldati di <span class="term" role="button" tabindex="0" data-d="L&#x27;operazione con cui circa 6mila militari sorvegliano palazzi, ambasciate e luoghi di culto nelle città italiane; non possono arrestare né indagare." data-x="I soldati fanno da presidio fisso, ma per fermare qualcuno devono chiamare polizia o carabinieri. Chi la sostiene dice che dà sicurezza; chi la critica dice che costa molto e che servirebbero più agenti veri.">Strade sicure</span>. Il governo voleva dar loro poteri di polizia, come l&#x27;arresto, ma ha rinunciato dopo le obiezioni del <span class="term" role="button" tabindex="0" data-d="Il palazzo di Roma dove lavora il presidente della Repubblica; si usa per indicare la presidenza stessa.">Quirinale</span>. Il giornalista <span class="term nome" role="button" tabindex="0" data-d="Giornalista ed ex direttore di Repubblica e della Stampa, candidato sindaco di Milano per il centrosinistra in attesa delle primarie.">Mario Calabresi</span> ha criticato la scelta: «Non abbiamo bisogno di militarizzare Milano», meglio usare i soldi per poliziotti ed educatori.</p><p class="src"><a href="https://www.ilpost.it/2026/10/31/legge-bilancio-2027-proroga-500-soldati-milano/" target="_blank" rel="noopener">Fonte: Il Post</a></p></article><article class="card "><div class="kick">Italia · Manovra</div><h3>Manovra, ai ministeri tagli per 4,7 miliardi in tre anni</h3><p>La manovra prevede che i ministeri spendano circa 4,7 miliardi in meno tra il 2027 e il 2029: 1,62 miliardi nel 2027, 1,23 nel 2028 e 1,84 nel 2029. Sono soprattutto soldi per le <span class="term" role="button" tabindex="0" data-d="Le spese per investimenti che durano nel tempo, come opere pubbliche, macchinari e infrastrutture, diverse da stipendi e spese correnti." data-x="Lo Stato divide le spese in due tipi: quelle correnti, che si ripetono ogni anno (stipendi, affitti, bollette), e quelle in conto capitale, che servono a costruire qualcosa che dura (strade, ponti, scuole). Spostare gli investimenti agli anni successivi è un modo per far quadrare i conti oggi, rimandando la spesa.">spese in conto capitale</span>, che verranno poi aumentate nel triennio 2030–2032: l&#x27;obiettivo dichiarato è programmare meglio gli investimenti. Il taglio più grande riguarda il ministero dell&#x27;Economia, poi quelli dei Trasporti e dell&#x27;Interno.</p><p class="src"><a href="https://ansa.it/sito/notizie/topnews/2026/10/31/manovra-dai-ministeri-tagli-alla-spesa-per-47-miliardi-in-tre-anni_2f6684c3-67d7-4626-92a3-97e76d063d03.html" target="_blank" rel="noopener">Fonte: ANSA</a></p></article><article class="card "><img class="ph" src="https://www.ansa.it/webimages/img_1280x720/2026/10/30/7beda1874dfb4d795188bdf3d5a5968d.jpg" alt="Schlein: «Una parte dell&#x27;establishment non vuole la sinistra al governo»" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Italia · Politica</div><h3>Schlein: «Una parte dell&#x27;establishment non vuole la sinistra al governo»</h3><p>La segretaria del Pd <span class="term nome" role="button" tabindex="0" data-d="Segretaria del Partito democratico, il principale partito del centrosinistra, dal 2023.">Elly Schlein</span> ha detto che una parte dell&#x27;<span class="term" role="button" tabindex="0" data-d="Le persone e i gruppi che hanno potere in un Paese: grandi aziende, banche, giornali, alti funzionari.">establishment</span> non vuole la sinistra al governo e che «non è una novità». Lo dice nel nuovo libro di <span class="term nome" role="button" tabindex="0" data-d="Giornalista Rai, conduttore di «Porta a Porta».">Bruno Vespa</span> che esce domani.</p><p>Ricorda che nel gennaio 2023 il Pd era al 14% nei sondaggi e alle europee del 2024 è arrivato al 24%, e rivendica un partito autonomo e progressista: chi non lo accetta «se ne faccia una grandissima ragione». Non cita nomi; l&#x27;ANSA non riporta reazioni di altri partiti.</p><p class="src"><a href="https://www.ansa.it/sito/notizie/politica/2026/10/31/schlein-parte-dellestablishment-non-vuole-la-sinistra-al-governo_08f75907-7083-4b48-8b49-86de1594dbfd.html" target="_blank" rel="noopener">Fonte: ANSA</a></p></article><article class="card "><div class="kick">Italia · Cronaca</div><h3>Cantù, accoltellato al bar durante una lite: muore un falegname di 55 anni</h3><p>Oggi all&#x27;inizio del pomeriggio, in un bar di via Montello a Cantù, in provincia di Como, un falegname di 55 anni è stato colpito con due coltellate durante una lite ed è morto all&#x27;ospedale Sant&#x27;Anna di Como. I carabinieri hanno <span class="term" role="button" tabindex="0" data-d="Il fermo è un arresto deciso dalla polizia o dai pm quando c&#x27;è il rischio che il sospettato scappi; poi lo controlla un giudice.">fermato</span> un altro cliente del bar, ritenuto il presunto autore.</p><p class="src"><a href="https://www.ansa.it/sito/notizie/topnews/2026/10/31/muore-dopo-essere-stato-accoltellato-al-bar-un-fermo-nel-comasco_054c94e1-3a05-4ae7-b0ec-706aa25a3d35.html" target="_blank" rel="noopener">Fonte: ANSA</a></p></article><article class="card "><div class="kick">Italia · Lavoro</div><h3>Frosinone, operaio cade dal tetto di una scuola e muore dopo due giorni</h3><p>Davide Di Scala, operaio edile di 38 anni di una ditta di Itri, è morto in ospedale a Frosinone. Giovedì mattina era caduto dal tetto della palestra della scuola elementare Amedeo Maiuri mentre lavorava al rifacimento di un solaio: all&#x27;arrivo del 118 era cosciente e non sembrava grave, ma poi le sue condizioni sono peggiorate, probabilmente per un&#x27;emorragia interna.</p><p>La Procura ha disposto l&#x27;<span class="term" role="button" tabindex="0" data-d="L&#x27;esame del corpo dopo la morte per capirne le cause.">autopsia</span> per capire se abbia avuto un malore o se la caduta abbia altre cause. Hanno fatto i rilievi la polizia e lo <span class="term" role="button" tabindex="0" data-d="Il servizio dell&#x27;Asl che controlla la sicurezza nei luoghi di lavoro e indaga sugli incidenti.">Spresal</span>.</p><p class="src"><a href="https://www.ansa.it/sito/notizie/cronaca/2026/10/31/morto-dopo-due-giorni-operaio-edile-di-itri-caduto-dal-tetto_d18cc73c-1359-4b7b-ba99-2257fefcc58d.html" target="_blank" rel="noopener">Fonte: ANSA</a></p></article><article class="card "><img class="ph" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/31/1793445635-ilpost_20261031121714357_6dcd9988e222500c5b225161cab7ccc8.jpg" alt="È morta Nonna Silvi, la nonna toscana delle ricette sui social" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Italia · Internet</div><h3>È morta Nonna Silvi, la nonna toscana delle ricette sui social</h3><p>È morta a 85 anni Silvana Bini, conosciuta come Nonna Silvi: i suoi video di ricette della tradizione toscana, girati nel forno di famiglia a <span class="term" role="button" tabindex="0" data-d="Un paese della provincia di Firenze, in Toscana.">Castelfiorentino</span>, erano seguiti da milioni di persone su Instagram e TikTok. Aveva cominciato nell&#x27;ottobre 2022, quando il nipote Gabriele iniziò a riprenderla mentre cucinava. La notizia è stata data dai suoi profili social.</p><p class="src"><a href="https://www.ilpost.it/2026/10/31/nonna-silvi-morta" target="_blank" rel="noopener">Fonte: Il Post</a></p></article></div></div><footer class="folio"><span class="fm">Il Corriere dello Steruz · Anno I · N. 17 · Sabato 31 ottobre 2026 · edizione della sera · Lumezzane (BS)</span></footer></div></section><section class="page mon" data-name="Dal mondo" hidden><div class="in"><header class="pghead"><h2>Dal mondo</h2><span><span class="gc">C</span>orriere dello <span class="gc">S</span>teruz</span></header><div class="grid"><article class="card lead wf"><div class="lp"><img class="ph" src="https://www.ansa.it/webimages/img_1280x720/2026/10/31/72227c5f19cf8da96480b874c13acab6.jpg" alt="Francia, terzo sabato di proteste: 320mila in piazza, scontri a Parigi e Marsiglia" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"></div><div class="lt"><div class="kick">Mondo · Francia · Aggiornamento</div><h3>Francia, terzo sabato di proteste: 320mila in piazza, scontri a Parigi e Marsiglia</h3><p>Stamattina avevamo raccontato i preparativi: oggi in Francia hanno manifestato 320mila persone secondo il ministero dell&#x27;Interno, meno dei 410mila di una settimana fa e dei 550mila del 17 ottobre. A Parigi erano 70mila secondo la <span class="term" role="button" tabindex="0" data-d="L&#x27;ufficio che rappresenta il governo in una provincia e si occupa anche dell&#x27;ordine pubblico.">prefettura</span>. Il movimento protesta contro il governo e il caro vita: è nato a settembre tra gli studenti delle superiori e si è allargato a partiti, sindacati e <span class="term nome org" role="button" tabindex="0" data-d="Un movimento di protesta francese nato nel 2018 contro il caro carburante, che prende il nome dai giubbotti catarifrangenti.">gilet gialli</span>.</p><p>A Parigi il corteo era tranquillo, poi vicino a Porte de Charenton gruppi di <span class="term" role="button" tabindex="0" data-d="In francese «spaccatori»: chi si infiltra nei cortei per distruggere e scontrarsi con la polizia." data-x="Sono gruppi di solito piccoli, spesso vestiti di nero e col volto coperto, che si staccano da cortei pacifici per rompere vetrine e attaccare la polizia. La parola si usa anche nei giornali italiani. Le loro azioni spesso finiscono per oscurare le ragioni della protesta.">casseurs</span> hanno lanciato fuochi d&#x27;artificio contro la polizia, che ha risposto con cariche e lacrimogeni. A Marsiglia, dove la manifestazione non era annunciata, sono stati usati idranti e lacrimogeni; tensioni anche a Tolosa e Rennes. Il leader della sinistra radicale <span class="term nome" role="button" tabindex="0" data-d="Leader della France Insoumise, il principale partito della sinistra radicale francese.">Jean-Luc Mélenchon</span> ha sfilato a Parigi: «Le nostre rivendicazioni sono un diritto».</p><p class="src"><a href="https://ansa.it/sito/notizie/mondo/2026/10/31/via-al-corteo-parigino-in-100.000-sfilano-nella-periferia-est-si-teme-la-presenza_2c093ef1-cc85-4d03-bcc4-4d553004fd49.html" target="_blank" rel="noopener">Fonte: ANSA</a></p></div></article><div class="rest"><article class="card "><img class="ph" src="https://www.ansa.it/webimages/img_1280x720/2026/10/31/0e85bd5c34fdea1571b8fcd89e1cf8d7.jpg" alt="Gli sfollati di Oleshky tornano in Ucraina, ma Mosca accusa Kiev di aver violato la tregua" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Mondo · Guerra in Ucraina · Aggiornamento</div><h3>Gli sfollati di Oleshky tornano in Ucraina, ma Mosca accusa Kiev di aver violato la tregua</h3><p>Gli abitanti evacuati da <span class="term" role="button" tabindex="0" data-d="Una città della regione di Kherson, nel sud dell&#x27;Ucraina, occupata dai russi e rimasta per mesi isolata.">Oleshky</span> sono rientrati in territorio ucraino in autobus, attraversando il confine nella regione di Chernihiv; non si sa quanti siano. È stato possibile grazie a una <span class="term" role="button" tabindex="0" data-d="Una pausa nei combattimenti per permettere di soccorrere o spostare i civili." data-x="Non è la fine della guerra: le due parti si impegnano a non sparare in una zona e per un tempo preciso, di solito con un Paese terzo che fa da garante. Secondo Mosca questa tregua scade il 1° novembre; è stata definita la più lunga tra russi e ucraini dal 2022.">tregua umanitaria</span> mediata dagli Stati Uniti: il presidente ucraino <span class="term nome" role="button" tabindex="0" data-d="Presidente dell&#x27;Ucraina dal 2019, guida il Paese nella guerra contro la Russia.">Volodymyr Zelensky</span> ha ringraziato gli americani e Melania Trump. Mosca accusa Kiev di aver violato la tregua colpendo con un drone un&#x27;auto civile, con due feriti; Kiev nega.</p><p>Zelensky ha detto che i 500 missili <span class="term" role="button" tabindex="0" data-d="Un sistema di difesa aerea americano che abbatte missili e aerei nemici.">Patriot</span> venduti dagli Usa arriveranno tra anni e ha chiesto ai partner 100 intercettori al mese per l&#x27;inverno. Nella notte un attacco con droni russi ha ucciso almeno una persona nella regione di Dnipropetrovsk.</p><p class="src"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/31/rientrati-in-ucraina-gli-sfollati-oleshky.-ma-mosca-accusa-kiev-ha-violato-la-tregua_bae448a2-c0d3-44e5-9cdd-029b563447d2.html" target="_blank" rel="noopener">Fonte: ANSA</a></p></article><article class="card "><img class="ph" src="https://www.ansa.it/webimages/img_1280x720/2026/10/31/727663ea769632d90941ccf74e02d1a2.jpg" alt="Khamenei ai militari: risposta immediata a ogni minaccia, «senza limiti geografici»" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Mondo · Usa e Iran</div><h3>Khamenei ai militari: risposta immediata a ogni minaccia, «senza limiti geografici»</h3><p>La Guida suprema dell&#x27;Iran <span class="term nome" role="button" tabindex="0" data-d="Guida suprema dell&#x27;Iran, la carica più alta del Paese, sopra il presidente.">Mojtaba Khamenei</span> ha ordinato ai comandanti delle forze armate di rispondere subito e con forza a qualsiasi minaccia, «senza restrizioni geografiche». Il portavoce dell&#x27;esercito ha avvertito che, se gli Usa faranno altre mosse azzardate, la guerra si allargherà; secondo i media americani <span class="term nome" role="button" tabindex="0" data-d="Presidente degli Stati Uniti, repubblicano, al secondo mandato dal 2025.">Donald Trump</span> vorrebbe riprenderla dopo le elezioni di metà mandato.</p><p>Intanto il ministro degli Esteri <span class="term nome" role="button" tabindex="0" data-d="Ministro degli Esteri dell&#x27;Iran.">Abbas Araghchi</span> ha detto che una delegazione iraniana è in Qatar per trattare. Per riaprire lo <span class="term" role="button" tabindex="0" data-d="Il braccio di mare tra Iran e penisola arabica da cui passa una grande parte del petrolio mondiale." data-x="Lo attraversano le petroliere che partono dal Golfo Persico. Se viene chiuso, il prezzo del petrolio sale in tutto il mondo, e con lui quello di benzina e gasolio anche in Italia. Per questo è la principale carta che l&#x27;Iran usa nelle trattative con gli Usa.">Stretto di Hormuz</span> l&#x27;Iran chiede, tra l&#x27;altro, la fine delle <span class="term" role="button" tabindex="0" data-d="Punizioni economiche decise da uno o più Paesi contro un altro, come divieti di commercio o fondi bloccati.">sanzioni</span>, meno forze americane nella regione e lo sblocco dei fondi congelati.</p><p class="src"><a href="https://www.ansa.it/sito/notizie/mondo/2026/10/31/layatollah-khamenei-agli-usa-risponderemo-a-ogni-minaccia_3cf54edb-3eec-4388-ae57-c19b268c5d39.html" target="_blank" rel="noopener">Fonte: ANSA</a></p></article><article class="card "><img class="ph" src="https://static-prod.cdnilpost.com/wp-content/uploads/2026/10/31/1793434184-AP26301633331243.jpg" alt="Flávio Bolsonaro scappa negli Usa: «Persecuzione politica»" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Mondo · Brasile</div><h3>Flávio Bolsonaro scappa negli Usa: «Persecuzione politica»</h3><p>Il senatore brasiliano <span class="term nome" role="button" tabindex="0" data-d="Senatore brasiliano di destra e candidato sconfitto alle ultime presidenziali, figlio dell&#x27;ex presidente Jair Bolsonaro.">Flávio Bolsonaro</span> ha detto in una diretta su Instagram di aver lasciato il Brasile per sfuggire a una «persecuzione politica». È arrivato a Miami martedì, dopo la scadenza entro cui doveva consegnare i passaporti: lo aveva ordinato il giudice della Corte suprema <span class="term nome" role="button" tabindex="0" data-d="Giudice della Corte suprema del Brasile, che ha seguito le inchieste contro la famiglia Bolsonaro.">Alexandre de Moraes</span> in un&#x27;indagine per sospetto <span class="term" role="button" tabindex="0" data-d="Il reato di chi rende «puliti» soldi guadagnati in modo illegale, facendoli passare per attività lecite." data-x="Chi ha soldi da attività illegali non può spenderli apertamente senza farsi scoprire. Allora li fa passare attraverso società, conti esteri o acquisti di beni, finché sembrano guadagni normali. È un reato grave in quasi tutti i Paesi.">riciclaggio</span>.</p><p>Alle presidenziali <span class="term nome" role="button" tabindex="0" data-d="Presidente del Brasile, leader della sinistra, rieletto alle ultime elezioni.">Luiz Inácio Lula da Silva</span> lo ha battuto con oltre 4,4 milioni di voti di vantaggio: Flávio contesta il risultato senza prove e dice di essere pronto a ricandidarsi. Il padre, ex presidente, è agli arresti domiciliari.</p><p class="src"><a href="https://www.ilpost.it/2026/10/31/flavio-bolsonaro-fuga-persecuzione-politica/" target="_blank" rel="noopener">Fonte: Il Post</a></p></article><article class="card "><div class="kick">Mondo · Stati Uniti</div><h3>California, spari in un negozio di costumi di Halloween: un morto e sei feriti</h3><p>Poche ore prima di Halloween qualcuno ha sparato dentro un negozio <span class="term nome org" role="button" tabindex="0" data-d="Una catena americana di negozi che vendono costumi e decorazioni per Halloween.">Spirit Halloween</span> in un centro commerciale di Fairfield, nel nord della California, a circa 76 chilometri da San Francisco. Secondo il capo della polizia Dan Marshall c&#x27;è almeno un morto e sei persone sono in ospedale con ferite da arma da fuoco, almeno tre gravi. Chi ha sparato non è ancora stato identificato.</p><p class="src"><a href="https://www.giornaledibrescia.it/italia-e-estero/sparatoria-in-un-negozio-di-articoli-per-halloween-in-california-un-morto-e-6-feriti-ugd19p1k" target="_blank" rel="noopener">Fonte: Giornale di Brescia</a></p></article><article class="card "><div class="kick">Mondo · Russia</div><h3>Mosca, l&#x27;ambasciata Usa: «Minaccia credibile» contro il museo Tsaritsyno</h3><p>L&#x27;ambasciata degli Stati Uniti a Mosca ha avvisato di una «minaccia credibile» contro il museo di <span class="term" role="button" tabindex="0" data-d="Un grande complesso di palazzi e parco nel sud di Mosca, oggi museo.">Tsaritsyno</span>. Ha detto che il governo americano si sta coordinando con le autorità russe; non ha spiegato di che minaccia si tratti e l&#x27;ANSA non riporta reazioni di Mosca.</p><p class="src"><a href="https://www.ansa.it/sito/notizie/mondo/europa/2026/10/31/ambasciata-usa-registrata-una-minaccia-credibile-al-museo-tsaritsyno-di-mosca_0b3c418a-bd23-45bb-8420-3ed702fb65ef.html" target="_blank" rel="noopener">Fonte: ANSA</a></p></article></div></div><footer class="folio"><span class="fm">Il Corriere dello Steruz · Anno I · N. 17 · Sabato 31 ottobre 2026 · edizione della sera · Lumezzane (BS)</span></footer></div></section><section class="page tec" data-name="Tecnologia" hidden><div class="in"><header class="pghead"><h2>Tecnologia</h2><span><span class="gc">C</span>orriere dello <span class="gc">S</span>teruz</span></header><div class="grid"><article class="card lead wf"><div class="lp"><img class="ph" src="https://www.hwupgrade.it/i/n/project-suncatcher_720.jpg" alt="Google accende l&#x27;IA nello spazio: il primo satellite con chip TPU risponde da orbita" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"></div><div class="lt"><div class="kick">Tecnologia · Spazio</div><h3>Google accende l&#x27;IA nello spazio: il primo satellite con chip TPU risponde da orbita</h3><p>Google ha acceso i chip del primo satellite del progetto Suncatcher, che studia come portare il calcolo per l&#x27;intelligenza artificiale nello spazio. A bordo ci sono quattro <span class="term" role="button" tabindex="0" data-d="Tensor Processing Unit: i chip progettati da Google apposta per far girare l&#x27;intelligenza artificiale." data-x="Sono l&#x27;alternativa di Google alle schede video di Nvidia usate in quasi tutti i data center dell&#x27;IA. Mandarle in orbita serve a capire se un giorno si potranno costruire «data center spaziali» alimentati dal Sole, senza consumare energia e acqua sulla Terra. Il problema sono le radiazioni, che possono alterare i dati nei chip.">TPU</span>; il satellite è partito a inizio ottobre su un razzo Falcon 9 di SpaceX e, dopo tre settimane di controlli, il modello Gemma 4 ha scritto un <span class="term" role="button" tabindex="0" data-d="Una breve poesia giapponese di tre versi.">haiku</span> sullo spazio.</p><p>Per ora il satellite produce al massimo 1 kW e può usare un solo chip alla volta per circa 20 minuti. Nel 2027 Google vuole lanciare altri due satelliti più potenti, collegati tra loro con il laser. Bisogna capire se i chip reggono gli sbalzi di temperatura e le radiazioni, che possono cambiare i dati in memoria.</p><p class="src"><a href="https://www.hwupgrade.it/news/scienza-tecnologia/google-accende-il-primo-satellite-con-chip-ai-gemma-4-genera-una-risposta-dallo-spazio_161387.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></p></div></article><div class="rest"><article class="card "><div class="kick">Tecnologia · Intelligenza artificiale</div><h3>Il rumore delle 69 turbine di xAI: l&#x27;azienda di Musk prova a comprare le case dei vicini</h3><p>A Southaven, nel Mississippi, <span class="term nome org" role="button" tabindex="0" data-d="L&#x27;azienda di intelligenza artificiale di Elon Musk, quella del chatbot Grok.">xAI</span> cerca di comprare 418 case del quartiere Colonial Hills, vicino alla centrale con 69 turbine a gas provvisorie che alimenta i suoi <span class="term" role="button" tabindex="0" data-d="Grandi edifici pieni di computer che fanno funzionare servizi internet e intelligenza artificiale.">data center</span>. Finora 18 proprietari hanno accettato; chi vende deve rinunciare a fare causa per il rumore.</p><p>A giugno alcuni residenti hanno fatto causa: dicono che rumore e vibrazioni hanno danneggiato la loro salute e il valore delle case. xAI respinge le accuse e dice di aver costruito barriere contro il rumore; il sindaco Darren Musselwhite sostiene l&#x27;acquisto delle case e dice che le misure del Comune non hanno trovato rumori oltre il limite di 70 decibel.</p><p class="src"><a href="https://www.hwupgrade.it/news/web/il-rumore-delle-69-turbine-e-insostenibile-xai-si-offre-di-comprare-le-case-dei-residenti_161388.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></p></article><article class="card "><img class="ph" src="https://www.hwupgrade.it/i/n/nasa-voyager-1-upt-pro-2-24_720.jpg" alt="Voyager 1 risparmia energia per vivere di più: il 18 novembre sarà a un giorno-luce dalla Terra" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Tecnologia · Spazio</div><h3>Voyager 1 risparmia energia per vivere di più: il 18 novembre sarà a un giorno-luce dalla Terra</h3><p>Il <span class="term nome org" role="button" tabindex="0" data-d="Il Jet Propulsion Laboratory, il centro della Nasa in California che costruisce e guida le sonde spaziali.">JPL</span> ha completato su Voyager 1 una procedura chiamata «Big Bang»: ha spento tre apparecchi di bordo e li ha sostituiti con altri che consumano meno, come già fatto ad agosto su Voyager 2. La sonda, lanciata negli anni Settanta, si alimenta con un <span class="term" role="button" tabindex="0" data-d="Un generatore che produce elettricità dal calore del plutonio radioattivo; si usa sulle sonde troppo lontane dal Sole per i pannelli solari." data-x="Il plutonio, decadendo, scalda; il generatore trasforma quel calore in elettricità, senza parti in movimento. Ma ogni anno il plutonio produce un po&#x27; meno calore, quindi la sonda ha sempre meno energia: per farla durare gli ingegneri spengono via via gli strumenti meno importanti.">RTG</span> che perde circa 4 watt all&#x27;anno.</p><p>Il 18 novembre Voyager 1 arriverà a un <span class="term" role="button" tabindex="0" data-d="La distanza che la luce percorre in un giorno: circa 26 miliardi di chilometri.">giorno-luce</span> dalla Terra. Il 18 e 19 ottobre la sonda non aveva risposto a due contatti programmati; il segnale è tornato il 20 ottobre e la causa non è ancora chiara.</p><p class="src"><a href="https://www.hwupgrade.it/news/scienza-tecnologia/il-jpl-estende-la-vita-operativa-della-sonda-spaziale-nasa-voyager-1_161402.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></p></article><article class="card "><img class="ph" src="https://www.hwupgrade.it/i/n/galaxys26ultra_720_1_720.jpg" alt="Galaxy S27, la ricarica resta ferma a 25 watt" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Tecnologia · Smartphone</div><h3>Galaxy S27, la ricarica resta ferma a 25 watt</h3><p>Le nuove <span class="term" role="button" tabindex="0" data-d="I controlli che un prodotto deve passare prima di essere venduto; i documenti pubblici spesso svelano le caratteristiche prima dell&#x27;uscita.">certificazioni</span> confermano che il Galaxy S27 base di Samsung si ricaricherà via cavo a 25 watt, come il Galaxy S26. Per i modelli Plus e Ultra si aspetta una ricarica più veloce, ma non ci sono ancora conferme. Samsung dovrebbe presentare quattro modelli tra fine gennaio e inizio febbraio 2027.</p><p class="src"><a href="https://www.hwupgrade.it/news/telefonia/galaxy-s27-la-ricarica-resta-a-25w-lo-confermano-le-nuove-certificazioni_161359.html" target="_blank" rel="noopener">Fonte: HWupgrade</a></p></article></div></div><footer class="folio"><span class="fm">Il Corriere dello Steruz · Anno I · N. 17 · Sabato 31 ottobre 2026 · edizione della sera · Lumezzane (BS)</span></footer></div></section><section class="page mus" data-name="Musica" hidden><div class="in"><header class="pghead"><h2>Musica</h2><span><span class="gc">C</span>orriere dello <span class="gc">S</span>teruz</span></header><div class="grid"><article class="card lead wf"><div class="lp"><img class="ph" src="https://www.allmusicitalia.it/wp-content/uploads/2026/06/rkomi-a-milano-fabrique-2026.jpg" alt="Rkomi, cinque serate al Fabrique di Milano: quattro già sold out" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"></div><div class="lt"><div class="kick">Musica · Concerti</div><h3>Rkomi, cinque serate al Fabrique di Milano: quattro già sold out</h3><p><span class="term nome" role="button" tabindex="0" data-d="Mirko Martorana, rapper milanese di Calvairate, tra i nomi più noti della nuova generazione.">Rkomi</span> porta dal vivo il suo EP «A Milano» con cinque concerti al Fabrique di Milano: il 3, 4, 11, 13 e 24 novembre. Le prime quattro date sono <span class="term" role="button" tabindex="0" data-d="Tutto esaurito: i biglietti sono finiti.">sold out</span>; per il 24 novembre i biglietti costano da 39 euro più commissioni.</p><p>L&#x27;EP, uscito il 9 ottobre per Island Records, ha otto brani con Promessa, Khodi e <span class="term nome" role="button" tabindex="0" data-d="Emanuele Frasca, rapper romano tra i padri dell&#x27;hardcore rap italiano.">Noyz Narcos</span>. Nei concerti ci saranno anche i pezzi dei primi dischi, come «Dasein Sollen», «Io in Terra» e «Ossigeno».</p><p class="src"><a href="https://www.allmusicitalia.it/tour/rkomi-a-milano-fabrique-ep.html" target="_blank" rel="noopener">Fonte: All Music Italia</a></p></div></article><div class="rest"><article class="card "><img class="ph" src="https://www.rapologia.it/wp-content/uploads/2026/10/Lelfo.jpg" alt="L&#x27;Elfo torna con «Sicilia Bedda»: dodici tracce su Catania" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Musica · Nuovo album</div><h3>L&#x27;Elfo torna con «Sicilia Bedda»: dodici tracce su Catania</h3><p>Il rapper catanese <span class="term nome" role="button" tabindex="0" data-d="Rapper di Catania, noto per i testi crudi sulla strada e sulla sua città, a metà tra italiano e dialetto.">L&#x27;Elfo</span> ha pubblicato il nuovo album «Sicilia Bedda»: dodici tracce prodotte tutte da Funkyman, per Shut Up Records e Time 2 Rap. Mescola italiano e dialetto e parla di radici siciliane, strada, amore e identità. Era stato anticipato dalla title track e da «Mi fissai cu tia».</p><p class="src"><a href="https://www.rapologia.it/l-elfo-sicilia-bedda-nuovo-album/" target="_blank" rel="noopener">Fonte: Rapologia</a></p></article><article class="card "><img class="ph" src="https://www.rapologia.it/wp-content/uploads/2026/10/Egreen-Peter-Wit-Craim.jpg" alt="Egreen, Peter Wit e DJ Craim non hanno finito: esce «Altra M.E.R.D.A.»" loading="lazy" referrerpolicy="no-referrer" onerror="var c=this.closest('.lead');if(c)c.classList.remove('wf');(this.closest('.lp')||this).remove()"><div class="kick">Musica · Nuove tracce</div><h3>Egreen, Peter Wit e DJ Craim non hanno finito: esce «Altra M.E.R.D.A.»</h3><p>Due settimane dopo il disco in comune «M.E.R.D.A.», i rapper <span class="term nome" role="button" tabindex="0" data-d="Rapper tra i nomi più noti del rap indipendente italiano.">Egreen</span> e <span class="term nome" role="button" tabindex="0" data-d="Rapper della scena underground italiana.">Peter Wit</span> e il produttore <span class="term nome" role="button" tabindex="0" data-d="Produttore e dj, autore di tutte le basi del progetto e della sua direzione musicale.">DJ Craim</span> aggiungono quattro brani: «Altra M.E.R.D.A.» non è una <span class="term" role="button" tabindex="0" data-d="Una nuova versione di un album con brani in più.">deluxe</span> né un disco separato, ma porta il progetto da dieci a quattordici tracce. Il 15 gennaio lo presenteranno dal vivo al Legend Club di Milano.</p><p class="src"><a href="https://www.rapologia.it/egreen-peter-wit-altra-m-e-r-d-a/" target="_blank" rel="noopener">Fonte: Rapologia</a></p></article></div></div><div class="car muscar"><div class="track"><section class="card box-mus"><div class="kick">Musica · Uscite</div><p class="sotto">Rap italiano · venerdì 30 ottobre</p><ul class="usc"><li><span class="cov" data-img="https://i.scdn.co/image/ab67616d0000b2732cc25890b655c2e053ae85ff">K</span><i>Album</i><b>Kid Yugi</b><span>Anche gli eroi muoiono Post Mortem</span></li><li><span class="cov" data-img="https://i.scdn.co/image/ab67616d0000b273b288eea3d9ee92c196b74f55">F</span><i>Singolo</i><b>Finesse, Capo Plaza, Tony Boy e Skrilla</b><span>Zombieland</span></li><li><span class="cov" data-q="Dagood YL Demonio in attesa della grazia" data-e="album" data-alt="https://www.allmusicitalia.it/wp-content/uploads/2026/10/dagood-yl-demonio-deluxe-nena.jpg">D</span><i>Album</i><b>Dagood YL</b><span>Demonio, in attesa della grazia</span></li></ul></section><section class="card box-mus"><div class="kick">Musica · Album FIMI</div><p class="sotto">I più venduti · 23–29 ottobre</p><ol class="clas"><li><span class="cov" data-img="https://media.fimi.it/folder_13/9da7f8c101ec8bccabeb19ec82ed0ef1-small.jpg">C</span><b>Amateur</b><span>Cesare Cremonini</span><em>nuovo</em></li><li><span class="cov" data-img="https://media.fimi.it/folder_12/155c67895b5a6ea66ce8a99de83ed469-small.jpg">G</span><b>Tutto è possibile. Atto II</b><span>Geolier</span><em>▼1</em></li><li><span class="cov" data-img="https://media.fimi.it/folder_4/99bc7dfb4de49485e12ce418ca02a449.jpg">F</span><b>Dopamine Chamber</b><span>Fontaines D.C.</span><em>▼1</em></li><li><span class="cov" data-img="https://media.fimi.it/folder_16/571a2a89399cb3c29cea61502f4cc6e5.jpg">O</span><b>Tutta vita (sempre)</b><span>Olly</span><em>▲1</em></li><li><span class="cov" data-img="https://media.fimi.it/folder_17/b8fe8d935a9fa503781f1362dbdf0992-small.jpg">2</span><b>Miria</b><span>22Simba</span><em>▼1</em></li></ol><p class="src">Fonte: FIMI/NIQ, settimana 44</p></section><section class="card box-mus"><div class="kick">Musica · Singoli FIMI</div><p class="sotto">I più venduti · 23–29 ottobre</p><ol class="clas"><li><span class="cov" data-img="https://media.fimi.it/folder_12/155c67895b5a6ea66ce8a99de83ed469-small.jpg">G</span><b>Non sei più tu</b><span>Geolier feat. Lazza</span><em>=</em></li><li><span class="cov" data-img="https://media.fimi.it/folder_5/ad289ee7918635607f9ad14bfaa05230-small.jpg">G</span><b>Per noi</b><span>Geolier feat. Achille Lauro</span><em>▲1</em></li><li><span class="cov" data-img="https://media.fimi.it/folder_7/64858b060f1dd7386cadc1c45c759964-small.jpg">S</span><b>Lontano</b><span>Sfera Ebbasta</span><em>▲2</em></li><li><span class="cov" data-img="https://media.fimi.it/folder_6/4a72336b288041d1169a70eaf08febd7.jpg">G</span><b>Canzone d&#x27;amore</b><span>Geolier</span><em>▲2</em></li><li><span class="cov" data-img="https://media.fimi.it/folder_13/af2ec37632d4226e2a230a3f67aabb92.jpg">K</span><b>Bby Wow</b><span>Karol G, Judeline e Rusowsky</span><em>▲7</em></li></ol><p class="src">Fonte: FIMI/NIQ, settimana 44</p></section></div><div class="dots" aria-hidden="true"></div></div><footer class="folio"><span class="fm">Il Corriere dello Steruz · Anno I · N. 17 · Sabato 31 ottobre 2026 · edizione della sera · Lumezzane (BS)</span></footer></div></section><section class="page met" data-name="Meteo" hidden><div class="in"><header class="pghead"><h2>Meteo</h2><span><span class="gc">C</span>orriere dello <span class="gc">S</span>teruz</span></header><div class="grid wx wxm"><article class="card lead"><div class="kick">La situazione</div><h3>Ognissanti più freddo, con pioggia al Nord-Est e neve in Appennino</h3><p>Stasera al Nord nubi in aumento da est. Domenica 1 novembre temperature in calo e venti in rinforzo: piogge intermittenti al Nord, soprattutto in Emilia-Romagna, e neve sull&#x27;Appennino emiliano da circa 1200 metri. Al Centro piogge in aumento sul versante adriatico e neve da 1200–1400 metri, più sole sul Tirreno; al Sud cielo coperto con piogge e rovesci, anche temporaleschi e localmente forti all&#x27;estremo Sud.</p><p>A Lumezzane e Brescia domani pioviggine al mattino, poi a Brescia schiarite nel pomeriggio. Lunedì 2 novembre al Nord tempo più stabile, con qualche pioggia solo in Romagna; maltempo al Sud con rovesci e temporali sulle coste adriatiche e ioniche.</p></article><div class="car wxcar"><div class="track"><article class="card"><div class="kick">Stasera · sabato 31</div><ul class="wxl"><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M8 24h16a6 6 0 0 0 0-12 8 8 0 0 0-15 2.5A5 5 0 0 0 8 24z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><span class="lu">Lumezzane<small>Nuvoloso in serata, niente pioggia</small></span><b>9°–10°</b></li><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M3 12h2M5.5 5.5l1.4 1.4M18.5 5.5l-1.4 1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 26h13a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0 0 8z" fill="var(--paper)" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><span class="lu">Brescia<small>Nubi in aumento in serata</small></span><b>8°–16°</b></li><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M3 12h2M5.5 5.5l1.4 1.4M18.5 5.5l-1.4 1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 26h13a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0 0 8z" fill="var(--paper)" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><span class="lu">Nord<small>Nubi in aumento da est tra sera e notte</small></span><b>max 13°–17°</b></li><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M3 12h2M5.5 5.5l1.4 1.4M18.5 5.5l-1.4 1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 26h13a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0 0 8z" fill="var(--paper)" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><span class="lu">Centro<small>Piogge a tratti sull&#x27;Adriatico, neve in Appennino sopra i 1800 m</small></span><b>max 14°–18°</b></li><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M3 12h2M5.5 5.5l1.4 1.4M18.5 5.5l-1.4 1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 26h13a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0 0 8z" fill="var(--paper)" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><span class="lu">Sud<small>Qualche pioggia all&#x27;estremo Sud e sulle Isole</small></span><b>max 15°–20°</b></li></ul></article><article class="card"><div class="kick">Domani · domenica 1</div><ul class="wxl"><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 20h14a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0-1 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 24l-1.5 4M17 24l-1.5 4M23 24l-1.5 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="lu">Lumezzane<small>Pioviggine</small></span><b>6°–10°</b></li><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 20h14a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0-1 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 24l-1.5 4M17 24l-1.5 4M23 24l-1.5 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="lu">Brescia<small>Pioggia debole al mattino, schiarite nel pomeriggio</small></span><b>8°–13°</b></li><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 20h14a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0-1 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 24l-1.5 4M17 24l-1.5 4M23 24l-1.5 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="lu">Nord<small>Piogge intermittenti, soprattutto in Emilia-Romagna</small></span><b>max 11°–15°</b></li><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 20h14a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0-1 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 24l-1.5 4M17 24l-1.5 4M23 24l-1.5 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="lu">Centro<small>Piogge in aumento sull&#x27;Adriatico, più sole sul Tirreno</small></span><b>max 13°–17°</b></li><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 19h14a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0-1 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M17 20l-4 6h4l-2 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></span><span class="lu">Sud<small>Coperto, piogge e rovesci, temporali all&#x27;estremo Sud</small></span><b>max 12°–17°</b></li></ul></article></div><div class="dots" aria-hidden="true"></div></div></div><section class="wxav"><div class="kick">Avvisi · Domani · domenica 1</div><ul class="avv"><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h15a4 4 0 1 0-4-4"/><path d="M4 18h21a4 4 0 1 1-4 4"/><path d="M4 24h9"/></svg></span>Venti in rinforzo, più forti lunedì</li><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 19h14a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0-1 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 24v4M9 26h4M21 24v4M19 26h4M16 27v4M14 29h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>Neve in Appennino da 1200–1400 metri</li><li><span class="ic"><svg class="wx" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 19h14a5 5 0 0 0 0-10 7 7 0 0 0-13 2 4 4 0 0 0-1 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M17 20l-4 6h4l-2 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></span>Rovesci e temporali localmente forti all&#x27;estremo Sud</li></ul></section><p class="src">Fonti: <a href="https://www.3bmeteo.com/giornale-meteo/ciclone-freddo-luned--con-pioggia-e-neve--attenzione-ai-venti-forti-762739" target="_blank" rel="noopener">3BMeteo</a> · <a href="https://www.3bmeteo.com/meteo/lumezzane/1" target="_blank" rel="noopener">3BMeteo · Lumezzane</a> · <a href="https://www.3bmeteo.com/meteo/brescia/1" target="_blank" rel="noopener">3BMeteo · Brescia</a></p><footer class="gerenza"><div class="kick">Fine dell'edizione</div><div class="gz-row"><a class="gz-b" href="2026-10-31-mattina.html"><i>← Edizione precedente</i><b>Sabato 31 ottobre · mattina</b></a></div><div class="gz-link"><a href="../archivio.html">Tutte le edizioni nell'Archivio →</a><button type="button" data-go="0">↑ Prima pagina</button></div></footer><footer class="folio"><span class="fm">Il Corriere dello Steruz · Anno I · N. 17 · Sabato 31 ottobre 2026 · edizione della sera · Lumezzane (BS)</span></footer></div></section><div class="ush" id="ush" hidden></div><div class="flapw" id="flapw" hidden><div class="flap" id="flap"></div></div></main>
+<nav class="bar" aria-label="Sfoglia"><button type="button" class="nav" id="prev" aria-label="Pagina precedente">←</button><button type="button" class="where" id="where" aria-expanded="false" aria-haspopup="dialog"><span class="name" id="pname">Prima pagina</span><span class="num" id="pnum">Pagina 1 di 7</span></button><button type="button" class="nav" id="next" aria-label="Pagina successiva">→</button></nav>
+<div class="menu" id="menu" hidden><div class="box" role="dialog" aria-label="Sommario e impostazioni"><button class="x" id="mx" type="button" aria-label="Chiudi">×</button><div class="views" id="views"><section class="view" id="vSom"><div class="mh"><span class="g">Sommario</span><small>Edizione della sera · sabato 31 ottobre</small></div><ol class="idx"><li><button type="button" class="pri" data-go="0"><span class="t">Prima pagina</span><span class="dl"></span><b>1</b></button></li><li><button type="button" class="loc" data-go="1"><span class="t">Lumezzane e Brescia</span><span class="dl"></span><b>2</b></button></li><li><button type="button" class="ita" data-go="2"><span class="t">Italia</span><span class="dl"></span><b>3</b></button></li><li><button type="button" class="mon" data-go="3"><span class="t">Dal mondo</span><span class="dl"></span><b>4</b></button></li><li><button type="button" class="tec" data-go="4"><span class="t">Tecnologia</span><span class="dl"></span><b>5</b></button></li><li><button type="button" class="mus" data-go="5"><span class="t">Musica</span><span class="dl"></span><b>6</b></button></li><li><button type="button" class="met" data-go="6"><span class="t">Meteo</span><span class="dl"></span><b>7</b></button></li></ol><div class="mfoot"><button type="button" class="mbtn" id="toSet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Impostazioni</button><button type="button" class="mbtn" id="toArc">≡ Archivio</button></div></section><section class="view" id="vSet" inert><div class="mh"><span class="g">Impostazioni</span><small>Come vuoi leggere il giornale</small></div><div class="row"><span class="lab">Tema</span><div class="seg" id="segTema"><button type="button" data-v="auto">Automatico</button><button type="button" data-v="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>Chiaro</button><button type="button" data-v="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>Scuro</button></div></div><div class="row"><span class="lab">Grandezza del testo</span><div class="seg sz" id="segTesto"><button type="button" data-v="-1" style="font-size:13px" aria-label="Piccolo">A</button><button type="button" data-v="0" style="font-size:16px" aria-label="Normale">A</button><button type="button" data-v="1" style="font-size:19px" aria-label="Grande">A</button><button type="button" data-v="2" style="font-size:22px" aria-label="Molto grande">A</button></div><div class="sample"><div class="kick">Così si legge</div><h3>Titoli e testo crescono insieme</h3><p>Vale per tutto il giornale.</p></div></div><div class="row"><span class="lab">Notizie</span><div class="seg" id="segSchede"><button type="button" data-v="stampa">Stampate sul foglio</button><button type="button" data-v="schede">In schede</button></div></div><div class="row"><span class="lab">Effetto carta</span><div class="cartar"><small>Liscia</small><input type="range" id="cartaR" min="0" max="100" step="5" value="50" aria-label="Effetto carta"><small>Stropicciata</small></div></div><button type="button" class="lnk" id="homebtn"><img src="../icona.png" alt="" width="36" height="36"><span><b>Aggiungi alla schermata Home</b><small>Istruzioni per iPhone e Android</small></span></button><div class="mfoot"><button type="button" class="back" data-som>← Torna al sommario</button></div></section><section class="view" id="vArc" inert><div class="mh"><span class="g">Archivio</span><small>Le ultime edizioni</small></div><ol class="arcl"><li class="day">Sabato 31 ottobre</li><li><a class="on" aria-current="page"><b>Sera</b><small>Stai leggendo</small></a></li><li><a href="2026-10-31-mattina.html"><b>Mattina</b><small>Apri ›</small></a></li><li class="day">Venerdì 30 ottobre</li><li><a href="2026-10-30-sera.html"><b>Sera</b><small>Apri ›</small></a></li><li><a href="2026-10-30-mattina.html"><b>Mattina</b><small>Apri ›</small></a></li><li class="day">Giovedì 29 ottobre</li><li><a href="2026-10-29-sera.html"><b>Sera</b><small>Apri ›</small></a></li><li><a href="2026-10-29-mattina.html"><b>Mattina</b><small>Apri ›</small></a></li><li class="day">Mercoledì 28 ottobre</li><li><a href="2026-10-28-sera.html"><b>Sera</b><small>Apri ›</small></a></li></ol><div class="mfoot"><button type="button" class="back" data-som>← Torna al sommario</button><a class="back tutte" href="../archivio.html">Tutte le edizioni →</a></div></section></div></div></div><div class="guide" id="guide" hidden><div class="box" role="dialog" aria-label="Aggiungi alla schermata Home">
+<button class="x" id="gx" type="button" aria-label="Chiudi">×</button>
+<div class="gh"><img src="../icona.png" alt="" width="60" height="60"><div><b>Il Corriere sulla schermata Home</b><small>Lo apri con un tocco e si vede a tutto schermo, come un'app.</small></div></div>
+<div class="seg" id="segOs"><button type="button" data-v="ios">iPhone e iPad</button><button type="button" data-v="and">Android</button></div>
+<ol class="steps" data-os="ios">
+<li><div>Apri il giornale con <b>Safari</b>.</div></li>
+<li><div>Tocca <span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5v10h14V11h-1"/></svg> Condividi</span> nella barra di Safari. Se non lo vedi, tocca prima <span class="k">···</span> in basso a destra.</div></li>
+<li><div>Scorri l'elenco e tocca <span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi alla schermata Home</span>.</div></li>
+<li><div>Tocca <b>Aggiungi</b> in alto a destra. L'icona del Corriere compare tra le tue app.</div></li></ol>
+<ol class="steps" data-os="and" hidden>
+<li><div>Apri il giornale con <b>Chrome</b>.</div></li>
+<li><div>Tocca <span class="k"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span> in alto a destra.</div></li>
+<li><div>Tocca <span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi a schermata Home</span>. Su alcuni telefoni la voce si chiama <b>Installa app</b>.</div></li>
+<li><div>Conferma con <b>Aggiungi</b> (o <b>Installa</b>). L'icona del Corriere compare nella schermata Home.</div></li></ol>
+<button type="button" class="inst" id="inst" hidden>Aggiungi ora alla schermata Home</button>
+<p class="gok" id="gok" hidden>✓ Stai già leggendo il giornale dall'icona sulla schermata Home.</p>
+</div></div>
+<div class="toast" id="toast" hidden><span id="toastt"></span><button type="button" id="toastb" hidden></button></div>
+<div class="pop" id="pop" hidden><div class="box" role="dialog" aria-live="polite"><button class="x" id="px" type="button" aria-label="Chiudi">×</button><p class="k" id="pk" hidden>Chi è</p><p class="w" id="pw"></p><p class="d" id="pd"></p><button type="button" class="more" id="pmore" hidden>Approfondisci ▾</button><p class="d long" id="pl" hidden></p></div></div>
+<script>(function(){
+  var root=document.documentElement, book=document.getElementById('book');
+  var pages=[].slice.call(book.querySelectorAll('.page')), N=pages.length, cur=0;
+  var prev=document.getElementById('prev'), next=document.getElementById('next'), where=document.getElementById('where'), pname=document.getElementById('pname'), pnum=document.getElementById('pnum');
+  var idx=[].slice.call(document.querySelectorAll('.idx button'));
+  var flapw=document.getElementById('flapw'), flap=document.getElementById('flap'), ush=document.getElementById('ush');
+  var calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function put(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){}}
+
+  // Aggiorna barra, indice e pallini dopo un cambio di pagina
+  function segna(){
+    var p=pages[cur];
+    where.className='where '+p.className.replace(/\b(page|top|under)\b/g,'').trim();
+    pname.textContent=p.dataset.name; pnum.textContent='Pagina '+(cur+1)+' di '+N;
+    prev.disabled=cur===0; next.disabled=cur===N-1;
+    idx.forEach(function(b,k){b.setAttribute('aria-current',k===cur?'page':'false')});
+    dots(); salva();
+  }
+  function show(i,y){
+    if(i<0||i>=N)return;
+    pages.forEach(function(p,k){p.hidden=k!==i});
+    cur=i; pages[i].scrollTop=y||0; segna();
+  }
+
+  /* Pagina che si gira, come un foglio vero.
+     Il dito tiene il bordo del foglio: la piega sta a metà strada tra il bordo di partenza e il dito.
+     Il foglio sopra viene tagliato lungo la piega; il pezzo tagliato si ribalta e diventa il lembo,
+     che mostra il retro della carta con la luce della curva; sotto si vede la pagina nuova con l'ombra. */
+  var R=null;
+  function el(cls,parent){var d=document.createElement('div');d.className=cls;if(parent)parent.appendChild(d);return d}
+  function begin(to,oy){
+    if(R||to===cur||to<0||to>=N)return false;
+    closePop();
+    var dir=to>cur?1:-1, a=pages[cur], b=pages[to];
+    b.scrollTop=0; b.hidden=false;
+    var top=dir>0?a:b, under=dir>0?b:a;
+    top.classList.add('top'); under.classList.add('under'); book.classList.add('turning');
+    var W=book.clientWidth, H=book.clientHeight, sc=top.scrollTop, BIG=Math.ceil(Math.hypot(W,H))*2;
+    R={dir:dir,to:to,top:top,under:under,W:W,H:H,oy:oy,low:oy>H*.5,fx:dir>0?W:-W,fy:oy,BIG:BIG};
+    // Il foglio che si gira è fatto di copie ferme della pagina: a ogni passo cambiano solo le posizioni,
+    // così il telefono non deve ridisegnare niente e la girata resta fluida.
+    flapw.textContent='';
+    var src=top.querySelector('.in'), br=book.getBoundingClientRect(), sr=src.getBoundingClientRect();
+    // la copia deve avere la stessa larghezza e la stessa posizione del testo vero, così va a capo uguale
+    var cw=sr.width.toFixed(2), cx=(sr.left-br.left).toFixed(2), cy=(sr.top-br.top).toFixed(2);
+    function copia(){var w=document.createElement('div');w.className='t-copia';w.style.width=cw+'px';w.style.transform='translate('+cx+'px,'+cy+'px)';var n=src.cloneNode(true);[].forEach.call(n.querySelectorAll('img'),function(i){i.removeAttribute('loading');i.decoding='sync'});w.appendChild(n);return w}
+    R.sh=el('t-ush',flapw);
+    R.clip=el('t-clip',flapw); R.clip.style.width=BIG+'px'; R.clip.style.height=2*BIG+'px';
+    R.wrl=el('t-wrl',R.clip); R.wrl.style.width=W+'px'; R.wrl.style.height=H+'px';
+    var kp=el('t-keep '+top.className.replace(/\b(page|top|under)\b/g,''),R.wrl), kin=copia(); kp.appendChild(kin); kp.style.backgroundPosition='0 0,0 '+(-sc)+'px,0 0';
+    R.fl=el('t-flap',R.wrl);
+    if(root.getAttribute('data-retro')!=='liscio'){
+      var gp=el('gpaper',R.fl); gp.style.backgroundPosition='0 0,0 '+(-sc)+'px';
+      var gi=el('gink',R.fl), gin=copia(); gi.appendChild(gin);
+    }
+    R.cv=el('t-curva',R.fl); R.cv.style.height=2*BIG+'px'; R.sh.style.height=2*BIG+'px';
+    // la pagina vera resta visibile finché le foto della copia non sono pronte: niente lampo di foto vuote
+    R.kp=kp; if(dir<0){top.style.visibility='hidden'}else kp.style.opacity='0';
+    var pronti=[].map.call(kp.querySelectorAll('img'),function(i){return i.decode?i.decode().catch(function(){}):0});
+    var via=function(){if(R&&R.kp===kp&&kp.style.opacity==='0'){kp.style.opacity='';top.style.visibility='hidden'}};
+    Promise.all(pronti).then(function(){requestAnimationFrame(via)}); setTimeout(via,250);
+    flapw.hidden=false; draw(R.fx,R.fy);
+    return true;
+  }
+  function draw(fx,fy){
+    var W=R.W,H=R.H, ox=W, oy=R.oy, BIG=R.BIG;
+    var lim=.3*Math.abs(W-fx); fy=oy+Math.max(-lim,Math.min(lim,fy-oy));
+    // un foglio vero non si piega dritto: il bordo si alza un po' in diagonale, più a metà giro
+    var tilt=.13*(W-fx)*(fx+W)/W*(R.low?-1:1);
+    fy=fy+tilt; R.fx=fx; R.fy=fy-tilt;
+    var dx=ox-fx, dy=oy-fy, L=Math.hypot(dx,dy);
+    if(L<1){dx=1;dy=0;L=1;fx=ox-1}
+    var nx=dx/L, ny=dy/L, mx=(ox+fx)/2, my=(oy+fy)/2, th=Math.atan2(ny,nx)*180/Math.PI;
+    var w=Math.max(8,Math.min(L/2,W)), k=Math.sin(Math.PI*Math.min(1,Math.max(0,(W-fx)/(2*W))));
+    var at='translate('+mx.toFixed(1)+'px,'+my.toFixed(1)+'px) rotate('+th.toFixed(3)+'deg)';
+    // ritaglio: tiene solo la parte del foglio che resta giù (prima della piega)
+    R.clip.style.transform=at+' translate('+(-BIG)+'px,'+(-BIG)+'px)';
+    R.wrl.style.transform='translate('+BIG+'px,'+BIG+'px) rotate('+(-th).toFixed(3)+'deg) translate('+(-mx).toFixed(1)+'px,'+(-my).toFixed(1)+'px)';
+    // lembo: il foglio ribaltato lungo la piega
+    var c=2*(mx*nx+my*ny);
+    R.fl.style.transform='matrix('+[1-2*nx*nx,-2*nx*ny,-2*nx*ny,1-2*ny*ny,c*nx,c*ny].map(function(v){return v.toFixed(4)}).join(',')+')';
+    R.cv.style.transform=at+' translate(0,'+(-BIG)+'px) scaleX('+(w/50).toFixed(3)+')';
+    // ombra sulla pagina nuova, appena oltre la piega
+    var sw=Math.min(70,w*.5);
+    R.sh.style.transform=at+' translate(0,'+(-BIG)+'px) scaleX('+(sw/100).toFixed(3)+')';
+    R.sh.style.opacity=((.45*k+.1)/.55).toFixed(2);
+  }
+  function finish(ok){
+    var r=R; R=null;
+    flapw.hidden=true; flapw.textContent='';
+    r.top.style.visibility=''; r.top.classList.remove('top'); r.under.classList.remove('under'); book.classList.remove('turning');
+    if(ok){pages[cur].hidden=true; pages[r.to].hidden=false; cur=r.to; segna()}
+    else pages[r.to].hidden=true;
+  }
+  function animateTo(tx,ty,ms,done){
+    if(calm){done();return}
+    var sx=R.fx, sy=R.fy, t0=performance.now(), r=R, fatto=false;
+    R.anim=true;
+    function fine(){if(fatto)return;fatto=true;if(R===r){draw(tx,ty);done()}}
+    (function step(now){
+      if(fatto||R!==r)return;
+      var t=Math.max(0,Math.min(1,(now-t0)/ms)), e=1-Math.pow(1-t,3);
+      draw(sx+(tx-sx)*e, sy+(ty-sy)*e);
+      if(t<1)requestAnimationFrame(step);else fine();
+    })(t0);
+    // se Safari smette di disegnare (app in secondo piano, risparmio energetico) la girata si chiude lo stesso
+    setTimeout(fine,ms+400);
+  }
+  // fine del gesto: il foglio va avanti se è oltre metà o se il dito ha dato uno strappo
+  function lascia(v){
+    var ok=R.dir>0?(R.fx<R.W*.25||v<-.45):(R.fx>-R.W*.25||v>.45);
+    var avanti=R.dir>0?ok:!ok;   // "avanti" = il foglio sopra finisce girato a sinistra
+    animateTo(avanti?-R.W-4:R.W,R.oy,ok?380:300,function(){finish(ok)});
+  }
+  // girata con i tasti o dall'indice: parte dall'angolo in basso
+  function go(i){
+    if(i===cur||i<0||i>=N||R)return;
+    if(calm){show(i);return}
+    begin(i,book.clientHeight*.86);
+    if(R.dir>0)animateTo(-R.W-4,R.oy,620,function(){finish(true)});
+    else{R.fx=-R.W;animateTo(R.W,R.oy,620,function(){finish(true)})}
+  }
+  document.addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(g){apri(false);go(+g.dataset.go)}});
+  prev.addEventListener('click',function(){go(cur-1)}); next.addEventListener('click',function(){go(cur+1)});
+
+  // Col dito: si decide dopo i primi millimetri. In verticale scorre la pagina, in orizzontale si gira il foglio.
+  // I caroselli e le parole spiegate restano per conto loro.
+  var P=null, noClick=false;
+  function giu(id,x,y,t){
+    // un gesto rimasto a metà (dito perso da Safari) non deve bloccare i successivi
+    if(P&&performance.now()-P.lt>1500)P=null;
+    if(R&&!R.anim&&!P)finish(false);
+    if(R||P)return;
+    // si può girare partendo anche da una parola spiegata o da un link: il tocco semplice li apre comunque
+    if(t.closest('.track,input'))return;
+    var b=book.getBoundingClientRect();
+    P={id:id,sx:x,sy:y,oy:y-b.top,lock:null,lx:x,lt:performance.now(),v:0};
+  }
+  function muovi(id,x,y){
+    if(!P||id!==P.id)return false;
+    var dx=x-P.sx, dy=y-P.sy;
+    if(P.lock===null){
+      if(Math.abs(dx)<10&&Math.abs(dy)<10)return false;
+      if(Math.abs(dx)>Math.abs(dy)*1.5){
+        var to=cur+(dx<0?1:-1);
+        if(begin(to,P.oy))P.lock='x';
+        // oltre la prima o l'ultima pagina il foglio non si gira: lo diciamo, e il gesto non passa al browser
+        else if(to<0||to>=N){P.lock='fine';
+          if(to>=N)avvisa("Fine dell'edizione.",'Archivio',function(){apri(true);faccia(2)});else avvisa('Sei alla prima pagina.');}
+        else{P=null;return false}
+      }else{P=null;return false}
+    }
+    if(P.lock==='fine'||!R||R.anim)return true;
+    var now=performance.now(); P.v=P.v*.6+.4*(x-P.lx)/Math.max(1,now-P.lt); P.lx=x; P.lt=now;
+    var base=R.dir>0?R.W:-R.W;
+    voglio(Math.max(-R.W,Math.min(R.W,base+dx*1.7)), P.oy+Math.max(-80,Math.min(80,dy*.5)));
+    return true;
+  }
+  var raf=0, vx=0, vy=0;
+  function voglio(x,y){vx=x;vy=y;if(!raf)raf=requestAnimationFrame(function(){raf=0;if(R&&!R.anim)draw(vx,vy)})}
+  function su(id,annulla){
+    if(!P||id!==P.id)return;
+    var p=P; P=null;
+    if(p.lock==='x'&&R&&!R.anim){if(raf){cancelAnimationFrame(raf);raf=0;draw(vx,vy)}noClick=true;setTimeout(function(){noClick=false},350);lascia(annulla?0:p.v)}
+  }
+  book.addEventListener('touchstart',function(e){if(e.touches.length===1){var t=e.touches[0];giu(t.identifier,t.clientX,t.clientY,e.target)}else P=null},{passive:true});
+  book.addEventListener('touchmove',function(e){var t=e.changedTouches[0];if(P&&muovi(t.identifier,t.clientX,t.clientY)&&P&&P.lock)e.preventDefault()},{passive:false});
+  book.addEventListener('touchend',function(e){su(e.changedTouches[0].identifier,false);if(P&&!e.touches.length)su(P.id,false)});
+  book.addEventListener('touchcancel',function(e){su(e.changedTouches[0].identifier,true);if(P&&!e.touches.length)su(P.id,true)});
+  book.addEventListener('pointerdown',function(e){if(e.pointerType==='mouse'&&e.button===0)giu('m',e.clientX,e.clientY,e.target)});
+  window.addEventListener('pointermove',function(e){if(e.pointerType==='mouse')muovi('m',e.clientX,e.clientY)});
+  window.addEventListener('pointerup',function(e){if(e.pointerType==='mouse')su('m',false)});
+  book.addEventListener('click',function(e){if(noClick){e.stopPropagation();e.preventDefault()}},true);
+  window.addEventListener('resize',function(){if(R&&!R.anim){finish(false)}});
+
+  // Caroselli con i pallini
+  function dots(){[].forEach.call(pages[cur].querySelectorAll('.car'),function(c){
+    var tr=c.querySelector('.track'), d=c.querySelector('.dots'), n=tr.children.length;
+    if(!d.children.length){for(var i=0;i<n;i++){var b=document.createElement('span');d.appendChild(b)}
+      tr.addEventListener('scroll',function(){pallino(c)},{passive:true})}
+    pallino(c)})}
+  function pallino(c){var tr=c.querySelector('.track'), k=Math.round(tr.scrollLeft/Math.max(1,tr.clientWidth));
+    [].forEach.call(c.querySelectorAll('.dots span'),function(s,i){s.classList.toggle('on',i===k)})}
+  window.addEventListener('resize',dots);
+
+  // Parole spiegate: la nota si appoggia vicino alla parola (sotto, o sopra se la parola è in basso) e segue la pagina
+  var pop=document.getElementById('pop'),pbox=pop.querySelector('.box'),pw=document.getElementById('pw'),pd=document.getElementById('pd'),pm=document.getElementById('pmore'),pl=document.getElementById('pl'),open=null;
+  document.querySelectorAll('.term').forEach(function(t){t.setAttribute('aria-expanded','false')});
+  function closePop(){pop.hidden=true;if(open)open.setAttribute('aria-expanded','false');open=null}
+  // la nota sta ferma in basso: si chiude solo se la parola esce dal foglio
+  function piazza(){
+    if(!open)return;
+    var r=open.getBoundingClientRect(), b=book.getBoundingClientRect();
+    if(r.bottom<b.top||r.top>b.bottom)closePop();
+  }
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('.term');
+    if(t){if(open===t){closePop();return}if(open)open.setAttribute('aria-expanded','false');open=t;t.setAttribute('aria-expanded','true');
+      var w=t.textContent.trim();pw.textContent=w.charAt(0).toUpperCase()+w.slice(1);pd.textContent=t.dataset.d;
+      var pk=document.getElementById('pk');pk.hidden=!t.classList.contains('nome');pk.textContent=t.classList.contains('org')?'Cos\'è':'Chi è';pl.hidden=true;pm.textContent='Approfondisci ▾';if(t.dataset.x){pm.hidden=false;pl.textContent=t.dataset.x}else pm.hidden=true;pop.hidden=false;piazza();return}
+    if(e.target.closest('#pmore')){pl.hidden=!pl.hidden;pm.textContent=pl.hidden?'Approfondisci ▾':'Chiudi ▴';piazza();return}
+    if(e.target.closest('#px')||!e.target.closest('.pop .box'))closePop();
+  });
+  book.addEventListener('scroll',piazza,true); window.addEventListener('resize',piazza);
+  document.addEventListener('keydown',function(e){var t=e.target.closest&&e.target.closest('.term');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();t.click()}});
+
+  // Indice in basso: tutte le pagine, tema e grandezza del testo
+  var menu=document.getElementById('menu');
+  // Sommario, Impostazioni e Archivio: tre facce della stessa scheda, che scorre di lato
+  var views=document.getElementById('views'), facce=[].slice.call(views.children);
+  function faccia(k){views.style.transform='translateX('+(-100*k/facce.length)+'%)';facce.forEach(function(f,i){f.inert=i!==k})}
+  document.getElementById('toSet').addEventListener('click',function(){faccia(1)});
+  document.getElementById('toArc').addEventListener('click',function(){faccia(2)});
+  [].forEach.call(views.querySelectorAll('[data-som]'),function(b){b.addEventListener('click',function(){faccia(0)})});
+  function apri(o){menu.hidden=!o;where.setAttribute('aria-expanded',String(o));if(o){closePop();faccia(0);menu.querySelector('.box').scrollTop=0}}
+  where.addEventListener('click',function(){apri(menu.hidden)});
+  document.getElementById('mx').addEventListener('click',function(){apri(false)});
+  menu.addEventListener('click',function(e){if(!e.target.closest('.box'))apri(false)});
+  function tema(v){if(v==='auto')root.removeAttribute('data-theme');else root.setAttribute('data-theme',v);put('corriere-tema',v==='auto'?null:v);segni()}
+  function testo(v){root.setAttribute('data-testo',v);put('corriere-testo',v==='0'?null:v);segni()}
+  function segni(){var t=root.getAttribute('data-theme')||'auto', s=root.getAttribute('data-testo')||'0';
+    [].forEach.call(document.querySelectorAll('#segTema button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.v===t))});
+    [].forEach.call(document.querySelectorAll('#segTesto button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.v===s))})}
+  document.getElementById('segTema').addEventListener('click',function(e){var b=e.target.closest('button');if(b)tema(b.dataset.v)});
+  document.getElementById('segTesto').addEventListener('click',function(e){var b=e.target.closest('button');if(b)testo(b.dataset.v)});
+  testo(get('corriere-testo')||'0'); segni();
+  // effetto carta: 0 liscia, 50 come di base, 100 il doppio
+  var cr=document.getElementById('cartaR');
+  function carta(v){v=+v;root.style.setProperty('--ca',(1-v/100).toFixed(2));cr.value=v;put('corriere-carta',v===50?null:String(v))}
+  cr.addEventListener('input',function(){carta(cr.value)});
+  carta(get('corriere-carta')||50);
+  // foto: un involucro per la trama della carta; un tocco la ingrandisce, un altro la chiude
+  [].forEach.call(document.querySelectorAll('img.ph'),function(i){var w=document.createElement('span');w.className='phw';i.parentNode.insertBefore(w,i);w.appendChild(i)});
+  book.addEventListener('click',function(e){var i=e.target.closest('.phw');if(!i||noClick||R)return;var im=i.querySelector('img');
+    var z=document.createElement('div');z.className='zoom';z.setAttribute('role','dialog');z.setAttribute('aria-label','Foto ingrandita');
+    var c=im.cloneNode();c.removeAttribute('class');c.removeAttribute('onerror');z.appendChild(c);var t=document.createElement('small');t.textContent='Tocca per chiudere';z.appendChild(t);
+    z.addEventListener('click',function(){z.remove()});document.body.appendChild(z)});
+  // notizie stampate sul foglio (di base) o in schede, più separate tra loro
+  function schede(v){if(v==='schede')root.removeAttribute('data-schede');else root.setAttribute('data-schede','stampa');put('corriere-schede',v==='schede'?'schede':null);
+    [].forEach.call(document.querySelectorAll('#segSchede button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.v===v))})}
+  document.getElementById('segSchede').addEventListener('click',function(e){var b=e.target.closest('button');if(b)schede(b.dataset.v)});
+  schede(get('corriere-schede')||'stampa');
+
+  // Istruzioni per la schermata Home: si apre già sul telefono giusto
+  var guide=document.getElementById('guide'), ua=navigator.userAgent, inst=document.getElementById('inst'), richiesta=null;
+  var giaHome=window.navigator.standalone===true||window.matchMedia('(display-mode: standalone)').matches;
+  function os(v){[].forEach.call(document.querySelectorAll('#segOs button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.v===v))});
+    [].forEach.call(guide.querySelectorAll('.steps'),function(o){o.hidden=o.dataset.os!==v});
+    inst.hidden=!(v==='and'&&richiesta)}
+  document.getElementById('segOs').addEventListener('click',function(e){var b=e.target.closest('button');if(b)os(b.dataset.v)});
+  document.getElementById('homebtn').addEventListener('click',function(){apri(false);guide.hidden=false;document.getElementById('gok').hidden=!giaHome;os(/Android/i.test(ua)?'and':'ios')});
+  document.getElementById('gx').addEventListener('click',function(){guide.hidden=true});
+  guide.addEventListener('click',function(e){if(!e.target.closest('.box'))guide.hidden=true});
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();richiesta=e});
+  inst.addEventListener('click',function(){if(richiesta){richiesta.prompt();richiesta=null;inst.hidden=true}});
+
+  // Avviso breve in basso
+  var toast=document.getElementById('toast'), tt=document.getElementById('toastt'), tb=document.getElementById('toastb'), tTimer;
+  function avvisa(msg,btn,fn){tt.textContent=msg;tb.hidden=!btn;if(btn){tb.textContent=btn;tb.onclick=function(){toast.hidden=true;fn()}}
+    toast.hidden=false;clearTimeout(tTimer);tTimer=setTimeout(function(){toast.hidden=true},5000)}
+
+  // Dove eri arrivato: vale solo per la stessa edizione; con un'edizione nuova si riparte dalla prima pagina
+  var ED=book.dataset.ed, sTimer;
+  function salva(){clearTimeout(sTimer);sTimer=setTimeout(function(){put('corriere-punto',JSON.stringify({ed:ED,p:cur,y:Math.round(pages[cur].scrollTop)}))},300)}
+  book.addEventListener('scroll',function(e){if(e.target===pages[cur])salva()},true);
+
+  var h=(location.hash.match(/^#p(\d+)$/)||[])[1], punto=null;
+  try{punto=JSON.parse(get('corriere-punto')||'null')}catch(e){}
+  if(book.dataset.arch){show(h?Math.min(N,Math.max(1,+h))-1:0);avvisa("Stai leggendo un'edizione passata.","Vai all'ultima",function(){location.href='../index.html'});salva=function(){};return}
+  if(h){show(Math.min(N,Math.max(1,+h))-1)}
+  else if(punto&&punto.ed===ED&&(punto.p>0||punto.y>300)){
+    show(Math.min(N-1,punto.p),punto.y);
+    avvisa('Sei tornato dove eri arrivato.','Vai alla prima',function(){go(0)});
+  }else{
+    show(0);
+    if(punto&&punto.ed!==ED)avvisa('Nuova edizione: '+book.dataset.edl+'.');
+  }
+})();
+;if(/schede=liscia/.test(location.search))document.documentElement.setAttribute("data-schede","liscia");
+;(function(){
+  // Meteo: le previsioni arrivano dal vivo da Open-Meteo, per i capoluoghi di regione e per Lumezzane e Brescia
+  var box=document.querySelector('.wxmap'), t=box&&box.querySelector('.wxtab'); if(!box)return;
+  var D=JSON.parse(document.getElementById('wxdati').textContent), V=null, g='oggi';
+  function tipo(c){return c===0?'sole':c<=2?'parz':c===3?'nuvole':c<=48?'nebbia':c<=67||(c>=80&&c<=82)?'pioggia':c<=77||c===85||c===86?'neve':'temporale'}
+  var DESC={0:'Sereno',1:'Poco nuvoloso',2:'Nuvole e schiarite',3:'Coperto',45:'Nebbia',48:'Nebbia con brina',51:'Pioviggine debole',53:'Pioviggine',55:'Pioviggine fitta',56:'Pioviggine gelata',57:'Pioviggine gelata',61:'Pioggia debole',63:'Pioggia',65:'Pioggia forte',66:'Pioggia gelata',67:'Pioggia gelata forte',71:'Neve debole',73:'Neve',75:'Neve forte',77:'Nevischio',80:'Rovesci deboli',81:'Rovesci',82:'Rovesci forti',85:'Rovesci di neve',86:'Forti rovesci di neve',95:'Temporale',96:'Temporale con grandine',99:'Temporale con grandine'};
+  function ico(k){return D.ico[k]||D.ico.nuvole}
+  function gr(v){return Math.round(v)+'°'}
+  // Lumezzane oggi e domani, sempre visibili sopra la mappa
+  function lum2(){var i=-1;D.cap.forEach(function(c,k){if(c.n==='Lumezzane')i=k});if(i<0)return;var gg=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+    box.querySelector('.c2row').innerHTML=[0,1].map(function(d){var w=V[i].weather_code[d],p=V[i].time[d].split('-'),dt=new Date(+p[0],p[1]-1,+p[2]);
+      return '<button type="button" class="c2" data-g="'+(d?'domani':'oggi')+'" aria-pressed="'+(g===(d?'domani':'oggi'))+'"><i>'+(d?'Domani':'Oggi')+' · '+gg[dt.getDay()]+' '+dt.getDate()+'</i><span class="ic">'+ico(tipo(w))+'</span><b>'+gr(V[i].temperature_2m_min[d])+'–'+gr(V[i].temperature_2m_max[d])+'</b><small>'+(DESC[w]||'')+'</small></button>'}).join('')}
+  function disegna(){
+    if(!V)return; var d=g==='oggi'?0:1;
+    [].forEach.call(box.querySelectorAll('.cap'),function(el){var c=V[+el.dataset.i];var k=tipo(c.weather_code[d]);
+      el.innerHTML='<circle class="bg" r="12"/><svg x="-10.5" y="-10.5" width="21" height="21" viewBox="0 0 32 32">'+ico(k).replace(/^<svg[^>]*>|<\/svg>$/g,'')+'</svg>'});
+    ['n','c','s'].forEach(function(z){var mi=0,ma=0,n=0,cnt={};
+      D.cap.forEach(function(c,i){if(c.z!==z)return;n++;mi+=V[i].temperature_2m_min[d];ma+=V[i].temperature_2m_max[d];var k=tipo(V[i].weather_code[d]);cnt[k]=(cnt[k]||0)+1});
+      var best=Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a]})[0], ch=box.querySelector('.zch[data-z="'+z+'"]');
+      ch.querySelector('.zi').innerHTML=ico(best); ch.querySelector('b').textContent=gr(mi/n)+'–'+gr(ma/n)});
+    var casa='';D.cap.forEach(function(c,i){if(c.n!=='Lumezzane')return;var w=V[i].weather_code[d];
+      casa+='<li><span class="ic">'+ico(tipo(w))+'</span><span class="lu">'+c.n+'<small>'+(DESC[w]||'')+'</small></span><b>'+gr(V[i].temperature_2m_min[d])+'–'+gr(V[i].temperature_2m_max[d])+'</b></li>'});
+    [].forEach.call(box.querySelectorAll('.casa-l'),function(u){u.innerHTML=casa});
+  }
+  // i tasti prendono il giorno vero delle previsioni: se apri il giornale il giorno dopo, "Oggi" è davvero oggi
+  function etichette(tt){var gg=['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+    [].forEach.call(t.querySelectorAll('button'),function(b,i){var p=tt[i].split('-'),d=new Date(+p[0],p[1]-1,+p[2]);b.textContent=(i?'Domani':'Oggi')+' · '+gg[d.getDay()]+' '+d.getDate()})}
+  var u='https://api.open-meteo.com/v1/forecast?latitude='+D.cap.map(function(c){return c.lat}).join(',')+'&longitude='+D.cap.map(function(c){return c.lon}).join(',')+'&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FRome&forecast_days=2';
+  fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){V=(Array.isArray(j)?j:[j]).map(function(x){return x.daily});box.removeAttribute('data-attesa');box.setAttribute('data-vivo','1');etichette(V[0].time);disegna();lum2()})
+    .catch(function(){box.removeAttribute('data-attesa');box.setAttribute('data-vivo','0')});
+  box.querySelector('.c2row').addEventListener('click',function(e){var c=e.target.closest('.c2');if(!c)return;t.querySelector('button[data-g="'+c.dataset.g+'"]').click();
+    [].forEach.call(box.querySelectorAll('.c2'),function(x){x.setAttribute('aria-pressed',String(x===c))})});
+  t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;g=b.dataset.g;
+    [].forEach.call(t.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x===b))});
+    [].forEach.call(box.querySelectorAll('.gday'),function(x){x.hidden=x.dataset.g!==g});tip.hidden=true;disegna()});
+  // tocco su un'icona: nome della città con minima e massima
+  var tip=box.querySelector('.ctip'), mb=box.querySelector('.mapbox');
+  box.querySelector('.itmap').addEventListener('click',function(e){
+    // il dito è grosso: si prende l'icona più vicina al punto toccato
+    var el=null,best=34*34;[].forEach.call(box.querySelectorAll('.cap'),function(c){var r=c.getBoundingClientRect(),dx=r.left+r.width/2-e.clientX,dy=r.top+r.height/2-e.clientY,q=dx*dx+dy*dy;if(q<best){best=q;el=c}});
+    if(!el||!V){tip.hidden=true;return}
+    var i=+el.dataset.i,c=D.cap[i],d=g==='oggi'?0:1,w=V[i].weather_code[d];
+    tip.innerHTML='<b>'+c.n+'</b> '+gr(V[i].temperature_2m_min[d])+'–'+gr(V[i].temperature_2m_max[d])+'<small>'+(DESC[w]||'')+'</small>';
+    var r=el.getBoundingClientRect(),b=mb.getBoundingClientRect();tip.hidden=false;
+    var x=Math.max(0,Math.min(b.width-tip.offsetWidth,r.left-b.left+r.width/2-tip.offsetWidth/2));tip.style.left=x+'px';tip.style.top=(r.top-b.top-tip.offsetHeight-6)+'px'});
+})();
+
+// Copertine di album e singoli: prima quella scritta nel giornale, poi la memoria del telefono, poi Deezer e iTunes dal vivo
+(function(){var n=0;
+  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function put(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function metti(el,u,ko){var im=new Image();im.onload=function(){el.style.backgroundImage='url("'+u+'")';el.classList.add('on')};if(ko)im.onerror=ko;im.src=u}
+  function jsonp(url,pick,ok,ko){var cb='cop'+(n++),fatto=false,s=document.createElement('script');
+    var t=setTimeout(function(){if(!fatto){fatto=true;ko()}},5000);
+    window[cb]=function(r){if(fatto)return;fatto=true;clearTimeout(t);var u=pick(r);u?ok(u):ko()};
+    s.src=url+(url.indexOf('?')<0?'?':'&')+'callback='+cb;s.onerror=function(){if(!fatto){fatto=true;clearTimeout(t);ko()}};document.body.appendChild(s)}
+  function deezer(q,e,ok,ko){jsonp('https://api.deezer.com/search/'+(e==='album'?'album':'track')+'?output=jsonp&limit=1&q='+encodeURIComponent(q),
+    function(r){var x=r&&r.data&&r.data[0];return x&&(e==='album'?x.cover_medium:x.album&&x.album.cover_medium)},ok,ko)}
+  function itunes(q,e,ok,ko){jsonp('https://itunes.apple.com/search?country=it&limit=1&media=music&entity='+e+'&term='+encodeURIComponent(q),
+    function(r){var x=r&&r.results&&r.results[0];return x&&x.artworkUrl100&&x.artworkUrl100.replace('100x100','300x300')},ok,ko)}
+  [].forEach.call(document.querySelectorAll('.cov'),function(el){
+    var alt=function(){if(el.dataset.alt)metti(el,el.dataset.alt)};
+    if(el.dataset.img)return metti(el,el.dataset.img,alt);
+    if(!el.dataset.q)return alt();
+    var k='cop2:'+el.dataset.e+':'+el.dataset.q.toLowerCase(),c=get(k);if(c)return metti(el,c);
+    var ok=function(u){put(k,u);metti(el,u)};
+    deezer(el.dataset.q,el.dataset.e,ok,function(){itunes(el.dataset.q,el.dataset.e,ok,alt)})})})();
+</script>
+</body>
+</html>
