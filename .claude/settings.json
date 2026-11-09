@@ -119,7 +119,11 @@
       "WebFetch(domain:music.apple.com)",
       "WebFetch(domain:open.spotify.com)",
       "WebFetch(domain:www.youtube.com)",
-      "WebFetch(domain:youtube.com)"
+      "WebFetch(domain:youtube.com)",
+      "Bash(git add -A)",
+      "Bash(git -c user.name=\"Steruzz77\" -c user.email=\"alexstera2003@gmail.com\" commit:*)",
+      "Bash(git pull --rebase origin main)",
+      "Bash(git push origin HEAD:main)"
     ]
   }
 }

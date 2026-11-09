@@ -285,6 +285,10 @@ durante la verifica (o "nessuna correzione").
 ```
 git add -A
 git -c user.name="Steruzz77" -c user.email="alexstera2003@gmail.com" commit -m "Edizione <edizione> del <data>"
-git push origin HEAD
+git pull --rebase origin main
+git push origin HEAD:main
 ```
+Lancia **ogni comando da solo**, esattamente come scritto qui sopra: niente `&&`, `;`, `| tail`,
+`timeout` o altri comandi attaccati. Solo così corrispondono ai permessi in `.claude/settings.json`
+e il push parte senza chiedere un'approvazione (che durante le uscite automatiche nessuno può dare).
 Il sito si aggiorna da solo in 1–2 minuti.
