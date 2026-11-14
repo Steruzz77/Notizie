@@ -1,0 +1,631 @@
+{
+ "data": "2026-11-14",
+ "edizione": "sera",
+ "prima": {
+  "apertura": {
+   "occhiello": "Italia · Privacy",
+   "titolo": "Facebook guardava nella galleria del telefono senza un vero permesso: multa da 805 milioni a Meta",
+   "sommario": "Il Garante della privacy punisce la funzione che suggerisce foto e video da pubblicare: riguarda circa 20 milioni di utenti Android in Italia. Meta ha 60 giorni per chiedere un consenso chiaro e dovrà tenerla spenta di partenza.",
+   "testo": [
+    "Il [[Garante della privacy|L'autorità indipendente italiana che controlla come aziende ed enti usano i dati personali.||Il nome ufficiale è Garante per la protezione dei dati personali. Può fare indagini e ispezioni, ordinare a un'azienda di cambiare un servizio e dare multe, che si possono contestare davanti a un giudice. In questo caso ha lavorato anche con un'analisi tecnica dell'app.]] ha multato [[#Meta|L'azienda americana che possiede Facebook, Instagram e WhatsApp; la multa è indirizzata alla sua sede europea in Irlanda.]] per 805 milioni di euro, circa lo 0,47% del fatturato mondiale del gruppo. La sanzione riguarda una funzione dell'app di Facebook per Android, attiva dal 2023: mentre si scorre Facebook, propone foto e video presi dalla galleria del telefono come idee per nuovi post.",
+    "Secondo il Garante, Meta ha avuto accesso a foto, video e ai loro [[metadati|Le informazioni nascoste dentro un file, come la data, l'ora e il luogo in cui è stata scattata una foto.]] senza un consenso specifico e senza spiegarlo bene. Il permesso per la galleria era uno solo per tutta l'app, era introdotto da una frase vaga («abilitare altre funzioni») e la funzione era accesa in automatico. È stato violato l'articolo 122 del [[Codice privacy|La legge italiana che protegge i dati personali.]], che applica la [[direttiva ePrivacy|La legge europea che protegge la riservatezza delle comunicazioni e dei dispositivi come lo smartphone.||Dice che per leggere informazioni dal telefono di una persona serve il suo consenso libero e informato, anche se i dati non vengono trasmessi e non c'è un danno. A differenza di altre regole europee sulla privacy, non prevede che decida solo l'autorità del Paese dove l'azienda ha la sede europea.]]. Per questo il Garante ha respinto la richiesta di Meta di lasciare il caso all'autorità irlandese.",
+    "Sulla multa hanno pesato il numero di persone coinvolte, circa 20 milioni di utenti Android in Italia, un precedente del 2019 contro Meta e la scarsa collaborazione durante l'indagine, partita nel luglio 2025 dopo un reclamo del Centro Tutela Consumatori Utenti di Bolzano. Entro 60 giorni Meta dovrà chiedere un consenso separato e chiaro e tenere la funzione spenta di partenza, anche per chi aveva già dato il permesso. Il Garante non ha valutato se le immagini servano ad addestrare l'intelligenza artificiale, cosa che Meta nega, e esaminerà a parte una nuova funzione che elabora le foto nel [[cloud|Server su internet dove vengono salvati ed elaborati i dati, invece che sul telefono.]]."
+   ],
+   "fonte": {
+    "nome": "Adnkronos",
+    "url": "https://adnkronos.com/cronaca/meta-sanzione-garante-privacy_79iAHiRlrooXH6ObH2daFB"
+   },
+   "foto": {
+    "url": "https://www.adnkronos.com/resources/02a8-2149d891172e-aae47c696980-1000/meta6_ipa.jpeg",
+    "didascalia": "Il logo di Meta"
+   }
+  },
+  "spalle": [
+   {
+    "occhiello": "Mondo · Ucraina",
+    "titolo": "Zelensky: gli Usa ci chiedono se lasceremmo il Donbass in cambio della Nato",
+    "testo": [
+     "Il presidente ucraino [[@Volodymyr Zelensky|Presidente dell'Ucraina dal 2019, guida il Paese nella guerra contro la Russia.]] ha raccontato ai giornalisti che gli Stati Uniti gli hanno fatto per la prima volta questa domanda: «E se l'Ucraina entrasse nella [[Nato|L'alleanza militare tra Stati Uniti, Canada e gran parte dei Paesi europei, Italia compresa.||Nata nel 1949, si basa sulla difesa reciproca: un attacco contro un membro vale come un attacco contro tutti. La Russia considera l'allargamento della Nato verso est una minaccia, e per questo l'ingresso dell'Ucraina è uno dei punti più difficili delle trattative.]]? L'Ucraina si ritirerebbe dal [[Donbass|La regione dell'est dell'Ucraina al confine con la Russia, al centro dei combattimenti.]]?». In pratica, cedere territori alla Russia in cambio dell'ingresso nell'alleanza.",
+     "Zelensky dice che non può decidere da solo: se Usa e alleati confermassero un pacchetto di [[garanzie di sicurezza|Impegni precisi di altri Paesi a proteggere l'Ucraina se venisse attaccata di nuovo.]] (con Nato e Ue, un esercito ucraino forte e aiuti militari ed economici), chiederebbe agli ucraini se accettare. In ogni caso un accordo non riconoscerebbe come russi i territori occupati. Ha precisato che mancano i dettagli e che «tutto questo è ancora oggetto di colloqui». Le fonti lette non riportano per ora reazioni di Mosca o di Washington."
+    ],
+    "fonte": {
+     "nome": "AGI",
+     "url": "https://www.agi.it/estero/news/2026-11-14/ucraina-nato-zelensky-putin-40026343/"
+    },
+    "foto": {
+     "url": "https://www.adnkronos.com/resources/02ab-221181ac4d47-12ebd68b267d-1000/zelensky67_ipa.jpeg",
+     "didascalia": "Volodymyr Zelensky"
+    }
+   }
+  ],
+  "parola": {
+   "termine": "Garante della privacy",
+   "testo": "È un'autorità indipendente, cioè non dipende dal governo, che controlla come aziende, enti pubblici e privati usano i nostri dati personali: foto, contatti, posizione, informazioni sulla salute. Può indagare, ordinare di cambiare un'app o un servizio e dare multe. Oggi ha multato Meta per 805 milioni di euro per l'accesso alla galleria dei telefoni Android da parte di Facebook."
+  },
+  "accadde": {
+   "data": "14 novembre 1951",
+   "testo": "Il Po rompe gli argini nel Polesine, la zona del Veneto che coincide quasi con la provincia di Rovigo. L'acqua allaga due terzi dei campi coltivabili: muoiono 101 persone, 7 restano disperse e circa 180mila devono lasciare casa."
+  }
+ },
+ "sezioni": [
+  {
+   "nome": "Lumezzane e Brescia",
+   "notizie": [
+    {
+     "occhiello": "Brescia · Nave · Agenda",
+     "titolo": "Nave ricorda Zanardelli: tre incontri in municipio dal 19 novembre",
+     "testo": [
+      "Per i 200 anni dalla nascita di [[@Giuseppe Zanardelli|Politico bresciano dell'Ottocento, fu ministro e presidente del Consiglio; nel 2026 si celebra il bicentenario della nascita.]] il Comune di Nave organizza tre incontri, tutti alle 18 nella sala consiliare del municipio, in via Paolo Sesto 17. Giovedì 19 novembre si parla de «I fratelli Zanardelli», la formazione di una famiglia borghese, con [[@Alessandro Bertoli|Relatore degli incontri su Zanardelli a Nave.]] e [[@Daniele Montanari|Relatore dell'incontro del 19 novembre a Nave.]], in dialogo con [[@Sergio Onger|Presidente dell'Ateneo di Brescia.]].",
+      "Lunedì 23 lo scrittore [[@Giuseppe Lupo|Scrittore, autore del romanzo «La carovana Zanardelli» (2022).]] presenta il suo romanzo «La carovana Zanardelli», introdotto da [[@Stefano Karadjov|Direttore di Fondazione Brescia Musei e docente universitario.]]. Martedì 24 [[@Roberta D'Adda|Coordinatrice del settore collezioni e ricerca di Fondazione Brescia Musei.]] e Bertoli raccontano i lasciti e gli itinerari artistici legati a Zanardelli."
+     ],
+     "fonte": {
+      "nome": "QuiBrescia",
+      "url": "https://www.quibrescia.it/incontri/2026/11/14/nave-celebra-il-bicentenario-di-zanardelli-con-tre-incontri-culturali/850361/"
+     },
+     "foto": {
+      "url": "https://www.quibrescia.it/photogallery_new/images/2026/11/incontri-giuseppe-zanardelli-nave-637450.660x368.jpg"
+     }
+    },
+    {
+     "occhiello": "Brescia · Giustizia",
+     "titolo": "Cocaina dalla Colombia al Bresciano: 40 condanne, revolver trovati a Villa Carcina",
+     "testo": [
+      "Si è chiusa con 40 condanne, per un totale di 291 anni di carcere e pene fino a 20 anni, l'inchiesta «Twistlock» della [[Squadra mobile|Il reparto della Questura che indaga sui reati più gravi, come omicidi e traffico di droga.]] di Brescia, coordinata dalla [[Dda|Direzione distrettuale antimafia: i pm specializzati nelle indagini su mafie e grandi traffici di droga.]]. I [[gup|Giudice dell'udienza preliminare: valuta le prove dei pm prima del processo e in alcuni casi può già condannare.||Nell'udienza preliminare il gup decide se un'accusa merita un processo. Se l'imputato chiede un rito alternativo, come l'abbreviato, il gup può giudicarlo subito sulla base degli atti, con uno sconto di pena. Per questo molte grandi inchieste arrivano a condanne già davanti al gup.]] di Brescia e Reggio Calabria hanno condannato gli imputati per associazione finalizzata al traffico di droga.",
+      "Secondo l'accusa c'erano due gruppi: uno, di tre marocchini e due italiani, importava cocaina dalla Colombia e hashish dal Marocco; l'altro aveva la base nel Bresciano e membri originari di San Luca, in Calabria, alcuni legati anche per parentela alla [[#'Ndrangheta|La mafia calabrese, una delle organizzazioni criminali più forti nel traffico di cocaina.]]. Operavano soprattutto tra Roncadelle, Torbole Casaglia, Villa Carcina, Rodengo Saiano e Gussago. Sono stati sequestrati 228 chili di droga, di cui 135 di cocaina: 40 chili erano nascosti in un'autocisterna per il latte diretta a Roncadelle. In una perquisizione a Villa Carcina sono stati trovati due revolver calibro 45 con la [[matricola abrasa|Il numero di serie dell'arma cancellato, per renderla impossibile da rintracciare.]]."
+     ],
+     "fonte": {
+      "nome": "QuiBrescia",
+      "url": "https://www.quibrescia.it/cronaca/2026/11/14/narcotraffico-maxi-inchiesta-nel-bresciano-40-condanne-e-291-anni-di-carcere/850379/"
+     },
+     "foto": {
+      "url": "https://www.quibrescia.it/photogallery_new/images/2026/11/mxi-sequestro-droga-polizia-637456.660x368.jpg"
+     }
+    },
+    {
+     "occhiello": "Brescia · Lavoro",
+     "titolo": "Verso lo sciopero generale del 20 novembre: lunedì Landini a Brescia",
+     "testo": [
+      "Lunedì 16 novembre dalle 9, al Brixia Forum di via Caprera 5, la [[#Cgil|Il più grande sindacato italiano, di area di sinistra.]] di Brescia e quella di Valle Camonica-Sebino tengono l'«assemblea delle assemblee» per preparare lo [[sciopero generale|Uno sciopero di tutte le categorie di lavoratori, pubblici e privati, nello stesso giorno.]] di venerdì 20 novembre. Apre i lavori [[@Valentina Cappelletti|Segretaria generale della Cgil Lombardia.]], le conclusioni sono del segretario nazionale [[@Maurizio Landini|Segretario generale della Cgil dal 2019.]]. Anche dopo l'incontro con il governo sulla [[manovra|La legge di bilancio: il piano di spese e tasse dello Stato per l'anno prossimo.]], la Cgil ha confermato lo sciopero."
+     ],
+     "fonte": {
+      "nome": "QuiBrescia",
+      "url": "https://www.quibrescia.it/sindacato/2026/11/14/sciopero-generale-landini-lunedi-a-brescia-per-lassemblea-della-cgil/850349/"
+     },
+     "foto": {
+      "url": "https://www.quibrescia.it/photogallery_new/images/2026/11/maurizio-landini-sciopero-cgil-brescia-637447.660x368.jpg"
+     }
+    },
+    {
+     "occhiello": "Brescia · Garda",
+     "titolo": "Centro per disabili da spostare a Vobarno, le famiglie dicono no: «Meglio Puegnago»",
+     "testo": [
+      "Le famiglie dei 27 utenti del [[Cdd|Centro diurno per disabili: una struttura dove le persone con disabilità passano la giornata con educatori e attività.||Le persone ci vanno di giorno e la sera tornano a casa dalla famiglia. Per funzionare un Cdd deve essere accreditato dalla Regione, che fissa quanti posti può avere e quali spazi servono. Per questo il numero di posti della nuova sede è così importante per le famiglie.]] di Villa Dalla Rosa, a Fasano di Gardone Riviera, rifiutano il trasferimento temporaneo, da febbraio 2027 per circa 18–20 mesi, in un'ex filiale di banca a Vobarno. Molti ragazzi hanno disabilità cognitive gravissime o autismo, e secondo i genitori la sede ha vetrate sulla strada senza marciapiede, nessuna finestra apribile, niente giardino e potrebbe essere autorizzata solo per 24 persone.",
+      "In una lettera agli enti coinvolti, tra cui [[#Anffas|Associazione di famiglie di persone con disabilità intellettive e relazionali.]], propongono l'ex scuola di Raffa, frazione di Puegnago del Garda, visitata con il sindaco [[@Silvano Zanelli|Sindaco di Puegnago del Garda.]]: ha quattro aule, cucina, rampa e giardino recintato. Se Vobarno sarà confermata, nessuna delle famiglie firmatarie porterà lì il proprio figlio. Il consigliere regionale della Lega [[@Floriano Massardi|Consigliere regionale lombardo della Lega.]] chiede di valutare Puegnago prima di decidere."
+     ],
+     "fonte": {
+      "nome": "QuiBrescia",
+      "url": "https://www.quibrescia.it/disabilita/2026/11/14/cdd-villa-dalla-rosa-le-famiglie-rifiutano-il-trasloco-a-vobarno-si-a-puegnago/850338/"
+     },
+     "foto": {
+      "url": "https://www.quibrescia.it/photogallery_new/images/2026/11/villa-dalla-rosa-di-fasano-del-garda-637446.660x368.jpg"
+     }
+    },
+    {
+     "occhiello": "Brescia · Università",
+     "titolo": "L'Università di Brescia compie 45 anni e arriva a 19mila iscritti",
+     "testo": [
+      "Per l'anno 2026-2027 l'Università di Brescia conta 19mila iscritti, il 6,1% in più dei 18.072 dell'anno scorso e il 26,7% in più in sette anni; l'obiettivo è superare i 20mila. La [[no tax area|La fascia di studenti che non paga le tasse universitarie perché la famiglia ha un reddito basso.||La soglia minima è fissata dallo Stato, ma ogni università può alzarla con i propri fondi. Più è alta la soglia, più studenti studiano gratis: a Brescia ora è a 28mila euro di Isee.]] arriva ora fino a un [[Isee|L'indicatore che misura la situazione economica di una famiglia, usato per sconti e aiuti.]] di 28mila euro: secondo una simulazione il 39,4% degli studenti non paga tasse, salvo la quota regionale. È partita la triennale in Ingegneria medica con 200 iscritti e dal 2027-2028 arriveranno le magistrali in Ingegneria fisica, Matematica e Nutrizione e nutraceutica di precisione e la triennale in Ingegneria dell'energia, spiega il rettore [[@Francesco Castelli|Rettore dell'Università di Brescia.]]."
+     ],
+     "fonte": {
+      "nome": "Il Giorno",
+      "url": "https://www.ilgiorno.it/brescia/cronaca/universita-brescia-corsi-no-tax-rettore-castelli-rp5op8mo?_fcb=1794664257"
+     },
+     "foto": {
+      "url": "https://www.ilgiorno.it/image-service/view/acePublic/alias/contentid/ZDk0NGMwNDYtZTZlOC00/0/l-ateneo-bresciano-e-pronto-ad-affrontare-le-sfide-del-futuro.jpg?f=16:9&w=1200&h=675"
+     }
+    }
+   ]
+  },
+  {
+   "nome": "Italia",
+   "notizie": [
+    {
+     "occhiello": "Italia · Difesa",
+     "titolo": "Caccia del futuro, la Difesa smentisce il Financial Times: mai contro la Germania",
+     "testo": [
+      "Secondo il quotidiano britannico Financial Times, l'Italia si sarebbe opposta a far entrare la Germania con un ruolo alla pari nel [[Gcap|Global Combat Air Programme: il progetto di Italia, Regno Unito e Giappone per costruire un caccia militare di sesta generazione.||Un caccia di sesta generazione è la generazione di aerei da combattimento che dovrebbe seguire quelli più moderni di oggi. Il programma è condiviso tra i tre Paesi, che si dividono costi e lavoro. La Germania chiede di entrare, e il modo in cui farlo è discusso tra i partner.]], proponendo di ammetterla all'inizio solo come osservatrice.",
+      "Il ministero della Difesa, guidato da [[@Guido Crosetto|Ministro della Difesa nel governo Meloni, tra i fondatori di Fratelli d'Italia.]], ha definito la ricostruzione «del tutto fuorviante»: l'Italia avrebbe sempre dato «piena disponibilità» ad accogliere Berlino, e il ruolo di osservatore servirebbe ad accelerare il suo ingresso in vista di un'adesione piena, senza limitarne il ruolo futuro. Il ministero dice che questa posizione è stata ribadita nell'ultima riunione del programma e che la priorità resta rispettare i tempi concordati."
+     ],
+     "fonte": {
+      "nome": "Sky TG24",
+      "url": "https://tg24.sky.it/politica/2026/11/14/progetto-gcap-italia-germania"
+     },
+     "foto": {
+      "url": "https://tg24.sky.it/assets/images/cb5e6064c416b995c3a520186d6a901c28ea1c8d/skytg24/it/politica/2026/11/14/progetto-gcap-italia-germania/SKYPAOLINI_20261114163652782_79422e2fd320df8cb6d9991e2fbfdf23.jpg?im=Resize,width=1218"
+     }
+    },
+    {
+     "occhiello": "Italia · Milano",
+     "titolo": "Il corteo di «Italia in piazza» a Milano: circa 150 persone, nessuna tensione",
+     "testo": [
+      "Il corteo di oggi contro carovita, [[riarmo|L'aumento delle spese per armi ed eserciti deciso da molti Paesi europei.||Dopo l'invasione russa dell'Ucraina molti Paesi europei hanno deciso di spendere di più per la difesa. Chi protesta sostiene che quei soldi vengano tolti a salari, sanità e scuola; i governi rispondono che servono per la sicurezza.]], «genocidio» e repressione, organizzato da [[#Italia in piazza|Il nome della mobilitazione che ha organizzato le proteste contro il carovita di queste settimane.]], ha raccolto pochi partecipanti: circa 150 al presidio di partenza in piazza Leonardo Da Vinci, secondo Il Giorno. Per questo il percorso, che doveva arrivare al Cimitero Monumentale passando da piazzale Loreto e piazzale Maciachini, è stato cambiato all'ultimo verso via Padova.",
+      "Il corteo evitava il centro, dove il 17 e 18 ottobre c'erano state devastazioni da cui gli organizzatori hanno preso le distanze. Aderivano collettivi studenteschi e l'associazione Palestinesi in Italia. Non ci sono state tensioni; in mattinata la polizia aveva fatto tre perquisizioni a minorenni, senza trovare nulla, e molti negozi lungo il percorso avevano abbassato le saracinesche."
+     ],
+     "fonte": {
+      "nome": "Il Giorno",
+      "url": "https://www.ilgiorno.it/milano/cronaca/corteo-italia-in-piazza-o042adup?_fcb=1794671039"
+     },
+     "foto": {
+      "url": "https://www.ilgiorno.it/image-service/view/acePublic/alias/contentid/NTBlMTYyNTEtYTU3NS00/0/uno-striscione-srotolato-alla-partenza-del-corteo.jpg?f=16:9&w=1200&h=675",
+      "didascalia": "Uno striscione alla partenza del corteo"
+     }
+    },
+    {
+     "occhiello": "Italia · Esteri",
+     "titolo": "Tajani sull'Ucraina: «L'Europa deve parlare con una voce sola»",
+     "testo": [
+      "Il ministro degli Esteri e vicepremier [[@Antonio Tajani|Ministro degli Esteri e vicepresidente del Consiglio nel governo Meloni, leader di Forza Italia.]], parlando oggi a Forlì a un incontro sulla coesione e l'economia sociale, ha detto che sui negoziati per la pace in Ucraina «l'Europa debba parlare con una voce sola e debba decidere». Ha auspicato «un portavoce dell'Europa» che tenga conto anche dei Paesi che non fanno parte dell'Unione europea. Come raccontato stamattina, l'Ue sta scegliendo chi la rappresenterà nei colloqui, e tra i Paesi coinvolti c'è anche l'Italia."
+     ],
+     "fonte": {
+      "nome": "AGI",
+      "url": "https://www.agi.it/vista-tv/video/2026-11-14/guerra-ucraina-tajani-europa-parli-con-una-voce-sola-al-negoziato-40032290/"
+     },
+     "foto": {
+      "url": "https://dvrjj4igcfeco.cloudfront.net/eyJidWNrZXQiOiJrb2wtaW1hZ2VzLXByb2QiLCJrZXkiOiJwaWN0dXJlcy9hZ2kvYWdpLzIwMjYvMTEvMTQvMTYyMjUyNzg2LWY1OTM0YzNmLWQ3MjUtNDhlMi05MjgxLTAzYTdlOWU5MmUwMS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6NjMwfX19"
+     }
+    },
+    {
+     "occhiello": "Italia · Calabria",
+     "titolo": "Scontro in galleria sulla statale 107 nel Cosentino: quattro morti",
+     "testo": [
+      "Due auto si sono scontrate oggi dentro una galleria della [[statale|Strada statale: una strada principale gestita dallo Stato.]] 107 «Silana Crotonese», nel territorio di San Fili, in provincia di Cosenza. Quattro persone sono morte e una è ferita gravemente. Sono intervenuti i vigili del fuoco e il traffico è stato bloccato per permettere i soccorsi; le prime notizie non riportano ancora i nomi e l'età delle vittime."
+     ],
+     "fonte": {
+      "nome": "Adnkronos",
+      "url": "https://www.adnkronos.com/cronaca/incidente-cosenza-san-fili-statale-morti_4ymlAUtjrH2ShASYcMfoZB"
+     }
+    },
+    {
+     "occhiello": "Italia · Puglia",
+     "titolo": "Racale, 16enne colpisce il padre con un martello mentre dorme: è grave",
+     "testo": [
+      "Nella notte tra venerdì e sabato, verso le 2.30, a Racale in provincia di Lecce un ragazzo di 16 anni ha colpito più volte alla testa il padre, 53 anni, con un martello. Secondo le prime ricostruzioni l'uomo dormiva in camera con la moglie. È ricoverato in Rianimazione all'ospedale Vito Fazzi di Lecce in [[prognosi riservata|Quando i medici non possono ancora dire se il paziente sopravvivrà.]].",
+      "Il motivo non è chiaro: in paese erano note tensioni tra padre e figlio. Il ragazzo è stato portato all'ospedale di Scorrano per una consulenza psichiatrica; indagano i carabinieri, che hanno sequestrato il martello."
+     ],
+     "fonte": {
+      "nome": "AGI",
+      "url": "https://agi.it/cronaca/news/2026-11-14/prende-martellate-padre-lecce-40026012"
+     }
+    },
+    {
+     "occhiello": "Italia · Giustizia",
+     "titolo": "Madre e figlia avvelenate a Pietracatella: sentito di nuovo il marito di un'insegnante amica di famiglia",
+     "testo": [
+      "Continua l'indagine sulla morte di Antonella Di Ielsi e della figlia Sara Di Vita, 15 anni, morte il 28 e il 27 dicembre 2025 a Pietracatella, in Molise, avvelenate con la [[ricina|Un veleno potentissimo che si ricava dai semi della pianta di ricino.||Ne bastano quantità piccolissime per uccidere. Blocca la produzione delle proteine nelle cellule, che muoiono nel giro di pochi giorni. Proprio perché è rara e difficile da procurarsi, gli investigatori cercano chi poteva avere le conoscenze e i mezzi per ottenerla.]]. Oggi verso le 11 la [[Squadra mobile|Il reparto della Questura che indaga sui reati più gravi, come omicidi e traffico di droga.]] di Campobasso ha ascoltato di nuovo in Questura il marito di un'insegnante amica della famiglia: è tecnico di laboratorio all'Istituto agrario di Riccia, una delle quattro scuole perquisite nelle ultime settimane. Le fonti non parlano di indagati.",
+      "Mercoledì erano stati sentiti compagni e insegnanti di Sara, che frequentava il liceo classico a Campobasso, per capire con chi avesse rapporti e se si fosse confidata con qualcuno. La settimana prossima saranno ascoltate altre persone informate dei fatti."
+     ],
+     "fonte": {
+      "nome": "Adnkronos",
+      "url": "https://www.adnkronos.com/cronaca/giallo-di-pietracatella-sentito-in-questura-il-marito-della-prof-amica-di-di-vita_46RZrJiElexHu5wUSXFhoA"
+     },
+     "foto": {
+      "url": "https://www.adnkronos.com/resources/02ab-22118ffbb3b8-f42abe99c7fe-1000/pietracatella4_ipa.jpeg"
+     }
+    },
+    {
+     "occhiello": "Italia · Roma",
+     "titolo": "Roma, ucciso con un colpo di forbici durante una lite a Torpignattara",
+     "testo": [
+      "Ieri sera verso le 22.50, tra via di Torpignattara e via Francesco Baracca a Roma, un uomo marocchino di 44 anni è stato colpito al torace con delle forbici durante una lite con un altro uomo ed è morto in strada, davanti alla fidanzata, una 31enne italiana. L'aggressore è scappato e non è ancora stato identificato.",
+      "La polizia ha trovato in un'aiuola le forbici da cucina, con una lama di circa 20 centimetri, e alcuni vestiti sporchi di sangue. Indaga la sezione Omicidi della [[Squadra mobile|Il reparto della Questura che indaga sui reati più gravi, come omicidi e traffico di droga.]] di Roma."
+     ],
+     "fonte": {
+      "nome": "Adnkronos",
+      "url": "https://www.adnkronos.com/cronaca/roma-ferito-con-forbici-al-torace-muore-44enne_6YxRdDahAA8mpkP2bk3xbo"
+     }
+    }
+   ]
+  },
+  {
+   "nome": "Dal mondo",
+   "notizie": [
+    {
+     "occhiello": "Mondo · Iran",
+     "titolo": "Trump valuta di fermare gli attacchi all'Iran. Teheran: «Abbattuto un drone americano»",
+     "testo": [
+      "Secondo l'agenzia Reuters, che cita tre fonti informate, il presidente americano [[@Donald Trump|Presidente degli Stati Uniti dal gennaio 2025, al secondo mandato.]] valuta di rinunciare a nuovi attacchi contro l'Iran se Teheran e gli [[#Houthi|Il gruppo armato che controlla gran parte del nord dello Yemen, alleato dell'Iran.]] non faranno nuove provocazioni. Pesano anche le richieste degli alleati della regione, contrari a una guerra su larga scala. In un'intervista di giovedì Trump ha detto: «Potrei mettere fine alla guerra immediatamente».",
+      "Intanto i [[Pasdaran|I Guardiani della Rivoluzione: il corpo militare più potente dell'Iran, separato dall'esercito regolare.||Sono nati per difendere la Repubblica islamica. Hanno forze di terra, di mare e aeree proprie, controllano missili e droni e hanno un grande peso anche nell'economia e nella politica iraniana. ]] dicono di aver abbattuto nella notte un drone americano MQ-1 Predator sopra l'isola di Qeshm, vicino allo [[Stretto di Hormuz|Il passaggio di mare tra Iran e penisola arabica da cui passa una grande parte del petrolio mondiale.]], e la Marina iraniana sostiene che almeno quattro petroliere hanno urtato mine e sono in fiamme nello stretto. Sono versioni iraniane, non verificate."
+     ],
+     "fonte": {
+      "nome": "Adnkronos",
+      "url": "https://www.adnkronos.com/internazionale/esteri/iran-usa-news-oggi-14-novembre-ultima-ora_3lVPKBxwJ1ZFJ0tIVS4vNk"
+     },
+     "foto": {
+      "url": "https://www.adnkronos.com/resources/02ab-22119b36e59c-4079d05249ae-1000/teheran_esposizione_missili_droni_afp.jpeg"
+     }
+    },
+    {
+     "occhiello": "Mondo · Yemen",
+     "titolo": "Gli Houthi rivendicano 24 attacchi in tre giorni contro l'Arabia Saudita e i suoi alleati",
+     "testo": [
+      "Un portavoce militare degli [[#Houthi|Il gruppo armato che controlla gran parte del nord dello Yemen, alleato dell'Iran.||Lo Yemen è diviso da anni da una guerra civile: da una parte gli Houthi, dall'altra il governo riconosciuto dalla comunità internazionale, appoggiato dall'Arabia Saudita. Per questo gli Houthi attaccano sia le forze governative yemenite sia il territorio saudita.]], citato da Al Jazeera, ha annunciato 24 «operazioni» in circa tre giorni. Tra gli obiettivi indicati ci sono l'aeroporto internazionale King Khalid e una stazione di pompaggio del petrolio a est di Riad, la regione saudita di Jizan e, nello Yemen, posizioni delle forze governative a Lahj e al-Jawf e due campi militari ad [[Aden|Grande città portuale del sud dello Yemen.]].",
+      "Gli Houthi parlano anche di 85 raid aerei e attacchi missilistici contro sei [[governatorati|Le grandi divisioni amministrative dello Yemen, come le nostre regioni.]] yemeniti nelle ultime 24 ore. Sono tutte informazioni degli Houthi: non ci sono conferme indipendenti, né dichiarazioni del governo saudita o di quello yemenita."
+     ],
+     "fonte": {
+      "nome": "AGI",
+      "url": "https://www.agi.it/estero/news/2026-11-14/houthi-yemen-arabia-saudita-40025503/"
+     },
+     "foto": {
+      "url": "https://dvrjj4igcfeco.cloudfront.net/eyJidWNrZXQiOiJrb2wtaW1hZ2VzLXByb2QiLCJrZXkiOiJwaWN0dXJlcy9hZ2kvYWdpLzIwMjYvMTEvMTQvMDk0NTI2OTQyLTBiODQ2ZTgwLWUwMDUtNDY2OS05ZTQyLWJkZmIwNGQ4MmU2YS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6NjMwfX19"
+     }
+    },
+    {
+     "occhiello": "Mondo · Ungheria",
+     "titolo": "Ungheria, 18 milioni in contanti nascosti: l'inchiesta su un ex ministro di Orbán",
+     "testo": [
+      "In Ungheria sono stati trovati circa 18 milioni di euro in contanti, in euro, dollari e [[fiorini|La moneta ungherese.]], nascosti nei boschi, in edifici agricoli, magazzini e case tra Budapest e altre località. L'inchiesta riguarda [[@Miklós Seszták|Ex ministro ungherese dello Sviluppo nazionale, in carica dal 2014 al 2018.]], accusato di aver preso tangenti per circa 30 milioni di euro legate all'acquisto, a prezzi gonfiati, di circa 600 autobus usati da parte dell'azienda statale dei trasporti.",
+      "Il parlamento gli ha tolto l'[[immunità|La protezione che impedisce di arrestare o processare un parlamentare senza il permesso del parlamento.||Serve a evitare che un governo usi i giudici per colpire gli avversari politici. Quando il parlamento la revoca, il parlamentare può essere indagato e arrestato come qualsiasi cittadino.]] e il 29 settembre un giudice ne ha ordinato l'arresto; lui nega tutto. Seszták era ministro nei governi di [[@Viktor Orbán|Leader della destra ungherese, è stato primo ministro per 16 anni.]], e il caso è una delle iniziative del nuovo governo di [[@Péter Magyar|Primo ministro dell'Ungheria, guida il governo che ha preso il posto di quello di Orbán.]] contro il sistema di potere costruito da Orbán."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://www.ilpost.it/2026/11/14/ungheria-corruzione-sesztak-orban"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/11/14/1794667076-AP17269486008896.jpg"
+     }
+    },
+    {
+     "occhiello": "Mondo · Spagna",
+     "titolo": "Spagna al voto il 29 novembre: la campagna elettorale si fa negli show comici",
+     "testo": [
+      "In Spagna si vota il 29 novembre e i candidati preferiscono i programmi d'intrattenimento ai talk show, perché le domande sono più leggere. Il favorito è [[@Alberto Núñez Feijóo|Leader del Partito Popolare, il principale partito del centrodestra spagnolo.]] del [[#Partito Popolare|Il principale partito del centrodestra spagnolo.]]; lo sfidano il primo ministro socialista [[@Pedro Sánchez|Primo ministro della Spagna dal 2018, leader del Partito socialista.]], [[@Santiago Abascal|Leader di Vox.]] di [[#Vox|Il partito più a destra del Parlamento spagnolo.]] e, a sinistra, [[@Ada Colau|Ex sindaca di Barcellona, candidata del Frente Amplio, una coalizione di sinistra.]].",
+      "La sfida è tra «El Hormiguero» di [[@Pablo Motos|Conduttore di «El Hormiguero» su Antena 3, programma considerato più conservatore.]] e «La Revuelta» di [[@David Broncano|Comico e conduttore di «La Revuelta» sulla tv pubblica Tve, programma considerato più giovane e progressista.]], che per ora vince negli ascolti. Broncano si è dovuto scusare dopo l'intervista ad Abascal, che aveva scelto il pubblico per evitare contestazioni; Motos ha dato del «codardo» a Sánchez perché non è andato da lui. Il confronto in tv tra Sánchez e Feijóo, previsto per il 16 novembre, è stato rinviato al 19, e potrebbe slittare ancora."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://ilpost.it/2026/11/14/programmi-intrattenimento-tv-elezioni-spagna"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/11/13/1794570761-sanchez-revuelta.jpg"
+     }
+    },
+    {
+     "occhiello": "Mondo · Stati Uniti",
+     "titolo": "Morbillo negli Usa: 10 morti e oltre 5.400 casi",
+     "testo": [
+      "Secondo i dati dei [[Cdc|I Centri per il controllo e la prevenzione delle malattie: l'agenzia sanitaria federale degli Stati Uniti.]], negli Stati Uniti i morti di morbillo sono saliti a 10, gli ultimi in Wisconsin e Pennsylvania; i casi sono 5.412, 230 in più in una settimana. Gli Usa hanno perso lo status di Paese che aveva eliminato il morbillo, ottenuto nel 2000: lo ha deciso l'[[#Organizzazione panamericana della sanità|L'agenzia sanitaria dei Paesi del continente americano.]], come riporta il Wall Street Journal.",
+      "Per [[@Noel Brewer|Presidente di un comitato indipendente citato da Sky TG24.]] i focolai dipendono dalla bassa [[copertura vaccinale|La percentuale di persone vaccinate in una popolazione.||Il morbillo è uno dei virus più contagiosi: quando in una zona molte persone non sono vaccinate, trova spazio per diffondersi e creare focolai, che colpiscono soprattutto i bambini piccoli.]]: «Abbiamo permesso che bambini morissero». Sky TG24 collega la situazione ai tagli ai programmi di vaccinazione dei bambini decisi dal ministro della Salute [[@Robert F. Kennedy Jr.|Ministro della Salute degli Stati Uniti, noto per le sue posizioni critiche sui vaccini.]], che ha sostenuto un legame tra vaccini e autismo più volte smentito dagli scienziati."
+     ],
+     "fonte": {
+      "nome": "Sky TG24",
+      "url": "https://tg24.sky.it/mondo/2026/11/14/usa-morbillo-morti"
+     },
+     "foto": {
+      "url": "https://tg24.sky.it/assets/images/2fca32c5d7c145d0245ff3ac0e988d222c3ff08a/skytg24/it/mondo/2026/11/14/usa-morbillo-morti/GettyImages-606353267.jpg?im=Resize,width=1218"
+     }
+    },
+    {
+     "occhiello": "Mondo · Arte",
+     "titolo": "Un Van Gogh da 180 milioni all'asta: gli eredi di un editore ebreo chiedono di fermarla",
+     "testo": [
+      "Il 18 novembre a New York la casa d'aste [[#Sotheby's|Una delle più grandi case d'aste del mondo.]] mette in vendita «Castagni in fiore» di [[@Vincent van Gogh|Pittore olandese dell'Ottocento, tra i più famosi della storia dell'arte.]], dipinto nel maggio 1890 ad Auvers-sur-Oise: la stima è di circa 180 milioni di dollari, molto oltre il record dell'artista, 117,2 milioni nel 2022.",
+      "Gli eredi di [[@Samuel Fischer|Editore berlinese di origine ebraica, fondatore della casa editrice S. Fischer Verlag; comprò il quadro nel 1909.]] chiedono di ritirarlo: dicono che la famiglia lo vendette nel 1936 sotto la pressione delle persecuzioni naziste, dopo aver lasciato Berlino. Sotheby's risponde che le ricerche finora «non hanno dimostrato» una vendita forzata e dice di aver aperto un dialogo, senza chiarire se l'asta si terrà come previsto."
+     ],
+     "fonte": {
+      "nome": "AGI",
+      "url": "https://www.agi.it/estero/news/2026-11-14/van-gogh-180-milioni-eredi-sothebys-asta-40027957/"
+     },
+     "foto": {
+      "url": "https://dvrjj4igcfeco.cloudfront.net/eyJidWNrZXQiOiJrb2wtaW1hZ2VzLXByb2QiLCJrZXkiOiJwaWN0dXJlcy9hZ2kvYWdpLzIwMjYvMTEvMTQvMTE0NjE3MTc5LWJmYmYzOTcxLTNlZjYtNDU2NC1iNzYxLTkxNjg0OTg4YjE3Zi5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6NjMwfX19"
+     }
+    }
+   ]
+  },
+  {
+   "nome": "Tecnologia",
+   "notizie": [
+    {
+     "occhiello": "Tecnologia · Videogiochi",
+     "titolo": "GTA 6, alcune copie fisiche arrivano senza il codice per scaricare il gioco",
+     "testo": [
+      "Mancano pochi giorni all'uscita di [[GTA 6|Grand Theft Auto VI, il nuovo capitolo della serie di videogiochi Grand Theft Auto di Rockstar Games.]], fissata al 19 novembre, e alcuni acquirenti segnalano sui social e su [[Reddit|Un grande sito di forum e discussioni divisi per argomento.]] un problema: la versione fisica non contiene un disco ma un codice per scaricare il gioco, e in alcune confezioni sigillate, per PlayStation e Xbox, il codice non c'era. Un acquirente PS5 ha trovato una striscia grigia al posto del codice; un altro ha ricevuto dallo store di Rockstar il poster ma non il codice.",
+      "Il problema non sembra diffuso e non ci sono numeri ufficiali: l'ipotesi più probabile, secondo Multiplayer.it, è un errore di stampa o di confezionamento, ma le segnalazioni non si possono verificare. Rockstar indica a chi ha comprato da un negozio di rivolgersi al rivenditore."
+     ],
+     "fonte": {
+      "nome": "Multiplayer.it",
+      "url": "https://multiplayer.it/notizie/alcune-copie-fisiche-di-gta-6-non-conterrebbero-il-codice-del-gioco-ma-rockstar-offre-assistenza.html"
+     },
+     "foto": {
+      "url": "https://multiplayer.net-cdn.it/thumbs/images/2026/11/05/grand-theft-auto-vi_2026_11-05-26_030_jpg_1280x720_crop_q85.jpg"
+     }
+    },
+    {
+     "occhiello": "Tecnologia · Spazio",
+     "titolo": "Zelensky accusa SpaceX: «Starshield limitato per motivi politici»",
+     "testo": [
+      "Secondo il presidente ucraino [[@Volodymyr Zelensky|Presidente dell'Ucraina dal 2019, guida il Paese nella guerra contro la Russia.]], da cinque giorni i servizi [[Starshield|La versione per usi militari e governativi della rete satellitare Starlink.||Starlink è una rete di migliaia di piccoli satelliti che danno internet veloce ovunque, anche dove non ci sono cavi. In Ucraina è fondamentale per le comunicazioni dei soldati e per guidare i droni. Il limite di velocità impedisce di usarla su mezzi che si muovono veloci, come quelli che danno la caccia ai droni nemici.]] di [[#SpaceX|L'azienda spaziale di Elon Musk, che gestisce anche la rete di satelliti Starlink.]] usati dall'Ucraina hanno, nei territori occupati, un limite di velocità di 161 km/h, e questo rende più difficile intercettare i droni russi [[Shahed|Droni d'attacco di progettazione iraniana usati dalla Russia contro l'Ucraina.]]. SpaceX avrebbe risposto che non impone limiti e che si tratta di un problema tecnico, ma Zelensky dice: «Noi non ci crediamo» e parla di possibili «motivazioni politiche».",
+      "Secondo il Wall Street Journal, due senatori democratici americani, [[@Jeanne Shaheen|Senatrice democratica degli Stati Uniti.]] e [[@Chris Coons|Senatore democratico degli Stati Uniti.]], hanno chiesto a [[@Elon Musk|Imprenditore, fondatore di SpaceX e capo di Tesla.]] di conservare i documenti sulle restrizioni all'uso di Starlink e Starshield da parte dell'Ucraina."
+     ],
+     "fonte": {
+      "nome": "Adnkronos",
+      "url": "https://www.adnkronos.com/internazionale/esteri/zelensky-musk-space-x-starshield_5lTOQ6tPnGVdepEnykmQG2"
+     },
+     "foto": {
+      "url": "https://www.adnkronos.com/resources/02ab-2211a90eb9bb-78e104a95ccb-1000/zelensky_musk_ipa_fg.jpeg"
+     }
+    },
+    {
+     "occhiello": "Tecnologia · Intelligenza artificiale",
+     "titolo": "Nvidia senza Jensen Huang: perché la crisi preoccupa tutta l'IA",
+     "testo": [
+      "Dopo le dimissioni di [[@Jensen Huang|Cofondatore di Nvidia, ne è stato amministratore delegato fino alle dimissioni di questa settimana.]], raccontate ieri sera, Nvidia è guidata ad interim dalla direttrice finanziaria [[@Colette Kress|Direttrice finanziaria di Nvidia, guida l'azienda in attesa di un nuovo amministratore delegato.]] e il consiglio di amministrazione cerca un successore. Il Post spiega perché la cosa riguarda tutto il settore: i processori Nvidia sono centrali per sviluppare e far funzionare i modelli di IA più avanzati, e l'azienda vende anche reti e strumenti per i [[data center|Grandi edifici pieni di computer che fanno funzionare servizi online e intelligenza artificiale.]]; tra i clienti ci sono OpenAI, Anthropic, Meta e Google.",
+      "Nvidia investe anche nelle aziende che comprano i suoi chip, per circa 99 miliardi di dollari secondo una stima: un [[finanziamento circolare|Quando un'azienda investe nei propri clienti, che poi usano quei soldi per comprare i suoi prodotti.||Per esempio Nvidia possiede circa il 12% di CoreWeave, un'azienda che compra le sue GPU. Finché gli investimenti crescono i ricavi salgono per tutti, ma se si fermano le difficoltà passano da un'azienda all'altra: per questo molti analisti parlano del rischio di una bolla.]]. Se Nvidia rallenta, potrebbero risentirne soprattutto i piccoli operatori, ma anche Anthropic e OpenAI, che si preparano a entrare in borsa. Il 17 novembre Nvidia presenta i conti del trimestre."
+     ],
+     "fonte": {
+      "nome": "Il Post",
+      "url": "https://www.ilpost.it/2026/11/14/nvidia-dimissioni-huang-dipendenza-settore-intelligenza-artificiale"
+     },
+     "foto": {
+      "url": "https://static-prod.cdnilpost.com/wp-content/uploads/2026/11/13/1794579949-GettyImages-2300709000.jpg"
+     }
+    },
+    {
+     "occhiello": "Tecnologia · Videogiochi",
+     "titolo": "Xbox pensa alla pubblicità per non alzare ancora i prezzi dei giochi",
+     "testo": [
+      "[[@Jonathan Stringfield|Direttore generale di Xbox Media Solutions; prima si occupava di pubblicità in Activision.]] ha detto al sito [[#GamesBeat|Sito americano di notizie sull'industria dei videogiochi.]] che, con i costi di sviluppo in aumento, gli editori devono scegliere tra alzare molto i prezzi o trovare nuove entrate, e che altri aumenti probabilmente non piacerebbero ai giocatori. Xbox valuta quindi la pubblicità, ma non in tutti i giochi: solo nei servizi dove non rovina l'esperienza.",
+      "Esiste già una fascia gratuita di Xbox [[Cloud Gaming|Il servizio che fa giocare in streaming, senza scaricare il gioco.||Il gioco gira su un computer potente di Microsoft e sullo schermo arriva solo il video, come su Netflix; i comandi del giocatore viaggiano nell'altra direzione. Serve una buona connessione, ma non una console costosa.]] con pubblicità prima delle partite, non durante, e con limiti di ore; restano le opzioni a pagamento senza pubblicità come il [[Game Pass|L'abbonamento di Xbox che dà accesso a un catalogo di giochi.]]."
+     ],
+     "fonte": {
+      "nome": "Multiplayer.it",
+      "url": "https://multiplayer.it/notizie/xbox-valuta-la-pubblicita-come-alternativa-allaumento-dei-prezzi-dei-videogiochi.html"
+     },
+     "foto": {
+      "url": "https://multiplayer.net-cdn.it/thumbs/images/2026/05/06/xbox-new-logo-nuovo_4wk2ww9_jpg_1280x720_crop_q85.jpg"
+     }
+    }
+   ]
+  },
+  {
+   "nome": "Musica",
+   "notizie": [
+    {
+     "occhiello": "Musica · Rap italiano",
+     "titolo": "Nex Cassel e Guè in «Immortale»: il 20 novembre esce «Miracolo Italiano»",
+     "testo": [
+      "È uscito venerdì «Immortale», il singolo di [[@Nex Cassel|Rapper veneto attivo dagli anni Novanta; da solista ha esordito nel 2013 con «Come Dio Comanda».]] con [[@Guè|Cosimo Fini, rapper milanese, ex Club Dogo, tra i nomi più importanti del rap italiano.]]: racconta un incidente stradale vissuto da Nex Cassel e ha un ritornello con sfumature [[gospel|La musica corale delle chiese afroamericane.]]. Anticipa l'album «Miracolo Italiano», in uscita venerdì 20 novembre per Honiro Label e Mercato Nero: 15 tracce tutte prodotte da St Luca Spenish, tra [[boom bap|Lo stile classico del rap anni Novanta, con batterie secche e campionamenti.||Il nome imita il suono della cassa («boom») e del rullante («bap») della batteria. È il suono di New York degli anni Novanta, fatto campionando vecchi dischi soul e jazz, ed è l'opposto della trap, con i suoi bassi lunghi e i charleston veloci.]], soul e gospel.",
+      "Nel disco c'è anche «Sette Vite» con [[@Tormento|Rapper milanese, storico membro dei Sottotono.]] ed [[@Ensi|Rapper torinese.]]. Il titolo richiama il [[miracolo economico|Il periodo di forte crescita dell'economia italiana tra anni Cinquanta e Sessanta.]] italiano."
+     ],
+     "fonte": {
+      "nome": "All Music Italia",
+      "url": "https://www.allmusicitalia.it/news/nex-cassel-miracolo-italiano-album.html"
+     },
+     "foto": {
+      "url": "https://www.allmusicitalia.it/wp-content/uploads/2026/11/nex-cassel-miracolo-italiano.jpg.png"
+     }
+    },
+    {
+     "occhiello": "Musica · Rap italiano",
+     "titolo": "Tauro Boys, la reunion fa il tutto esaurito: raddoppia Roma",
+     "testo": [
+      "I [[#Tauro Boys|Trio romano formato da Maximilian, Yang Pava e Prince, tra i nomi della prima trap italiana.]] tornano dal vivo a marzo 2027 con il tour «Rebirth»: secondo All Music Italia la data di Roma è andata esaurita in 12 ore ed è stata raddoppiata. Le date annunciate a fine ottobre erano il 3 marzo a Milano e il 12 marzo a Roma.",
+      "Il gruppo si era fermato nel 2021, dopo un album fatto a distanza durante il [[lockdown|Il periodo del Covid in cui si doveva restare chiusi in casa.]] e un tour cancellato quasi del tutto. Si è ritrovato nell'estate 2026 sul palco del concerto da solista di Maximilian al Mi Ami Festival di Milano, dieci anni dopo l'inizio del progetto."
+     ],
+     "fonte": {
+      "nome": "All Music Italia",
+      "url": "https://www.allmusicitalia.it/tour/concerti-2027-italia-date-cantanti.html"
+     },
+     "foto": {
+      "url": "https://www.rollingstone.it/wp-content/uploads/2026/10/Tauro-Boys-20260616-1.jpg"
+     }
+    },
+    {
+     "occhiello": "Musica · Rap italiano",
+     "titolo": "Rancore porta «Tarek da colorare» in Europa: si parte il 24 novembre da Dublino",
+     "testo": [
+      "[[@Rancore|Tarek Iurcich, rapper romano nato nel 1989.]] porta all'estero il tour «Tarek da colorare Live»: sette concerti in sei Paesi, dal 24 novembre all'11 dicembre. Si comincia a Dublino (The Sound House), poi Berlino il 27 novembre, Londra il 4 dicembre, Bruxelles il 5, Amsterdam il 7, Barcellona il 10 e Madrid l'11.",
+      "L'album «Tarek da colorare» è arrivato terzo nella [[classifica FIMI|La classifica ufficiale degli album e dei singoli più venduti e ascoltati in Italia, pubblicata ogni venerdì.]] degli album; le date italiane della scorsa estate, tra club e festival, sono già concluse. Da poco è uscito anche il video di «Codex Seraphinianus», dedicato all'opera dell'artista [[@Luigi Serafini|Artista italiano, autore del «Codex Seraphinianus».]]."
+     ],
+     "fonte": {
+      "nome": "All Music Italia",
+      "url": "https://www.allmusicitalia.it/tour/rancore-tour-2026-date-biglietti-tarek-da-colorare-live.html"
+     },
+     "foto": {
+      "url": "https://www.allmusicitalia.it/wp-content/uploads/2026/06/rancore-tour-2026-tarek-da-colorare-live.jpg"
+     }
+    }
+   ],
+   "uscite_titolo": "Rap italiano · venerdì 13 novembre",
+   "uscite": [
+    {
+     "tipo": "Album",
+     "artista": "MV Killa",
+     "titolo": "La città che non dorme",
+     "copertina": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/2e/c4/3f/2ec43f4f-5b77-4618-0a89-44aacfc2a9f5/1200220379774.jpg/1200x630wp-60.jpg"
+    },
+    {
+     "tipo": "Singolo",
+     "artista": "Sayf",
+     "titolo": "Bombe",
+     "copertina": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c0/0f/6a/c00f6ad1-db6b-37ce-05bd-acd18f72074e/1200220318483.jpg/1200x630wp-60.jpg"
+    },
+    {
+     "tipo": "Singolo",
+     "artista": "Junior K, Ernia e mew",
+     "titolo": "Ciao Amore",
+     "copertina": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a9/eb/ea/a9ebeaba-5c59-6fc4-2a83-8a9d2a4a2286/26UM1IM43534.rgb.jpg/1200x630wp-60.jpg"
+    },
+    {
+     "tipo": "Singolo",
+     "artista": "Drast",
+     "titolo": "S.Martino",
+     "copertina": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/00/15/3b/00153b04-1819-f450-ba8d-201e81c7fbb1/1200220420681.jpg/1200x630wp-60.jpg"
+    }
+   ],
+   "classifica": {
+    "titolo": "I più venduti · 6–12 novembre",
+    "fonte": "Fonte: FIMI/NIQ, settimana 46",
+    "righe": [
+     {
+      "titolo": "Cura",
+      "artista": "Tony Boy",
+      "nota": "nuovo",
+      "copertina": "https://media.fimi.it/folder_10/c694aacba061a0d23470482dcbe2cbb5-small.jpg"
+     },
+     {
+      "titolo": "Anche gli eroi muoiono Post Mortem",
+      "artista": "Kid Yugi",
+      "nota": "▼1",
+      "copertina": "https://media.fimi.it/folder_5/33da4af86488943ea8429adca2f7db02-small.jpg"
+     },
+     {
+      "titolo": "The Album",
+      "artista": "Rocco Hunt & Clementino",
+      "nota": "nuovo",
+      "copertina": "https://media.fimi.it/folder_9/4bb127027231a0627cbda5fba0ac2bec.jpg"
+     },
+     {
+      "titolo": "Tutto è possibile – Atto II",
+      "artista": "Geolier",
+      "nota": "▼2",
+      "copertina": "https://media.fimi.it/folder_12/155c67895b5a6ea66ce8a99de83ed469-small.jpg"
+     },
+     {
+      "titolo": "Tutta vita (sempre)",
+      "artista": "Olly",
+      "nota": "▼1",
+      "copertina": "https://media.fimi.it/folder_16/571a2a89399cb3c29cea61502f4cc6e5.jpg"
+     }
+    ]
+   },
+   "classifica_singoli": {
+    "titolo": "I più venduti · 6–12 novembre",
+    "fonte": "Fonte: FIMI/NIQ, settimana 46",
+    "righe": [
+     {
+      "titolo": "Sentire la musica",
+      "artista": "Kid Yugi",
+      "nota": "=",
+      "copertina": "https://media.fimi.it/folder_5/33da4af86488943ea8429adca2f7db02-small.jpg"
+     },
+     {
+      "titolo": "Nella borsa di Anna",
+      "artista": "Pinguini Tattici Nucleari",
+      "nota": "nuovo",
+      "copertina": "https://media.fimi.it/folder_4/c363dad1aeb31636e996bf4bb05394a7.jpg"
+     },
+     {
+      "titolo": "Eri solo da incontrare",
+      "artista": "Alfa",
+      "nota": "▲1",
+      "copertina": "https://media.fimi.it/folder_13/209197283238ef15c9f8f7ee6a5e3944.jpg"
+     },
+     {
+      "titolo": "Lontano",
+      "artista": "Sfera Ebbasta",
+      "nota": "▼1",
+      "copertina": "https://media.fimi.it/folder_7/64858b060f1dd7386cadc1c45c759964-small.jpg"
+     },
+     {
+      "titolo": "Non sei più tu",
+      "artista": "Geolier feat. Lazza",
+      "nota": "▼3",
+      "copertina": "https://media.fimi.it/folder_12/155c67895b5a6ea66ce8a99de83ed469-small.jpg"
+     }
+    ]
+   }
+  }
+ ],
+ "meteo": {
+  "situazione": {
+   "titolo": "Notte asciutta al Nord, domenica più nuvole e temporali al Centro-Sud",
+   "testo": [
+    "Il sabato si chiude asciutto al Nord, con schiarite più ampie a Nord-Est. Domenica al Nord cielo nuvoloso o molto nuvoloso con poche aperture e qualche pioggia isolata a Nord-Ovest e in Friuli Venezia Giulia; in Lombardia 3BMeteo non prevede piogge significative, al massimo qualche goccia, con venti deboli e zero termico intorno ai 1.900 metri. Al Centro piogge e temporali sulle regioni tirreniche, in miglioramento da ovest in serata; al Sud piogge e temporali tra Campania, alta Calabria e basso Adriatico. Lunedì qualche pioggia residua al mattino tra Emilia-Romagna e Triveneto, poi più sole al Nord."
+   ]
+  },
+  "oggi_etichetta": "Stasera · sabato 14",
+  "oggi": [
+   {
+    "luogo": "Lumezzane",
+    "icona": "parz",
+    "cond": "Parzialmente nuvoloso, asciutto",
+    "temp": "5°–10°"
+   },
+   {
+    "luogo": "Brescia",
+    "icona": "parz",
+    "cond": "Asciutto con schiarite",
+    "temp": "7°–12°"
+   },
+   {
+    "luogo": "Nord",
+    "icona": "parz",
+    "cond": "Nubi sparse e schiarite, deboli fenomeni sulle Alpi occidentali",
+    "temp": "max 10°–15°"
+   },
+   {
+    "luogo": "Centro",
+    "icona": "parz",
+    "cond": "Più sole dopo la pioggia del mattino in Abruzzo e basso Lazio",
+    "temp": "max 14°–18°"
+   },
+   {
+    "luogo": "Sud",
+    "icona": "pioggia",
+    "cond": "Piovaschi a tratti su Sardegna e zone tirreniche, più sole in Sicilia",
+    "temp": "max 17°–23°"
+   }
+  ],
+  "domani_etichetta": "Domani · domenica 15",
+  "domani": [
+   {
+    "luogo": "Lumezzane",
+    "icona": "parz",
+    "cond": "Nubi sparse e schiarite, niente pioggia",
+    "temp": "4°–8°"
+   },
+   {
+    "luogo": "Brescia",
+    "icona": "nuvole",
+    "cond": "Nuvoloso, al massimo qualche goccia",
+    "temp": "7°–11°"
+   },
+   {
+    "luogo": "Nord",
+    "icona": "nuvole",
+    "cond": "Molto nuvoloso, piogge isolate a Nord-Ovest e in Friuli",
+    "temp": "max 9°–13°"
+   },
+   {
+    "luogo": "Centro",
+    "icona": "temporale",
+    "cond": "Piogge e temporali sul versante tirrenico, meglio in serata",
+    "temp": "max 14°–17°"
+   },
+   {
+    "luogo": "Sud",
+    "icona": "temporale",
+    "cond": "Piogge e temporali tra Campania, alta Calabria e basso Adriatico",
+    "temp": "max 18°–25°"
+   }
+  ],
+  "avvisi": {
+   "domani": [
+    {
+     "icona": "temporale",
+     "testo": "Piogge e temporali sulle regioni tirreniche del Centro e tra Campania, alta Calabria e basso Adriatico"
+    }
+   ]
+  },
+  "fonti": [
+   {
+    "nome": "3BMeteo",
+    "url": "https://www.3bmeteo.com/giornale-meteo/l-atlantico-non-demorde--pioggia-e-vento-anche-nei-prossimi-giorni-762781"
+   },
+   {
+    "nome": "3BMeteo Lumezzane",
+    "url": "https://www.3bmeteo.com/meteo/lumezzane/1"
+   }
+  ]
+ }
+}
